@@ -28,7 +28,7 @@ empatía hacia las víctimas de acoso.
 1. Descarga [Godot 4.6.1](https://godotengine.org/download) (versión estándar, no Mono)
 2. Clona este repositorio:
    ```bash
-   git clone https://github.com/[USUARIO]/feria-gamer-game.git
+   git clone https://github.com/krl0sconk/feria-gamer-game.git
    ```
 3. Abre Godot → **Import** → selecciona la carpeta del proyecto
 4. Presiona ▶️ para ejecutar

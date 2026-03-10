@@ -14,7 +14,7 @@
 | **Universidad** | Universidad del Norte — Barranquilla, Colombia |
 | **Materia** | Programación Orientada a Objetos (POO) 2026-10 |
 | **Evento** | V Feria Gamer — 28 de mayo de 2026 |
-| **Repositorio** | https://github.com/[USUARIO]/feria-gamer-game |
+| **Repositorio** | https://github.com/krl0sconk/feria-gamer-game |
 
 ---
 
