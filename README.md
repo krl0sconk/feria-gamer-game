@@ -1,15 +1,8 @@
-# 🎮 Feria Gamer 2026 — Videojuego Educativo sobre Ciberacoso
+# 🎮 Feria Gamer 2026 — Beat the Bully
 
 > **Proyecto Final — Programación Orientada a Objetos (2026-10)**
 > Universidad del Norte · Barranquilla, Colombia
 > V Feria Gamer — 28 de mayo de 2026
-
----
-
-## 🎯 Descripción
-
-Videojuego educativo 2D desarrollado en **Godot 4.6.1** que aborda la problemática
-del bullying y ciberacoso de manera empática, no violenta y educativa.
 
 ---
 
