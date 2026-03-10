@@ -1,0 +1,132 @@
+# ===========================================================
+# .gitignore para Godot 4.x — Feria Gamer 2026
+# ===========================================================
+
+# ── Godot 4 — archivos generados automáticamente ──────────
+.godot/
+*.translation
+export_presets.cfg
+
+# Mono / C# (si se usa)
+.mono/
+data_*/
+mono_crash.*.json
+
+# ── Sistema Operativo ──────────────────────────────────────
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+
+# ── Editores e IDEs ────────────────────────────────────────
+# VSCode
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# JetBrains (Rider, PyCharm, etc.)
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.idea_modules/
+
+# Vim / Neovim
+*.swp
+*.swo
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+Session.vim
+.netrwhist
+
+# ── Python (herramientas de soporte, scripts) ──────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.env
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+pip-wheel-metadata/
+*.pyo
+
+# ── Node.js (herramientas de build) ───────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# ── Assets temporales / exportaciones ─────────────────────
+*.tmp
+*.bak
+*.orig
+*.rej
+*.psd
+*.ai
+# No ignorar assets de producción en carpeta /assets
+
+# ── Exports de Godot ──────────────────────────────────────
+exports/
+build/
+dist/
+
+# ── Logs ──────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Archivos sensibles ─────────────────────────────────────
+.env
+.env.local
+.env.*.local
+secrets.cfg
+api_keys.txt
+
+# ── AI — archivos generados masivos (no versionar) ────────
+ai/generated/assets/*.png
+ai/generated/assets/*.jpg
+ai/generated/assets/*.wav
+ai/generated/assets/*.mp3
+# Sí versionar: prompts, decisions, context, código generado revisado
+!ai/generated/code/
+
+# ── Addons ignorados (instalar via asset library) ─────────
+# Descomenta si no quieres versionar addons de terceros:
+# addons/*/
+
+# ── Archivos grandes de video ──────────────────────────────
+*.mp4
+*.avi
+*.mkv
+*.mov
+
+# ── Carpeta de Godot IDE cache ────────────────────────────
+.import/
+
+# Fix: excepciones para carpetas que hacen match con patrones de macOS
+!assets/images/icons/
+!assets/images/icons/**
