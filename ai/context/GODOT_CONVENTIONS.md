@@ -91,20 +91,6 @@ velocity = ...; move_and_slide()# ✅ Godot 4
 
 ---
 
-## Patrones de Diseño Aprobados (para POO)
-
-- ✅ **Observer** (Signals de Godot son Observer nativo)
-- ✅ **State Machine** (para estados del jugador/NPC)
-- ✅ **Factory** (para instanciar NPCs/objetos)
-- ✅ **Command** (para sistema de diálogos o acciones)
-- ✅ **Strategy** (para comportamientos de NPC)
-- ✅ **Decorator** (para modificadores de stats)
-- ❌ Singleton (prohibido por la materia)
-- ❌ Prototype (prohibido por la materia)
-- ❌ Module (prohibido por la materia)
-
----
-
 ## Organización de Escenas
 
 - Cada escena tiene su propio archivo `.tscn` y script `.gd` del mismo nombre
@@ -114,11 +100,3 @@ velocity = ...; move_and_slide()# ✅ Godot 4
 
 ---
 
-## Accesibilidad (Requisito del Proyecto)
-
-- Todos los textos deben tener contraste ≥ 4.5:1 (WCAG AA)
-- Usar fuentes legibles, tamaño mínimo 16px en UI
-- Subtítulos en todos los audios relevantes
-- Opciones de daltonismo (filtros de color)
-- Teclas de acceso rápido + soporte de gamepad
-- Selección de skin/avatar inclusiva (género, etnia)
