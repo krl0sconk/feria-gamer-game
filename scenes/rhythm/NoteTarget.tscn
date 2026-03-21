@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cn4xtarget001"]
+
+[ext_resource type="Script" uid="uid://f7bqowfmp4lr" path="res://scripts/rhythm/note_target.gd" id="1_target1"]
+[ext_resource type="Texture2D" uid="uid://d4jejg4qr5pp1" path="res://assets/images/sprites/Outline.png" id="2_i6pd7"]
+
+[node name="NoteTarget" type="Node2D" unique_id=748121240]
+script = ExtResource("1_target1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=413682780]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_i6pd7")

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cn4xarrow0001"]
+
+[ext_resource type="Script" uid="uid://crffmcwdwulxp" path="res://scripts/rhythm/note_arrow.gd" id="1_arrow1"]
+[ext_resource type="Texture2D" uid="uid://dmiuhxwxkwgsc" path="res://assets/images/sprites/Note.png" id="2_mo3i2"]
+
+[node name="NoteArrow" type="Node2D" unique_id=1717944426]
+script = ExtResource("1_arrow1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=672671410]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_mo3i2")
