@@ -14,7 +14,7 @@ config/name="Beat the bully"
 config/description="Videojuego educativo sobre ciberacoso y bullying — Universidad del Norte, Barranquilla.
 Proyecto Final POO 2026-10 — V Feria Gamer."
 config/version="0.0.1"
-run/main_scene="res://scenes/menus/main_menu/main_menu.tscn"
+run/main_scene="res://assets/Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(0.15, 0.1, 0.25, 1)
 boot_splash/image="res://assets/images/ui/splash.png"
