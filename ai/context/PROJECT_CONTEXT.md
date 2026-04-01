@@ -21,8 +21,8 @@
 
 ## 🏗️ Requisitos Técnicos (Materia POO)
 
-- [ ] Mínimo **5 clases (TAD)** de autoría propia
-- [ ] Al menos **1 patrón de diseño** (Sin contar Singleton, Prototype ni Module)
+- [x] Mínimo **5 clases (TAD)** de autoría propia — ✅ 7 clases implementadas en `scripts/rhythm/`
+- [x] Al menos **1 patrón de diseño** (Sin contar Singleton, Prototype ni Module) — ✅ Observer (señales de Godot)
 - [ ] **Interfaz gráfica** obligatoria (Godot UI)
 - [ ] **Componente aleatorio** 
 - [ ] **Componente inclusivo** (subtítulos, modos de accesibilidad, selección de avatar)
@@ -40,6 +40,8 @@ feria-gamer-game/
 ├── assets/          # Sprites, audio, fuentes, videos
 ├── scenes/          # Escenas Godot (.tscn)
 ├── scripts/         # GDScript (.gd) — lógica del juego
+│   └── rhythm/      # Sistema de ritmo: 7 clases (NoteData, PlayerInput, MusicPlayer,
+│                    #   Metronome, Composer, Judge, Referee)
 ├── resources/       # Temas, shaders, materiales, datos
 ├── addons/          # Plugins de Godot (Asset Library)
 ├── tests/           # Tests unitarios / integración
@@ -56,3 +58,21 @@ feria-gamer-game/
 - Los patrones de diseño deben ser evidentes en el código para la evaluación
 - Cada clase debe tener docstring descriptivo
 - Priorizar legibilidad sobre optimización prematura
+
+## 🎵 Rhythm System — Implemented Classes
+
+All 7 classes are in `scripts/rhythm/`. They follow SOLID principles and communicate
+exclusively via signals (Observer pattern), except MusicPlayer → Metronome which uses
+a direct `update_time(ms)` call by design.
+
+| File | Class | Base | Role |
+|------|-------|------|------|
+| `note_data.gd` | NoteData | Resource | Data: beat + action |
+| `player_input.gd` | PlayerInput | Node | Input detection |
+| `music_player.gd` | MusicPlayer | AudioStreamPlayer | Playback + time |
+| `metronome.gd` | Metronome | Node | Beat tracking + timing eval |
+| `composer.gd` | Composer | Node | Chart management |
+| `judge.gd` | Judge | Node | Action validation |
+| `referee.gd` | Referee | Node | HP / score / combo |
+
+Signal flow: `MusicPlayer` → `Metronome` → `Composer` → `Judge` → `Referee` → UI

@@ -1,0 +1,242 @@
+{
+	"bpm": 88.0,
+	"notes": [
+		{
+			"action": "note_left",
+			"time_ms": 1326.64585113525
+		},
+		{
+			"action": "note_down",
+			"time_ms": 1331.97915554047
+		},
+		{
+			"action": "note_up",
+			"time_ms": 2845.33333778381
+		},
+		{
+			"action": "note_up",
+			"time_ms": 4184.00001525879
+		},
+		{
+			"action": "note_down",
+			"time_ms": 5831.99977874756
+		},
+		{
+			"action": "note_right",
+			"time_ms": 6770.66659927368
+		},
+		{
+			"action": "note_up",
+			"time_ms": 6776.00002288818
+		},
+		{
+			"action": "note_down",
+			"time_ms": 8269.33288574219
+		},
+		{
+			"action": "note_left",
+			"time_ms": 9474.66659545898
+		},
+		{
+			"action": "note_down",
+			"time_ms": 9474.66659545898
+		},
+		{
+			"action": "note_right",
+			"time_ms": 12178.6670684814
+		},
+		{
+			"action": "note_left",
+			"time_ms": 12189.3329620361
+		},
+		{
+			"action": "note_up",
+			"time_ms": 13576.000213623
+		},
+		{
+			"action": "note_down",
+			"time_ms": 14951.9996643066
+		},
+		{
+			"action": "note_right",
+			"time_ms": 14962.6665115356
+		},
+		{
+			"action": "note_left",
+			"time_ms": 16365.3335571289
+		},
+		{
+			"action": "note_up",
+			"time_ms": 17661.3330841064
+		},
+		{
+			"action": "note_down",
+			"time_ms": 17661.3330841064
+		},
+		{
+			"action": "note_right",
+			"time_ms": 19096.0006713867
+		},
+		{
+			"action": "note_left",
+			"time_ms": 19111.9995117188
+		},
+		{
+			"action": "note_down",
+			"time_ms": 20370.6665039063
+		},
+		{
+			"action": "note_up",
+			"time_ms": 20392.0001983643
+		},
+		{
+			"action": "note_left",
+			"time_ms": 23138.6661529541
+		},
+		{
+			"action": "note_down",
+			"time_ms": 23154.6669006348
+		},
+		{
+			"action": "note_up",
+			"time_ms": 24461.3342285156
+		},
+		{
+			"action": "note_up",
+			"time_ms": 25815.9999847412
+		},
+		{
+			"action": "note_right",
+			"time_ms": 25815.9999847412
+		},
+		{
+			"action": "note_down",
+			"time_ms": 27186.6664886475
+		},
+		{
+			"action": "note_down",
+			"time_ms": 28535.9992980957
+		},
+		{
+			"action": "note_left",
+			"time_ms": 28541.3341522217
+		},
+		{
+			"action": "note_left",
+			"time_ms": 29938.6672973633
+		},
+		{
+			"action": "note_right",
+			"time_ms": 29938.6672973633
+		},
+		{
+			"action": "note_down",
+			"time_ms": 31266.6664123535
+		},
+		{
+			"action": "note_up",
+			"time_ms": 31266.6664123535
+		},
+		{
+			"action": "note_left",
+			"time_ms": 34002.6664733887
+		},
+		{
+			"action": "note_down",
+			"time_ms": 35352.0011901855
+		},
+		{
+			"action": "note_up",
+			"time_ms": 35672.0008850098
+		},
+		{
+			"action": "note_left",
+			"time_ms": 36802.6657104492
+		},
+		{
+			"action": "note_right",
+			"time_ms": 36802.6657104492
+		},
+		{
+			"action": "note_down",
+			"time_ms": 38119.9989318848
+		},
+		{
+			"action": "note_right",
+			"time_ms": 38776.0009765625
+		},
+		{
+			"action": "note_left",
+			"time_ms": 38786.6668701172
+		},
+		{
+			"action": "note_up",
+			"time_ms": 39181.3316345215
+		},
+		{
+			"action": "note_down",
+			"time_ms": 39453.3348083496
+		},
+		{
+			"action": "note_down",
+			"time_ms": 40957.332611084
+		},
+		{
+			"action": "note_up",
+			"time_ms": 41501.335144043
+		},
+		{
+			"action": "note_down",
+			"time_ms": 41789.3333435059
+		},
+		{
+			"action": "note_left",
+			"time_ms": 42125.3318786621
+		},
+		{
+			"action": "note_right",
+			"time_ms": 42125.3318786621
+		},
+		{
+			"action": "note_right",
+			"time_ms": 44922.6684570313
+		},
+		{
+			"action": "note_left",
+			"time_ms": 44922.6684570313
+		},
+		{
+			"action": "note_down",
+			"time_ms": 45583.9996337891
+		},
+		{
+			"action": "note_up",
+			"time_ms": 45893.3334350586
+		},
+		{
+			"action": "note_down",
+			"time_ms": 46959.9990844727
+		},
+		{
+			"action": "note_up",
+			"time_ms": 47621.3340759277
+		},
+		{
+			"action": "note_down",
+			"time_ms": 49119.9989318848
+		},
+		{
+			"action": "note_right",
+			"time_ms": 49685.3332519531
+		},
+		{
+			"action": "note_down",
+			"time_ms": 50080.0018310547
+		},
+		{
+			"action": "note_up",
+			"time_ms": 50277.3323059082
+		}
+	],
+	"title": "SwedenChart"
+}

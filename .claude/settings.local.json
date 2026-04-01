@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /c/Users/krlos/FGamerCreal/feria-gamer-game log --oneline --all)"
+    ]
+  }
+}

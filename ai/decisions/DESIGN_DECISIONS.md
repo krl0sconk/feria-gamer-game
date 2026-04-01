@@ -59,4 +59,41 @@ prompts y decisiones de IA. Documentación técnica en `/docs/`.
 
 ---
 
+### 2026-03-20 — Rhythm System Architecture (Observer Pattern via Signals)
+**Context:** The game requires a rhythm engine that syncs music playback, beat tracking,
+player input, chart management, and scoring without tight coupling between components.
+
+**Options considered:**
+- Single monolithic GameManager script handling all rhythm logic
+- Direct function calls between nodes (tight coupling)
+- Observer pattern via Godot signals (decoupled communication)
+
+**Decision taken:** **Observer pattern via Godot signals** across 7 dedicated classes,
+each with a single responsibility (SOLID principles).
+
+**Class responsibilities:**
+- `NoteData` (Resource) — pure data: beat number + action string
+- `PlayerInput` (Node) — only reads input, emits `button_pressed`
+- `MusicPlayer` (AudioStreamPlayer) — playback + emits `time_updated` every frame
+- `Metronome` (Node) — receives time from MusicPlayer, emits `beat_hit`, evaluates timing
+- `Composer` (Node) — manages chart array, emits `note_expected` per beat
+- `Judge` (Node) — compares player action vs expected note, emits `note_result`
+- `Referee` (Node) — maintains HP/score/combo state, emits UI update signals
+
+**Only direct dependency:** MusicPlayer → Metronome (via `update_time()` method call).
+All other communication is signal-based.
+
+**Consequences:**
+- (+) Each class can be tested and replaced independently
+- (+) Demonstrates Observer design pattern clearly for OOP evaluation
+- (+) No autoloads or singletons — all state is local to the node tree
+- (-) Signal wiring must be done manually in the scene or a coordinator script
+- (-) Slight overhead from per-frame signal emissions (negligible at game scale)
+
+**Files location:** `scripts/rhythm/` (7 files)
+
+**Assisted by AI:** Yes — Claude Sonnet 4.6
+
+---
+
 <!-- Agrega nuevas decisiones aquí -->

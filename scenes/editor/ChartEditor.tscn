@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://bt1a6a11xxemi"]
+
+[ext_resource type="Script" uid="uid://dy850d3o5c0qc" path="res://scripts/editor/chart_editor.gd" id="1_editor"]
+[ext_resource type="PackedScene" uid="uid://cn4xtarget001" path="res://scenes/rhythm/NoteTarget.tscn" id="2_target"]
+
+[node name="ChartEditor" type="Node2D" unique_id=2121485728]
+script = ExtResource("1_editor")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=423116425]
+
+[node name="Targets" type="Node2D" parent="." unique_id=836623919]
+position = Vector2(1, 228)
+scale = Vector2(2, 2)
+
+[node name="LeftTarget" parent="Targets" unique_id=348741944 instance=ExtResource("2_target")]
+position = Vector2(-150, 0)
+rotation = -1.5707964
+direction = 0
+
+[node name="DownTarget" parent="Targets" unique_id=1161358562 instance=ExtResource("2_target")]
+position = Vector2(-50, 0)
+rotation = 3.1415927
+direction = 1
+
+[node name="UpTarget" parent="Targets" unique_id=830501067 instance=ExtResource("2_target")]
+position = Vector2(50, 0)
+
+[node name="RightTarget" parent="Targets" unique_id=322671474 instance=ExtResource("2_target")]
+position = Vector2(150, 0)
+rotation = 1.5707964
+direction = 3
+
+[node name="Notes" type="Node2D" parent="." unique_id=1450221192]
+scale = Vector2(2, 2)
+
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=879243216]
+
+[node name="EditorUI" type="CanvasLayer" parent="." unique_id=1317114761]
+layer = 10
+
+[node name="TopBar" type="HBoxContainer" parent="EditorUI" unique_id=437051571]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="LoadAudioBtn" type="Button" parent="EditorUI/TopBar" unique_id=2135314246]
+layout_mode = 2
+text = "Load Audio"
+
+[node name="LoadChartBtn" type="Button" parent="EditorUI/TopBar" unique_id=1207618426]
+layout_mode = 2
+text = "Load Chart"
+
+[node name="SaveChartBtn" type="Button" parent="EditorUI/TopBar" unique_id=705786813]
+layout_mode = 2
+text = "Save Chart"
+
+[node name="Sep1" type="VSeparator" parent="EditorUI/TopBar" unique_id=1068759704]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="EditorUI/TopBar" unique_id=848710480]
+layout_mode = 2
+text = "Title:"
+
+[node name="TitleEdit" type="LineEdit" parent="EditorUI/TopBar" unique_id=1692826092]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+placeholder_text = "Song title"
+
+[node name="Sep2" type="VSeparator" parent="EditorUI/TopBar" unique_id=1675538978]
+layout_mode = 2
+
+[node name="BPMLabel" type="Label" parent="EditorUI/TopBar" unique_id=1957877861]
+layout_mode = 2
+text = "BPM:"
+
+[node name="BPMSpin" type="SpinBox" parent="EditorUI/TopBar" unique_id=993156216]
+layout_mode = 2
+min_value = 30.0
+max_value = 300.0
+value = 120.0
+
+[node name="Sep3" type="VSeparator" parent="EditorUI/TopBar" unique_id=1728928783]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="EditorUI/TopBar" unique_id=743929817]
+layout_mode = 2
+text = "0:00.000 / 0:00.000"
+
+[node name="BottomHint" type="Label" parent="EditorUI" unique_id=488782771]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Flechas=nota | Del=borrar | P=play/pause | A/D=seek | Shift+A/D=rapido | +/-=velocidad | Ctrl+S=guardar"
+horizontal_alignment = 1
+
+[node name="FileDialogAudio" type="FileDialog" parent="EditorUI" unique_id=862614332]
+title = "Cargar Audio"
+size = Vector2i(800, 500)
+access = 2
+filters = PackedStringArray("*.ogg;OGG Audio", "*.wav;WAV Audio", "*.mp3;MP3 Audio")
+
+[node name="FileDialogSave" type="FileDialog" parent="EditorUI" unique_id=762441018]
+title = "Guardar Chart"
+size = Vector2i(800, 500)
+access = 2
+filters = PackedStringArray("*.json;Chart JSON")
+
+[node name="FileDialogLoad" type="FileDialog" parent="EditorUI" unique_id=2102239140]
+title = "Cargar Chart"
+size = Vector2i(800, 500)
+access = 2
+filters = PackedStringArray("*.json;Chart JSON")
+
+[connection signal="pressed" from="EditorUI/TopBar/LoadAudioBtn" to="." method="_on_load_audio_pressed"]
+[connection signal="pressed" from="EditorUI/TopBar/LoadChartBtn" to="." method="_on_load_chart_pressed"]
+[connection signal="pressed" from="EditorUI/TopBar/SaveChartBtn" to="." method="_save_chart"]
+[connection signal="file_selected" from="EditorUI/FileDialogAudio" to="." method="_on_audio_file_selected"]
+[connection signal="file_selected" from="EditorUI/FileDialogSave" to="." method="_on_save_file_selected"]
+[connection signal="file_selected" from="EditorUI/FileDialogLoad" to="." method="_on_chart_file_selected"]
