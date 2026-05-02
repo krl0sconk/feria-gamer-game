@@ -1,12 +1,11 @@
-# Indicador estático de zona de pulsación; parpadea según el resultado del hit
-# o cuando el jugador presiona la tecla correspondiente.
+# Indicador estático de zona de pulsación
 class_name NoteTarget
 extends Node2D
 
-enum Direction { LEFT, DOWN, UP, RIGHT }
+enum Direction {LEFT, DOWN, UP, RIGHT}
 
 const ROTATIONS: Dictionary = {
-	Direction.LEFT: -90.0,
+	Direction.LEFT: - 90.0,
 	Direction.DOWN: 180.0,
 	Direction.UP: 0.0,
 	Direction.RIGHT: 90.0,

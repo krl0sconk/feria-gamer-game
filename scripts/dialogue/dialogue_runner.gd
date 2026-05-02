@@ -32,12 +32,20 @@ func _ready() -> void:
 	_box.hide_box()
 
 
-## Arranca un diálogo. Si el id no existe o está vacío, emite `dialogue_finished`
+## Arranca un diálogo. `voice` es opcional — si se pasa, el DialogueBox
+## reproduce ese AudioStream como blip 8-bit por cada N caracteres del
+## typewriter. `null` = sin voz (silencio durante el revelado).
+##
+## Si el id no existe o está vacío, emite `dialogue_finished`
 ## inmediatamente para que el caller no quede esperando una señal que no llega.
-func play(data: DialogueLoader.DialogueData, dialogue_id: String) -> void:
+func play(data: DialogueLoader.DialogueData, dialogue_id: String, voice: AudioStream = null) -> void:
 	if _active:
 		push_warning("DialogueRunner: ya hay un diálogo activo ('%s'); se ignora '%s'." % [_current_id, dialogue_id])
 		return
+	# Asignamos la voz antes de mostrar la primera línea, si no, el primer
+	# blip podría sonar con la voz del diálogo anterior (o no sonar).
+	if _box != null:
+		_box.set_voice(voice)
 	if data == null or not data.has_dialogue(dialogue_id):
 		push_warning("DialogueRunner: diálogo '%s' no existe. Finalizando sin mostrar." % dialogue_id)
 		_current_id = dialogue_id

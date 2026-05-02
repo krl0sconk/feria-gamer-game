@@ -1,7 +1,23 @@
-[gd_scene format=3 uid="uid://bfrd2511qx8cd"]
+[gd_scene format=3 uid="uid://ca08geckn6oeh"]
 
-[ext_resource type="Script" uid="uid://cs033al1h1ruy" path="res://scenes/menu/opciones.gd" id="1_rereo"]
+[sub_resource type="GDScript" id="GDScript_levxb"]
+script/source = "extends Control
 
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_back_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://assets/Scenes/main_menu.tscn\")
+	pass # Replace with function body.
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jgi07"]
 bg_color = Color(1, 1, 1, 1)
@@ -55,7 +71,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_rereo")
+script = SubResource("GDScript_levxb")
 
 [node name="BoxContainer" type="BoxContainer" parent="." unique_id=489776381]
 layout_mode = 1

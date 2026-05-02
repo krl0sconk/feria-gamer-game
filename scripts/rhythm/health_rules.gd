@@ -1,5 +1,4 @@
 # Reglas de vida del jugador editables desde el editor.
-# Se asigna al Referee como Resource para permitir presets de dificultad (.tres).
 class_name HealthRules
 extends Resource
 

@@ -23,7 +23,10 @@ var pending_dialogue_result: String = ""
 
 
 func _ready() -> void:
-	pass
+	# Aplicamos las preferencias guardadas (resolución, modo de ventana,
+	# volúmenes) antes de que aparezca cualquier escena. Si no hay archivo
+	# de settings, usa los defaults.
+	OptionsSettings.apply_saved()
 
 
 func _process(_delta: float) -> void:

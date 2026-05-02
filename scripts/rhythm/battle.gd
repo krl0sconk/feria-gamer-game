@@ -2,31 +2,27 @@ class_name ScBattle
 extends Node2D
 
 @export var chart_path: String = "res://assets/charts/test_chart.json"
-## Pantalla intermedia al perder. Dejar vacío = volver directo al Map
-## (Gamemanager.return_scene_path) y dejar que el NPC reproduzca su
-## `lose_dialogue_id`. Poner una ruta = mostrar LoseScreen con Retry/Menú.
+
 @export_file("*.tscn") var lose_scene_path: String = ""
-## Pantalla intermedia al ganar. Misma regla: vacío = Map directo.
+
 @export_file("*.tscn") var win_scene_path: String = "res://scenes/rhythm/WinScreen.tscn"
-## Fallback para cuando no hay `return_scene_path` (ej. entraste a Battle.tscn
-## directo sin pasar por el Map vía un Interactable).
+
 @export_file("*.tscn") var fallback_map_scene_path: String = "res://scenes/map/Map.tscn"
 
-# Se calcula dinámicamente desde las posiciones reales de los targets.
 var _arrow_travel_ms: float = 0.0
 
-@onready var _player_input: PlayerInput  = $PlayerInput
-@onready var _music_player: MusicPlayer  = $MusicPlayer
-@onready var _metronome:    Metronome    = $Metronome
-@onready var _composer:     Composer     = $Composer
-@onready var _judge:        Judge        = $Judge
-@onready var _referee:      Referee      = $Referee
-@onready var _enemy_gauge:  EnemyGauge   = $EnemyGauge
-@onready var _hud:          BattleHUD    = $BattleHUD
+@onready var _player_input: PlayerInput = $PlayerInput
+@onready var _music_player: MusicPlayer = $MusicPlayer
+@onready var _metronome: Metronome = $Metronome
+@onready var _composer: Composer = $Composer
+@onready var _judge: Judge = $Judge
+@onready var _referee: Referee = $Referee
+@onready var _enemy_gauge: EnemyGauge = $EnemyGauge
+@onready var _hud: BattleHUD = $BattleHUD
 
-@onready var _left_target:  NoteTarget = $Targets/LeftTarget
-@onready var _down_target:  NoteTarget = $Targets/DownTarget
-@onready var _up_target:    NoteTarget = $Targets/UpTarget
+@onready var _left_target: NoteTarget = $Targets/LeftTarget
+@onready var _down_target: NoteTarget = $Targets/DownTarget
+@onready var _up_target: NoteTarget = $Targets/UpTarget
 @onready var _right_target: NoteTarget = $Targets/RightTarget
 
 var _pending_notes: Dictionary = {
@@ -36,11 +32,6 @@ var _fallback_ms: float = 0.0
 var _using_fallback: bool = false
 var _last_note_ms: float = 0.0
 var _survival_declared: bool = false
-## Flag anti-race: `change_scene_to_file` se aplica al final del frame, pero
-## este `_process` puede seguir generando auto-misses antes de que Godot cambie
-## de escena. Con este flag cerramos el `_process` apenas el Referee emite
-## `level_ended`, evitando que los callbacks de flash/HUD toquen targets que
-## están a punto de ser liberados.
 var _level_ended: bool = false
 
 
@@ -77,7 +68,7 @@ func _load_chart() -> void:
 		push_warning("ScBattle: chart vacío o no encontrado en '%s'" % chart_path)
 		return
 	_music_player.bpm = data.bpm
-	_metronome.bpm    = data.bpm
+	_metronome.bpm = data.bpm
 	_composer.load_chart(data.notes)
 	_last_note_ms = data.notes[data.notes.size() - 1].time_ms
 	if _music_player.stream != null:
@@ -113,9 +104,6 @@ func _process(delta: float) -> void:
 	if total_ms > 0.0:
 		_enemy_gauge.update_song_progress(current_ms / total_ms)
 
-	# Auto-miss. Chequeamos `_level_ended` dentro del loop porque cada
-	# `_judge.evaluate` puede llevar al Referee a HP=0 y disparar el fin del
-	# nivel sincrónicamente; en ese caso queremos abortar el resto de misses.
 	for action in _pending_notes:
 		if _level_ended:
 			break
@@ -126,7 +114,6 @@ func _process(delta: float) -> void:
 			if _level_ended:
 				break
 
-	# Victoria escénica: jugador sobrevivió hasta el final del chart.
 	if not _survival_declared and current_ms >= _last_note_ms + _metronome.window_good and _all_queues_empty():
 		_survival_declared = true
 		_referee.declare_survival()
@@ -165,9 +152,6 @@ func _on_level_ended(player_won: bool) -> void:
 	_level_ended = true
 	print("[RHYTHM] Level ended — player_won=%s" % player_won)
 	_music_player.stop()
-	# Persistimos el resultado para que el Map (al volver) sepa qué diálogo
-	# del NPC reanudar. `pending_npc_id` y `return_scene_path` ya fueron
-	# seteados por el Interactable antes de lanzar la batalla.
 	if player_won:
 		Gamemanager.pending_dialogue_result = "win"
 		_go_to_post_battle(win_scene_path)
@@ -176,10 +160,6 @@ func _on_level_ended(player_won: bool) -> void:
 		_go_to_post_battle(lose_scene_path)
 
 
-# Prioridad: pantalla intermedia explícita > return_scene_path (seteado por el
-# Interactable que lanzó la batalla) > fallback al Map directo. De esta forma,
-# dejar `lose_scene_path = ""` hace que la derrota vuelva al mapa y el NPC
-# reproduzca su `lose_dialogue_id` sin pantalla intermedia.
 func _go_to_post_battle(intermediate_path: String) -> void:
 	var target: String = intermediate_path
 	if target == "":

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://kchainbtn0001"]
+
+[ext_resource type="Script" path="res://scripts/ui/keychain_button.gd" id="1_kbtn"]
+
+[node name="KeychainButton" type="Button"]
+focus_mode = 2
+script = ExtResource("1_kbtn")

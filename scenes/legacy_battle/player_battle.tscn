@@ -12,3 +12,4 @@ sprite_frames = ExtResource("1_dldwo")
 animation = &"up"
 autoplay = "idle"
 frame_progress = 0.107663736
+speed_scale = 0.2

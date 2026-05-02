@@ -1,0 +1,10 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://b77yutc4mo4nb"]
+
+[ext_resource type="AudioStream" uid="uid://cv23y5wuou4bq" path="res://assets/audio/sfx/dialogue1.wav" id="1_c27xy"]
+
+[resource]
+playback_mode = 1
+random_pitch = 1.0136666
+random_volume_offset_db = 1.85
+streams_count = 1
+stream_0/stream = ExtResource("1_c27xy")

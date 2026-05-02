@@ -46,6 +46,18 @@ const INTERACT_ACTION := "Interact"
 ## Por defecto apunta a un hermano del Map llamado "DialogueRunner".
 @export var dialogue_runner_path: NodePath = NodePath("../DialogueRunner")
 
+@export_group("Voz del diálogo")
+## Sonido de "blip" estilo 8-bit que se reproduce mientras se revela el
+## texto del diálogo, una vez cada N caracteres (configurable en el
+## DialogueBox). Pensado para asignar un AudioStream corto (~50-150ms,
+## tipo "bip" o "tic") por cada NPC para darle voz distinta a cada uno.
+##
+## Vacío (null) = silencio durante el typewriter (caso "cartel u objeto").
+##
+## Tip: usá un AudioStreamRandomizer con varios sonidos + pitch jitter
+## para que la voz no sea repetitiva.
+@export var dialogue_voice: AudioStream = null
+
 # Nota: la apariencia (sprite / spritesheet / animación) se personaliza por
 # instancia vía "Editable Children" sobre el Sprite2D o AnimatedSprite2D hijo.
 # Ver comentario en docs del proyecto.
@@ -95,7 +107,7 @@ func play_result_dialogue(result: String) -> void:
 	if dialogue_id.is_empty() or _data == null or _runner == null:
 		return
 	_current_mode = "result"
-	_runner.play(_data, dialogue_id)
+	_runner.play(_data, dialogue_id, dialogue_voice)
 
 
 # ── Interno ────────────────────────────────────────────────
@@ -110,7 +122,7 @@ func _start_intro() -> void:
 		return
 	_current_mode = "intro"
 	interaction_started.emit(id)
-	_runner.play(_data, intro_dialogue_id)
+	_runner.play(_data, intro_dialogue_id, dialogue_voice)
 
 
 func _on_dialogue_finished(dialogue_id: String) -> void:

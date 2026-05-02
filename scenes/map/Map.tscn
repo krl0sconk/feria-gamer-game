@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ln31exqkvfwc" path="res://assets/images/sprites/texture3.jpg" id="3_sat7u"]
 [ext_resource type="Texture2D" uid="uid://c6r73vs8a0g5i" path="res://assets/images/sprites/cartel.jpg" id="4_hnnn3"]
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/Player.tscn" id="5_xtmej"]
+[ext_resource type="AudioStream" uid="uid://cv23y5wuou4bq" path="res://assets/audio/sfx/dialogue1.wav" id="7_48h8m"]
 [ext_resource type="Script" uid="uid://cvb28nsoo4xmq" path="res://scripts/map.gd" id="7_mapgd"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/DialogueRunner.tscn" id="8_drun"]
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/Interactable.tscn" id="9_intr"]
@@ -17198,6 +17199,7 @@ dialogue_json_path = "res://assets/dialogues/bully_01.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
 battle_scene_path = "res://scenes/rhythm/Battle.tscn"
+dialogue_voice = ExtResource("7_48h8m")
 
 [node name="Player" parent="." unique_id=1155853386 instance=ExtResource("5_xtmej")]
 position = Vector2(160, 398)

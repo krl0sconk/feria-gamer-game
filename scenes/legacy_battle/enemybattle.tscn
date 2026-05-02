@@ -13,6 +13,7 @@ sprite_frames = ExtResource("1_7udhy")
 animation = &"Enemy"
 autoplay = "Enemy"
 frame_progress = 0.54796207
+speed_scale = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1144116667]
 visible = false

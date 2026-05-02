@@ -1,5 +1,4 @@
 # Rastrea el beat actual y evalúa la precisión del jugador.
-# Solo MusicPlayer debe llamar update_time() directamente.
 class_name Metronome
 extends Node
 

@@ -1,7 +1,13 @@
-[gd_scene format=3 uid="uid://c2vofxbu0grm1"]
+[gd_scene format=3 uid="uid://bndmgxpmkwier"]
 
 [ext_resource type="Script" uid="uid://demuroij8rx4b" path="res://scripts/main_menu.gd" id="1_ekxnf"]
-[ext_resource type="Texture2D" uid="uid://dnftujk4u2hoy" path="res://assets/images/menu/reference.png" id="2_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://cesunilhlbgjj" path="res://assets/images/menu/background_menu.png" id="2_isoef"]
+[ext_resource type="Script" uid="uid://cxl3bnruct0vp" path="res://scripts/ui/keychain_button.gd" id="3_kbtn"]
+[ext_resource type="Texture2D" uid="uid://cchpsafb4ykax" path="res://assets/images/menu/Play_btn.png" id="3_qgo02"]
+[ext_resource type="AudioStream" uid="uid://chybtbqfqkxl2" path="res://assets/audio/sfx/hover.tres" id="5_vovv2"]
+[ext_resource type="Texture2D" uid="uid://d4tj4rmnxce0" path="res://assets/images/menu/Options_btn.png" id="6_1k4da"]
+[ext_resource type="Texture2D" uid="uid://bo0lbqhyqhog4" path="res://assets/images/menu/Exit_btn.png" id="7_bbqo6"]
+[ext_resource type="FontFile" uid="uid://dkhuvr1inqnvv" path="res://assets/fonts/RetroBoundUC.ttf" id="8_qgo02"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfbao"]
 bg_color = Color(1, 1, 1, 1)
@@ -84,14 +90,21 @@ script = ExtResource("1_ekxnf")
 [node name="Reference" type="Sprite2D" parent="." unique_id=586560208]
 position = Vector2(639.5555, 357.99997)
 scale = Vector2(0.6666667, 0.6666667)
-texture = ExtResource("2_bqqt6")
+texture = ExtResource("2_isoef")
 
-[node name="Start" type="Button" parent="." unique_id=2130309233]
+[node name="ColorRect" type="ColorRect" parent="Reference" unique_id=1209523814]
+offset_left = -989.3332
+offset_top = -557.99994
+offset_right = 986.1667
+offset_bottom = 559.49994
+color = Color(0, 0, 0, 0.41960785)
+
+[node name="Start" type="Button" parent="." unique_id=139558158]
 layout_mode = 0
-offset_left = 546.0
-offset_top = 328.0
-offset_right = 750.0
-offset_bottom = 407.0
+offset_left = 376.0
+offset_top = 311.0
+offset_right = 809.0
+offset_bottom = 458.0
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.3254902, 0, 0.47843137, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -100,16 +113,22 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_cfbao")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_d2ryq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_x3et2")
-text = "PLAY
-
+text = "
 "
+icon = ExtResource("3_qgo02")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("3_kbtn")
+hover_sfx = ExtResource("5_vovv2")
+metadata/_custom_type_script = "uid://cxl3bnruct0vp"
 
-[node name="Options" type="Button" parent="." unique_id=1983857904]
+[node name="Options" type="Button" parent="." unique_id=722660695]
 layout_mode = 0
-offset_left = 542.0
-offset_top = 473.0
-offset_right = 748.0
-offset_bottom = 536.0
+offset_left = 486.0
+offset_top = 417.0
+offset_right = 898.0
+offset_bottom = 576.0
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.3254902, 0, 0.47843137, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -118,15 +137,22 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_cfbao")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_d2ryq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_x3et2")
-text = "OPTIONS
+text = "
 "
+icon = ExtResource("6_1k4da")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("3_kbtn")
+hover_sfx = ExtResource("5_vovv2")
+metadata/_custom_type_script = "uid://cxl3bnruct0vp"
 
-[node name="Exit" type="Button" parent="." unique_id=717736818]
+[node name="Exit" type="Button" parent="." unique_id=1284314178]
 layout_mode = 0
-offset_left = 540.0
-offset_top = 599.0
-offset_right = 745.0
-offset_bottom = 670.0
+offset_left = 443.0
+offset_top = 531.0
+offset_right = 761.0
+offset_bottom = 680.0
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.3254902, 0, 0.47843137, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -135,7 +161,13 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_cfbao")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_d2ryq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_x3et2")
-text = "EXIT"
+icon = ExtResource("7_bbqo6")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("3_kbtn")
+hover_sfx = ExtResource("5_vovv2")
+metadata/_custom_type_script = "uid://cxl3bnruct0vp"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=65355882]
 visible = false
@@ -171,6 +203,15 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_n8jif")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_21gel")
 theme_override_styles/hover = SubResource("StyleBoxFlat_4toeb")
 text = "?"
+
+[node name="Label" type="Label" parent="." unique_id=527829040]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 687.0
+offset_right = 157.0
+offset_bottom = 710.0
+theme_override_fonts/font = ExtResource("8_qgo02")
+text = "© 2026 Crealgames"
 
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]

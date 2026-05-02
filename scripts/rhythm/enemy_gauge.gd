@@ -1,7 +1,4 @@
 # Barra de vida escénica del enemigo.
-# Se vacía linealmente con el progreso de la canción para garantizar que,
-# si el jugador sobrevive al chart, el enemigo cae exactamente al final.
-# Responsabilidad única (SRP): solo rastrea y emite la vida del enemigo.
 class_name EnemyGauge
 extends Node
 
