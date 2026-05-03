@@ -1,22 +1,6 @@
 # Lee un archivo JSON y lo convierte en datos de chart listos para el Composer.
-#
-# Formato esperado del JSON:
-# {
-#   "title": "Nombre de la canción",
-#   "bpm": 120,
-#   "notes": [
-#     { "time_ms": 1000.0, "action": "note_up" },
-#     { "time_ms": 2500.0, "action": "note_left" }
-#   ]
-# }
-#
-# Uso:
-#   var data := ChartLoader.load_json("res://assets/charts/mi_chart.json")
-#   _composer.load_chart(data.notes)
 class_name ChartLoader
 extends RefCounted
-
-## Contiene el resultado de parsear un archivo de chart.
 class ChartData:
 	var title: String = ""
 	var bpm: float = 120.0
@@ -47,13 +31,13 @@ static func load_json(path: String) -> ChartData:
 
 	var data: Dictionary = json.data
 	result.title = str(data.get("title", ""))
-	result.bpm   = float(data.get("bpm", 120.0))
+	result.bpm = float(data.get("bpm", 120.0))
 
 	var raw_notes: Array = data.get("notes", [])
 	for raw in raw_notes:
 		var note := NoteData.new()
 		note.time_ms = float(raw.get("time_ms", 0.0))
-		note.action  = str(raw.get("action", ""))
+		note.action = str(raw.get("action", ""))
 		result.notes.append(note)
 
 	# Ordenar por time_ms ascendente por si el JSON no estaba en orden

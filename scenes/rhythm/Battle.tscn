@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://dtqvcn7nsksux" path="res://scripts/rhythm/composer.gd" id="4_1gs6b"]
 [ext_resource type="Script" uid="uid://kon1ljibvyeq" path="res://scripts/rhythm/judge.gd" id="5_3he3o"]
 [ext_resource type="Script" uid="uid://bgb3s11rcg2ct" path="res://scripts/rhythm/referee.gd" id="6_b6yct"]
-[ext_resource type="Script" path="res://scripts/rhythm/enemy_gauge.gd" id="7_egauge"]
+[ext_resource type="Script" uid="uid://jcfdctbx8f7h" path="res://scripts/rhythm/enemy_gauge.gd" id="7_egauge"]
 [ext_resource type="Resource" path="res://assets/rules/default_health_rules.tres" id="7_healthrules"]
 [ext_resource type="Resource" path="res://assets/rules/default_score_rules.tres" id="7_scorerules"]
 [ext_resource type="PackedScene" uid="uid://cn4xtarget001" path="res://scenes/rhythm/NoteTarget.tscn" id="8_uhcme"]
@@ -19,6 +19,9 @@
 [node name="ScBattle" type="Node2D" unique_id=1239436012]
 script = ExtResource("1_uhcme")
 chart_path = "res://assets/charts/SwedenChart.json"
+lose_scene_path = null
+win_scene_path = null
+fallback_map_scene_path = null
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=580671990]
 
