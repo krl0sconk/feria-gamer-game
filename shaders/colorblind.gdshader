@@ -17,6 +17,7 @@ shader_type canvas_item;
 
 uniform sampler2D screen_tex : hint_screen_texture, repeat_disable, filter_linear;
 uniform int mode : hint_range(0, 3) = 0;
+uniform float strength : hint_range(0.0, 1.0) = 0.5;
 
 // RGB ↔ LMS (espacio de respuesta de los conos de la retina).
 const mat3 RGB_TO_LMS = mat3(
@@ -84,6 +85,6 @@ void fragment() {
 		// 4) Diferencia = info perdida. 5) Proyectar a canales visibles.
 		vec3 err = rgb - simulated;
 		vec3 corrected = rgb + SHIFT * err;
-		COLOR = vec4(clamp(corrected, vec3(0.0), vec3(1.0)), 1.0);
+		COLOR = vec4(clamp(mix(rgb, corrected, strength), vec3(0.0), vec3(1.0)), 1.0);
 	}
 }
