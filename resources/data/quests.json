@@ -1,20 +1,22 @@
 {
 	"quests": [
 		{
-			"id": "quest_intro",
-			"title": "Habla con el primer NPC",
 			"description": "Acercate y conversa para iniciar la historia.",
-			"visibility_state": 1,
+			"id": "quest_intro",
 			"progress_state": 0,
-			"requires_ids": []
+			"requires_ids": [],
+			"title": "Habla con el primer NPC",
+			"visibility_state": 2
 		},
 		{
-			"id": "quest_battle_1",
-			"title": "Gana tu primera batalla",
 			"description": "Derrota al bully en el minijuego ritmico.",
-			"visibility_state": 1,
+			"id": "quest_battle_1",
 			"progress_state": 0,
-			"requires_ids": ["quest_intro"]
+			"requires_ids": [
+				"quest_intro"
+			],
+			"title": "Gana tu primera batalla",
+			"visibility_state": 1
 		}
 	]
 }
