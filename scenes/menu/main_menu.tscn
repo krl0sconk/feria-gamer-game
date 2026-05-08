@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://bndmgxpmkwier"]
+[gd_scene format=3 uid="uid://c2vofxbu0grm1"]
 
-[ext_resource type="Script" uid="uid://demuroij8rx4b" path="res://scripts/main_menu.gd" id="1_ekxnf"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://cesunilhlbgjj" path="res://assets/images/menu/background_menu.png" id="2_isoef"]
 [ext_resource type="Script" uid="uid://cxl3bnruct0vp" path="res://scripts/ui/keychain_button.gd" id="3_kbtn"]
 [ext_resource type="Texture2D" uid="uid://cchpsafb4ykax" path="res://assets/images/menu/Play_btn.png" id="3_qgo02"]
@@ -93,10 +93,10 @@ scale = Vector2(0.6666667, 0.6666667)
 texture = ExtResource("2_isoef")
 
 [node name="ColorRect" type="ColorRect" parent="Reference" unique_id=1209523814]
-offset_left = -989.3332
-offset_top = -557.99994
-offset_right = 986.1667
-offset_bottom = 559.49994
+offset_left = -983.3332
+offset_top = -550.49994
+offset_right = 992.1667
+offset_bottom = 566.99994
 color = Color(0, 0, 0, 0.41960785)
 
 [node name="Start" type="Button" parent="." unique_id=139558158]
