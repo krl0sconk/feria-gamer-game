@@ -11,7 +11,7 @@
 class_name WinScreen
 extends Control
 
-@export_file("*.tscn") var fallback_scene_path: String = "res://scenes/map/Map.tscn"
+@export_file("*.tscn") var fallback_scene_path: String = "res://scenes/map/map.tscn"
 @export var continue_button_path: NodePath = NodePath("Panel/VBox/ContinueButton")
 
 

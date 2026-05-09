@@ -1,13 +1,13 @@
-class_name ScBattle
+class_name Battle
 extends Node2D
 
 @export var chart_path: String = "res://assets/charts/test_chart.json"
 
 @export_file("*.tscn") var lose_scene_path: String = ""
 
-@export_file("*.tscn") var win_scene_path: String = "res://scenes/rhythm/WinScreen.tscn"
+@export_file("*.tscn") var win_scene_path: String = "res://scenes/rhythm/win_screen.tscn"
 
-@export_file("*.tscn") var fallback_map_scene_path: String = "res://scenes/map/Map.tscn"
+@export_file("*.tscn") var fallback_map_scene_path: String = "res://scenes/map/map.tscn"
 
 var _arrow_travel_ms: float = 0.0
 
@@ -33,6 +33,8 @@ var _using_fallback: bool = false
 var _last_note_ms: float = 0.0
 var _survival_declared: bool = false
 var _level_ended: bool = false
+var _chart_data: ChartLoader.ChartData
+var _current_phase_idx: int = 0
 
 
 func _ready() -> void:
@@ -63,18 +65,24 @@ func _connect_hud() -> void:
 
 
 func _load_chart() -> void:
-	var data: ChartLoader.ChartData = ChartLoader.load_json(chart_path)
-	if data.notes.is_empty():
-		push_warning("ScBattle: chart vacío o no encontrado en '%s'" % chart_path)
+	_chart_data = ChartLoader.load_json(chart_path)
+	if _chart_data.notes.is_empty():
+		push_warning("Battle: chart vacío o no encontrado en '%s'" % chart_path)
 		return
-	_music_player.bpm = data.bpm
-	_metronome.bpm = data.bpm
-	_composer.load_chart(data.notes)
-	_last_note_ms = data.notes[data.notes.size() - 1].time_ms
+	if _chart_data.phases.is_empty():
+		push_warning("Battle: chart sin phases, usando BPM por defecto.")
+		var p := ChartLoader.PhaseData.new()
+		_chart_data.phases.append(p)
+	var phase0: ChartLoader.PhaseData = _chart_data.phases[0]
+	_music_player.bpm = phase0.bpm
+	_metronome.bpm = phase0.bpm
+	_composer.load_chart(_chart_data.notes)
+	_last_note_ms = _chart_data.notes[_chart_data.notes.size() - 1].time_ms
+	_current_phase_idx = 0
 	if _music_player.stream != null:
 		_music_player.play()
 	else:
-		push_warning("ScBattle: sin stream de audio, corriendo en fallback.")
+		push_warning("Battle: sin stream de audio, corriendo en fallback.")
 		_using_fallback = true
 
 
@@ -98,6 +106,7 @@ func _process(delta: float) -> void:
 	var current_ms: float = _get_current_ms()
 	_metronome.update_time(current_ms)
 	_composer.update_time(current_ms)
+	_check_phase_transition(current_ms)
 
 	# Progreso escénico del enemigo.
 	var total_ms: float = _get_song_total_ms()
@@ -117,6 +126,26 @@ func _process(delta: float) -> void:
 	if not _survival_declared and current_ms >= _last_note_ms + _metronome.window_good and _all_queues_empty():
 		_survival_declared = true
 		_referee.declare_survival()
+
+
+func _check_phase_transition(current_ms: float) -> void:
+	if _chart_data == null or _current_phase_idx + 1 >= _chart_data.phases.size():
+		return
+	var next: ChartLoader.PhaseData = _chart_data.phases[_current_phase_idx + 1]
+	if current_ms >= next.start_ms:
+		_current_phase_idx += 1
+		_apply_phase(_current_phase_idx, current_ms)
+
+
+func _apply_phase(idx: int, current_ms: float) -> void:
+	var phase: ChartLoader.PhaseData = _chart_data.phases[idx]
+	_metronome.bpm = phase.bpm
+	if not phase.audio_path.is_empty():
+		var new_stream = load(phase.audio_path)
+		if new_stream is AudioStream:
+			var offset: float = (current_ms - phase.start_ms) / 1000.0
+			_music_player.switch_stream(new_stream, offset)
+	print("[RHYTHM] Phase %d → BPM %.1f @ %.0fms" % [idx, phase.bpm, current_ms])
 
 
 func _all_queues_empty() -> bool:
@@ -167,6 +196,6 @@ func _go_to_post_battle(intermediate_path: String) -> void:
 	if target == "":
 		target = fallback_map_scene_path
 	if target == "":
-		push_warning("ScBattle: no hay escena destino post-batalla.")
+		push_warning("Battle: no hay escena destino post-batalla.")
 		return
 	get_tree().change_scene_to_file(target)

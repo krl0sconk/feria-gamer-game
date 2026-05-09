@@ -65,7 +65,6 @@ func is_playing() -> bool:
 	return _active
 
 
-# ── Interno ────────────────────────────────────────────────
 
 func _on_advance_requested() -> void:
 	if _active:

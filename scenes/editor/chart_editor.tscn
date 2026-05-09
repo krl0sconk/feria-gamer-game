@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bt1a6a11xxemi"]
 
 [ext_resource type="Script" uid="uid://dy850d3o5c0qc" path="res://scripts/editor/chart_editor.gd" id="1_editor"]
-[ext_resource type="PackedScene" uid="uid://cn4xtarget001" path="res://scenes/rhythm/NoteTarget.tscn" id="2_target"]
+[ext_resource type="PackedScene" uid="uid://cn4xtarget001" path="res://scenes/rhythm/note_target.tscn" id="2_target"]
 
 [node name="ChartEditor" type="Node2D" unique_id=2121485728]
 script = ExtResource("1_editor")
@@ -35,6 +35,8 @@ scale = Vector2(2, 2)
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=879243216]
 
+[node name="AudioPlayer2" type="AudioStreamPlayer" parent="." unique_id=-2093967295]
+
 [node name="EditorUI" type="CanvasLayer" parent="." unique_id=1317114761]
 layer = 10
 
@@ -46,7 +48,7 @@ grow_horizontal = 2
 
 [node name="LoadAudioBtn" type="Button" parent="EditorUI/TopBar" unique_id=2135314246]
 layout_mode = 2
-text = "Load Audio"
+text = "Audio P1"
 
 [node name="LoadChartBtn" type="Button" parent="EditorUI/TopBar" unique_id=1207618426]
 layout_mode = 2
@@ -73,7 +75,7 @@ layout_mode = 2
 
 [node name="BPMLabel" type="Label" parent="EditorUI/TopBar" unique_id=1957877861]
 layout_mode = 2
-text = "BPM:"
+text = "P1 BPM:"
 
 [node name="BPMSpin" type="SpinBox" parent="EditorUI/TopBar" unique_id=993156216]
 layout_mode = 2
@@ -88,6 +90,56 @@ layout_mode = 2
 layout_mode = 2
 text = "0:00.000 / 0:00.000"
 
+[node name="Phase2Bar" type="HBoxContainer" parent="EditorUI" unique_id=-2093967294]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 40.0
+offset_bottom = 80.0
+grow_horizontal = 2
+
+[node name="Phase2Label" type="Label" parent="EditorUI/Phase2Bar" unique_id=-2093967293]
+layout_mode = 2
+text = "Phase 2:"
+
+[node name="Audio2Btn" type="Button" parent="EditorUI/Phase2Bar" unique_id=-2093967292]
+layout_mode = 2
+text = "Audio P2"
+
+[node name="Sep4" type="VSeparator" parent="EditorUI/Phase2Bar" unique_id=-2093967291]
+layout_mode = 2
+
+[node name="BPM2Label" type="Label" parent="EditorUI/Phase2Bar" unique_id=-2093967290]
+layout_mode = 2
+text = "BPM:"
+
+[node name="BPM2Spin" type="SpinBox" parent="EditorUI/Phase2Bar" unique_id=-2093967289]
+layout_mode = 2
+min_value = 30.0
+max_value = 300.0
+value = 120.0
+
+[node name="SetPhase2Btn" type="Button" parent="EditorUI/Phase2Bar" unique_id=-2093967288]
+layout_mode = 2
+text = "Set start ↑"
+
+[node name="Phase2StartLabel" type="Label" parent="EditorUI/Phase2Bar" unique_id=-2093967287]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "@—"
+
+[node name="Sep5" type="VSeparator" parent="EditorUI/Phase2Bar" unique_id=-2093967286]
+layout_mode = 2
+
+[node name="GridLabel" type="Label" parent="EditorUI/Phase2Bar" unique_id=-2093967285]
+layout_mode = 2
+text = "Grid:"
+
+[node name="SubdivSpin" type="SpinBox" parent="EditorUI/Phase2Bar" unique_id=-2093967284]
+layout_mode = 2
+min_value = 1.0
+max_value = 16.0
+value = 4.0
+
 [node name="BottomHint" type="Label" parent="EditorUI" unique_id=488782771]
 anchors_preset = 12
 anchor_top = 1.0
@@ -96,11 +148,17 @@ anchor_bottom = 1.0
 offset_top = -26.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Flechas=nota | Del=borrar | P=play/pause | A/D=seek | Shift+A/D=rapido | +/-=velocidad | Ctrl+S=guardar"
+text = "Click=nota / drag para mover | RClick=borrar | Del=borrar cercana | P=play | A/D=seek | +/-=velocidad | Ctrl+S=guardar"
 horizontal_alignment = 1
 
 [node name="FileDialogAudio" type="FileDialog" parent="EditorUI" unique_id=862614332]
-title = "Cargar Audio"
+title = "Cargar Audio (Phase 1)"
+size = Vector2i(800, 500)
+access = 2
+filters = PackedStringArray("*.ogg;OGG Audio", "*.wav;WAV Audio", "*.mp3;MP3 Audio")
+
+[node name="FileDialogAudio2" type="FileDialog" parent="EditorUI" unique_id=-2093967283]
+title = "Cargar Audio (Phase 2)"
 size = Vector2i(800, 500)
 access = 2
 filters = PackedStringArray("*.ogg;OGG Audio", "*.wav;WAV Audio", "*.mp3;MP3 Audio")
@@ -120,6 +178,9 @@ filters = PackedStringArray("*.json;Chart JSON")
 [connection signal="pressed" from="EditorUI/TopBar/LoadAudioBtn" to="." method="_on_load_audio_pressed"]
 [connection signal="pressed" from="EditorUI/TopBar/LoadChartBtn" to="." method="_on_load_chart_pressed"]
 [connection signal="pressed" from="EditorUI/TopBar/SaveChartBtn" to="." method="_save_chart"]
+[connection signal="pressed" from="EditorUI/Phase2Bar/Audio2Btn" to="." method="_on_load_audio2_pressed"]
+[connection signal="pressed" from="EditorUI/Phase2Bar/SetPhase2Btn" to="." method="_on_set_phase2_start"]
 [connection signal="file_selected" from="EditorUI/FileDialogAudio" to="." method="_on_audio_file_selected"]
+[connection signal="file_selected" from="EditorUI/FileDialogAudio2" to="." method="_on_audio2_file_selected"]
 [connection signal="file_selected" from="EditorUI/FileDialogSave" to="." method="_on_save_file_selected"]
 [connection signal="file_selected" from="EditorUI/FileDialogLoad" to="." method="_on_chart_file_selected"]

@@ -1,7 +1,7 @@
 class_name BattleHUD
 extends CanvasLayer
 
-const ARROW_SCENE: PackedScene = preload("res://scenes/rhythm/NoteArrow.tscn")
+const ARROW_SCENE: PackedScene = preload("res://scenes/rhythm/note_arrow.tscn")
 const SPAWN_Y: float = -500.0
 const ACTION_TO_DIRECTION: Dictionary = {
 	"note_left": NoteArrow.Direction.LEFT,
@@ -127,8 +127,6 @@ func _consume_oldest_arrow(action: String) -> void:
 	if is_instance_valid(obj):
 		(obj as NoteArrow).destroy()
 
-
-# ── Referee / EnemyGauge signal handlers ──────────────────
 
 func on_player_hp_updated(hp: int, max_hp: int) -> void:
 	if _player_hp_bar == null:

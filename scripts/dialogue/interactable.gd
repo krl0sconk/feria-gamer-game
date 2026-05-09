@@ -110,7 +110,6 @@ func play_result_dialogue(result: String) -> void:
 	_runner.play(_data, dialogue_id, dialogue_voice)
 
 
-# ── Interno ────────────────────────────────────────────────
 
 
 func _start_intro() -> void:

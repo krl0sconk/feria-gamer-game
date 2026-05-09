@@ -28,7 +28,7 @@ buses/default_bus_layout="res://resources/data/default_bus_layout.tres"
 
 Gamemanager="*uid://uh4t4v30gsf5"
 QuestManager="*res://scripts/quests/quest_manager.gd"
-ColorblindOverlay="*res://scenes/ui/ColorblindOverlay.tscn"
+ColorblindOverlay="*res://scenes/ui/colorblind_overlay.tscn"
 
 [display]
 

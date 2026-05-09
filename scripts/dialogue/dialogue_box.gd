@@ -112,7 +112,6 @@ func complete_line() -> void:
 	_typing_complete = true
 
 
-# ── Typewriter loop ────────────────────────────────────────
 
 func _process(delta: float) -> void:
 	if _typing_complete or not visible or _text_label == null:
@@ -144,7 +143,6 @@ func _play_blip() -> void:
 	_voice_player.play()
 
 
-# ── Input ──────────────────────────────────────────────────
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:

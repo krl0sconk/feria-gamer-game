@@ -5,10 +5,6 @@ extends Node
 
 var selectedskin := "idle (1)"
 
-# ── Estado de retorno post-batalla ─────────────────────────
-# Lo setea el `Interactable` justo antes de cambiar a la escena de batalla y
-# lo consume el root del Map al volver (desde WinScreen o LoseScreen).
-
 ## Escena a la que se debe volver tras la batalla (típicamente Map.tscn).
 var return_scene_path: String = ""
 
@@ -27,10 +23,6 @@ func _ready() -> void:
 	# volúmenes) antes de que aparezca cualquier escena. Si no hay archivo
 	# de settings, usa los defaults.
 	OptionsSettings.apply_saved()
-
-
-func _process(_delta: float) -> void:
-	pass
 
 
 ## Limpia los campos de retorno. Llamado por el root del Map después de

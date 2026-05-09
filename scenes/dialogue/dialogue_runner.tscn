@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dlgrunaaaaaa1"]
 
 [ext_resource type="Script" uid="uid://cwpbcay15awtx" path="res://scripts/dialogue/dialogue_runner.gd" id="1_drun"]
-[ext_resource type="PackedScene" uid="uid://dlgboxaaaaaa1" path="res://scenes/dialogue/DialogueBox.tscn" id="2_dbox"]
+[ext_resource type="PackedScene" uid="uid://dlgboxaaaaaa1" path="res://scenes/dialogue/dialogue_box.tscn" id="2_dbox"]
 
 [node name="DialogueRunner" type="CanvasLayer" unique_id=429825200]
 layer = 10

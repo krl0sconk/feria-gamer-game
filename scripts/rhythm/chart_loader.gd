@@ -1,14 +1,33 @@
-# Lee un archivo JSON y lo convierte en datos de chart listos para el Composer.
 class_name ChartLoader
 extends RefCounted
+
+class PhaseData:
+	var bpm: float = 120.0
+	var audio_path: String = ""
+	var start_ms: float = 0.0
+
 class ChartData:
 	var title: String = ""
-	var bpm: float = 120.0
+	var phases: Array = []  # Array[PhaseData], always >= 1 element
 	var notes: Array[NoteData] = []
 
+	func get_bpm_at(ms: float) -> float:
+		if phases.is_empty():
+			return 120.0
+		var result = phases[0]
+		for p in phases:
+			if p.start_ms <= ms:
+				result = p
+		return result.bpm
 
-## Carga y parsea un archivo JSON de chart.
-## Devuelve ChartData vacío si ocurre algún error.
+	func get_phase_at(ms: float) -> int:
+		var idx := 0
+		for i in range(phases.size()):
+			if phases[i].start_ms <= ms:
+				idx = i
+		return idx
+
+
 static func load_json(path: String) -> ChartData:
 	var result := ChartData.new()
 
@@ -31,7 +50,18 @@ static func load_json(path: String) -> ChartData:
 
 	var data: Dictionary = json.data
 	result.title = str(data.get("title", ""))
-	result.bpm = float(data.get("bpm", 120.0))
+
+	if data.has("phases"):
+		for raw_p in data["phases"]:
+			var p := PhaseData.new()
+			p.bpm = float(raw_p.get("bpm", 120.0))
+			p.audio_path = str(raw_p.get("audio", ""))
+			p.start_ms = float(raw_p.get("start_ms", 0.0))
+			result.phases.append(p)
+	else:
+		var p := PhaseData.new()
+		p.bpm = float(data.get("bpm", 120.0))
+		result.phases.append(p)
 
 	var raw_notes: Array = data.get("notes", [])
 	for raw in raw_notes:
@@ -40,7 +70,6 @@ static func load_json(path: String) -> ChartData:
 		note.action = str(raw.get("action", ""))
 		result.notes.append(note)
 
-	# Ordenar por time_ms ascendente por si el JSON no estaba en orden
 	result.notes.sort_custom(func(a: NoteData, b: NoteData) -> bool:
 		return a.time_ms < b.time_ms
 	)
@@ -48,15 +77,18 @@ static func load_json(path: String) -> ChartData:
 	return result
 
 
-## Guarda un ChartData como JSON. Útil para el editor de charts.
 static func save_json(path: String, chart_data: ChartData) -> void:
 	var notes_array: Array = []
 	for note in chart_data.notes:
 		notes_array.append({"time_ms": note.time_ms, "action": note.action})
 
+	var phases_array: Array = []
+	for p in chart_data.phases:
+		phases_array.append({"bpm": p.bpm, "audio": p.audio_path, "start_ms": p.start_ms})
+
 	var data: Dictionary = {
 		"title": chart_data.title,
-		"bpm": chart_data.bpm,
+		"phases": phases_array,
 		"notes": notes_array,
 	}
 

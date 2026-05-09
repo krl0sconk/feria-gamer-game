@@ -95,7 +95,6 @@ static func apply_saved() -> void:
 	apply(load_settings())
 
 
-# ── Interno ────────────────────────────────────────────────
 
 static func _defaults() -> Dictionary:
 	return {

@@ -38,7 +38,6 @@ extends Button
 @export var hover_bus: StringName = &"SFX"
 
 
-# ── Estado interno ─────────────────────────────────────────
 
 var _active_tween: Tween = null
 var _sfx_player: AudioStreamPlayer = null
@@ -86,7 +85,6 @@ func _setup_sfx() -> void:
 	add_child(_sfx_player)
 
 
-# ── Highlight tracking ─────────────────────────────────────
 
 func _on_highlight_gained(source: String) -> void:
 	var was_highlighted := _is_any_highlighted()
@@ -109,7 +107,6 @@ func _is_any_highlighted() -> bool:
 	return false
 
 
-# ── Animación ──────────────────────────────────────────────
 
 func _start_swing() -> void:
 	_kill_active_tween()
@@ -137,7 +134,6 @@ func _kill_active_tween() -> void:
 	_active_tween = null
 
 
-# ── Audio ──────────────────────────────────────────────────
 
 func _play_sfx() -> void:
 	if _sfx_player == null:

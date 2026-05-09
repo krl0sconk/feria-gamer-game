@@ -35,12 +35,15 @@ func _ready() -> void:
 func on_note_result(_player_action: String, _expected_action: String, timing: String, success: bool) -> void:
 	if _level_over:
 		return
-	if success and timing == "Perfect":
-		_apply_hit(score_rules.perfect_points, health_rules.perfect_heal)
-	elif success and timing == "Good":
-		_apply_hit(score_rules.good_points, health_rules.good_heal)
+	var t := timing if success else "Miss"
+	if t != "Miss":
+		_combo += 1
+		if _combo > _max_combo:
+			_max_combo = _combo
 	else:
-		_apply_miss()
+		_combo = 0
+	_score = max(_score + score_rules.calculate_points(t, _combo), score_rules.min_score)
+	_player_hp = clamp(_player_hp + health_rules.get_hp_delta(t), 0, health_rules.max_player_hp)
 	_emit_all()
 	_check_defeat()
 
@@ -51,24 +54,6 @@ func declare_survival() -> void:
 		return
 	_level_over = true
 	level_ended.emit(true)
-
-
-# ── Métodos privados ───────────────────────────────────────
-
-func _apply_hit(base_points: int, heal: int) -> void:
-	_combo += 1
-	if _combo > _max_combo:
-		_max_combo = _combo
-	var gained: int = base_points + _combo * score_rules.combo_bonus_per_hit
-	_score = max(_score + gained, score_rules.min_score)
-	if heal > 0:
-		_player_hp = min(_player_hp + heal, health_rules.max_player_hp)
-
-
-func _apply_miss() -> void:
-	_combo = 0
-	_score = max(_score + score_rules.miss_points, score_rules.min_score)
-	_player_hp = max(_player_hp - health_rules.miss_damage, 0)
 
 
 func _emit_all() -> void:

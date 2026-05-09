@@ -17,7 +17,6 @@ func _ready() -> void:
 	_resume_post_battle_dialogue_deferred()
 
 
-# ── Wiring ─────────────────────────────────────────────────
 
 func _wire_dialogue_to_player() -> void:
 	if _runner == null:
@@ -40,7 +39,6 @@ func _wire_dialogue_to_player() -> void:
 		_runner.dialogue_finished.connect(on_end)
 
 
-# ── Post-batalla ───────────────────────────────────────────
 
 func _resume_post_battle_dialogue_deferred() -> void:
 	# Difierido para que todos los _ready hijos (Interactables, Player,

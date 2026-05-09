@@ -11,12 +11,12 @@
 [ext_resource type="Script" uid="uid://jcfdctbx8f7h" path="res://scripts/rhythm/enemy_gauge.gd" id="7_egauge"]
 [ext_resource type="Resource" path="res://assets/rules/default_health_rules.tres" id="7_healthrules"]
 [ext_resource type="Resource" path="res://assets/rules/default_score_rules.tres" id="7_scorerules"]
-[ext_resource type="PackedScene" uid="uid://cn4xtarget001" path="res://scenes/rhythm/NoteTarget.tscn" id="8_uhcme"]
-[ext_resource type="PackedScene" uid="uid://battlehud001" path="res://scenes/rhythm/BattleHUD.tscn" id="9_hud01"]
-[ext_resource type="PackedScene" uid="uid://dwu33kju7dyer" path="res://scenes/legacy_battle/enemybattle.tscn" id="11_b6yct"]
-[ext_resource type="PackedScene" uid="uid://csq1t4ajb3h5x" path="res://scenes/legacy_battle/player_battle.tscn" id="12_vsbcs"]
+[ext_resource type="PackedScene" uid="uid://cn4xtarget001" path="res://scenes/rhythm/note_target.tscn" id="8_uhcme"]
+[ext_resource type="PackedScene" uid="uid://battlehud001" path="res://scenes/rhythm/battle_hud.tscn" id="9_hud01"]
+[ext_resource type="PackedScene" uid="uid://dwu33kju7dyer" path="res://scenes/rhythm/battle_actors/enemy_battle.tscn" id="11_b6yct"]
+[ext_resource type="PackedScene" uid="uid://csq1t4ajb3h5x" path="res://scenes/rhythm/battle_actors/player_battle.tscn" id="12_vsbcs"]
 
-[node name="ScBattle" type="Node2D" unique_id=1239436012]
+[node name="Battle" type="Node2D" unique_id=1239436012]
 script = ExtResource("1_uhcme")
 chart_path = "res://assets/charts/SwedenChart.json"
 lose_scene_path = null

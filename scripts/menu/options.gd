@@ -69,7 +69,6 @@ func _connect_signals() -> void:
 	_back_button.pressed.connect(_on_back_pressed)
 
 
-# ── Handlers ───────────────────────────────────────────────
 
 func _on_resolution_selected(idx: int) -> void:
 	_settings["resolution_idx"] = idx
@@ -103,7 +102,6 @@ func _on_back_pressed() -> void:
 	queue_free()
 
 
-# ── Helpers ────────────────────────────────────────────────
 
 func _update_volume_labels() -> void:
 	_master_value_label.text = "%d%%" % int(_master_slider.value)

@@ -22,3 +22,8 @@ func _process(_delta: float) -> void:
 
 func get_position_ms() -> float:
 	return get_playback_position() * 1000.0
+
+
+func switch_stream(new_stream: AudioStream, offset_sec: float) -> void:
+	stream = new_stream
+	play(maxf(offset_sec, 0.0))
