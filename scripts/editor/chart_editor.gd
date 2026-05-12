@@ -57,6 +57,7 @@ var _drag_started: bool = false
 @onready var _bpm2_spin: SpinBox = $EditorUI/Phase2Bar/BPM2Spin
 @onready var _phase2_start_label: Label = $EditorUI/Phase2Bar/Phase2StartLabel
 @onready var _subdiv_spin: SpinBox = $EditorUI/Phase2Bar/SubdivSpin
+@onready var _fake_note_check: CheckButton = $EditorUI/TopBar/FakeNoteCheck
 
 
 func _ready() -> void:
@@ -356,6 +357,7 @@ func _snap_to_grid(ms: float) -> float:
 func _create_arrow(note: NoteData) -> NoteArrow:
 	var arrow: NoteArrow = ARROW_SCENE.instantiate() as NoteArrow
 	arrow.direction = ACTION_TO_DIRECTION[note.action]
+	arrow.is_fake = note.is_fake
 	var local_y: float = -note.time_ms * PX_PER_MS / _notes_node.scale.y
 	arrow.position = Vector2(_lane_x[note.action], local_y)
 	_notes_node.add_child(arrow)
@@ -507,10 +509,11 @@ func _place_note_at(action: String, ms: float) -> void:
 	var note := NoteData.new()
 	note.time_ms = ms
 	note.action = action
+	note.is_fake = _fake_note_check.button_pressed
 	_chart_data.notes.append(note)
 	_chart_data.notes.sort_custom(func(a: NoteData, b: NoteData) -> bool: return a.time_ms < b.time_ms)
 	_arrow_map[note] = _create_arrow(note)
-	print("[EDITOR] + %s @ %s" % [LANE_LABELS[action], _format_time(ms)])
+	print("[EDITOR] + %s%s @ %s" % [LANE_LABELS[action], " [FAKE]" if note.is_fake else "", _format_time(ms)])
 
 
 func _delete_nearest_note() -> void:

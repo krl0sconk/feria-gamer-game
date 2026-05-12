@@ -68,6 +68,7 @@ static func load_json(path: String) -> ChartData:
 		var note := NoteData.new()
 		note.time_ms = float(raw.get("time_ms", 0.0))
 		note.action = str(raw.get("action", ""))
+		note.is_fake = bool(raw.get("is_fake", false))
 		result.notes.append(note)
 
 	result.notes.sort_custom(func(a: NoteData, b: NoteData) -> bool:
@@ -80,7 +81,7 @@ static func load_json(path: String) -> ChartData:
 static func save_json(path: String, chart_data: ChartData) -> void:
 	var notes_array: Array = []
 	for note in chart_data.notes:
-		notes_array.append({"time_ms": note.time_ms, "action": note.action})
+		notes_array.append({"time_ms": note.time_ms, "action": note.action, "is_fake": note.is_fake})
 
 	var phases_array: Array = []
 	for p in chart_data.phases:

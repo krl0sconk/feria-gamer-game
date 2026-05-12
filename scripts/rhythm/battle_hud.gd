@@ -42,6 +42,8 @@ var _enemy_hp_bar: ProgressBar
 var _score_label: Label
 var _combo_label: Label
 var _rating_feedback: RatingFeedback
+var _vignette: ColorRect
+var _vignette_tween: Tween
 
 
 func _ready() -> void:
@@ -56,11 +58,29 @@ func _ready() -> void:
 		_combo_label.pivot_offset = _combo_label.size / 2.0
 	_fit_root_to_viewport()
 	get_viewport().size_changed.connect(_fit_root_to_viewport)
+	_setup_vignette()
 
 
 # Mantiene el Root del HUD anclado al viewport real, conservando el design_size
 # como mínimo (para visibilidad en el editor). Los anchors de los hijos hacen
 # el resto del trabajo.
+func _setup_vignette() -> void:
+	if _root == null:
+		return
+	var shader := load("res://shaders/vignette.gdshader") as Shader
+	if shader == null:
+		return
+	var mat := ShaderMaterial.new()
+	mat.shader = shader
+	mat.set_shader_parameter("strength", 0.0)
+	_vignette = ColorRect.new()
+	_vignette.name = "Vignette"
+	_vignette.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_vignette.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_vignette.material = mat
+	_root.add_child(_vignette)
+
+
 func _fit_root_to_viewport() -> void:
 	if _root == null:
 		return
@@ -92,6 +112,7 @@ func _on_composer_note_expected(note: NoteData) -> void:
 	arrow.direction = ACTION_TO_DIRECTION[note.action]
 	arrow.target_y = _target_y
 	arrow.position = Vector2(_lane_x[note.action], SPAWN_Y)
+	arrow.is_fake = note.is_fake
 	arrow.expired.connect(_on_arrow_expired.bind(note.action, arrow))
 	_notes_node.add_child(arrow)
 	_arrow_queues[note.action].append(arrow)
@@ -129,10 +150,20 @@ func _consume_oldest_arrow(action: String) -> void:
 
 
 func on_player_hp_updated(hp: int, max_hp: int) -> void:
-	if _player_hp_bar == null:
-		return
-	_player_hp_bar.max_value = max_hp
-	_player_hp_bar.value = hp
+	if _player_hp_bar != null:
+		_player_hp_bar.max_value = max_hp
+		_player_hp_bar.value = hp
+	if _vignette != null and _vignette.material is ShaderMaterial:
+		var mat := _vignette.material as ShaderMaterial
+		var target_strength: float = 1.0 - (float(hp) / float(max_hp))
+		var current_strength: float = mat.get_shader_parameter("strength")
+		if _vignette_tween:
+			_vignette_tween.kill()
+		_vignette_tween = create_tween()
+		_vignette_tween.tween_method(
+			func(v: float) -> void: mat.set_shader_parameter("strength", v),
+			current_strength, target_strength, 0.25
+		)
 
 
 func on_enemy_hp_updated(hp: float, max_hp: float) -> void:

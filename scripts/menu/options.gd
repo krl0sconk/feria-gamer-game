@@ -19,6 +19,9 @@ signal closed
 @onready var _master_value_label: Label = %MasterValue
 @onready var _sfx_value_label: Label = %SfxValue
 @onready var _colorblind_option: OptionButton = %ColorblindOption
+@onready var _intensity_slider: HSlider = %IntensitySlider
+@onready var _intensity_label: Label = %IntensityValue
+@onready var _dyslexia_check: CheckButton = %DyslexiaCheck
 @onready var _apply_button: Button = %ApplyButton
 @onready var _back_button: Button = %BackButton
 
@@ -53,6 +56,9 @@ func _apply_to_ui() -> void:
 	_master_slider.value = float(_settings["master_vol"])
 	_sfx_slider.value = float(_settings["sfx_vol"])
 	_colorblind_option.selected = int(_settings["colorblind_mode"])
+	_intensity_slider.value = float(_settings["colorblind_strength"])
+	_intensity_label.text = "%d%%" % int(_settings["colorblind_strength"] * 100.0)
+	_dyslexia_check.button_pressed = bool(_settings["dyslexia_mode"])
 	_update_volume_labels()
 
 
@@ -65,6 +71,8 @@ func _connect_signals() -> void:
 	_master_slider.value_changed.connect(_on_master_changed)
 	_sfx_slider.value_changed.connect(_on_sfx_changed)
 	_colorblind_option.item_selected.connect(_on_colorblind_selected)
+	_intensity_slider.value_changed.connect(_on_intensity_changed)
+	_dyslexia_check.toggled.connect(_on_dyslexia_toggled)
 	_apply_button.pressed.connect(_on_apply_pressed)
 	_back_button.pressed.connect(_on_back_pressed)
 
@@ -90,6 +98,15 @@ func _on_sfx_changed(value: float) -> void:
 
 func _on_colorblind_selected(idx: int) -> void:
 	_settings["colorblind_mode"] = idx
+
+
+func _on_intensity_changed(value: float) -> void:
+	_settings["colorblind_strength"] = value
+	_intensity_label.text = "%d%%" % int(value * 100.0)
+
+
+func _on_dyslexia_toggled(pressed: bool) -> void:
+	_settings["dyslexia_mode"] = pressed
 
 
 func _on_apply_pressed() -> void:

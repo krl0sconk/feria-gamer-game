@@ -58,6 +58,11 @@ text = "Load Chart"
 layout_mode = 2
 text = "Save Chart"
 
+[node name="FakeNoteCheck" type="CheckButton" parent="EditorUI/TopBar" unique_id=705786814]
+layout_mode = 2
+text = "Fake"
+tooltip_text = "Las notas colocadas serán trampas (glitched)"
+
 [node name="Sep1" type="VSeparator" parent="EditorUI/TopBar" unique_id=1068759704]
 layout_mode = 2
 
