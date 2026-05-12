@@ -35,15 +35,17 @@ func _ready() -> void:
 func on_note_result(_player_action: String, _expected_action: String, timing: String, success: bool) -> void:
 	if _level_over:
 		return
-	var t := timing if success else "Miss"
-	if t != "Miss":
+	# FakeHit counts as a miss for combo/score but uses its own HP damage.
+	var is_fake_hit: bool = timing == "FakeHit"
+	var combo_timing := timing if (success and not is_fake_hit) else "Miss"
+	if combo_timing != "Miss":
 		_combo += 1
 		if _combo > _max_combo:
 			_max_combo = _combo
 	else:
 		_combo = 0
-	_score = max(_score + score_rules.calculate_points(t, _combo), score_rules.min_score)
-	_player_hp = clamp(_player_hp + health_rules.get_hp_delta(t), 0, health_rules.max_player_hp)
+	_score = max(_score + score_rules.calculate_points(combo_timing, _combo), score_rules.min_score)
+	_player_hp = clamp(_player_hp + health_rules.get_hp_delta(timing), 0, health_rules.max_player_hp)
 	_emit_all()
 	_check_defeat()
 

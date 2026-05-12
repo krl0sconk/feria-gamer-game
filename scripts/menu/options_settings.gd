@@ -51,6 +51,14 @@ const DEFAULT_WINDOW_MODE: int = WindowMode.WINDOWED
 const DEFAULT_MASTER_VOL: float = 80.0
 const DEFAULT_SFX_VOL: float = 80.0
 const DEFAULT_COLORBLIND_MODE: int = 0
+const DEFAULT_COLORBLIND_STRENGTH: float = 0.35
+const DEFAULT_DYSLEXIA_MODE: bool = false
+
+const DYSLEXIA_FONT_PATH: String = "res://assets/fonts/OpenDyslexic-Regular.otf"
+const READABLE_FONT_PATHS: Array[String] = [
+	"res://assets/fonts/RetroBound.ttf",
+	"res://assets/fonts/RetroBoundUC.ttf",
+]
 
 
 ## Carga las preferencias del disco. Si no hay archivo o está corrupto,
@@ -65,6 +73,8 @@ static func load_settings() -> Dictionary:
 	data["master_vol"] = float(cfg.get_value("audio", "master_vol", data["master_vol"]))
 	data["sfx_vol"] = float(cfg.get_value("audio", "sfx_vol", data["sfx_vol"]))
 	data["colorblind_mode"] = int(cfg.get_value("accessibility", "colorblind_mode", data["colorblind_mode"]))
+	data["colorblind_strength"] = float(cfg.get_value("accessibility", "colorblind_strength", data["colorblind_strength"]))
+	data["dyslexia_mode"] = bool(cfg.get_value("accessibility", "dyslexia_mode", data["dyslexia_mode"]))
 	return data
 
 
@@ -75,6 +85,8 @@ static func save_settings(data: Dictionary) -> void:
 	cfg.set_value("audio", "master_vol", data.get("master_vol", DEFAULT_MASTER_VOL))
 	cfg.set_value("audio", "sfx_vol", data.get("sfx_vol", DEFAULT_SFX_VOL))
 	cfg.set_value("accessibility", "colorblind_mode", data.get("colorblind_mode", DEFAULT_COLORBLIND_MODE))
+	cfg.set_value("accessibility", "colorblind_strength", data.get("colorblind_strength", DEFAULT_COLORBLIND_STRENGTH))
+	cfg.set_value("accessibility", "dyslexia_mode", data.get("dyslexia_mode", DEFAULT_DYSLEXIA_MODE))
 	cfg.save(SETTINGS_PATH)
 
 
@@ -87,6 +99,8 @@ static func apply(data: Dictionary) -> void:
 	_apply_bus_volume(&"Master", float(data.get("master_vol", DEFAULT_MASTER_VOL)))
 	_apply_bus_volume(&"SFX", float(data.get("sfx_vol", DEFAULT_SFX_VOL)))
 	_apply_colorblind_mode(int(data.get("colorblind_mode", DEFAULT_COLORBLIND_MODE)))
+	_apply_colorblind_strength(float(data.get("colorblind_strength", DEFAULT_COLORBLIND_STRENGTH)))
+	_apply_dyslexia_mode(bool(data.get("dyslexia_mode", DEFAULT_DYSLEXIA_MODE)))
 
 
 ## Conveniencia: cargar del disco y aplicar de una. Llamado por Gamemanager
@@ -103,6 +117,8 @@ static func _defaults() -> Dictionary:
 		"master_vol": DEFAULT_MASTER_VOL,
 		"sfx_vol": DEFAULT_SFX_VOL,
 		"colorblind_mode": DEFAULT_COLORBLIND_MODE,
+		"colorblind_strength": DEFAULT_COLORBLIND_STRENGTH,
+		"dyslexia_mode": DEFAULT_DYSLEXIA_MODE,
 	}
 
 
@@ -145,9 +161,6 @@ static func _apply_bus_volume(bus_name: StringName, linear_0_100: float) -> void
 
 
 static func _apply_colorblind_mode(mode: int) -> void:
-	# Acceso al autoload por nombre vía MainLoop. Si por algún motivo el
-	# autoload no estuviera registrado, no crasheamos — el filtro
-	# simplemente no se aplica.
 	var loop := Engine.get_main_loop()
 	if loop == null or not (loop is SceneTree):
 		return
@@ -155,3 +168,42 @@ static func _apply_colorblind_mode(mode: int) -> void:
 	var overlay := root.get_node_or_null("ColorblindOverlay")
 	if overlay != null and overlay.has_method("set_mode"):
 		overlay.set_mode(mode)
+
+
+static func _apply_colorblind_strength(value: float) -> void:
+	var loop := Engine.get_main_loop()
+	if loop == null or not (loop is SceneTree):
+		return
+	var overlay := (loop as SceneTree).root.get_node_or_null("ColorblindOverlay")
+	if overlay != null and overlay.has_method("set_strength"):
+		overlay.set_strength(value)
+
+
+static func _apply_dyslexia_mode(enabled: bool) -> void:
+	var loop := Engine.get_main_loop()
+	if not (loop is SceneTree):
+		return
+	apply_dyslexia_fonts((loop as SceneTree).root, enabled)
+
+
+static func apply_dyslexia_fonts(root: Node, enabled: bool) -> void:
+	if enabled and not FileAccess.file_exists(DYSLEXIA_FONT_PATH):
+		push_warning("OptionsSettings: fuente disléxica no encontrada en %s" % DYSLEXIA_FONT_PATH)
+		return
+	var dyslexia_font: Font = load(DYSLEXIA_FONT_PATH) if enabled else null
+	_walk_and_set_font(root, dyslexia_font)
+
+
+static func _walk_and_set_font(node: Node, dyslexia_font: Font) -> void:
+	if node is Control and node.has_theme_font_override("font"):
+		var ctrl := node as Control
+		var current: Font = ctrl.get_theme_font("font")
+		if current != null:
+			var path: String = current.resource_path
+			if path in READABLE_FONT_PATHS:
+				if dyslexia_font != null:
+					ctrl.add_theme_font_override("font", dyslexia_font)
+				else:
+					ctrl.add_theme_font_override("font", load(path))
+	for child in node.get_children():
+		_walk_and_set_font(child, dyslexia_font)

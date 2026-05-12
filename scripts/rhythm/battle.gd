@@ -164,9 +164,11 @@ func _on_button_pressed(action: String) -> void:
 	if queue.is_empty():
 		return
 	var current_ms: float = _get_current_ms()
-	var timing: String = _metronome.evaluate_timing(current_ms, queue[0].hit_ms)
+	var entry = queue[0]
+	var timing: String = _metronome.evaluate_timing(current_ms, entry.hit_ms)
 	if timing != "Miss":
-		_judge.evaluate(action, queue[0].note, timing)
+		var effective_timing: String = "FakeHit" if entry.note.is_fake else timing
+		_judge.evaluate(action, entry.note, effective_timing)
 		queue.pop_front()
 
 

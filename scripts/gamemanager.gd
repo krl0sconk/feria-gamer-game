@@ -19,10 +19,16 @@ var pending_dialogue_result: String = ""
 
 
 func _ready() -> void:
-	# Aplicamos las preferencias guardadas (resolución, modo de ventana,
-	# volúmenes) antes de que aparezca cualquier escena. Si no hay archivo
-	# de settings, usa los defaults.
 	OptionsSettings.apply_saved()
+	get_tree().node_added.connect(_on_node_added)
+
+
+func _on_node_added(node: Node) -> void:
+	if node.get_parent() != get_tree().root:
+		return
+	var settings := OptionsSettings.load_settings()
+	if bool(settings.get("dyslexia_mode", false)):
+		OptionsSettings.apply_dyslexia_fonts(node, true)
 
 
 ## Limpia los campos de retorno. Llamado por el root del Map después de

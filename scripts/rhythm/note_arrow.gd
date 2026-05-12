@@ -14,10 +14,16 @@ const ROTATIONS: Dictionary = {
 @export var direction: Direction = Direction.UP
 @export var speed: float = 400.0
 @export var target_y: float = 500.0
+@export var is_fake: bool = false
 
 
 func _ready() -> void:
 	rotation_degrees = ROTATIONS[direction]
+	if is_fake:
+		var mat := ShaderMaterial.new()
+		mat.shader = load("res://shaders/glitch.gdshader")
+		mat.set_shader_parameter("time_offset", randf() * 100.0)
+		$Sprite2D.material = mat
 
 
 signal expired()
