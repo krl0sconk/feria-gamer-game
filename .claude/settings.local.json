@@ -8,7 +8,12 @@
       "Bash(sed -i 's|path=\"res://scenes/dialogue/DialogueRunner\\\\.tscn\"|path=\"res://scenes/dialogue/dialogue_runner.tscn\"|g' scenes/map/map.tscn)",
       "Bash(sed -i 's|path=\"res://scenes/dialogue/Interactable\\\\.tscn\"|path=\"res://scenes/dialogue/interactable.tscn\"|g' scenes/map/map.tscn)",
       "Bash(sed -i 's|battle_scene_path = \"res://scenes/rhythm/Battle\\\\.tscn\"|battle_scene_path = \"res://scenes/rhythm/battle.tscn\"|g' scenes/map/map.tscn)",
-      "Bash(xargs sed -i '/^# ──.*─/d')"
+      "Bash(xargs sed -i '/^# ──.*─/d')",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(gh pr create --title 'CREAL-180: accessibility upgrades + glitched fake notes + chart editor improvements' --body ' *)"
     ]
   }
 }

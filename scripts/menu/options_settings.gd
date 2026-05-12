@@ -54,7 +54,7 @@ const DEFAULT_COLORBLIND_MODE: int = 0
 const DEFAULT_COLORBLIND_STRENGTH: float = 0.35
 const DEFAULT_DYSLEXIA_MODE: bool = false
 
-const DYSLEXIA_FONT_PATH: String = "res://assets/fonts/OpenDyslexic-Regular.otf"
+const DYSLEXIA_FONT_PATH: String = "res://assets/fonts/DyslexicPixel.ttf"
 const READABLE_FONT_PATHS: Array[String] = [
 	"res://assets/fonts/RetroBound.ttf",
 	"res://assets/fonts/RetroBoundUC.ttf",
