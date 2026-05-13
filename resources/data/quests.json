@@ -4,7 +4,7 @@
 			"id": "quest_intro",
 			"title": "Habla con el primer NPC",
 			"description": "Acercate y conversa para iniciar la historia.",
-			"visibility_state": 1,
+			"visibility_state": 2,
 			"progress_state": 0,
 			"requires_ids": []
 		},

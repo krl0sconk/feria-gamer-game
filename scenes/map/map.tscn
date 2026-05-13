@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cvb28nsoo4xmq" path="res://scripts/map.gd" id="7_mapgd"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_drun"]
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="9_intr"]
+[ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="10_qhud"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_04gne"]
 texture = ExtResource("1_gbofb")
@@ -17206,5 +17207,13 @@ position = Vector2(160, 398)
 scale = Vector2(2, 2)
 
 [node name="DialogueRunner" parent="." unique_id=1990822026 instance=ExtResource("8_drun")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=116998281]
+
+[node name="QuestHud" parent="CanvasLayer" unique_id=1973330051 instance=ExtResource("10_qhud")]
+offset_left = -1.0
+offset_top = 6.0
+offset_right = -1.0
+offset_bottom = 6.0
 
 [editable path="Bully"]
