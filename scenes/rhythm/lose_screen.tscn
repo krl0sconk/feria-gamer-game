@@ -1,23 +1,23 @@
-[gd_scene format=3 uid="uid://c6mgedn0f8vh7"]
+[gd_scene format=3 uid="uid://lose_screen001"]
 
-[ext_resource type="Script" path="res://scripts/rhythm/win_screen.gd" id="1_win"]
-[ext_resource type="AudioStream" path="res://assets/audio/sfx/victorysfx.wav" id="2_victorysfx"]
+[ext_resource type="Script" path="res://scripts/rhythm/lose_screen.gd" id="1_lose"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/gameover.wav" id="2_gameover"]
 
-[node name="WinScreen" type="Control"]
+[node name="LoseScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_minimum_size = Vector2(1280, 720)
 mouse_filter = 0
-script = ExtResource("1_win")
+script = ExtResource("1_lose")
 
 [node name="Dim" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.08, 0.15, 0.1, 0.9)
+color = Color(0.18, 0.05, 0.05, 0.92)
 
 [node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -39,23 +39,18 @@ theme_override_constants/separation = 18
 layout_mode = 2
 horizontal_alignment = 1
 theme_override_font_sizes/font_size = 64
-text = "¡VICTORIA!"
+text = "DERROTA"
 
 [node name="Subtitle" type="Label" parent="Panel/VBox"]
 layout_mode = 2
 horizontal_alignment = 1
 theme_override_font_sizes/font_size = 18
-text = "Sobreviviste a la canción."
+text = "Volviendo al mapa..."
 
 [node name="Spacer" type="Control" parent="Panel/VBox"]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 
-[node name="ContinueButton" type="Button" parent="Panel/VBox"]
-custom_minimum_size = Vector2(0, 56)
-layout_mode = 2
-text = "Continuar"
-
 [node name="SfxPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_victorysfx")
+stream = ExtResource("2_gameover")
 volume_db = -14.0

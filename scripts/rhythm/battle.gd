@@ -9,6 +9,8 @@ extends Node2D
 
 @export_file("*.tscn") var fallback_map_scene_path: String = "res://scenes/map/map.tscn"
 
+@export var initial_miss_guard_ms: float = 1500.0
+
 var _arrow_travel_ms: float = 0.0
 
 @onready var _player_input: PlayerInput = $PlayerInput
@@ -112,6 +114,9 @@ func _process(delta: float) -> void:
 	var total_ms: float = _get_song_total_ms()
 	if total_ms > 0.0:
 		_enemy_gauge.update_song_progress(current_ms / total_ms)
+
+	if current_ms < initial_miss_guard_ms:
+		return
 
 	for action in _pending_notes:
 		if _level_ended:

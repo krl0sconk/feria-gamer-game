@@ -19,9 +19,11 @@
 [node name="Battle" type="Node2D" unique_id=1239436012]
 script = ExtResource("1_uhcme")
 chart_path = "res://assets/charts/SwedenChart.json"
-lose_scene_path = null
+lose_scene_path = "res://scenes/rhythm/lose_screen.tscn"
 win_scene_path = null
 fallback_map_scene_path = null
+initial_miss_guard_ms = 1500.0
+
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=580671990]
 

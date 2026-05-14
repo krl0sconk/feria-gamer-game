@@ -13,6 +13,7 @@ extends Control
 
 @export_file("*.tscn") var fallback_scene_path: String = "res://scenes/map/map.tscn"
 @export var continue_button_path: NodePath = NodePath("Panel/VBox/ContinueButton")
+@export var sfx_player_path: NodePath = NodePath("SfxPlayer")
 
 
 func _ready() -> void:
@@ -21,6 +22,9 @@ func _ready() -> void:
 		btn.pressed.connect(_on_continue_pressed)
 	else:
 		push_warning("WinScreen: no se encontró el botón en '%s'." % str(continue_button_path))
+	var sfx := get_node_or_null(sfx_player_path) as AudioStreamPlayer
+	if sfx != null and sfx.stream != null:
+		sfx.play()
 
 
 func _on_continue_pressed() -> void:
