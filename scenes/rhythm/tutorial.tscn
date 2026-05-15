@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://bpjxvmi61lq5"]
+
+[ext_resource type="Script" uid="uid://dn7vhk2uqnqko" path="res://scripts/rhythm/battle.gd" id="1_i863f"]
+[ext_resource type="Script" uid="uid://bvingimukyuml" path="res://scripts/rhythm/player_input.gd" id="2_cqv5o"]
+[ext_resource type="AudioStream" uid="uid://d318alnvgieew" path="res://assets/audio/music/tutorial.wav" id="3_q2q7c"]
+[ext_resource type="Script" uid="uid://cfl3qp8a2g25k" path="res://scripts/rhythm/music_player.gd" id="4_2voy8"]
+[ext_resource type="Script" uid="uid://dfvovaonkjkbd" path="res://scripts/rhythm/metronome.gd" id="5_6gvq3"]
+[ext_resource type="Script" uid="uid://dtqvcn7nsksux" path="res://scripts/rhythm/composer.gd" id="6_np3lh"]
+[ext_resource type="Script" uid="uid://kon1ljibvyeq" path="res://scripts/rhythm/judge.gd" id="7_f0xbk"]
+[ext_resource type="Script" uid="uid://bgb3s11rcg2ct" path="res://scripts/rhythm/referee.gd" id="8_skvur"]
+[ext_resource type="Resource" path="res://assets/rules/default_score_rules.tres" id="9_1jupl"]
+[ext_resource type="Resource" uid="uid://crym24dpbrip" path="res://assets/rules/default_health_rules.tres" id="10_ynot1"]
+[ext_resource type="Script" uid="uid://jcfdctbx8f7h" path="res://scripts/rhythm/enemy_gauge.gd" id="11_qhhwt"]
+[ext_resource type="PackedScene" uid="uid://cn4xtarget001" path="res://scenes/rhythm/note_target.tscn" id="12_alv3o"]
+[ext_resource type="PackedScene" uid="uid://battlehud001" path="res://scenes/rhythm/battle_hud.tscn" id="13_t1rtr"]
+[ext_resource type="PackedScene" uid="uid://csq1t4ajb3h5x" path="res://scenes/rhythm/battle_actors/player_battle.tscn" id="15_p5euf"]
+
+[node name="Battle" type="Node2D" unique_id=1239436012]
+script = ExtResource("1_i863f")
+chart_path = "res://assets/charts/tutorial.json"
+win_scene_path = "uid://c6mgedn0f8vh7"
+fallback_map_scene_path = "uid://0ltynt3nflaq"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=580671990]
+
+[node name="PlayerInput" type="Node" parent="." unique_id=654665015]
+script = ExtResource("2_cqv5o")
+metadata/_custom_type_script = "uid://bvingimukyuml"
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1075957386]
+stream = ExtResource("3_q2q7c")
+script = ExtResource("4_2voy8")
+bpm = 92.0
+metadata/_custom_type_script = "uid://cfl3qp8a2g25k"
+
+[node name="Metronome" type="Node" parent="." unique_id=984578197]
+script = ExtResource("5_6gvq3")
+bpm = 92.0
+metadata/_custom_type_script = "uid://dfvovaonkjkbd"
+
+[node name="Composer" type="Node" parent="." unique_id=1854420226]
+script = ExtResource("6_np3lh")
+metadata/_custom_type_script = "uid://dtqvcn7nsksux"
+
+[node name="Judge" type="Node" parent="." unique_id=1312608864]
+script = ExtResource("7_f0xbk")
+metadata/_custom_type_script = "uid://kon1ljibvyeq"
+
+[node name="Referee" type="Node" parent="." unique_id=1725350886]
+script = ExtResource("8_skvur")
+score_rules = ExtResource("9_1jupl")
+health_rules = ExtResource("10_ynot1")
+metadata/_custom_type_script = "uid://bgb3s11rcg2ct"
+
+[node name="EnemyGauge" type="Node" parent="." unique_id=1931122001]
+script = ExtResource("11_qhhwt")
+
+[node name="Targets" type="Node2D" parent="." unique_id=2112607533]
+position = Vector2(1, 228)
+scale = Vector2(2, 2)
+
+[node name="LeftTarget" parent="Targets" unique_id=748121240 instance=ExtResource("12_alv3o")]
+position = Vector2(-150, 0)
+rotation = -1.5707964
+direction = 0
+
+[node name="DownTarget" parent="Targets" unique_id=1678933881 instance=ExtResource("12_alv3o")]
+position = Vector2(-50, 0)
+rotation = 3.1415927
+direction = 1
+
+[node name="UpTarget" parent="Targets" unique_id=1774019316 instance=ExtResource("12_alv3o")]
+position = Vector2(50, 0)
+
+[node name="RightTarget" parent="Targets" unique_id=601086863 instance=ExtResource("12_alv3o")]
+position = Vector2(150, 0)
+rotation = 1.5707964
+direction = 3
+
+[node name="Notes" type="Node2D" parent="." unique_id=832419459]
+position = Vector2(0, -500)
+scale = Vector2(2, 2)
+
+[node name="BattleHUD" parent="." unique_id=1023945652 instance=ExtResource("13_t1rtr")]
+notes_container = NodePath("../Notes")
+
+[node name="PlayerBattle" parent="." unique_id=323566821 instance=ExtResource("15_p5euf")]
+position = Vector2(-456, -40)
+
+[editable path="BattleHUD"]

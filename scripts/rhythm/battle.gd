@@ -36,6 +36,12 @@ var _level_ended: bool = false
 var _chart_data: ChartLoader.ChartData
 var _current_phase_idx: int = 0
 
+# Pre-roll: tiempo negativo antes de que arranque la música para que las
+# notas iniciales tengan margen de viaje hasta el target.
+var _in_pre_roll: bool = false
+var _pre_roll_elapsed_ms: float = 0.0
+var _pre_roll_total_ms: float = 0.0
+
 
 func _ready() -> void:
 	_connect_game_loop()
@@ -79,14 +85,14 @@ func _load_chart() -> void:
 	_composer.load_chart(_chart_data.notes)
 	_last_note_ms = _chart_data.notes[_chart_data.notes.size() - 1].time_ms
 	_current_phase_idx = 0
-	if _music_player.stream != null:
-		_music_player.play()
-	else:
-		push_warning("Battle: sin stream de audio, corriendo en fallback.")
-		_using_fallback = true
+	_pre_roll_total_ms = _arrow_travel_ms
+	_pre_roll_elapsed_ms = 0.0
+	_in_pre_roll = true
 
 
 func _get_current_ms() -> float:
+	if _in_pre_roll:
+		return _pre_roll_elapsed_ms - _pre_roll_total_ms
 	return _fallback_ms if _using_fallback else _music_player.get_position_ms()
 
 
@@ -101,7 +107,15 @@ func _get_song_total_ms() -> float:
 func _process(delta: float) -> void:
 	if _level_ended:
 		return
-	if _using_fallback:
+	if _in_pre_roll:
+		_pre_roll_elapsed_ms += delta * 1000.0
+		if _pre_roll_elapsed_ms >= _pre_roll_total_ms:
+			_in_pre_roll = false
+			if _music_player.stream != null:
+				_music_player.play()
+			else:
+				_using_fallback = true
+	elif _using_fallback:
 		_fallback_ms += delta * 1000.0
 	var current_ms: float = _get_current_ms()
 	_metronome.update_time(current_ms)
@@ -111,7 +125,7 @@ func _process(delta: float) -> void:
 	# Progreso escénico del enemigo.
 	var total_ms: float = _get_song_total_ms()
 	if total_ms > 0.0:
-		_enemy_gauge.update_song_progress(current_ms / total_ms)
+		_enemy_gauge.update_song_progress(maxf(current_ms, 0.0) / total_ms)
 
 	for action in _pending_notes:
 		if _level_ended:
