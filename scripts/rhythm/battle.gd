@@ -131,9 +131,6 @@ func _process(delta: float) -> void:
 	if total_ms > 0.0:
 		_enemy_gauge.update_song_progress(maxf(current_ms, 0.0) / total_ms)
 
-	if current_ms < initial_miss_guard_ms:
-		return
-
 	for action in _pending_notes:
 		if _level_ended:
 			break
