@@ -13,7 +13,8 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
-      "Bash(gh pr create --title 'CREAL-180: accessibility upgrades + glitched fake notes + chart editor improvements' --body ' *)"
+      "Bash(gh pr create --title 'CREAL-180: accessibility upgrades + glitched fake notes + chart editor improvements' --body ' *)",
+      "Skill(godot-gdscript-patterns)"
     ]
   }
 }
