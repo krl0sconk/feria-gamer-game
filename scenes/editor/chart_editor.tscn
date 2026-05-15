@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bt1a6a11xxemi"]
 
 [ext_resource type="Script" uid="uid://dy850d3o5c0qc" path="res://scripts/editor/chart_editor.gd" id="1_editor"]
+[ext_resource type="Script" path="res://scripts/editor/timeline_bar.gd" id="3_timeline"]
 [ext_resource type="PackedScene" uid="uid://cn4xtarget001" path="res://scenes/rhythm/note_target.tscn" id="2_target"]
 
 [node name="ChartEditor" type="Node2D" unique_id=2121485728]
@@ -145,6 +146,18 @@ min_value = 1.0
 max_value = 16.0
 value = 4.0
 
+[node name="TimelineBar" type="Control" parent="EditorUI" unique_id=1112233445]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 0
+script = ExtResource("3_timeline")
+
 [node name="BottomHint" type="Label" parent="EditorUI" unique_id=488782771]
 anchors_preset = 12
 anchor_top = 1.0
@@ -153,7 +166,7 @@ anchor_bottom = 1.0
 offset_top = -26.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Click=nota / drag para mover | RClick=borrar | Del=borrar cercana | P=play | A/D=seek | +/-=velocidad | Ctrl+S=guardar"
+text = "Timeline: click/drag para navegar | Click=nota / drag para mover | RClick=borrar | Del=borrar cercana | P=play | A/D=seek | +/-=velocidad | Ctrl+S=guardar"
 horizontal_alignment = 1
 
 [node name="FileDialogAudio" type="FileDialog" parent="EditorUI" unique_id=862614332]

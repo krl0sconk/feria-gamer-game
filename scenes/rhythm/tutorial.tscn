@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bpjxvmi61lq5"]
+
+[ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_ppmso"]
+[ext_resource type="AudioStream" uid="uid://d318alnvgieew" path="res://assets/audio/music/tutorial.wav" id="3_q2q7c"]
+
+[node name="Battle" unique_id=1239436012 instance=ExtResource("1_ppmso")]
+chart_path = "res://assets/charts/tutorial.json"
+win_scene_path = "uid://c6mgedn0f8vh7"
+fallback_map_scene_path = "uid://0ltynt3nflaq"
+
+[node name="MusicPlayer" parent="." index="2" unique_id=1075957386]
+stream = ExtResource("3_q2q7c")
+bpm = 92.0
+
+[node name="Metronome" parent="." index="3" unique_id=984578197]
+bpm = 92.0
+
+[node name="EnemyHPBar" parent="BattleHUD/Root" parent_id_path=PackedInt32Array(1023945652, 1064977845) index="1" unique_id=588182441]
+visible = false
+
+[node name="EnemyBattle" parent="." index="11" unique_id=446230275]
+visible = false
+
+[editable path="BattleHUD"]
+[editable path="PlayerBattle"]

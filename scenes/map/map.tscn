@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="9_intr"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="10_qhud"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_04gne"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f17u5"]
 texture = ExtResource("1_gbofb")
 0:0/0 = 0
 1:0/0 = 0
@@ -4302,7 +4302,7 @@ texture = ExtResource("1_gbofb")
 62:66/0 = 0
 63:66/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uflrr"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b56te"]
 texture = ExtResource("2_ee18k")
 0:0/0 = 0
 1:0/0 = 0
@@ -8593,7 +8593,7 @@ texture = ExtResource("2_ee18k")
 62:66/0 = 0
 63:66/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x61y5"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x2kg6"]
 texture = ExtResource("3_sat7u")
 0:0/0 = 0
 1:0/0 = 0
@@ -12884,7 +12884,7 @@ texture = ExtResource("3_sat7u")
 62:66/0 = 0
 63:66/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ynfpx"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cumk7"]
 texture = ExtResource("4_hnnn3")
 0:0/0 = 0
 1:0/0 = 0
@@ -17176,10 +17176,10 @@ texture = ExtResource("4_hnnn3")
 63:66/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_53l57"]
-sources/1 = SubResource("TileSetAtlasSource_04gne")
-sources/2 = SubResource("TileSetAtlasSource_uflrr")
-sources/3 = SubResource("TileSetAtlasSource_x61y5")
-sources/4 = SubResource("TileSetAtlasSource_ynfpx")
+sources/1 = SubResource("TileSetAtlasSource_f17u5")
+sources/2 = SubResource("TileSetAtlasSource_b56te")
+sources/3 = SubResource("TileSetAtlasSource_x2kg6")
+sources/4 = SubResource("TileSetAtlasSource_cumk7")
 
 [node name="Mapa" type="Node2D" unique_id=1460360920]
 script = ExtResource("7_mapgd")
@@ -17199,7 +17199,7 @@ id = "bully_01"
 dialogue_json_path = "res://assets/dialogues/bully_01.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
-battle_scene_path = "res://scenes/rhythm/battle.tscn"
+battle_scene_path = "uid://pid50iwjx4dd"
 dialogue_voice = ExtResource("7_48h8m")
 
 [node name="Player" parent="." unique_id=1155853386 instance=ExtResource("5_xtmej")]
@@ -17215,5 +17215,6 @@ offset_left = -1.0
 offset_top = 6.0
 offset_right = -1.0
 offset_bottom = 6.0
+metadata/_edit_use_anchors_ = true
 
 [editable path="Bully"]

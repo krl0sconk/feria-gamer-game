@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="HealthRules" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="HealthRules" format=3 uid="uid://crym24dpbrip"]
 
-[ext_resource type="Script" path="res://scripts/rhythm/health_rules.gd" id="1_healthrules"]
+[ext_resource type="Script" uid="uid://ijcyl1gt0nsn" path="res://scripts/rhythm/health_rules.gd" id="1_healthrules"]
 
 [resource]
 script = ExtResource("1_healthrules")
-max_player_hp = 100
-miss_damage = 10
-perfect_heal = 0
-good_heal = 0
+miss_damage = 5
+perfect_heal = 5
+good_heal = 1

@@ -156,6 +156,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
+				get_viewport().gui_release_focus()
 				_on_left_press(event.position)
 			else:
 				_on_left_release()
