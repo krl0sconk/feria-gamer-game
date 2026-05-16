@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://0kd52o7rv4h4"]
 
 [ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_j55gp"]
-[ext_resource type="AudioStream" uid="uid://ctadvjmidvja0" path="res://assets/audio/music/Double trouble.wav" id="2_ptqwa"]
+[ext_resource type="AudioStream" uid="uid://f5s0a1ryr535" path="res://assets/audio/music/Double.wav" id="2_ptqwa"]
 
 [node name="Battle" unique_id=1239436012 instance=ExtResource("1_j55gp")]
 chart_path = "res://assets/charts/doubletrouble.json"
