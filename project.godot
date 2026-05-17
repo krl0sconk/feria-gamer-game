@@ -27,6 +27,7 @@ buses/default_bus_layout="res://resources/data/default_bus_layout.tres"
 [autoload]
 
 Gamemanager="*uid://uh4t4v30gsf5"
+SaveManager="*res://scripts/save/save_manager.gd"
 QuestManager="*res://scripts/quests/quest_manager.gd"
 ColorblindOverlay="*res://scenes/ui/colorblind_overlay.tscn"
 

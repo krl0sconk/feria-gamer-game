@@ -68,3 +68,15 @@ func _check_defeat() -> void:
 	if _player_hp <= 0 and not _level_over:
 		_level_over = true
 		level_ended.emit(false)
+
+
+func get_score() -> int:
+	return _score
+
+
+func get_player_hp() -> int:
+	return _player_hp
+
+
+func get_max_combo() -> int:
+	return _max_combo

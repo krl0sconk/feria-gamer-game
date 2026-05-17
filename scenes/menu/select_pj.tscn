@@ -193,6 +193,3 @@ custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "16"
 
-[connection signal="pressed" from="BoxContainer/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="GridContainer/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="GridContainer/Button6" to="." method="_on_button_6_pressed"]

@@ -18,6 +18,8 @@ var _is_walking: bool = false
 func _ready() -> void:
 	add_to_group("player")
 	set_skin(Gamemanager.selectedskin)
+	if Gamemanager.has_loaded_position:
+		global_position = Gamemanager.consume_loaded_position()
 
 
 func _physics_process(_delta: float) -> void:
