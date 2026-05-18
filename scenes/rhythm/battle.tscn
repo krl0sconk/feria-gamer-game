@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bvingimukyuml" path="res://scripts/rhythm/player_input.gd" id="1_mfpk0"]
 [ext_resource type="Script" uid="uid://dn7vhk2uqnqko" path="res://scripts/rhythm/battle.gd" id="1_uhcme"]
 [ext_resource type="Script" uid="uid://cfl3qp8a2g25k" path="res://scripts/rhythm/music_player.gd" id="2_uhcme"]
-[ext_resource type="AudioStream" uid="uid://3k46gq4atmrj" path="res://assets/audio/music/sweden.wav" id="3_1gs6b"]
+[ext_resource type="Texture2D" uid="uid://b6m04abyagtjo" path="res://assets/images/backgrounds/bgCuarto.png" id="2_w50uk"]
 [ext_resource type="Script" uid="uid://dfvovaonkjkbd" path="res://scripts/rhythm/metronome.gd" id="3_1ks2d"]
 [ext_resource type="Script" uid="uid://dtqvcn7nsksux" path="res://scripts/rhythm/composer.gd" id="4_1gs6b"]
 [ext_resource type="Script" uid="uid://kon1ljibvyeq" path="res://scripts/rhythm/judge.gd" id="5_3he3o"]
@@ -16,14 +16,22 @@
 [ext_resource type="PackedScene" uid="uid://dwu33kju7dyer" path="res://scenes/rhythm/battle_actors/enemy_battle.tscn" id="11_b6yct"]
 [ext_resource type="PackedScene" uid="uid://csq1t4ajb3h5x" path="res://scenes/rhythm/battle_actors/player_battle.tscn" id="12_vsbcs"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_w50uk"]
+blend_mode = 3
+
 [node name="Battle" type="Node2D" unique_id=1239436012]
 script = ExtResource("1_uhcme")
-chart_path = "res://assets/charts/SwedenChart.json"
+chart_path = ""
 lose_scene_path = "res://scenes/rhythm/lose_screen.tscn"
 win_scene_path = null
 fallback_map_scene_path = null
-initial_miss_guard_ms = 1500.0
 
+[node name="Background" type="Sprite2D" parent="." unique_id=287379656]
+material = SubResource("CanvasItemMaterial_w50uk")
+position = Vector2(-2.0000076, -3.8146973e-06)
+scale = Vector2(0.3429398, 0.3429398)
+texture = ExtResource("2_w50uk")
+flip_h = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=580671990]
 
@@ -32,7 +40,6 @@ script = ExtResource("1_mfpk0")
 metadata/_custom_type_script = "uid://bvingimukyuml"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1075957386]
-stream = ExtResource("3_1gs6b")
 script = ExtResource("2_uhcme")
 bpm = 72.0
 metadata/_custom_type_script = "uid://cfl3qp8a2g25k"
@@ -88,7 +95,9 @@ scale = Vector2(2, 2)
 notes_container = NodePath("../Notes")
 
 [node name="EnemyBattle" parent="." unique_id=446230275 instance=ExtResource("11_b6yct")]
-position = Vector2(496, -61)
+position = Vector2(544, 71)
 
 [node name="PlayerBattle" parent="." unique_id=323566821 instance=ExtResource("12_vsbcs")]
-position = Vector2(-456, -40)
+position = Vector2(-508, 81)
+
+[editable path="BattleHUD"]

@@ -166,22 +166,22 @@
 			"time_ms": 7459.45945945946
 		},
 		{
+			"action": "note_left",
+			"is_fake": true,
+			"time_ms": 8027.02702702703
+		},
+		{
 			"action": "note_down",
 			"is_fake": true,
 			"time_ms": 8027.02702702703
 		},
 		{
 			"action": "note_left",
-			"is_fake": true,
-			"time_ms": 8027.02702702703
-		},
-		{
-			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 10424.7104247104
 		},
 		{
-			"action": "note_left",
+			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 10424.7104247104
 		},
@@ -206,12 +206,12 @@
 			"time_ms": 10795.3667953668
 		},
 		{
-			"action": "note_right",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 10934.3629343629
 		},
 		{
-			"action": "note_left",
+			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 10934.3629343629
 		},
@@ -246,12 +246,12 @@
 			"time_ms": 12463.3204633205
 		},
 		{
-			"action": "note_left",
+			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 13111.9691119691
 		},
 		{
-			"action": "note_right",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 13111.9691119691
 		},
@@ -276,12 +276,12 @@
 			"time_ms": 13343.6293436293
 		},
 		{
-			"action": "note_down",
+			"action": "note_up",
 			"is_fake": false,
 			"time_ms": 13528.9575289575
 		},
 		{
-			"action": "note_up",
+			"action": "note_down",
 			"is_fake": false,
 			"time_ms": 13528.9575289575
 		},
@@ -301,12 +301,12 @@
 			"time_ms": 14594.5945945946
 		},
 		{
-			"action": "note_right",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 15428.5714285714
 		},
 		{
-			"action": "note_left",
+			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 15428.5714285714
 		},
@@ -371,12 +371,12 @@
 			"time_ms": 17513.5135135135
 		},
 		{
-			"action": "note_left",
+			"action": "note_down",
 			"is_fake": false,
 			"time_ms": 17976.833976834
 		},
 		{
-			"action": "note_down",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 17976.833976834
 		},
@@ -391,12 +391,12 @@
 			"time_ms": 18324.3243243243
 		},
 		{
-			"action": "note_left",
+			"action": "note_down",
 			"is_fake": false,
 			"time_ms": 18486.4864864865
 		},
 		{
-			"action": "note_down",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 18486.4864864865
 		},
@@ -441,12 +441,12 @@
 			"time_ms": 20108.1081081081
 		},
 		{
-			"action": "note_down",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 20525.0965250965
 		},
 		{
-			"action": "note_left",
+			"action": "note_down",
 			"is_fake": false,
 			"time_ms": 20525.0965250965
 		},
@@ -461,12 +461,12 @@
 			"time_ms": 21451.7374517375
 		},
 		{
-			"action": "note_up",
+			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 21729.7297297297
 		},
 		{
-			"action": "note_right",
+			"action": "note_up",
 			"is_fake": false,
 			"time_ms": 21729.7297297297
 		},
@@ -526,12 +526,12 @@
 			"time_ms": 25111.9691119691
 		},
 		{
-			"action": "note_left",
+			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 25575.2895752896
 		},
 		{
-			"action": "note_right",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 25575.2895752896
 		},
@@ -546,12 +546,12 @@
 			"time_ms": 25864.8648648649
 		},
 		{
-			"action": "note_up",
+			"action": "note_right",
 			"is_fake": true,
 			"time_ms": 27243.2432432432
 		},
 		{
-			"action": "note_right",
+			"action": "note_up",
 			"is_fake": true,
 			"time_ms": 27243.2432432432
 		},
@@ -566,12 +566,12 @@
 			"time_ms": 28216.2162162162
 		},
 		{
-			"action": "note_down",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 28586.8725868726
 		},
 		{
-			"action": "note_left",
+			"action": "note_down",
 			"is_fake": false,
 			"time_ms": 28586.8725868726
 		},
@@ -586,12 +586,12 @@
 			"time_ms": 28772.2007722008
 		},
 		{
-			"action": "note_up",
+			"action": "note_down",
 			"is_fake": false,
 			"time_ms": 29142.8571428571
 		},
 		{
-			"action": "note_down",
+			"action": "note_up",
 			"is_fake": false,
 			"time_ms": 29142.8571428571
 		},
@@ -671,12 +671,12 @@
 			"time_ms": 32664.0926640927
 		},
 		{
-			"action": "note_left",
+			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 33081.0810810811
 		},
 		{
-			"action": "note_right",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 33081.0810810811
 		},
@@ -831,22 +831,22 @@
 			"time_ms": 39486.4864864865
 		},
 		{
-			"action": "note_up",
-			"is_fake": false,
-			"time_ms": 43320.4633204633
-		},
-		{
 			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 43320.4633204633
 		},
 		{
-			"action": "note_left",
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 43320.4633204633
+		},
+		{
+			"action": "note_down",
 			"is_fake": false,
 			"time_ms": 43830.1158301158
 		},
 		{
-			"action": "note_down",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 43830.1158301158
 		},
@@ -876,12 +876,12 @@
 			"time_ms": 45034.749034749
 		},
 		{
-			"action": "note_down",
+			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 45637.0656370656
 		},
 		{
-			"action": "note_right",
+			"action": "note_down",
 			"is_fake": false,
 			"time_ms": 45637.0656370656
 		},
@@ -911,12 +911,12 @@
 			"time_ms": 47027.027027027
 		},
 		{
-			"action": "note_up",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 47583.0115830116
 		},
 		{
-			"action": "note_left",
+			"action": "note_up",
 			"is_fake": false,
 			"time_ms": 47583.0115830116
 		},
@@ -1041,22 +1041,22 @@
 			"time_ms": 52297.2972972973
 		},
 		{
-			"action": "note_down",
-			"is_fake": false,
-			"time_ms": 53467.1814671815
-		},
-		{
 			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 53467.1814671815
 		},
 		{
-			"action": "note_left",
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 53467.1814671815
+		},
+		{
+			"action": "note_up",
 			"is_fake": false,
 			"time_ms": 54115.8301158301
 		},
 		{
-			"action": "note_up",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 54115.8301158301
 		},
@@ -1081,22 +1081,22 @@
 			"time_ms": 55274.1312741313
 		},
 		{
-			"action": "note_up",
-			"is_fake": false,
-			"time_ms": 55737.4517374517
-		},
-		{
 			"action": "note_right",
 			"is_fake": false,
 			"time_ms": 55737.4517374517
 		},
 		{
-			"action": "note_left",
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 55737.4517374517
+		},
+		{
+			"action": "note_down",
 			"is_fake": false,
 			"time_ms": 56386.1003861004
 		},
 		{
-			"action": "note_down",
+			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 56386.1003861004
 		},
@@ -1124,6 +1124,426 @@
 			"action": "note_left",
 			"is_fake": false,
 			"time_ms": 57405.4054054054
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 58396.8315124512
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 58396.8315124512
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 58535.8276514474
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 58535.8276514474
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 58582.1596977794
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 58767.4878831076
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 58906.4840221037
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 58906.4840221037
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 59230.8083464281
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 59416.1365317562
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 59833.1249487447
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 60111.1172267369
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 60296.4454120651
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 60435.4415510613
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 61084.0901997099
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 61084.0901997099
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 61176.754292374
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 61176.754292374
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 61223.0863387061
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 61315.7504313701
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 61501.0786166983
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 61501.0786166983
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 61871.7349873547
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 62381.3874970072
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 62566.7156823354
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 63400.6925163122
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 63400.6925163122
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 63493.3566089763
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 63493.3566089763
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 63586.0207016404
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 63678.6847943045
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 64049.3411649609
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 64142.005257625
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 64466.3295819493
+		},
+		{
+			"action": "note_left",
+			"is_fake": true,
+			"time_ms": 64512.6616282813
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 64883.3179989377
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 65161.31027693
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 65300.3064159261
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 65485.6346012543
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 65948.9550645748
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 65948.9550645748
+		},
+		{
+			"action": "note_up",
+			"is_fake": true,
+			"time_ms": 66215.364330984
+		},
+		{
+			"action": "note_right",
+			"is_fake": true,
+			"time_ms": 66296.4454120651
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 66458.6075742273
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 66458.6075742273
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 66968.2600838798
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 66968.2600838798
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 67199.92031554
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 67338.9164545362
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 67524.2446398644
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 67616.9087325284
+		},
+		{
+			"action": "note_right",
+			"is_fake": true,
+			"time_ms": 67999.1481147678
+		},
+		{
+			"action": "note_up",
+			"is_fake": true,
+			"time_ms": 68080.2291958489
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 72891.8918918919
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 72891.8918918919
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 73337.8378378378
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 73581.0810810811
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 73581.0810810811
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 78623.3352661133
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 78623.3352661133
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 78762.3314051095
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 78762.3314051095
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 78808.6634514415
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 78993.9916367697
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 79132.9877757658
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 79132.9877757658
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 79457.3121000902
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 79642.6402854183
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 80059.6287024068
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 80337.620980399
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 80522.9491657272
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 80661.9453047234
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 81040.5405405405
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 81162.1621621622
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 81364.8648648649
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 81527.027027027
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 81729.7297297297
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 81851.3513513513
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 82094.5945945946
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 82297.2972972973
+		},
+		{
+			"action": "note_right",
+			"is_fake": false,
+			"time_ms": 82500.0
+		},
+		{
+			"action": "note_up",
+			"is_fake": false,
+			"time_ms": 82702.7027027027
+		},
+		{
+			"action": "note_down",
+			"is_fake": false,
+			"time_ms": 82986.4864864865
+		},
+		{
+			"action": "note_left",
+			"is_fake": false,
+			"time_ms": 82986.4864864865
 		}
 	],
 	"phases": [

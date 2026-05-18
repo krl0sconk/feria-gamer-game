@@ -27,9 +27,9 @@ buses/default_bus_layout="res://resources/data/default_bus_layout.tres"
 [autoload]
 
 Gamemanager="*uid://uh4t4v30gsf5"
-SaveManager="*res://scripts/save/save_manager.gd"
 QuestManager="*res://scripts/quests/quest_manager.gd"
 ColorblindOverlay="*res://scenes/ui/colorblind_overlay.tscn"
+SaveManager="*res://scripts/save/save_manager.gd"
 
 [display]
 
@@ -88,3 +88,4 @@ locale/translations=PackedStringArray("res://resources/data/translations_es.tran
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.03529412, 0.039215688, 0.078431375, 1)

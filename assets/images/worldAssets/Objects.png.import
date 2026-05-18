@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnyqccnjt7s5o"
-path="res://.godot/imported/FloorsOut.png-e1c9c8b8416019dbb6ec38df9e233488.ctex"
+uid="uid://70666mrpjchf"
+path="res://.godot/imported/Objects.png-18dcb8fafd39d050c38b70e67ff27250.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/backgrounds/FloorsOut.png"
-dest_files=["res://.godot/imported/FloorsOut.png-e1c9c8b8416019dbb6ec38df9e233488.ctex"]
+source_file="res://assets/images/worldAssets/Objects.png"
+dest_files=["res://.godot/imported/Objects.png-18dcb8fafd39d050c38b70e67ff27250.ctex"]
 
 [params]
 

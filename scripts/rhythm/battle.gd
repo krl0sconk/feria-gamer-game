@@ -136,7 +136,8 @@ func _process(delta: float) -> void:
 			break
 		var queue: Array = _pending_notes[action]
 		while not queue.is_empty() and current_ms > queue[0].hit_ms + _metronome.window_good:
-			_judge.evaluate("", queue[0].note, "Miss")
+			if not queue[0].note.is_fake:
+				_judge.evaluate("", queue[0].note, "Miss")
 			queue.pop_front()
 			if _level_ended:
 				break
@@ -183,11 +184,18 @@ func _on_button_pressed(action: String) -> void:
 		return
 	var current_ms: float = _get_current_ms()
 	var entry = queue[0]
+	if current_ms < entry.hit_ms - _metronome.window_good:
+		return
 	var timing: String = _metronome.evaluate_timing(current_ms, entry.hit_ms)
-	if timing != "Miss":
-		var effective_timing: String = "FakeHit" if entry.note.is_fake else timing
-		_judge.evaluate(action, entry.note, effective_timing)
-		queue.pop_front()
+	var effective_timing: String
+	if timing == "Miss":
+		effective_timing = "Miss"
+	elif entry.note.is_fake:
+		effective_timing = "FakeHit"
+	else:
+		effective_timing = timing
+	_judge.evaluate(action, entry.note, effective_timing)
+	queue.pop_front()
 
 
 func _on_note_result_debug(player_action: String, expected_action: String, timing: String, success: bool) -> void:
