@@ -15,9 +15,9 @@ script = ExtResource("1_questhud")
 clip_contents = true
 layout_mode = 0
 offset_left = 2.0
-offset_top = 4.0
+offset_top = 60.0
 offset_right = 370.0
-offset_bottom = 212.0
+offset_bottom = 268.0
 
 [node name="MarginContainer" type="MarginContainer" parent="QuestPanel" unique_id=1017727461]
 layout_mode = 2

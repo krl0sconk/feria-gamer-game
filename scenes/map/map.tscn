@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_drun"]
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="9_intr"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="10_qhud"]
+[ext_resource type="PackedScene" uid="uid://dkrd76y7ipit4" path="res://scenes/ui/pause_button.tscn" id="11_pausebtn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f17u5"]
 texture = ExtResource("1_gbofb")
@@ -17215,6 +17216,11 @@ offset_left = -1.0
 offset_top = 6.0
 offset_right = -1.0
 offset_bottom = 6.0
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseButton" parent="CanvasLayer" unique_id=2147483001 instance=ExtResource("11_pausebtn")]
+offset_top = 3.0
+offset_bottom = 3.0
 metadata/_edit_use_anchors_ = true
 
 [editable path="Bully"]
