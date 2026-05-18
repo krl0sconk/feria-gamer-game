@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://lose_screen001"]
+
+[ext_resource type="Script" path="res://scripts/rhythm/lose_screen.gd" id="1_lose"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/gameover.wav" id="2_gameover"]
+
+[node name="LoseScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_minimum_size = Vector2(1280, 720)
+mouse_filter = 0
+script = ExtResource("1_lose")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.18, 0.05, 0.05, 0.92)
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -160.0
+offset_right = 240.0
+offset_bottom = 160.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(420, 280)
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 64
+text = "DERROTA"
+
+[node name="Subtitle" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+text = "Volviendo al mapa..."
+
+[node name="Spacer" type="Control" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_gameover")
+volume_db = -14.0

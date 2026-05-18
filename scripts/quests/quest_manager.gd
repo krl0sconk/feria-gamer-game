@@ -57,8 +57,8 @@ func load_from_json(path: String) -> bool:
 		q.id = str(raw.get("id", "")).strip_edges()
 		q.title = str(raw.get("title", ""))
 		q.description = str(raw.get("description", ""))
-		q.visibility_state = int(raw.get("visibility_state", Quest.QuestVisibility.OCULTA))
-		q.progress_state = int(raw.get("progress_state", Quest.QuestState.ACTIVADA))
+		q.visibility_state = int(raw.get("visibility_state", Quest.QuestVisibility.OCULTA)) as Quest.QuestVisibility
+		q.progress_state = int(raw.get("progress_state", Quest.QuestState.ACTIVADA)) as Quest.QuestState
 
 		var req_variant: Variant = raw.get("requires_ids", [])
 		q.requires_ids.clear()
@@ -158,3 +158,40 @@ func _active_ids_array() -> Array[String]:
 	for id_variant in _active.keys():
 		ids.append(str(id_variant))
 	return ids
+
+
+## Serialización mínima del estado runtime de las quests para guardado.
+func serialize_state() -> Array:
+	var out: Array = []
+	for q_variant in _by_id.values():
+		var q: Quest = q_variant as Quest
+		out.append({
+			"id": q.id,
+			"visibility_state": int(q.visibility_state),
+			"progress_state": int(q.progress_state),
+		})
+	return out
+
+
+func apply_state(serialized: Array) -> void:
+	if typeof(serialized) != TYPE_ARRAY:
+		return
+	# Reset runtime trackers and apply saved states
+	_completed.clear()
+	_active.clear()
+	for item in serialized:
+		if typeof(item) != TYPE_DICTIONARY:
+			continue
+		var id := str(item.get("id", "")).strip_edges()
+		if not _by_id.has(id):
+			continue
+		var q: Quest = _by_id[id] as Quest
+		var vs: int = int(item.get("visibility_state", int(q.visibility_state)))
+		var ps: int = int(item.get("progress_state", int(q.progress_state)))
+		q.set_visibility_state(vs)
+		q.set_progress_state(ps)
+		if ps == Quest.QuestState.COMPLETADA:
+			_completed[id] = true
+		else:
+			_active[id] = q
+	active_quests_changed.emit(_active_ids_array())

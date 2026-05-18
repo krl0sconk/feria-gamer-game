@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c6mgedn0f8vh7"]
 
 [ext_resource type="Script" path="res://scripts/rhythm/win_screen.gd" id="1_win"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/victorysfx.wav" id="2_victorysfx"]
 
 [node name="WinScreen" type="Control"]
 layout_mode = 3
@@ -54,3 +55,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 text = "Continuar"
+
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_victorysfx")
+volume_db = -14.0

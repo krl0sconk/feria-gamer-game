@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dy850d3o5c0qc" path="res://scripts/editor/chart_editor.gd" id="1_editor"]
 [ext_resource type="PackedScene" uid="uid://cn4xtarget001" path="res://scenes/rhythm/note_target.tscn" id="2_target"]
+[ext_resource type="Script" uid="uid://ctsth7e1f3lrl" path="res://scripts/editor/timeline_bar.gd" id="3_timeline"]
+[ext_resource type="Script" uid="uid://c5m1n4p7xk2qr" path="res://scripts/editor/minimap.gd" id="4_minimap"]
 
 [node name="ChartEditor" type="Node2D" unique_id=2121485728]
 script = ExtResource("1_editor")
@@ -60,8 +62,8 @@ text = "Save Chart"
 
 [node name="FakeNoteCheck" type="CheckButton" parent="EditorUI/TopBar" unique_id=705786814]
 layout_mode = 2
-text = "Fake"
 tooltip_text = "Las notas colocadas serán trampas (glitched)"
+text = "Fake"
 
 [node name="Sep1" type="VSeparator" parent="EditorUI/TopBar" unique_id=1068759704]
 layout_mode = 2
@@ -145,15 +147,74 @@ min_value = 1.0
 max_value = 16.0
 value = 4.0
 
+[node name="TimelineBar" type="Control" parent="EditorUI" unique_id=1112233445]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("3_timeline")
+
+[node name="MinimapPanel" type="Control" parent="EditorUI" unique_id=556677889]
+layout_mode = 3
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = 80.0
+offset_right = -4.0
+offset_bottom = -52.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MinimapToolbar" type="HBoxContainer" parent="EditorUI/MinimapPanel" unique_id=556677891]
+layout_mode = 0
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+
+[node name="CopyBtn" type="Button" parent="EditorUI/MinimapPanel/MinimapToolbar" unique_id=556677892]
+layout_mode = 2
+text = "Copy"
+
+[node name="PasteBtn" type="Button" parent="EditorUI/MinimapPanel/MinimapToolbar" unique_id=556677893]
+layout_mode = 2
+text = "Paste"
+
+[node name="DeleteSelBtn" type="Button" parent="EditorUI/MinimapPanel/MinimapToolbar" unique_id=556677894]
+layout_mode = 2
+text = "Del Sel"
+
+[node name="SelectAllBtn" type="Button" parent="EditorUI/MinimapPanel/MinimapToolbar" unique_id=556677895]
+layout_mode = 2
+text = "All"
+
+[node name="Minimap" type="Control" parent="EditorUI/MinimapPanel" unique_id=556677896]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_minimap")
+
 [node name="BottomHint" type="Label" parent="EditorUI" unique_id=488782771]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 4.0
 offset_top = -26.0
-grow_horizontal = 2
+offset_right = -164.0
+grow_horizontal = 0
 grow_vertical = 0
-text = "Click=nota / drag para mover | RClick=borrar | Del=borrar cercana | P=play | A/D=seek | +/-=velocidad | Ctrl+S=guardar"
+text = "Timeline: click/drag para navegar | Click=nota / drag para mover | RClick=borrar | Del=borrar cercana | P=play | A/D=seek | +/-=velocidad | Ctrl+S=guardar | Ctrl+C/V=copy/paste | Ctrl+A=select all | Ctrl+D/Esc=borrar seleccin"
 horizontal_alignment = 1
 
 [node name="FileDialogAudio" type="FileDialog" parent="EditorUI" unique_id=862614332]
@@ -185,6 +246,10 @@ filters = PackedStringArray("*.json;Chart JSON")
 [connection signal="pressed" from="EditorUI/TopBar/SaveChartBtn" to="." method="_save_chart"]
 [connection signal="pressed" from="EditorUI/Phase2Bar/Audio2Btn" to="." method="_on_load_audio2_pressed"]
 [connection signal="pressed" from="EditorUI/Phase2Bar/SetPhase2Btn" to="." method="_on_set_phase2_start"]
+[connection signal="pressed" from="EditorUI/MinimapPanel/MinimapToolbar/CopyBtn" to="." method="copy_selected"]
+[connection signal="pressed" from="EditorUI/MinimapPanel/MinimapToolbar/PasteBtn" to="." method="paste_from_clipboard_at_playhead"]
+[connection signal="pressed" from="EditorUI/MinimapPanel/MinimapToolbar/DeleteSelBtn" to="." method="delete_selected"]
+[connection signal="pressed" from="EditorUI/MinimapPanel/MinimapToolbar/SelectAllBtn" to="." method="select_all_notes"]
 [connection signal="file_selected" from="EditorUI/FileDialogAudio" to="." method="_on_audio_file_selected"]
 [connection signal="file_selected" from="EditorUI/FileDialogAudio2" to="." method="_on_audio2_file_selected"]
 [connection signal="file_selected" from="EditorUI/FileDialogSave" to="." method="_on_save_file_selected"]

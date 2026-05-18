@@ -4,10 +4,14 @@ extends Node2D
 @export var chart_path: String = "res://assets/charts/test_chart.json"
 
 @export_file("*.tscn") var lose_scene_path: String = ""
-
 @export_file("*.tscn") var win_scene_path: String = "res://scenes/rhythm/win_screen.tscn"
-
 @export_file("*.tscn") var fallback_map_scene_path: String = "res://scenes/map/map.tscn"
+
+@export_group("Delays")
+## Pausa extra antes de que arranque la música (encima del pre-roll técnico).
+@export_range(0.0, 5.0, 0.1, "suffix:s") var intro_delay_s: float = 0.0
+## Pausa tras terminar el nivel antes de cambiar a la pantalla de resultado.
+@export_range(0.0, 5.0, 0.1, "suffix:s") var outro_delay_s: float = 1.5
 
 var _arrow_travel_ms: float = 0.0
 
@@ -85,7 +89,7 @@ func _load_chart() -> void:
 	_composer.load_chart(_chart_data.notes)
 	_last_note_ms = _chart_data.notes[_chart_data.notes.size() - 1].time_ms
 	_current_phase_idx = 0
-	_pre_roll_total_ms = _arrow_travel_ms
+	_pre_roll_total_ms = _arrow_travel_ms + intro_delay_s * 1000.0
 	_pre_roll_elapsed_ms = 0.0
 	_in_pre_roll = true
 
@@ -197,6 +201,8 @@ func _on_level_ended(player_won: bool) -> void:
 	_level_ended = true
 	print("[RHYTHM] Level ended — player_won=%s" % player_won)
 	_music_player.stop()
+	if outro_delay_s > 0.0:
+		await get_tree().create_timer(outro_delay_s).timeout
 	if player_won:
 		Gamemanager.pending_dialogue_result = "win"
 		_go_to_post_battle(win_scene_path)

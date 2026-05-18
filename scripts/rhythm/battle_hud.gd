@@ -27,6 +27,14 @@ const ACTION_TO_DIRECTION: Dictionary = {
 @export var combo_pop_scale: float = 1.5
 @export var combo_pop_seconds: float = 0.18
 
+@export_group("SFX")
+@export var perfect_sfx: AudioStream
+@export var good_sfx: AudioStream
+@export var miss_sfx: AudioStream
+@export var combo_sfx: AudioStream
+@export var sfx_bus: StringName = &"SFX"
+@export var sfx_volume_db: float = -14.0
+
 var _arrow_queues: Dictionary = {
 	"note_left": [], "note_down": [], "note_up": [], "note_right": [],
 }
@@ -44,6 +52,9 @@ var _combo_label: Label
 var _rating_feedback: RatingFeedback
 var _vignette: ColorRect
 var _vignette_tween: Tween
+var _rating_sfx_players: Dictionary = {}
+var _combo_sfx_player: AudioStreamPlayer = null
+var _last_combo_value: int = 0
 
 
 func _ready() -> void:
@@ -59,6 +70,7 @@ func _ready() -> void:
 	_fit_root_to_viewport()
 	get_viewport().size_changed.connect(_fit_root_to_viewport)
 	_setup_vignette()
+	_setup_sfx()
 
 
 # Mantiene el Root del HUD anclado al viewport real, conservando el design_size
@@ -79,6 +91,29 @@ func _setup_vignette() -> void:
 	_vignette.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_vignette.material = mat
 	_root.add_child(_vignette)
+
+
+func _setup_sfx() -> void:
+	_rating_sfx_players = {
+		"Perfect": _create_sfx_player(perfect_sfx),
+		"Good": _create_sfx_player(good_sfx),
+		"Miss": _create_sfx_player(miss_sfx),
+	}
+	_combo_sfx_player = _create_sfx_player(combo_sfx)
+
+
+func _create_sfx_player(stream: AudioStream) -> AudioStreamPlayer:
+	if stream == null:
+		return null
+	var player := AudioStreamPlayer.new()
+	player.stream = stream
+	player.volume_db = sfx_volume_db
+	if AudioServer.get_bus_index(sfx_bus) != -1:
+		player.bus = sfx_bus
+	else:
+		player.bus = &"Master"
+	add_child(player)
+	return player
 
 
 func _fit_root_to_viewport() -> void:
@@ -128,6 +163,16 @@ func _on_judge_note_result(player_action: String, expected_action: String, timin
 			_targets[flash_action].flash_miss()
 	if _rating_feedback != null:
 		_rating_feedback.on_note_result(player_action, expected_action, timing, success)
+	_play_rating_sfx(timing, success)
+
+
+func _play_rating_sfx(timing: String, success: bool) -> void:
+	var rating: String = timing if success else "Miss"
+	if rating != "Perfect" and rating != "Good":
+		rating = "Miss"
+	var player := _rating_sfx_players.get(rating, null) as AudioStreamPlayer
+	if player != null:
+		player.play()
 
 
 # Conectado a PlayerInput.button_pressed para iluminar el target al presionar.
@@ -180,6 +225,9 @@ func on_score_updated(score: int) -> void:
 
 
 func on_combo_updated(combo: int, _max_combo: int) -> void:
+	if combo > _last_combo_value and _combo_sfx_player != null:
+		_combo_sfx_player.play()
+	_last_combo_value = combo
 	if _combo_label == null:
 		return
 	if combo <= 0:

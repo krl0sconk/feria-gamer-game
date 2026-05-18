@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_healthrules")
-miss_damage = 1
+miss_damage = 5
+perfect_heal = 5
+good_heal = 1

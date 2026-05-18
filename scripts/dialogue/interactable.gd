@@ -20,6 +20,7 @@ signal interaction_started(id: String)
 signal battle_requested(battle_scene_path: String, npc_id: String)
 
 const INTERACT_ACTION := "Interact"
+const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 
 ## Identificador único dentro del Map. Se usa para reanudar el diálogo tras
 ## una batalla (Gamemanager.pending_npc_id).
@@ -69,12 +70,14 @@ var _runner: DialogueRunner = null
 #   "intro" → quizá dispara batalla
 #   "result" → solo reanuda al jugador
 var _current_mode: String = ""
+var _interaction_player: AudioStreamPlayer
 
 
 func _ready() -> void:
 	add_to_group("interactables")
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+	_interaction_player = _create_interaction_player()
 	_runner = get_node_or_null(dialogue_runner_path) as DialogueRunner
 	if _runner == null:
 		push_warning("Interactable '%s': no se encontró DialogueRunner en '%s'." % [id, str(dialogue_runner_path)])
@@ -113,6 +116,7 @@ func play_result_dialogue(result: String) -> void:
 
 
 func _start_intro() -> void:
+	_play_interaction_sfx()
 	if _data == null or _runner == null:
 		# Fallback: si no hay JSON/Runner pero sí batalla, preservamos el
 		# comportamiento del viejo quest_object (ir directo a la batalla).
@@ -160,3 +164,20 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		_player_in_range = false
+
+
+func _create_interaction_player() -> AudioStreamPlayer:
+	var player := AudioStreamPlayer.new()
+	player.name = "InteractionSfxPlayer"
+	player.stream = load(INTERACTION_PATH) as AudioStream
+	player.volume_db = -3.3
+	if AudioServer.get_bus_index(&"SFX") != -1:
+		player.bus = &"SFX"
+	add_child(player)
+	return player
+
+
+func _play_interaction_sfx() -> void:
+	if _interaction_player != null:
+		_interaction_player.stop()
+		_interaction_player.play()

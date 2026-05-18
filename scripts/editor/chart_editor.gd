@@ -24,6 +24,7 @@ const SPEED_OPTIONS: Array[float] = [0.25, 0.5, 0.75, 1.0]
 const BEAT_COLOR := Color(1.0, 1.0, 1.0, 0.35)
 const SUBDIV_COLOR := Color(1.0, 1.0, 1.0, 0.12)
 const PHASE_LINE_COLOR := Color(1.0, 0.45, 0.1, 0.85)
+const SELECTION_BORDER_COLOR := Color(1.0, 0.55, 0.1, 1.0)
 
 var _chart_data: ChartLoader.ChartData = ChartLoader.ChartData.new()
 var _is_playing: bool = false
@@ -38,6 +39,8 @@ var _subdivision: int = 4  # grid lines per beat
 var _current_editor_phase: int = 0
 var _dragging_note: NoteData = null
 var _drag_started: bool = false
+var _selected_notes: Array[NoteData] = []
+var _clipboard: Array[NoteData] = []
 
 @onready var _audio: AudioStreamPlayer = $AudioPlayer
 @onready var _audio2: AudioStreamPlayer = $AudioPlayer2
@@ -151,6 +154,13 @@ func _draw() -> void:
 			var by: float = target_y + (_current_ms - phase.start_ms) * PX_PER_MS
 			draw_line(Vector2(x_left - 10.0, by), Vector2(x_right + 10.0, by), PHASE_LINE_COLOR, 3.0)
 
+	# Bordes de selección en notas del editor principal
+	for note: NoteData in _selected_notes:
+		var ny: float = target_y + (_current_ms - note.time_ms) * PX_PER_MS
+		var nx: float = _notes_node.position.x + _lane_x[note.action] * _notes_node.scale.x - 20.0
+		if ny > -50.0 and ny < vp_size.y + 50.0:
+			draw_rect(Rect2(nx - 2.0, ny - 2.0, 40.0, 4.0), SELECTION_BORDER_COLOR, false, 2.0)
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -176,12 +186,24 @@ func _unhandled_input(event: InputEvent) -> void:
 	var handled := true
 	if event.keycode == KEY_ESCAPE:
 		get_viewport().gui_release_focus()
+		clear_selection()
 	elif event.keycode == KEY_P:
 		_toggle_play(not _is_playing)
 	elif event.keycode == KEY_DELETE:
-		_delete_nearest_note()
+		if not _selected_notes.is_empty():
+			delete_selected()
+		else:
+			_delete_nearest_note()
 	elif event.keycode == KEY_S and event.ctrl_pressed:
 		_save_chart()
+	elif event.keycode == KEY_C and event.ctrl_pressed:
+		copy_selected()
+	elif event.keycode == KEY_V and event.ctrl_pressed:
+		paste_from_clipboard(_current_ms)
+	elif event.keycode == KEY_A and event.ctrl_pressed:
+		select_all_notes()
+	elif event.keycode == KEY_D and event.ctrl_pressed:
+		delete_selected()
 	elif event.keycode == KEY_MINUS or event.keycode == KEY_EQUAL:
 		if event.keycode == KEY_MINUS:
 			_speed_index = maxi(_speed_index - 1, 0)
@@ -552,3 +574,93 @@ func _get_all_children(node: Node) -> Array[Node]:
 		result.append(child)
 		result.append_array(_get_all_children(child))
 	return result
+
+
+func select_note(note: NoteData, toggle: bool) -> void:
+	if toggle:
+		if _selected_notes.has(note):
+			_selected_notes.erase(note)
+		else:
+			_selected_notes.append(note)
+	else:
+		_selected_notes.clear()
+		_selected_notes.append(note)
+	queue_redraw()
+
+
+func select_notes_in_range(from_ms: float, to_ms: float) -> void:
+	var low: float = minf(from_ms, to_ms)
+	var high: float = maxf(from_ms, to_ms)
+	_selected_notes.clear()
+	for n: NoteData in _chart_data.notes:
+		if n.time_ms >= low and n.time_ms <= high:
+			_selected_notes.append(n)
+	queue_redraw()
+
+
+func select_all_notes() -> void:
+	_selected_notes.clear()
+	for n: NoteData in _chart_data.notes:
+		_selected_notes.append(n)
+	queue_redraw()
+
+
+func clear_selection() -> void:
+	if _selected_notes.is_empty():
+		return
+	_selected_notes.clear()
+	queue_redraw()
+
+
+func copy_selected() -> void:
+	if _selected_notes.is_empty():
+		return
+	_clipboard.clear()
+	var min_time: float = INF
+	for n: NoteData in _selected_notes:
+		if n.time_ms < min_time:
+			min_time = n.time_ms
+	for n: NoteData in _selected_notes:
+		var copy := NoteData.new()
+		copy.time_ms = n.time_ms - min_time
+		copy.action = n.action
+		copy.is_fake = n.is_fake
+		_clipboard.append(copy)
+	print("[EDITOR] Copiadas %d notas" % _clipboard.size())
+
+
+func paste_from_clipboard(at_ms: float) -> void:
+	if _clipboard.is_empty():
+		return
+	_selected_notes.clear()
+	for clip_note: NoteData in _clipboard:
+		var note := NoteData.new()
+		note.time_ms = at_ms + clip_note.time_ms
+		note.action = clip_note.action
+		note.is_fake = clip_note.is_fake
+		if note.time_ms < 0.0 or note.time_ms > _audio_length_ms:
+			continue
+		_chart_data.notes.append(note)
+		_selected_notes.append(note)
+		_arrow_map[note] = _create_arrow(note)
+	_chart_data.notes.sort_custom(func(a: NoteData, b: NoteData) -> bool: return a.time_ms < b.time_ms)
+	print("[EDITOR] Pegadas %d notas @ %s" % [_selected_notes.size(), _format_time(at_ms)])
+	queue_redraw()
+
+
+func paste_from_clipboard_at_playhead() -> void:
+	paste_from_clipboard(_current_ms)
+
+
+func delete_selected() -> void:
+	if _selected_notes.is_empty():
+		return
+	var count: int = _selected_notes.size()
+	for note: NoteData in _selected_notes:
+		if _arrow_map.has(note) and is_instance_valid(_arrow_map[note]):
+			_arrow_map[note].queue_free()
+		_arrow_map.erase(note)
+		_chart_data.notes.erase(note)
+	_selected_notes.clear()
+	print("[EDITOR] Eliminadas %d notas" % count)
+	queue_redraw()

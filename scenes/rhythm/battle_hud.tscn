@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://dow51mb1eicxf" path="res://assets/images/sprites/perfect.webp" id="3_e1ng7"]
 [ext_resource type="Texture2D" uid="uid://dnxy5s1lwxawj" path="res://assets/images/sprites/good.webp" id="4_tg0cx"]
 [ext_resource type="Texture2D" uid="uid://cyd55qdfmxmvh" path="res://assets/images/sprites/miss.webp" id="5_sdk5g"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/perfect.wav" id="6_perfectsfx"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/goodsfx.wav" id="7_goodsfx"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/misssfx.wav" id="8_misssfx"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/comboup.wav" id="9_comboup"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tg0cx"]
 content_margin_left = 2.0
@@ -59,6 +63,11 @@ corner_detail = 6
 script = ExtResource("1_hud")
 score_label_path = NodePath("Root/Node2D/ScoreLabel")
 combo_label_path = NodePath("Root/Node2D/ComboLabel")
+perfect_sfx = ExtResource("6_perfectsfx")
+good_sfx = ExtResource("7_goodsfx")
+miss_sfx = ExtResource("8_misssfx")
+combo_sfx = ExtResource("9_comboup")
+sfx_volume_db = -14.0
 
 [node name="Root" type="Control" parent="." unique_id=1064977845]
 custom_minimum_size = Vector2(1280, 720)
