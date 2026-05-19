@@ -17,16 +17,14 @@
 [ext_resource type="PackedScene" uid="uid://csq1t4ajb3h5x" path="res://scenes/rhythm/battle_actors/player_battle.tscn" id="12_vsbcs"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_w50uk"]
-blend_mode = 3
 
 [node name="Battle" type="Node2D" unique_id=1239436012]
 script = ExtResource("1_uhcme")
 chart_path = ""
 lose_scene_path = "res://scenes/rhythm/lose_screen.tscn"
-win_scene_path = null
-fallback_map_scene_path = null
 
 [node name="Background" type="Sprite2D" parent="." unique_id=287379656]
+modulate = Color(1, 1, 1, 0.5411765)
 material = SubResource("CanvasItemMaterial_w50uk")
 position = Vector2(-2.0000076, -3.8146973e-06)
 scale = Vector2(0.3429398, 0.3429398)
