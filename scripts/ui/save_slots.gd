@@ -104,6 +104,9 @@ func _on_slot_pressed(slot_idx: int) -> void:
 
 	if payload.size() == 0:
 		print("save_slots: payload vacío, lanzando select_pj.tscn sin crear save todavía")
+		var gm_empty := get_node_or_null("/root/Gamemanager")
+		if gm_empty != null and gm_empty.has_method("clear_loaded_save_state"):
+			gm_empty.clear_loaded_save_state()
 		# Asegurar SceneTree y cambiar a selector de personaje
 		var _tree = get_tree()
 		if _tree == null:
@@ -120,6 +123,9 @@ func _on_slot_pressed(slot_idx: int) -> void:
 	print("save_slots: scene_path='%s'" % scene_path)
 	if scene_path.ends_with("save_slots.tscn") or scene_path.ends_with("select_pj.tscn"):
 		print("save_slots: escena guardada apunta a menú/selector; tratando como partida nueva")
+		var gm_bad := get_node_or_null("/root/Gamemanager")
+		if gm_bad != null and gm_bad.has_method("clear_loaded_save_state"):
+			gm_bad.clear_loaded_save_state()
 		var _tree_bad := get_tree()
 		if _tree_bad == null:
 			var ml_bad = Engine.get_main_loop()
@@ -140,6 +146,9 @@ func _on_slot_pressed(slot_idx: int) -> void:
 			print("save_slots: escena encontrada: %s" % scene_path)
 	if scene_path == "":
 		print("save_slots: scene_path vacío, lanzando select_pj.tscn")
+		var gm_blank := get_node_or_null("/root/Gamemanager")
+		if gm_blank != null and gm_blank.has_method("clear_loaded_save_state"):
+			gm_blank.clear_loaded_save_state()
 		var _tree2 = get_tree()
 		if _tree2 == null:
 			var ml2 = Engine.get_main_loop()
@@ -161,6 +170,11 @@ func _on_slot_pressed(slot_idx: int) -> void:
 		var ny := float(pos_dict.get("y", 0.0))
 		if gm.has_method("set_loaded_position"):
 			gm.set_loaded_position(Vector2(nx, ny))
+		if gm.has_method("set_loaded_world_state"):
+			# `world_flags` se guarda en el payload raíz bajo la clave "world_flags".
+			# Antes se intentaba leerlo desde `player`, lo cual no coincide con
+			# el formato de `SaveManager._build_default_payload`.
+			gm.set_loaded_world_state(payload.get("world_flags", {}) as Dictionary)
 
 	# Cambiar a la escena guardada y esperar unos frames a que cargue
 	print("save_slots: cargando escena guardada: %s" % scene_path)

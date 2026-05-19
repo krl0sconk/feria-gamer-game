@@ -36,6 +36,8 @@ lose_dialogue_id = "defeat"
 battle_scene_path = "uid://pid50iwjx4dd"
 dialogue_voice = ExtResource("7_48h8m")
 
+[node name="BullySpawnManager" parent="." unique_id=1546335740 instance=ExtResource("12_bsmgr")]
+position = Vector2(0, 2)
 [node name="Sprite2D" parent="Bully" index="1" unique_id=858663745]
 sprite_frames = ExtResource("8_b56te")
 
