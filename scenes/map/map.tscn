@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_drun"]
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="9_intr"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="10_qhud"]
+[ext_resource type="PackedScene" uid="uid://vkjnvbwonuy7" path="res://scenes/map/bully_spawn_manager.tscn" id="12_bsmgr"]
 
 [node name="Mapa" type="Node2D" unique_id=1460360920]
 script = ExtResource("7_mapgd")

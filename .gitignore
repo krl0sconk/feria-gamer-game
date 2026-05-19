@@ -106,6 +106,9 @@ logs/
 secrets.cfg
 api_keys.txt
 
+# ── Claude Code ───────────────────────────────────────────
+.claude/
+
 # ── AI — archivos generados masivos (no versionar) ────────
 ai/generated/assets/*.png
 ai/generated/assets/*.jpg
