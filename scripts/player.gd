@@ -3,8 +3,8 @@ extends CharacterBody2D
 const SPEED := 300.0
 const FOOTSTEPS_PATH := "res://assets/audio/sfx/footsteps2.wav"
 const SKIN_FRAMES := {
-	"idle (1)": preload("res://assets/images/sprites/idle.tres"),
-	"idle pj2": preload("res://assets/images/sprites/idlepj2.tres")
+	"idle (1)": preload("res://assets/images/sprites/walkUpj1.tres"),
+	"idle pj2": preload("res://assets/images/sprites/walkUpj1.tres")
 }
 
 ## Controlado externamente por el Map (p. ej. DialogueRunner.dialogue_started

@@ -1,22 +1,22 @@
 [gd_scene format=3 uid="uid://wd4lvf24qo4"]
 
-[ext_resource type="Script" uid="uid://w7bcxi254f7r" path="res://scripts/player.gd" id="1_2pn7s"]
-[ext_resource type="SpriteFrames" uid="uid://dml6dir7kot8x" path="res://assets/images/sprites/idlepj2.tres" id="2_2pn7s"]
+[ext_resource type="Script" uid="uid://dkj2ppbk0kuoy" path="res://scripts/player.gd" id="1_2pn7s"]
+[ext_resource type="SpriteFrames" uid="uid://bo4uoj4g4aldq" path="res://assets/images/sprites/walkUpj1.tres" id="2_qpn8n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpn8n"]
+size = Vector2(19, 26)
 
 [node name="Player" type="CharacterBody2D" unique_id=1155853386]
 script = ExtResource("1_2pn7s")
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=251224483]
-position = Vector2(-32, 19)
-scale = Vector2(0.104375094, 0.10437509)
-sprite_frames = ExtResource("2_2pn7s")
-animation = &"Idle"
-autoplay = "Idle"
-frame_progress = 0.2209033
-offset = Vector2(21.556274, -21.020538)
+position = Vector2(0, -16)
+sprite_frames = ExtResource("2_qpn8n")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=992440153]
 zoom = Vector2(1.5, 1.5)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1922109911]
-polygon = PackedVector2Array(-23, -30, -19, -17, -20, -11, -7, -20, -5, -26, 5, -26, 9, -22, 4, -16, -18, -5, -9, 7, -1, 8, -8, 16, -8, 24, -15, 28, -19, 34, -11, 72, -4, 74, -4, 81, -21, 80, -25, 53, -31, 30, -33, 33, -33, 45, -35, 48, -35, 56, -36, 68, -34, 77, -35, 82, -41, 84, -45, 80, -43, 70, -44, 57, -44, 49, -44, 37, -45, 32, -49, 28, -53, 30, -56, 24, -60, 21, -61, 13, -60, 5, -52, -1, -46, -8, -54, -11, -51, -16, -45, -13, -45, -25, -42, -29, -38, -32, -30, -38, -29, -35, -24, -33)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=808124147]
+position = Vector2(0, -14)
+scale = Vector2(1, 1.1)
+shape = SubResource("RectangleShape2D_qpn8n")

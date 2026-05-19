@@ -100,3 +100,12 @@ velocity = ...; move_and_slide()# ✅ Godot 4
 
 ---
 
+## Comentarios en el código
+
+- Solo cuando el **POR QUÉ** no es obvio: invariante sutil, workaround de un bug, restricción oculta.
+- Concisos y **en español**.
+- No explicar lo que el código hace (los nombres de variables/funciones ya lo dicen).
+- No referencias a tareas, issues ni al llamador ("usado por X", "arreglado en issue #N").
+
+---
+

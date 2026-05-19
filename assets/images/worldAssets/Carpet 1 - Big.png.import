@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6r73vs8a0g5i"
-path="res://.godot/imported/cartel.jpg-924950a88f2ded9ff898f49cf565067d.ctex"
+uid="uid://dswysfg7bk48v"
+path="res://.godot/imported/Carpet 1 - Big.png-d91ec0076508e715bfc30095fe9c3504.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/sprites/cartel.jpg"
-dest_files=["res://.godot/imported/cartel.jpg-924950a88f2ded9ff898f49cf565067d.ctex"]
+source_file="res://assets/images/worldAssets/Carpet 1 - Big.png"
+dest_files=["res://.godot/imported/Carpet 1 - Big.png-d91ec0076508e715bfc30095fe9c3504.ctex"]
 
 [params]
 

@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://dow51mb1eicxf" path="res://assets/images/sprites/perfect.webp" id="3_e1ng7"]
 [ext_resource type="Texture2D" uid="uid://dnxy5s1lwxawj" path="res://assets/images/sprites/good.webp" id="4_tg0cx"]
 [ext_resource type="Texture2D" uid="uid://cyd55qdfmxmvh" path="res://assets/images/sprites/miss.webp" id="5_sdk5g"]
-[ext_resource type="AudioStream" path="res://assets/audio/sfx/perfect.wav" id="6_perfectsfx"]
-[ext_resource type="AudioStream" path="res://assets/audio/sfx/goodsfx.wav" id="7_goodsfx"]
-[ext_resource type="AudioStream" path="res://assets/audio/sfx/misssfx.wav" id="8_misssfx"]
-[ext_resource type="AudioStream" path="res://assets/audio/sfx/comboup.wav" id="9_comboup"]
+[ext_resource type="AudioStream" uid="uid://bgdlvvlhchrr1" path="res://assets/audio/sfx/perfect.wav" id="6_perfectsfx"]
+[ext_resource type="AudioStream" uid="uid://bsm718gj3rp0j" path="res://assets/audio/sfx/goodsfx.wav" id="7_goodsfx"]
+[ext_resource type="AudioStream" uid="uid://bgtjbf3y036m1" path="res://assets/audio/sfx/misssfx.wav" id="8_misssfx"]
+[ext_resource type="AudioStream" uid="uid://dx0j4rpovyev" path="res://assets/audio/sfx/comboup.wav" id="9_comboup"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tg0cx"]
 content_margin_left = 2.0
@@ -67,7 +67,6 @@ perfect_sfx = ExtResource("6_perfectsfx")
 good_sfx = ExtResource("7_goodsfx")
 miss_sfx = ExtResource("8_misssfx")
 combo_sfx = ExtResource("9_comboup")
-sfx_volume_db = -14.0
 
 [node name="Root" type="Control" parent="." unique_id=1064977845]
 custom_minimum_size = Vector2(1280, 720)
@@ -137,7 +136,7 @@ offset_right = 167.0
 offset_bottom = 121.0
 theme_override_fonts/font = ExtResource("2_tg0cx")
 theme_override_font_sizes/font_size = 50
-text = "999999"
+text = "0"
 horizontal_alignment = 1
 
 [node name="ComboLabel" type="Label" parent="Root/Node2D" unique_id=1120566323]
@@ -148,7 +147,6 @@ offset_right = 165.0
 offset_bottom = 153.0
 theme_override_fonts/font = ExtResource("2_tg0cx")
 theme_override_font_sizes/font_size = 28
-text = "x2"
 horizontal_alignment = 1
 
 [node name="RatingFeedback" type="Node" parent="Root" unique_id=161066017]

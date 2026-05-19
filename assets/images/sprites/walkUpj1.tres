@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bo4uoj4g4aldq"]
+
+[ext_resource type="Texture2D" uid="uid://cn2ni63qfdd3" path="res://assets/images/sprites/pj1Walk.png" id="1_bygpi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77qhi"]
+atlas = ExtResource("1_bygpi")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eorbj"]
+atlas = ExtResource("1_bygpi")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5r4h"]
+atlas = ExtResource("1_bygpi")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vuyco"]
+atlas = ExtResource("1_bygpi")
+region = Rect2(48, 0, 16, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77qhi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eorbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5r4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vuyco")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

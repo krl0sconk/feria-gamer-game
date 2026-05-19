@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxhgsx2bxfni1"
-path="res://.godot/imported/texture2.jpg-07cdff3554a18c631873e68f982eea95.ctex"
+uid="uid://dx5gd5d5b4hwc"
+path="res://.godot/imported/Dark Table - Sideways.png-f921c0170deaa8b63eff97d6bad5020b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/sprites/texture2.jpg"
-dest_files=["res://.godot/imported/texture2.jpg-07cdff3554a18c631873e68f982eea95.ctex"]
+source_file="res://assets/images/worldAssets/Dark Table - Sideways.png"
+dest_files=["res://.godot/imported/Dark Table - Sideways.png-f921c0170deaa8b63eff97d6bad5020b.ctex"]
 
 [params]
 
