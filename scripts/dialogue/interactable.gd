@@ -43,6 +43,13 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 ## terminar. Vacío = solo dialoga y vuelve al control del jugador.
 @export_file("*.tscn") var battle_scene_path: String = ""
 
+## Chart opcional para la batalla asociada. Vacío = usa el default de Battle.
+@export_file("*.json") var battle_chart_path: String = ""
+
+## Si es true, este interactuable se elimina después de mostrar el diálogo
+## de victoria. Útil para bullies secundarios de un solo uso.
+@export var despawn_on_win: bool = false
+
 ## Ruta absoluta al DialogueRunner dentro del árbol de la escena actual.
 ## Por defecto apunta a un hermano del Map llamado "DialogueRunner".
 @export var dialogue_runner_path: NodePath = NodePath("../DialogueRunner")
@@ -70,7 +77,9 @@ var _runner: DialogueRunner = null
 #   "intro" → quizá dispara batalla
 #   "result" → solo reanuda al jugador
 var _current_mode: String = ""
+var _despawn_after_result: bool = false
 var _interaction_player: AudioStreamPlayer
+var _defeat_reported: bool = false
 
 
 func _ready() -> void:
@@ -110,6 +119,18 @@ func play_result_dialogue(result: String) -> void:
 	if dialogue_id.is_empty() or _data == null or _runner == null:
 		return
 	_current_mode = "result"
+
+	# Si el jugador ganó, notificar a cualquier sistema de estado mundial
+	# (por ejemplo BullySpawnManager) que este NPC fue derrotado, para que
+	# actualicen su estado persistente y ajusten charts/rematch.
+	if result == "win" and not _defeat_reported:
+		_defeat_reported = true
+		for node in get_tree().get_nodes_in_group("world_state_serializers"):
+			if node == null:
+				continue
+			if node.has_method("on_npc_defeated"):
+				node.call("on_npc_defeated", id)
+
 	_runner.play(_data, dialogue_id, dialogue_voice)
 
 
@@ -134,6 +155,11 @@ func _on_dialogue_finished(dialogue_id: String) -> void:
 		return
 	var mode := _current_mode
 	_current_mode = ""
+	# Note: interactuables (especialmente bullies secundarios) no se eliminan
+	# automáticamente tras una victoria. El comportamiento de permanecer en
+	# el mapa es el esperado; si se desea conservabilidad por diseño, se
+	# controla por la propiedad `despawn_on_win`, pero por defecto no se
+	# realiza `queue_free` aquí.
 	if mode == "intro" and not battle_scene_path.is_empty():
 		# Comprobamos que el id terminado sea el de intro (safety — por si el
 		# Runner reprodujo otra cosa por encima).
@@ -152,6 +178,7 @@ func _queue_battle_transition() -> void:
 	Gamemanager.return_position = return_position
 	Gamemanager.pending_npc_id = id
 	Gamemanager.pending_dialogue_result = ""
+	Gamemanager.set_pending_battle_chart_path(battle_chart_path)
 	battle_requested.emit(battle_scene_path, id)
 	get_tree().change_scene_to_file(battle_scene_path)
 

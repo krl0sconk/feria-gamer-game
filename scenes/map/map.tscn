@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="9_intr"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="10_qhud"]
 [ext_resource type="PackedScene" uid="uid://dkrd76y7ipit4" path="res://scenes/ui/pause_button.tscn" id="11_pausebtn"]
+[ext_resource type="PackedScene" path="res://scenes/map/bully_spawn_manager.tscn" id="12_bsmgr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f17u5"]
 texture = ExtResource("1_gbofb")
@@ -17202,6 +17203,9 @@ win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
 battle_scene_path = "uid://pid50iwjx4dd"
 dialogue_voice = ExtResource("7_48h8m")
+
+[node name="BullySpawnManager" parent="." unique_id=1546335740 instance=ExtResource("12_bsmgr")]
+position = Vector2(0, 2)
 
 [node name="Player" parent="." unique_id=1155853386 instance=ExtResource("5_xtmej")]
 position = Vector2(160, 398)

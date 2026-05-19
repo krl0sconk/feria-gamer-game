@@ -148,13 +148,27 @@ func _build_default_payload(slot_idx: int) -> Dictionary:
 		if ref.has_method("get_max_combo"):
 			scores["max_combo"] = ref.get_max_combo()
 
+	var world_flags: Dictionary = {}
+	for node in get_tree().get_nodes_in_group("world_state_serializers"):
+		if node == null:
+			continue
+		if not node.has_method("get_save_state_key") or not node.has_method("serialize_state"):
+			continue
+		var key := str(node.call("get_save_state_key")).strip_edges()
+		if key.is_empty():
+			continue
+		var state: Variant = node.call("serialize_state")
+		if typeof(state) != TYPE_DICTIONARY:
+			continue
+		world_flags[key] = state
+
 	var out := {
 		"save_version": 1,
 		"metadata": meta,
 		"player": player_data,
 		"quests": quests_data,
 		"scores": scores,
-		"world_flags": {}
+		"world_flags": world_flags
 	}
 	return out
 

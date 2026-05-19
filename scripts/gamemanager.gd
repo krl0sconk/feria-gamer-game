@@ -11,6 +11,13 @@ var loaded_position: Vector2 = Vector2.ZERO
 ## Indica si `loaded_position` tiene un valor pendiente por consumir.
 var has_loaded_position: bool = false
 
+## Estado de mundo cargado desde un save. Lo consumen sistemas como el
+## spawner de bullies al entrar al mapa.
+var loaded_world_state: Dictionary = {}
+
+## Indica si `loaded_world_state` tiene datos pendientes por consumir.
+var has_loaded_world_state: bool = false
+
 ## Escena a la que se debe volver tras la batalla (típicamente Map.tscn).
 var return_scene_path: String = ""
 
@@ -22,6 +29,9 @@ var pending_npc_id: String = ""
 
 ## Resultado de la batalla pendiente: "win", "lose" o "" (ninguno).
 var pending_dialogue_result: String = ""
+
+## Override opcional del chart que debe usar la siguiente batalla.
+var pending_battle_chart_path: String = ""
 
 
 func _ready() -> void:
@@ -44,6 +54,7 @@ func clear_pending_dialogue() -> void:
 	return_position = Vector2.ZERO
 	pending_npc_id = ""
 	pending_dialogue_result = ""
+	pending_battle_chart_path = ""
 
 
 func set_loaded_position(position: Vector2) -> void:
@@ -54,3 +65,32 @@ func set_loaded_position(position: Vector2) -> void:
 func consume_loaded_position() -> Vector2:
 	has_loaded_position = false
 	return loaded_position
+
+
+func set_loaded_world_state(world_state: Dictionary) -> void:
+	loaded_world_state = world_state if typeof(world_state) == TYPE_DICTIONARY else {}
+	has_loaded_world_state = not loaded_world_state.is_empty()
+
+
+func consume_loaded_world_state() -> Dictionary:
+	has_loaded_world_state = false
+	var result := loaded_world_state
+	loaded_world_state = {}
+	return result
+
+
+func clear_loaded_save_state() -> void:
+	loaded_position = Vector2.ZERO
+	has_loaded_position = false
+	loaded_world_state = {}
+	has_loaded_world_state = false
+
+
+func set_pending_battle_chart_path(chart_path: String) -> void:
+	pending_battle_chart_path = chart_path
+
+
+func consume_pending_battle_chart_path() -> String:
+	var result := pending_battle_chart_path
+	pending_battle_chart_path = ""
+	return result

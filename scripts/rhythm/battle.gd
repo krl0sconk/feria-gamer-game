@@ -48,6 +48,9 @@ var _pre_roll_total_ms: float = 0.0
 
 
 func _ready() -> void:
+	var override_chart_path: String = Gamemanager.consume_pending_battle_chart_path()
+	if override_chart_path != "":
+		chart_path = override_chart_path
 	_connect_game_loop()
 	_connect_hud()
 	_load_chart()
