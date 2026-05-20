@@ -44,6 +44,7 @@ id = "guitarra"
 mission_id = "1.1.1"
 dialogue_json_path = "res://assets/dialogues/guitarra_tutorial.json"
 battle_scene_path = "uid://bpjxvmi61lq5"
+battle_chart_path = "res://assets/charts/tutorial.json"
 battle_music = ExtResource("4_tmqj2")
 despawn_on_win = true
 

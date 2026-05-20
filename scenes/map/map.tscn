@@ -34,7 +34,7 @@ tile_set = ExtResource("2_sqgf4")
 tile_map_data = PackedByteArray("AAAVABIAAAAFAAMAAAAUABIAAAAEAAMAAAAZABIAAAAEAAMAAAAaABIAAAAEAAMAAAAUABYAAAAHAAcAAAAUABcAAAAHAAgAAAAVABYAAAAHAAcAAAAVABcAAAAHAAgAAAATABUAAAAIAAcAAAATABYAAAAIAAgAAAAaABYAAAAHAAcAAAAaABcAAAAHAAgAAAAZABYAAAAHAAcAAAAZABcAAAAHAAgAAAAXABYAAAAHAAcAAAAXABcAAAAHAAgAAAAUABMAAAAHAAcAAAAUABQAAAAHAAgAAAAaABMAAAAHAAcAAAAaABQAAAAHAAgAAAAZABMAAAAHAAcAAAAZABQAAAAHAAgAAAAZAAoAAAAKAAkAAAAZAAsAAAAKAAoAAAAaAAoAAAALAAkAAAAaAAsAAAALAAoAAAAPAAgAAAAJAAcAAAAPAAkAAAAJAAgAAAD9/w4AAAABAAAAAAD+/w4AAAACAAAAAAABAA4AAAAAAAAAAAACAA4AAAABAAAAAAADAA4AAAACAAAAAAAEAA4AAAADAAAAAAD//w4AAAADAAAAAAAAAA4AAAAFAAkAAAD3/w4AAAABAAAAAAD4/w4AAAACAAAAAADr/w4AAAABAAAAAADs/w4AAAACAAAAAADk/w4AAAAAAAAAAADl/w4AAAABAAAAAADg/w4AAAAFAAkAAADg/w8AAAAFAAoAAADk/w8AAAAAAAEAAADl/w8AAAABAAEAAADm/w4AAAACAAAAAADm/w8AAAACAAEAAADk/xAAAAAAAAIAAADl/xAAAAABAAIAAADm/xAAAAACAAIAAADq/w4AAAAAAAAAAADq/w8AAAAAAAEAAADr/w8AAAABAAEAAADs/w8AAAACAAEAAADt/w4AAAADAAAAAADt/w8AAAADAAEAAADq/xAAAAAAAAIAAADr/xAAAAABAAIAAADs/xAAAAACAAIAAADt/xAAAAADAAIAAAD2/w4AAAAAAAAAAAD2/w8AAAAAAAEAAAD2/xAAAAAAAAIAAAD3/w8AAAABAAEAAAD3/xAAAAABAAIAAAD4/w8AAAACAAEAAAD4/xAAAAACAAIAAAD5/w4AAAADAAAAAAD5/w8AAAADAAEAAAD5/xAAAAADAAIAAAD8/w4AAAAAAAAAAAD8/w8AAAAAAAEAAAD8/xAAAAAAAAIAAAD9/w8AAAABAAEAAAD9/xAAAAABAAIAAAD+/w8AAAACAAEAAAD+/xAAAAACAAIAAAD//w8AAAADAAEAAAD//xAAAAADAAIAAAABAA8AAAAAAAEAAAABABAAAAAAAAIAAAACAA8AAAABAAEAAAACABAAAAABAAIAAAADAA8AAAACAAEAAAADABAAAAACAAIAAAAEAA8AAAADAAEAAAAEABAAAAADAAIAAADk/xkAAAABAAsAAADl/xkAAAACAAsAAADm/xkAAAADAAsAAADq/xkAAAABAAsAAADr/xkAAAACAAsAAADs/xkAAAACAAsAAADt/xkAAAADAAsAAAD2/xkAAAABAAsAAAD3/xkAAAACAAsAAAD4/xkAAAACAAsAAAD5/xkAAAADAAsAAAD8/xkAAAABAAsAAAD9/xkAAAACAAsAAAD+/xkAAAACAAsAAAD//xkAAAADAAsAAAABABkAAAABAAsAAAACABkAAAACAAsAAAADABkAAAACAAsAAAAEABkAAAADAAsAAAAFAA8AAAAEAAgAAADw/w8AAAAEAAgAAAAgABEAAAAGAAoAAAAgABIAAAAGAAsAAAAhABEAAAAHAAoAAAAhABIAAAAHAAsAAAAiABIAAAAIAAsAAAAkABEAAAAGAAoAAAAkABIAAAAGAAsAAAAlABEAAAAHAAoAAAAlABIAAAAHAAsAAAAmABIAAAAIAAsAAAAoABEAAAAGAAoAAAAoABIAAAAGAAsAAAApABEAAAAHAAoAAAApABIAAAAHAAsAAAAqABIAAAAIAAsAAAAsABEAAAAGAAoAAAAsABIAAAAGAAsAAAAtABEAAAAHAAoAAAAtABIAAAAHAAsAAAAuABIAAAAIAAsAAAAwABEAAAAGAAoAAAAwABIAAAAGAAsAAAAxABEAAAAHAAoAAAAxABIAAAAHAAsAAAAyABIAAAAIAAsAAAAwABMAAAAGAAoAAAAwABQAAAAGAAsAAAAxABMAAAAHAAoAAAAxABQAAAAHAAsAAAAyABQAAAAIAAsAAAAsABMAAAAGAAoAAAAsABQAAAAGAAsAAAAtABMAAAAHAAoAAAAtABQAAAAHAAsAAAAuABQAAAAIAAsAAAAoABMAAAAGAAoAAAAoABQAAAAGAAsAAAApABMAAAAHAAoAAAApABQAAAAHAAsAAAAqABQAAAAIAAsAAAAkABMAAAAGAAoAAAAkABQAAAAGAAsAAAAlABMAAAAHAAoAAAAlABQAAAAHAAsAAAAmABQAAAAIAAsAAAAgABMAAAAGAAoAAAAgABQAAAAGAAsAAAAhABMAAAAHAAoAAAAhABQAAAAHAAsAAAAiABQAAAAIAAsAAAAgABYAAAAGAAoAAAAgABcAAAAGAAsAAAAhABYAAAAHAAoAAAAhABcAAAAHAAsAAAAiABcAAAAIAAsAAAAkABYAAAAGAAoAAAAkABcAAAAGAAsAAAAlABYAAAAHAAoAAAAlABcAAAAHAAsAAAAmABcAAAAIAAsAAAAoABYAAAAGAAoAAAAoABcAAAAGAAsAAAApABYAAAAHAAoAAAApABcAAAAHAAsAAAAqABcAAAAIAAsAAAAsABYAAAAGAAoAAAAsABcAAAAGAAsAAAAtABYAAAAHAAoAAAAtABcAAAAHAAsAAAAuABcAAAAIAAsAAAAwABYAAAAGAAoAAAAwABcAAAAGAAsAAAAxABYAAAAHAAoAAAAxABcAAAAHAAsAAAAyABcAAAAIAAsAAAAsABkAAAAGAAoAAAAsABoAAAAGAAsAAAAtABkAAAAHAAoAAAAtABoAAAAHAAsAAAAuABoAAAAIAAsAAAAoABkAAAAGAAoAAAAoABoAAAAGAAsAAAApABkAAAAHAAoAAAApABoAAAAHAAsAAAAqABoAAAAIAAsAAAAkABkAAAAGAAoAAAAkABoAAAAGAAsAAAAlABkAAAAHAAoAAAAlABoAAAAHAAsAAAAmABoAAAAIAAsAAAAgABkAAAAGAAoAAAAgABoAAAAGAAsAAAAhABkAAAAHAAoAAAAhABoAAAAHAAsAAAAiABoAAAAIAAsAAAAoABsAAAAHAAcAAAAoABwAAAAHAAgAAAApABsAAAAHAAcAAAApABwAAAAHAAgAAAAlABsAAAAHAAcAAAAlABwAAAAHAAgAAAAhABsAAAAHAAcAAAAhABwAAAAHAAgAAAAgABsAAAAHAAcAAAAgABwAAAAHAAgAAAAsABsAAAAHAAcAAAAsABwAAAAHAAgAAAA=")
 tile_set = ExtResource("2_sqgf4")
 
-[node name="Bully" parent="." unique_id=2126418452 instance=ExtResource("9_intr")]
+[node name="Bully1salon" parent="." unique_id=2126418452 instance=ExtResource("9_intr")]
 position = Vector2(827, 641)
 id = "bully_01"
 dialogue_json_path = "res://assets/dialogues/bully_01.json"
@@ -43,7 +43,98 @@ lose_dialogue_id = "defeat"
 battle_scene_path = "uid://pid50iwjx4dd"
 dialogue_voice = ExtResource("7_48h8m")
 
-[node name="Sprite2D" parent="Bully" index="1" unique_id=858663745]
+[node name="Sprite2D" parent="Bully1salon" index="1" unique_id=858663745]
+sprite_frames = ExtResource("8_b56te")
+
+[node name="Bully2salon" parent="." unique_id=878503726 instance=ExtResource("9_intr")]
+position = Vector2(-191, 830)
+id = "bully_02"
+mission_id = "2.1.2"
+dialogue_json_path = "res://assets/dialogues/bully_01.json"
+win_dialogue_id = "victory"
+lose_dialogue_id = "defeat"
+battle_scene_path = "uid://pid50iwjx4dd"
+dialogue_voice = ExtResource("7_48h8m")
+
+[node name="Sprite2D" parent="Bully2salon" index="1" unique_id=858663745]
+sprite_frames = ExtResource("8_b56te")
+
+[node name="Bully1pasillo" parent="." unique_id=953260643 instance=ExtResource("9_intr")]
+position = Vector2(-369, 818)
+id = "bully_03"
+mission_id = "3.1.1"
+dialogue_json_path = "res://assets/dialogues/bully_01.json"
+win_dialogue_id = "victory"
+lose_dialogue_id = "defeat"
+battle_scene_path = "uid://pid50iwjx4dd"
+dialogue_voice = ExtResource("7_48h8m")
+
+[node name="Sprite2D" parent="Bully1pasillo" index="1" unique_id=858663745]
+sprite_frames = ExtResource("8_b56te")
+
+[node name="Bully2pasillo" parent="." unique_id=1681983886 instance=ExtResource("9_intr")]
+position = Vector2(-560, 820)
+id = "bully_04"
+mission_id = "3.1.2"
+dialogue_json_path = "res://assets/dialogues/bully_01.json"
+win_dialogue_id = "victory"
+lose_dialogue_id = "defeat"
+battle_scene_path = "uid://pid50iwjx4dd"
+dialogue_voice = ExtResource("7_48h8m")
+
+[node name="Sprite2D" parent="Bully2pasillo" index="1" unique_id=858663745]
+sprite_frames = ExtResource("8_b56te")
+
+[node name="Bullycibernetic" parent="." unique_id=1888292220 instance=ExtResource("9_intr")]
+position = Vector2(-757, 820)
+id = "bully_05"
+mission_id = "4.1.2"
+dialogue_json_path = "res://assets/dialogues/bully_01.json"
+win_dialogue_id = "victory"
+lose_dialogue_id = "defeat"
+battle_scene_path = "uid://pid50iwjx4dd"
+dialogue_voice = ExtResource("7_48h8m")
+
+[node name="Sprite2D" parent="Bullycibernetic" index="1" unique_id=858663745]
+sprite_frames = ExtResource("8_b56te")
+
+[node name="Bullyfinalboss" parent="." unique_id=2106598975 instance=ExtResource("9_intr")]
+position = Vector2(-757, 820)
+id = "bully_06"
+mission_id = "5.1.2"
+dialogue_json_path = "res://assets/dialogues/bully_01.json"
+win_dialogue_id = "victory"
+lose_dialogue_id = "defeat"
+battle_scene_path = "uid://pid50iwjx4dd"
+dialogue_voice = ExtResource("7_48h8m")
+
+[node name="Sprite2D" parent="Bullyfinalboss" index="1" unique_id=858663745]
+sprite_frames = ExtResource("8_b56te")
+
+[node name="compañero" parent="." unique_id=1626096613 instance=ExtResource("9_intr")]
+position = Vector2(1965, 1087)
+id = "compañero1"
+mission_id = "2.1.1"
+talk_mission_ids = Array[String](["2.1.1", "2.1.4"])
+dialogue_json_path = "res://assets/dialogues/bully_01.json"
+win_dialogue_id = "victory"
+lose_dialogue_id = "defeat"
+dialogue_voice = ExtResource("7_48h8m")
+
+[node name="Sprite2D" parent="compañero" index="1" unique_id=858663745]
+sprite_frames = ExtResource("8_b56te")
+
+[node name="compañero2" parent="." unique_id=598222318 instance=ExtResource("9_intr")]
+position = Vector2(2111, 1074)
+id = "compañero2"
+mission_id = "4.1.1"
+talk_mission_ids = Array[String](["4.1.1", "4.1.3"])
+dialogue_json_path = "res://assets/dialogues/bully_01.json"
+win_dialogue_id = "victory"
+lose_dialogue_id = "defeat"
+dialogue_voice = ExtResource("7_48h8m")
+
+[node name="Sprite2D" parent="compañero2" index="1" unique_id=858663745]
 sprite_frames = ExtResource("8_b56te")
 
 [node name="BullySpawnManager" parent="." unique_id=1546335740 instance=ExtResource("12_bsmgr")]
@@ -53,6 +144,7 @@ position = Vector2(682, 424)
 scale = Vector2(2, 2)
 
 [node name="DialogueRunner" parent="." unique_id=1990822026 instance=ExtResource("8_drun")]
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=116998281]
 
@@ -66,9 +158,17 @@ metadata/_edit_use_anchors_ = true
 [node name="PauseButton" parent="CanvasLayer" unique_id=1741637342 instance=ExtResource("10_f17u5")]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1762772091]
+visible = false
 offset_left = -832.0
 offset_top = 621.0
 offset_right = -792.0
 offset_bottom = 661.0
 
-[editable path="Bully"]
+[editable path="Bully1salon"]
+[editable path="Bully2salon"]
+[editable path="Bully1pasillo"]
+[editable path="Bully2pasillo"]
+[editable path="Bullycibernetic"]
+[editable path="Bullyfinalboss"]
+[editable path="compañero"]
+[editable path="compañero2"]
