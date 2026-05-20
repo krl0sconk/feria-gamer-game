@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://0ltynt3nflaq"]
 
 [ext_resource type="TileSet" uid="uid://bicvtix43wtf1" path="res://assets/images/worldAssets/tileset.tres" id="1_f7eyw"]
+[ext_resource type="Script" uid="uid://qumc2qlcxntl" path="res://scripts/map/room.gd" id="1_roomgd"]
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/player.tscn" id="5_f7eyw"]
 [ext_resource type="SpriteFrames" uid="uid://qufpvcx3qv5n" path="res://assets/images/worldAssets/Guitar.tres" id="6_nq8on"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="6_qfafv"]
@@ -9,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="8_dew3o"]
 
 [node name="Room" type="Node2D" unique_id=1476698445]
+script = ExtResource("1_roomgd")
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=1279367209]
 scale = Vector2(2.5, 2.5)
@@ -34,7 +36,6 @@ scale = Vector2(2, 2)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1760532851]
 
 [node name="QuestHud" parent="CanvasLayer" unique_id=797831044 instance=ExtResource("7_nq8on")]
-visible = false
 offset_left = -1.0
 offset_top = 6.0
 offset_right = -1.0
@@ -45,6 +46,7 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(118, -53)
 scale = Vector2(0.5, 0.5)
 id = "cartel"
+mission_id = "1.1.1"
 dialogue_json_path = "res://assets/dialogues/guitarra_tutorial.json"
 battle_scene_path = "uid://bpjxvmi61lq5"
 
