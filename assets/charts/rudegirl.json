@@ -3790,7 +3790,11 @@
 		{
 			"audio": "res://assets/audio/music/Grand final.wav",
 			"bpm": 123.0,
-			"start_ms": 72003.9215087891
+			"start_ms": 72003.9215087891,
+			"transition": {
+				"dialogue_path": "res://assets/dialogues/rudegirl_transition.json",
+				"dialogue_id": "phase_transition"
+			}
 		}
 	],
 	"title": "Rude Girl"

@@ -27,3 +27,15 @@ func get_position_ms() -> float:
 func switch_stream(new_stream: AudioStream, offset_sec: float) -> void:
 	stream = new_stream
 	play(maxf(offset_sec, 0.0))
+
+
+func fade_in(duration: float) -> void:
+	var tween := create_tween()
+	tween.tween_property(self, "volume_db", 0.0, duration)
+	await tween.finished
+
+
+func fade_out(duration: float) -> void:
+	var tween := create_tween()
+	tween.tween_property(self, "volume_db", -80.0, duration)
+	await tween.finished

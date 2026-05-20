@@ -185,6 +185,14 @@ func _on_arrow_expired(action: String, arrow: NoteArrow) -> void:
 	_arrow_queues[action].erase(arrow)
 
 
+func clear_arrows() -> void:
+	for action in _arrow_queues:
+		for arrow in _arrow_queues[action]:
+			if is_instance_valid(arrow):
+				(arrow as NoteArrow).destroy()
+		_arrow_queues[action].clear()
+
+
 func _consume_oldest_arrow(action: String) -> void:
 	var queue: Array = _arrow_queues[action]
 	if queue.is_empty():

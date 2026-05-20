@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://battlehud001" path="res://scenes/rhythm/battle_hud.tscn" id="9_hud01"]
 [ext_resource type="PackedScene" uid="uid://dwu33kju7dyer" path="res://scenes/rhythm/battle_actors/enemy_battle.tscn" id="11_b6yct"]
 [ext_resource type="PackedScene" uid="uid://csq1t4ajb3h5x" path="res://scenes/rhythm/battle_actors/player_battle.tscn" id="12_vsbcs"]
+[ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="13_drun"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_w50uk"]
 
@@ -97,5 +98,8 @@ position = Vector2(544, 71)
 
 [node name="PlayerBattle" parent="." unique_id=323566821 instance=ExtResource("12_vsbcs")]
 position = Vector2(-508, 81)
+
+[node name="TransitionRunner" parent="." instance=ExtResource("13_drun")]
+layer = 20
 
 [editable path="BattleHUD"]

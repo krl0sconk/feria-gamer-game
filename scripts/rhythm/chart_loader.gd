@@ -5,6 +5,8 @@ class PhaseData:
 	var bpm: float = 120.0
 	var audio_path: String = ""
 	var start_ms: float = 0.0
+	var transition_dialogue_path: String = ""
+	var transition_dialogue_id: String = ""
 
 class ChartData:
 	var title: String = ""
@@ -57,6 +59,9 @@ static func load_json(path: String) -> ChartData:
 			p.bpm = float(raw_p.get("bpm", 120.0))
 			p.audio_path = str(raw_p.get("audio", ""))
 			p.start_ms = float(raw_p.get("start_ms", 0.0))
+			var raw_t: Dictionary = raw_p.get("transition", {})
+			p.transition_dialogue_path = str(raw_t.get("dialogue_path", ""))
+			p.transition_dialogue_id   = str(raw_t.get("dialogue_id", ""))
 			result.phases.append(p)
 	else:
 		var p := PhaseData.new()

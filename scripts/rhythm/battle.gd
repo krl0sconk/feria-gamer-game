@@ -23,6 +23,8 @@ var _arrow_travel_ms: float = 0.0
 @onready var _referee: Referee = $Referee
 @onready var _enemy_gauge: EnemyGauge = $EnemyGauge
 @onready var _hud: BattleHUD = $BattleHUD
+@onready var _enemy_battle: Node2D = $EnemyBattle
+@onready var _transition_runner: DialogueRunner = $TransitionRunner
 
 @onready var _left_target: NoteTarget = $Targets/LeftTarget
 @onready var _down_target: NoteTarget = $Targets/DownTarget
@@ -40,6 +42,7 @@ var _level_ended: bool = false
 var _chart_data: ChartLoader.ChartData
 var _current_phase_idx: int = 0
 var _phase_audio_offset_ms: float = 0.0
+var _phase_transition_active: bool = false
 
 # Pre-roll: tiempo negativo antes de que arranque la música para que las
 # notas iniciales tengan margen de viaje hasta el target.
@@ -101,7 +104,7 @@ func _load_chart() -> void:
 
 func _get_current_ms() -> float:
 	if _in_pre_roll:
-		return _pre_roll_elapsed_ms - _pre_roll_total_ms
+		return _pre_roll_elapsed_ms - _pre_roll_total_ms + _phase_audio_offset_ms
 	return _fallback_ms if _using_fallback else _music_player.get_position_ms() + _phase_audio_offset_ms
 
 
@@ -116,12 +119,16 @@ func _get_song_total_ms() -> float:
 func _process(delta: float) -> void:
 	if _level_ended:
 		return
+	if _phase_transition_active:
+		return
 	if _in_pre_roll:
 		_pre_roll_elapsed_ms += delta * 1000.0
 		if _pre_roll_elapsed_ms >= _pre_roll_total_ms:
 			_in_pre_roll = false
 			if _music_player.stream != null:
+				_music_player.volume_db = -80.0
 				_music_player.play()
+				_music_player.fade_in(1.0)
 			else:
 				_using_fallback = true
 	elif _using_fallback:
@@ -158,7 +165,40 @@ func _check_phase_transition(current_ms: float) -> void:
 	var next: ChartLoader.PhaseData = _chart_data.phases[_current_phase_idx + 1]
 	if current_ms >= next.start_ms:
 		_current_phase_idx += 1
-		_apply_phase(_current_phase_idx, current_ms)
+		if next.transition_dialogue_path != "" and _transition_runner != null:
+			_begin_phase_transition(_current_phase_idx)
+		else:
+			_apply_phase(_current_phase_idx, current_ms)
+
+
+func _begin_phase_transition(idx: int) -> void:
+	_phase_transition_active = true
+	await _music_player.fade_out(0.5)
+	_music_player.stop()
+	for action in _pending_notes:
+		_pending_notes[action].clear()
+	_hud.clear_arrows()
+	var enemy_sprite := _enemy_battle.get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
+	if enemy_sprite != null:
+		var tween := create_tween()
+		tween.tween_property(enemy_sprite, "modulate", Color(2.0, 2.0, 2.0, 1.0), 0.15)
+		tween.tween_property(enemy_sprite, "modulate", Color.WHITE, 0.3)
+		await tween.finished
+	var phase: ChartLoader.PhaseData = _chart_data.phases[idx]
+	var data := DialogueLoader.load_json(phase.transition_dialogue_path)
+	_transition_runner.play(data, phase.transition_dialogue_id)
+	await _transition_runner.dialogue_finished
+	# Preparar fase 2 con mini-pre-roll para que las flechas tengan tiempo de caer
+	_phase_audio_offset_ms = phase.start_ms
+	_metronome.bpm = phase.bpm
+	if not phase.audio_path.is_empty():
+		var new_stream = load(phase.audio_path)
+		if new_stream is AudioStream:
+			_music_player.stream = new_stream
+	_pre_roll_total_ms = _arrow_travel_ms
+	_pre_roll_elapsed_ms = 0.0
+	_in_pre_roll = true
+	_phase_transition_active = false
 
 
 func _apply_phase(idx: int, current_ms: float) -> void:
@@ -187,7 +227,7 @@ func _on_note_expected(note: NoteData) -> void:
 func _on_button_pressed(action: String) -> void:
 	var queue: Array = _pending_notes[action]
 	if queue.is_empty():
-		if not _in_pre_roll and not _level_ended:
+		if not _in_pre_roll and not _level_ended and not _phase_transition_active:
 			_referee.on_spam_press()
 		return
 	var current_ms: float = _get_current_ms()
@@ -216,9 +256,8 @@ func _on_level_ended(player_won: bool) -> void:
 		return
 	_level_ended = true
 	print("[RHYTHM] Level ended — player_won=%s" % player_won)
+	await _music_player.fade_out(maxf(outro_delay_s, 0.3))
 	_music_player.stop()
-	if outro_delay_s > 0.0:
-		await get_tree().create_timer(outro_delay_s).timeout
 	if player_won:
 		Gamemanager.pending_dialogue_result = "win"
 		_go_to_post_battle(win_scene_path)

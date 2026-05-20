@@ -1,0 +1,12 @@
+{
+	"version": 1,
+	"dialogues": {
+		"phase_transition": {
+			"lines": [
+				{ "speaker": "Rude Girl", "text": "¿Creías que era todo?" },
+				{ "speaker": "Rude Girl", "text": "Ahora va la parte seria." },
+				{ "speaker": "Jugador",   "text": "...Estoy listo." }
+			]
+		}
+	}
+}

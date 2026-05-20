@@ -5,6 +5,10 @@
 
 [node name="Battle" unique_id=1239436012 instance=ExtResource("1_xn5ui")]
 chart_path = "res://assets/charts/rudegirl.json"
+win_scene_path = null
+fallback_map_scene_path = null
+intro_delay_s = null
+outro_delay_s = null
 
 [node name="MusicPlayer" parent="." index="3" unique_id=1075957386]
 stream = ExtResource("2_lug5d")
