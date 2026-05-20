@@ -25,22 +25,6 @@ tile_set = ExtResource("1_f7eyw")
 tile_map_data = PackedByteArray("AAAGAAEAAAAGAAcAAAAGAAIAAAAGAAgAAAAGAAAAAAAEAAQAAAADAP//AAAIAAIAAAAEAP//AAAHAAIAAAAAAPz/BwAAAAIAACAAAPv/BwACAAEAACADAP7/AAAGAAEAAAD9/wIAAAAFAAsAAAD7/wEAAAAKAAUAAAD7/wIAAAAKAAYAAAD8/wEAAAAKAAUAAAD8/wIAAAAKAAYAAAAAAP3/AQAJAAcAAAAAAP7/AQAJAAgAAAADAP3/AAAGAAAAAAA=")
 tile_set = ExtResource("1_f7eyw")
 
-[node name="Player" parent="." unique_id=1155853386 instance=ExtResource("5_f7eyw")]
-position = Vector2(-59, 50)
-scale = Vector2(2, 2)
-
-[node name="DialogueRunner" parent="." unique_id=429825200 instance=ExtResource("6_qfafv")]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1760532851]
-
-[node name="QuestHud" parent="CanvasLayer" unique_id=797831044 instance=ExtResource("7_nq8on")]
-visible = false
-offset_left = -1.0
-offset_top = 6.0
-offset_right = -1.0
-offset_bottom = 6.0
-metadata/_edit_use_anchors_ = true
-
 [node name="Guitarra_Tutorial" parent="." unique_id=878503726 instance=ExtResource("8_dew3o")]
 position = Vector2(118, -53)
 scale = Vector2(0.5, 0.5)
@@ -58,5 +42,21 @@ position = Vector2(-9.536743e-07, 1.1920929e-06)
 rotation = -0.75049156
 scale = Vector2(2.546875, 2.40625)
 texture = ExtResource("7_f7eyw")
+
+[node name="Player" parent="." unique_id=1155853386 instance=ExtResource("5_f7eyw")]
+position = Vector2(-59, 50)
+scale = Vector2(2, 2)
+
+[node name="DialogueRunner" parent="." unique_id=429825200 instance=ExtResource("6_qfafv")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1760532851]
+
+[node name="QuestHud" parent="CanvasLayer" unique_id=797831044 instance=ExtResource("7_nq8on")]
+visible = false
+offset_left = -1.0
+offset_top = 6.0
+offset_right = -1.0
+offset_bottom = 6.0
+metadata/_edit_use_anchors_ = true
 
 [editable path="Guitarra_Tutorial"]
