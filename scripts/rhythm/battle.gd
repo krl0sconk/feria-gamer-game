@@ -39,6 +39,7 @@ var _survival_declared: bool = false
 var _level_ended: bool = false
 var _chart_data: ChartLoader.ChartData
 var _current_phase_idx: int = 0
+var _phase_audio_offset_ms: float = 0.0
 
 # Pre-roll: tiempo negativo antes de que arranque la música para que las
 # notas iniciales tengan margen de viaje hasta el target.
@@ -92,6 +93,7 @@ func _load_chart() -> void:
 	_composer.load_chart(_chart_data.notes)
 	_last_note_ms = _chart_data.notes[_chart_data.notes.size() - 1].time_ms
 	_current_phase_idx = 0
+	_phase_audio_offset_ms = 0.0
 	_pre_roll_total_ms = _arrow_travel_ms + intro_delay_s * 1000.0
 	_pre_roll_elapsed_ms = 0.0
 	_in_pre_roll = true
@@ -100,7 +102,7 @@ func _load_chart() -> void:
 func _get_current_ms() -> float:
 	if _in_pre_roll:
 		return _pre_roll_elapsed_ms - _pre_roll_total_ms
-	return _fallback_ms if _using_fallback else _music_player.get_position_ms()
+	return _fallback_ms if _using_fallback else _music_player.get_position_ms() + _phase_audio_offset_ms
 
 
 func _get_song_total_ms() -> float:
@@ -165,6 +167,7 @@ func _apply_phase(idx: int, current_ms: float) -> void:
 	if not phase.audio_path.is_empty():
 		var new_stream = load(phase.audio_path)
 		if new_stream is AudioStream:
+			_phase_audio_offset_ms = phase.start_ms
 			var offset: float = (current_ms - phase.start_ms) / 1000.0
 			_music_player.switch_stream(new_stream, offset)
 	print("[RHYTHM] Phase %d → BPM %.1f @ %.0fms" % [idx, phase.bpm, current_ms])
@@ -184,6 +187,8 @@ func _on_note_expected(note: NoteData) -> void:
 func _on_button_pressed(action: String) -> void:
 	var queue: Array = _pending_notes[action]
 	if queue.is_empty():
+		if not _in_pre_roll and not _level_ended:
+			_referee.on_spam_press()
 		return
 	var current_ms: float = _get_current_ms()
 	var entry = queue[0]
