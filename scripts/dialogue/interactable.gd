@@ -32,11 +32,19 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 
 ## Identificador de misión secundaria (formato: x-x). Ejemplo: "1-3".
 @export var secondary_mission_id: String = ""
+## Inspector flags: cómo se completa la(s) misión(es) vinculada(s)
+@export var complete_mission_on_dialogue: bool = false
+@export var complete_mission_on_win: bool = false
+## Lista de IDs de misión que se completan por número de interacciones
+## Ej: ["1.2.1", "1.2.2"] → completar la primera tras la 1ª charla, la segunda tras la 2ª.
+@export var talk_mission_ids: Array[String] = []
 ## Archivo JSON con los diálogos de este interactuable.
 @export_file("*.json") var dialogue_json_path: String = ""
 
 ## Diálogo que se reproduce al interactuar por primera vez.
 @export var intro_dialogue_id: String = "intro"
+## Diálogo alternativo si la misión vinculada ya está completada
+@export var intro_dialogue_completed_id: String = ""
 
 ## Diálogo que se reproduce al volver al Map tras GANAR una batalla
 ## lanzada por este interactuable. Vacío = nada.
@@ -88,10 +96,38 @@ var _runner: DialogueRunner = null
 var _current_mode: String = ""
 var _interaction_player: AudioStreamPlayer
 var _defeat_reported: bool = false
+var _talk_count: int = 0
+
+
+## --- Save/Load hooks for world state serialization --------------------
+func get_save_state_key() -> String:
+	if id == null or id.strip_edges() == "":
+		return ""
+	return "interactable_%s" % str(id)
+
+func serialize_state() -> Dictionary:
+	return {
+		"talk_count": int(_talk_count),
+		"defeat_reported": bool(_defeat_reported),
+	}
+
+func apply_state(state: Dictionary) -> void:
+	if typeof(state) != TYPE_DICTIONARY:
+		return
+	_talk_count = int(state.get("talk_count", int(_talk_count)))
+	_defeat_reported = bool(state.get("defeat_reported", bool(_defeat_reported)))
+	# If the saved state indicates this NPC was defeated, notify world systems
+	if _defeat_reported:
+		for node in get_tree().get_nodes_in_group("world_state_serializers"):
+			pass
+	return
+## -----------------------------------------------------------------------
 
 
 func _ready() -> void:
 	add_to_group("interactables")
+	# Register for world save/load so this interactuable can persist talk count
+	add_to_group("world_state_serializers")
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	_interaction_player = _create_interaction_player()
@@ -102,6 +138,15 @@ func _ready() -> void:
 		_runner.dialogue_finished.connect(_on_dialogue_finished)
 	if not dialogue_json_path.is_empty():
 		_data = DialogueLoader.load_json(dialogue_json_path)
+
+	# If a world state was loaded, try to restore our saved state (non-consuming)
+	var gm: Node = get_node_or_null("/root/Gamemanager") as Node
+	if gm != null and bool(gm.has_loaded_world_state):
+		var key := get_save_state_key()
+		if key != "" and typeof(gm.loaded_world_state) == TYPE_DICTIONARY and (gm.loaded_world_state as Dictionary).has(key):
+			var st: Dictionary = (gm.loaded_world_state as Dictionary).get(key) as Dictionary
+			if typeof(st) == TYPE_DICTIONARY:
+				apply_state(st)
 
 
 func _process(_delta: float) -> void:
@@ -145,6 +190,14 @@ func play_result_dialogue(result: String) -> void:
 			if secondary_mission_id != null and secondary_mission_id.strip_edges() != "":
 				qm.call("on_enemy_defeated", str(secondary_mission_id))
 
+		# Si el inspector indica completar la misión al ganar la batalla,
+		# usar `complete_quest` para marcarla como completada inmediatamente.
+		if complete_mission_on_win and qm != null and qm.has_method("complete_quest"):
+			if mission_id != null and mission_id.strip_edges() != "":
+				qm.call("complete_quest", str(mission_id))
+			if secondary_mission_id != null and secondary_mission_id.strip_edges() != "":
+				qm.call("complete_quest", str(secondary_mission_id))
+
 	if dialogue_id.is_empty() or _data == null or _runner == null:
 		return
 	_current_mode = "result"
@@ -162,9 +215,19 @@ func _start_intro() -> void:
 		if not battle_scene_path.is_empty():
 			_queue_battle_transition()
 		return
+	var chosen_intro := intro_dialogue_id
+	var qm := get_node_or_null("/root/QuestManager")
+	if qm != null:
+		if mission_id != null and mission_id.strip_edges() != "" and qm.is_completed(mission_id):
+			if intro_dialogue_completed_id != "":
+				chosen_intro = intro_dialogue_completed_id
+		elif secondary_mission_id != null and secondary_mission_id.strip_edges() != "" and qm.is_completed(secondary_mission_id):
+			if intro_dialogue_completed_id != "":
+				chosen_intro = intro_dialogue_completed_id
+
 	_current_mode = "intro"
 	interaction_started.emit(id)
-	_runner.play(_data, intro_dialogue_id, dialogue_voice)
+	_runner.play(_data, chosen_intro, dialogue_voice)
 
 
 func _on_dialogue_finished(dialogue_id: String) -> void:
@@ -178,11 +241,33 @@ func _on_dialogue_finished(dialogue_id: String) -> void:
 	# el mapa es el esperado; si se desea conservabilidad por diseño, se
 	# controla por la propiedad `despawn_on_win`, pero por defecto no se
 	# realiza `queue_free` aquí.
-	if mode == "intro" and not battle_scene_path.is_empty():
-		# Comprobamos que el id terminado sea el de intro (safety — por si el
-		# Runner reprodujo otra cosa por encima).
-		if dialogue_id == intro_dialogue_id:
-			_queue_battle_transition()
+	if mode == "intro":
+		# Si este interactuable tiene misiones por charla, contabilizamos
+		# y marcamos la misión correspondiente cuando aplique.
+		if talk_mission_ids.size() > 0:
+			_talk_count += 1
+			var idx := _talk_count - 1
+			if idx >= 0 and idx < talk_mission_ids.size():
+				var qm := get_node_or_null("/root/QuestManager")
+				var qid := str(talk_mission_ids[idx]).strip_edges()
+				if qid != "" and qm != null and qm.has_method("complete_quest"):
+					qm.call("complete_quest", qid)
+
+		# Si el inspector indica que la(s) misión(es) vinculada(s) se deben
+		# completar tras el diálogo, notificamos al QuestManager.
+		if complete_mission_on_dialogue:
+			var qm2 := get_node_or_null("/root/QuestManager")
+			if qm2 != null and qm2.has_method("complete_quest"):
+				if mission_id != null and mission_id.strip_edges() != "":
+					qm2.call("complete_quest", str(mission_id))
+				if secondary_mission_id != null and secondary_mission_id.strip_edges() != "":
+					qm2.call("complete_quest", str(secondary_mission_id))
+		
+		if not battle_scene_path.is_empty():
+			# Comprobamos que el id terminado sea el de intro (safety — por si el
+			# Runner reprodujo otra cosa por encima).
+			if dialogue_id == intro_dialogue_id:
+				_queue_battle_transition()
 
 
 func _queue_battle_transition() -> void:
