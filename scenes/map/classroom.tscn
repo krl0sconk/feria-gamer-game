@@ -11,6 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="9_g04a8"]
 [ext_resource type="AudioStream" uid="uid://drk4wj32fsdl1" path="res://assets/audio/music/cool_guy.wav" id="10_0ibgl"]
 [ext_resource type="AudioStream" uid="uid://cwkwfig0lcpac" path="res://assets/audio/music/rude_girl.wav" id="10_o0av7"]
+[ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="11_battle"]
+[ext_resource type="Script" uid="uid://qumc2qlcxntl" path="res://scripts/map/room.gd" id="12_exitctrl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(43, 72)
 
 [node name="Mapa" type="Node2D" unique_id=1460360920]
 script = ExtResource("1_46iph")
@@ -37,7 +42,7 @@ id = "bully_01"
 dialogue_json_path = "res://assets/dialogues/bully_01.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
-battle_scene_path = "uid://pid50iwjx4dd"
+	battle_scene = ExtResource("11_battle")
 dialogue_voice = ExtResource("4_g52xa")
 
 [node name="Sprite2D" parent="Bully" index="1" unique_id=858663745]
@@ -63,6 +68,18 @@ offset_right = -450.0
 offset_bottom = 295.0
 metadata/_edit_use_anchors_ = true
 
+[node name="ExitController" type="Node2D" parent="." unique_id=2000000003]
+script = ExtResource("12_exitctrl")
+exit_scene_path = "res://scenes/map/map.tscn"
+exit_unlock_quest_id = "2.1.0"
+
+[node name="ExitArea" type="Area2D" parent="ExitController" unique_id=2000000004]
+position = Vector2(0, 0)
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitController/ExitArea" unique_id=2000000005]
+shape = SubResource("RectangleShape2D_exit")
+
 [node name="compañero" parent="." unique_id=878503726 instance=ExtResource("3_0ibgl")]
 position = Vector2(767, 204)
 id = "compañero1"
@@ -86,7 +103,7 @@ complete_mission_on_win = true
 dialogue_json_path = "res://assets/dialogues/bully_01.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
-battle_scene_path = "uid://pid50iwjx4dd"
+	battle_scene = ExtResource("11_battle")
 battle_chart_path = "res://assets/charts/coolguy.json"
 battle_music = ExtResource("10_0ibgl")
 dialogue_voice = ExtResource("4_g52xa")
@@ -102,7 +119,7 @@ complete_mission_on_win = true
 dialogue_json_path = "res://assets/dialogues/bully_01.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
-battle_scene_path = "uid://pid50iwjx4dd"
+	battle_scene = ExtResource("11_battle")
 battle_chart_path = "res://assets/charts/rudegirl.json"
 battle_music = ExtResource("10_o0av7")
 dialogue_voice = ExtResource("4_g52xa")

@@ -10,7 +10,7 @@ const DEFAULT_PROFILE := {
 	"intro_dialogue_id": "intro",
 	"win_dialogue_id": "victory",
 	"lose_dialogue_id": "defeat",
-	"battle_scene_path": "res://scenes/rhythm/battle.tscn",
+	"battle_scene": preload("res://scenes/rhythm/battle.tscn"),
 	"battle_chart_path": "res://assets/charts/tutorial.json",
 	# Optional alternative chart to use when the player rematches or the
 	# NPC was already defeated previously.
@@ -204,7 +204,7 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 	bully.intro_dialogue_id = DEFAULT_PROFILE["intro_dialogue_id"]
 	bully.win_dialogue_id = DEFAULT_PROFILE["win_dialogue_id"]
 	bully.lose_dialogue_id = DEFAULT_PROFILE["lose_dialogue_id"]
-	bully.battle_scene_path = DEFAULT_PROFILE["battle_scene_path"]
+	bully.battle_scene = DEFAULT_PROFILE["battle_scene"]
 	var marker_chart_override: String = ""
 	var marker_music_override: AudioStream = null
 	if marker != null and marker.has_method("get"):
