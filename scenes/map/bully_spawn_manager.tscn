@@ -5,54 +5,55 @@
 [ext_resource type="SpriteFrames" uid="uid://pod0oynkovmw" path="res://assets/images/sprites/bulliesextras.tres" id="3_w35wr"]
 
 [node name="BullySpawnManager" type="Node2D" unique_id=764669343]
+position = Vector2(0, 2)
 script = ExtResource("1_bsm")
 
 [node name="SpawnPoint01" type="Marker2D" parent="." unique_id=1382850326]
-position = Vector2(-240, 240)
+position = Vector2(-1193, 823)
 script = ExtResource("2_sp")
 sprite_frames = ExtResource("3_w35wr")
 
 [node name="SpawnPoint02" type="Marker2D" parent="." unique_id=1746771161]
-position = Vector2(-40, 180)
+position = Vector2(1241, 1423)
 script = ExtResource("2_sp")
 sprite_frames = ExtResource("3_w35wr")
 
 [node name="SpawnPoint03" type="Marker2D" parent="." unique_id=1594303849]
-position = Vector2(180, 160)
+position = Vector2(262, 1601)
 script = ExtResource("2_sp")
 sprite_frames = ExtResource("3_w35wr")
 
 [node name="SpawnPoint04" type="Marker2D" parent="." unique_id=1787611213]
-position = Vector2(420, 180)
+position = Vector2(273, 504)
 script = ExtResource("2_sp")
 sprite_frames = ExtResource("3_w35wr")
 
 [node name="SpawnPoint05" type="Marker2D" parent="." unique_id=274872435]
-position = Vector2(680, 220)
+position = Vector2(-832, 621)
 script = ExtResource("2_sp")
 sprite_frames = ExtResource("3_w35wr")
 
 [node name="SpawnPoint06" type="Marker2D" parent="." unique_id=90709246]
-position = Vector2(900, 180)
+position = Vector2(-835, 618)
 script = ExtResource("2_sp")
 sprite_frames = ExtResource("3_w35wr")
 
 [node name="SpawnPoint07" type="Marker2D" parent="." unique_id=900832892]
-position = Vector2(-220, 520)
+position = Vector2(275, 502)
 script = ExtResource("2_sp")
 sprite_frames = ExtResource("3_w35wr")
 
 [node name="SpawnPoint08" type="Marker2D" parent="." unique_id=547933236]
-position = Vector2(80, 560)
+position = Vector2(264, 1603)
 script = ExtResource("2_sp")
 sprite_frames = ExtResource("3_w35wr")
 
 [node name="SpawnPoint09" type="Marker2D" parent="." unique_id=1806071301]
-position = Vector2(360, 540)
+position = Vector2(1221, 1433)
 script = ExtResource("2_sp")
 sprite_frames = ExtResource("3_w35wr")
 
 [node name="SpawnPoint10" type="Marker2D" parent="." unique_id=1601927607]
-position = Vector2(740, 560)
+position = Vector2(-1168, 854)
 script = ExtResource("2_sp")
 sprite_frames = ExtResource("3_w35wr")

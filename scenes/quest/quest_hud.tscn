@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b1u7pn6wg1733"]
 
 [ext_resource type="Script" uid="uid://jjp3euelkviu" path="res://scripts/quests/quest_hud.gd" id="1_questhud"]
+[ext_resource type="FontFile" uid="uid://f2r6c64a0i6v" path="res://assets/fonts/RetroBound.ttf" id="2_font"]
 
 [node name="QuestHud" type="Control" unique_id=797831044]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_font")
 script = ExtResource("1_questhud")
 
 [node name="QuestPanel" type="PanelContainer" parent="." unique_id=834759152]
@@ -37,11 +39,13 @@ theme_override_constants/separation = 8
 [node name="TitleLabel" type="Label" parent="QuestPanel/MarginContainer/VBoxContainer/Header" unique_id=651846693]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_font")
 text = "Misiones"
 
 [node name="ToggleButton" type="Button" parent="QuestPanel/MarginContainer/VBoxContainer/Header" unique_id=1520884543]
 layout_mode = 2
 focus_mode = 0
+theme_override_fonts/font = ExtResource("2_font")
 text = "-"
 
 [node name="Content" type="VBoxContainer" parent="QuestPanel/MarginContainer/VBoxContainer" unique_id=1193718797]
@@ -50,12 +54,14 @@ theme_override_constants/separation = 6
 
 [node name="QuestDescription" type="Label" parent="QuestPanel/MarginContainer/VBoxContainer/Content" unique_id=1911653381]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
 autowrap_mode = 2
 
 [node name="ItemList" type="ItemList" parent="QuestPanel/MarginContainer/VBoxContainer/Content" unique_id=951095290]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 focus_mode = 0
+theme_override_fonts/font = ExtResource("2_font")
 auto_height = true
 
 [connection signal="toggled" from="QuestPanel/MarginContainer/VBoxContainer/Header/ToggleButton" to="." method="_on_toggle_toggled"]

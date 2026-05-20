@@ -7,8 +7,9 @@
 [ext_resource type="SpriteFrames" uid="uid://dowjykg1cc3er" path="res://assets/images/sprites/idle.tres" id="8_b56te"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_drun"]
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="9_intr"]
+[ext_resource type="PackedScene" uid="uid://dkrd76y7ipit4" path="res://scenes/ui/pause_button.tscn" id="10_f17u5"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="10_qhud"]
-[ext_resource type="PackedScene" path="res://scenes/map/bully_spawn_manager.tscn" id="12_bsmgr"]
+[ext_resource type="PackedScene" uid="uid://vkjnvbwonuy7" path="res://scenes/map/bully_spawn_manager.tscn" id="12_bsmgr"]
 
 [node name="Mapa" type="Node2D" unique_id=1460360920]
 script = ExtResource("7_mapgd")
@@ -46,14 +47,12 @@ dialogue_voice = ExtResource("7_48h8m")
 sprite_frames = ExtResource("8_b56te")
 
 [node name="BullySpawnManager" parent="." unique_id=1546335740 instance=ExtResource("12_bsmgr")]
-position = Vector2(0, 2)
 
 [node name="Player" parent="." unique_id=1155853386 instance=ExtResource("5_xtmej")]
-position = Vector2(558, 524)
+position = Vector2(682, 424)
 scale = Vector2(2, 2)
 
 [node name="DialogueRunner" parent="." unique_id=1990822026 instance=ExtResource("8_drun")]
-visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=116998281]
 
@@ -63,5 +62,13 @@ offset_top = 295.0
 offset_right = -450.0
 offset_bottom = 295.0
 metadata/_edit_use_anchors_ = true
+
+[node name="PauseButton" parent="CanvasLayer" unique_id=1741637342 instance=ExtResource("10_f17u5")]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1762772091]
+offset_left = -832.0
+offset_top = 621.0
+offset_right = -792.0
+offset_bottom = 661.0
 
 [editable path="Bully"]
