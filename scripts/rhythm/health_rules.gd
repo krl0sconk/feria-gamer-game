@@ -12,6 +12,8 @@ extends Resource
 @export var good_heal: int = 0
 ## Daño aplicado al presionar una nota trampa (glitched).
 @export var fake_hit_damage: int = 20
+## Daño aplicado al presionar sin nota pendiente en la cola.
+@export var spam_damage: int = 5
 
 
 func get_hp_delta(timing: String) -> int:
@@ -19,4 +21,5 @@ func get_hp_delta(timing: String) -> int:
 		"Perfect": return perfect_heal
 		"Good":    return good_heal
 		"FakeHit": return -fake_hit_damage
+		"Spam":    return -spam_damage
 		_:         return -miss_damage

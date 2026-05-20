@@ -50,6 +50,14 @@ func on_note_result(_player_action: String, _expected_action: String, timing: St
 	_check_defeat()
 
 
+func on_spam_press() -> void:
+	if _level_over:
+		return
+	_player_hp = clamp(_player_hp + health_rules.get_hp_delta("Spam"), 0, health_rules.max_player_hp)
+	_emit_all()
+	_check_defeat()
+
+
 # Lo llama Battle cuando la canción termina y el jugador sigue vivo.
 func declare_survival() -> void:
 	if _level_over:

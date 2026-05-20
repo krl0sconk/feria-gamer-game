@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dyt4xd2vqn546"]
+
+[ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_xn5ui"]
+[ext_resource type="AudioStream" uid="uid://cwkwfig0lcpac" path="res://assets/audio/music/rude girl.wav" id="2_lug5d"]
+
+[node name="Battle" unique_id=1239436012 instance=ExtResource("1_xn5ui")]
+chart_path = "res://assets/charts/rudegirl.json"
+
+[node name="MusicPlayer" parent="." index="3" unique_id=1075957386]
+stream = ExtResource("2_lug5d")
+bpm = 144.0
+
+[node name="Metronome" parent="." index="4" unique_id=984578197]
+bpm = 144.0
+
+[editable path="BattleHUD"]
