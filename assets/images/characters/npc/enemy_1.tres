@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://db8bkft1e1jot"]
+
+[ext_resource type="Texture2D" uid="uid://cmug3kyfacg74" path="res://assets/images/characters/npc/spritesheet_npc.png" id="1_wsgl3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swyle"]
+atlas = ExtResource("1_wsgl3")
+region = Rect2(0, 0, 2008, 2026)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjkc0"]
+atlas = ExtResource("1_wsgl3")
+region = Rect2(2008, 0, 2008, 2026)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xv3h5"]
+atlas = ExtResource("1_wsgl3")
+region = Rect2(4016, 0, 2008, 2026)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0aql"]
+atlas = ExtResource("1_wsgl3")
+region = Rect2(0, 2026, 2008, 2026)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d40p"]
+atlas = ExtResource("1_wsgl3")
+region = Rect2(2008, 2026, 2008, 2026)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swyle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjkc0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv3h5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w0aql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d40p")
+}],
+"loop": true,
+"name": &"Enemy",
+"speed": 4.0
+}]

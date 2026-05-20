@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dlgboxaaaaaa1"]
 
 [ext_resource type="Script" uid="uid://bx537q2gj0rxu" path="res://scripts/dialogue/dialogue_box.gd" id="1_dbox"]
-[ext_resource type="FontFile" uid="uid://dye7jmtmy4vqr" path="res://assets/fonts/Retro Pixel.otf" id="2_gbb6a"]
-[ext_resource type="FontFile" uid="uid://f2r6c64a0i6v" path="res://assets/fonts/RetroBound.ttf" id="3_qtmnj"]
-[ext_resource type="FontFile" uid="uid://dkhuvr1inqnvv" path="res://assets/fonts/RetroBoundUC.ttf" id="4_ch5tr"]
+[ext_resource type="FontFile" uid="uid://dye7jmtmy4vqr" path="res://assets/fonts/retro_pixel.otf" id="2_gbb6a"]
+[ext_resource type="FontFile" uid="uid://f2r6c64a0i6v" path="res://assets/fonts/retro_bound.ttf" id="3_qtmnj"]
+[ext_resource type="FontFile" uid="uid://dkhuvr1inqnvv" path="res://assets/fonts/retro_bound_uc.ttf" id="4_ch5tr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shq2c"]
 content_margin_left = 0.0

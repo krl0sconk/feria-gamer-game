@@ -1,10 +1,10 @@
 [gd_scene format=4 uid="uid://bpncmp8kw5yjo"]
 
-[ext_resource type="Script" uid="uid://cvb28nsoo4xmq" path="res://scripts/map.gd" id="1_46iph"]
-[ext_resource type="TileSet" uid="uid://bicvtix43wtf1" path="res://assets/images/worldAssets/tileset.tres" id="2_o0av7"]
+[ext_resource type="Script" uid="uid://cvb28nsoo4xmq" path="res://scripts/map/map.gd" id="1_46iph"]
+[ext_resource type="TileSet" uid="uid://bicvtix43wtf1" path="res://assets/images/world_assets/tileset.tres" id="2_o0av7"]
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="3_0ibgl"]
 [ext_resource type="AudioStream" uid="uid://cv23y5wuou4bq" path="res://assets/audio/sfx/dialogue1.wav" id="4_g52xa"]
-[ext_resource type="SpriteFrames" uid="uid://dowjykg1cc3er" path="res://assets/images/sprites/idle.tres" id="5_0dgy4"]
+[ext_resource type="SpriteFrames" uid="uid://dowjykg1cc3er" path="res://assets/images/characters/pj1/idle.tres" id="5_0dgy4"]
 [ext_resource type="PackedScene" uid="uid://vkjnvbwonuy7" path="res://scenes/map/bully_spawn_manager.tscn" id="6_4cdl6"]
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/player.tscn" id="7_44ndg"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_vpwi3"]

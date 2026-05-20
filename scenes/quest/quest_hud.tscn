@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1u7pn6wg1733"]
 
 [ext_resource type="Script" uid="uid://jjp3euelkviu" path="res://scripts/quests/quest_hud.gd" id="1_questhud"]
-[ext_resource type="FontFile" uid="uid://f2r6c64a0i6v" path="res://assets/fonts/RetroBound.ttf" id="2_font"]
+[ext_resource type="FontFile" uid="uid://f2r6c64a0i6v" path="res://assets/fonts/retro_bound.ttf" id="2_font"]
 
 [node name="QuestHud" type="Control" unique_id=797831044]
 layout_mode = 3

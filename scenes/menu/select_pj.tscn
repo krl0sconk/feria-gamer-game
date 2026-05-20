@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b5e8vpi18j2ob"]
 
-[ext_resource type="Script" uid="uid://bo4mstv3ma651" path="res://scripts/select_pj.gd" id="1_kscf2"]
-[ext_resource type="Texture2D" uid="uid://bm3rgmlujs5c" path="res://assets/images/sprites/pj1 icon.jpg" id="2_whu1b"]
-[ext_resource type="Texture2D" uid="uid://dljd58x4rud3k" path="res://assets/images/sprites/pj2 icon.jpg" id="3_dt4db"]
+[ext_resource type="Script" uid="uid://bo4mstv3ma651" path="res://scripts/menu/select_pj.gd" id="1_kscf2"]
+[ext_resource type="Texture2D" uid="uid://bm3rgmlujs5c" path="res://assets/images/characters/pj1/pj1_icon.jpg" id="2_whu1b"]
+[ext_resource type="Texture2D" uid="uid://dljd58x4rud3k" path="res://assets/images/characters/pj2/pj2_icon.jpg" id="3_dt4db"]
 
 
 

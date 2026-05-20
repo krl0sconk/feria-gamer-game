@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://w0027yq4uiri"]
 
 [ext_resource type="Script" uid="uid://uv2v2rcs4htf" path="res://scripts/dialogue/interactable.gd" id="1_intr"]
-[ext_resource type="SpriteFrames" uid="uid://bge26j1oybjcs" path="res://assets/images/sprites/idle.tres" id="2_luefm"]
+[ext_resource type="SpriteFrames" uid="uid://bge26j1oybjcs" path="res://assets/images/characters/pj1/idle.tres" id="2_luefm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_intr"]
 size = Vector2(96, 96)

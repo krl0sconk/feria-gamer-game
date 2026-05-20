@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://bndmgxpmkwier"]
 
-[ext_resource type="Script" uid="uid://demuroij8rx4b" path="res://scripts/main_menu.gd" id="1_ekxnf"]
+[ext_resource type="Script" uid="uid://demuroij8rx4b" path="res://scripts/menu/main_menu.gd" id="1_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://cesunilhlbgjj" path="res://assets/images/menu/background_menu.png" id="2_isoef"]
 [ext_resource type="Script" uid="uid://cxl3bnruct0vp" path="res://scripts/ui/keychain_button.gd" id="3_kbtn"]
-[ext_resource type="Texture2D" uid="uid://cchpsafb4ykax" path="res://assets/images/menu/Play_btn.png" id="3_qgo02"]
+[ext_resource type="Texture2D" uid="uid://cchpsafb4ykax" path="res://assets/images/menu/play_btn.png" id="3_qgo02"]
 [ext_resource type="AudioStream" uid="uid://chybtbqfqkxl2" path="res://assets/audio/sfx/hover.tres" id="5_vovv2"]
-[ext_resource type="Texture2D" uid="uid://d4tj4rmnxce0" path="res://assets/images/menu/Options_btn.png" id="6_1k4da"]
-[ext_resource type="Texture2D" uid="uid://bo0lbqhyqhog4" path="res://assets/images/menu/Exit_btn.png" id="7_bbqo6"]
-[ext_resource type="FontFile" uid="uid://dkhuvr1inqnvv" path="res://assets/fonts/RetroBoundUC.ttf" id="8_qgo02"]
+[ext_resource type="Texture2D" uid="uid://d4tj4rmnxce0" path="res://assets/images/menu/options_btn.png" id="6_1k4da"]
+[ext_resource type="Texture2D" uid="uid://bo0lbqhyqhog4" path="res://assets/images/menu/exit_btn.png" id="7_bbqo6"]
+[ext_resource type="FontFile" uid="uid://dkhuvr1inqnvv" path="res://assets/fonts/retro_bound_uc.ttf" id="8_qgo02"]
 [ext_resource type="AudioStream" uid="uid://dkgt4sh8mpad0" path="res://assets/audio/music/musica_menu.wav" id="9_vovv2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfbao"]
@@ -188,22 +188,24 @@ theme_override_constants/separation = 19
 
 [node name="BoxContainer" type="BoxContainer" parent="." unique_id=1841550845]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 26.0
-offset_right = 103.0
-offset_bottom = 103.0
+offset_left = 16.145
+offset_top = 15.435
+offset_right = 70.14494
+offset_bottom = 68.43508
 
 [node name="Help" type="Button" parent="BoxContainer" unique_id=1593895808]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.3254902, 0, 0.47843137, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("8_qgo02")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_n8jif")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_21gel")
 theme_override_styles/hover = SubResource("StyleBoxFlat_4toeb")
 text = "?"
+flat = true
 
 [node name="Label" type="Label" parent="." unique_id=527829040]
 layout_mode = 0

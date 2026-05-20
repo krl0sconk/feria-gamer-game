@@ -3783,12 +3783,12 @@
 	],
 	"phases": [
 		{
-			"audio": "res://assets/audio/music/rude girl.wav",
+			"audio": "res://assets/audio/music/rude_girl.wav",
 			"bpm": 144.0,
 			"start_ms": 0.0
 		},
 		{
-			"audio": "res://assets/audio/music/Grand final.wav",
+			"audio": "res://assets/audio/music/grand_final.wav",
 			"bpm": 123.0,
 			"start_ms": 72003.9215087891,
 			"transition": {

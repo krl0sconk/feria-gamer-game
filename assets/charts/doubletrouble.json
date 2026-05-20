@@ -1793,7 +1793,7 @@
 	],
 	"phases": [
 		{
-			"audio": "/mnt/SSD_LINUX/Documents/Godot/Beat-The-Bully/assets/audio/music/Double.wav",
+			"audio": "res://assets/audio/music/double.wav",
 			"bpm": 200.0,
 			"start_ms": 0.0
 		}

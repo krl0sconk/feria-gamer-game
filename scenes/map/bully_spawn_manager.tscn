@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://wldx3dpj0kel" path="res://scripts/encounters/bully_spawn_manager.gd" id="1_bsm"]
 [ext_resource type="Script" uid="uid://dd31ougo88is6" path="res://scripts/encounters/spawn_point.gd" id="2_sp"]
-[ext_resource type="SpriteFrames" uid="uid://pod0oynkovmw" path="res://assets/images/sprites/bulliesextras.tres" id="3_w35wr"]
+[ext_resource type="SpriteFrames" uid="uid://pod0oynkovmw" path="res://assets/images/characters/npc/bully_extras.tres" id="3_w35wr"]
 
 [node name="BullySpawnManager" type="Node2D" unique_id=764669343]
 position = Vector2(0, 2)
