@@ -32,6 +32,9 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 
 ## Identificador de misión secundaria (formato: x-x). Ejemplo: "1-3".
 @export var secondary_mission_id: String = ""
+## Inspector flags: cómo se completa la(s) misión(es) vinculada(s)
+@export var complete_mission_on_dialogue: bool = false
+@export var complete_mission_on_win: bool = false
 ## Lista de IDs de misión que se completan por número de interacciones
 ## Ej: ["1.2.1", "1.2.2"] → completar la primera tras la 1ª charla, la segunda tras la 2ª.
 @export var talk_mission_ids: Array[String] = []
@@ -187,6 +190,14 @@ func play_result_dialogue(result: String) -> void:
 			if secondary_mission_id != null and secondary_mission_id.strip_edges() != "":
 				qm.call("on_enemy_defeated", str(secondary_mission_id))
 
+		# Si el inspector indica completar la misión al ganar la batalla,
+		# usar `complete_quest` para marcarla como completada inmediatamente.
+		if complete_mission_on_win and qm != null and qm.has_method("complete_quest"):
+			if mission_id != null and mission_id.strip_edges() != "":
+				qm.call("complete_quest", str(mission_id))
+			if secondary_mission_id != null and secondary_mission_id.strip_edges() != "":
+				qm.call("complete_quest", str(secondary_mission_id))
+
 	if dialogue_id.is_empty() or _data == null or _runner == null:
 		return
 	_current_mode = "result"
@@ -241,6 +252,16 @@ func _on_dialogue_finished(dialogue_id: String) -> void:
 				var qid := str(talk_mission_ids[idx]).strip_edges()
 				if qid != "" and qm != null and qm.has_method("complete_quest"):
 					qm.call("complete_quest", qid)
+
+		# Si el inspector indica que la(s) misión(es) vinculada(s) se deben
+		# completar tras el diálogo, notificamos al QuestManager.
+		if complete_mission_on_dialogue:
+			var qm2 := get_node_or_null("/root/QuestManager")
+			if qm2 != null and qm2.has_method("complete_quest"):
+				if mission_id != null and mission_id.strip_edges() != "":
+					qm2.call("complete_quest", str(mission_id))
+				if secondary_mission_id != null and secondary_mission_id.strip_edges() != "":
+					qm2.call("complete_quest", str(secondary_mission_id))
 		
 		if not battle_scene_path.is_empty():
 			# Comprobamos que el id terminado sea el de intro (safety — por si el
