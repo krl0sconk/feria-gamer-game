@@ -1,0 +1,10 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "text": "MCLOVIN" }
+			]
+		}
+	}
+}
