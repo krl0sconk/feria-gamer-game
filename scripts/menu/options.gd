@@ -48,6 +48,12 @@ func _populate_dropdowns() -> void:
 	_colorblind_option.clear()
 	for label in OptionsSettings.COLORBLIND_LABELS:
 		_colorblind_option.add_item(label)
+	var dropdown_font: Font = _resolution_option.get_theme_font("font")
+	var dropdown_font_size: int = _resolution_option.get_theme_font_size("font_size")
+	for option in [_resolution_option, _window_option, _colorblind_option]:
+		var popup: PopupMenu = option.get_popup()
+		popup.add_theme_font_override("font", dropdown_font)
+		popup.add_theme_font_size_override("font_size", dropdown_font_size)
 
 
 func _apply_to_ui() -> void:

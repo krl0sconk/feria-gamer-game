@@ -88,7 +88,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(260, 36)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("3_ut0dv")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 18
 
 [node name="LabelWindow" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=234072467]
@@ -104,7 +104,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(260, 36)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("3_ut0dv")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 18
 
 [node name="LabelMaster" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=1991737050]
@@ -184,7 +184,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(260, 36)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("3_ut0dv")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 18
 
 [node name="LabelIntensity" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=45018626]
