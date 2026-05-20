@@ -19,6 +19,7 @@ size = Vector2(52, 49)
 script = ExtResource("1_roomgd")
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=1279367209]
+position = Vector2(-1, -0.9999999)
 scale = Vector2(2.5, 2.5)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Tilemaps" unique_id=1562299821]
