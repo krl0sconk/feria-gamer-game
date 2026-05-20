@@ -2,15 +2,21 @@ extends CharacterBody2D
 
 const SPEED := 300.0
 const FOOTSTEPS_PATH := "res://assets/audio/sfx/footsteps2.wav"
+const WALK_UP_PJ1: SpriteFrames = preload("res://assets/images/sprites/walkUpj1.tres")
+const WALK_DOWN_PJ1: SpriteFrames = preload("res://assets/images/sprites/walkDownpj1.tres")
+const WALK_SIDE_PJ1: SpriteFrames = preload("res://assets/images/sprites/walkSidepj1.tres")
 const SKIN_FRAMES := {
 	"idle (1)": preload("res://assets/images/sprites/walkUpj1.tres"),
-	"idle pj2": preload("res://assets/images/sprites/idlepj2.tres")
+	"idle pj2": preload("res://assets/images/sprites/idlepj2.tres"),
+	"idlepj2": preload("res://assets/images/sprites/idlepj2.tres")
 }
 
 ## Controlado externamente por el Map (p. ej. DialogueRunner.dialogue_started
 ## → `disable_movement`). Cuando es false, el Player ignora input y se detiene.
 var can_move: bool = true
 var _is_walking: bool = false
+var _uses_pj1_directional_walk: bool = false
+var _facing_dir: String = "up"
 
 @onready var _footsteps_player: AudioStreamPlayer = _create_footsteps_player()
 
@@ -26,6 +32,7 @@ func _physics_process(_delta: float) -> void:
 	if not can_move:
 		velocity = Vector2.ZERO
 		_set_walking(false)
+		_update_walk_animation(Vector2.ZERO)
 		move_and_slide()
 		return
 	var direction := Vector2.ZERO
@@ -33,25 +40,70 @@ func _physics_process(_delta: float) -> void:
 	direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	velocity = direction.normalized() * SPEED
 	_set_walking(velocity != Vector2.ZERO)
+	_update_walk_animation(direction)
 	move_and_slide()
 
 
 func set_skin(skinname: String) -> void:
 	var frames: SpriteFrames = null
-	if skinname == "idle pj2":
+	var normalized_skin := skinname.strip_edges().to_lower().replace(" ", "")
+	if skinname == "idle pj2" or skinname == "idlepj2" or normalized_skin == "idlepj2":
+		_uses_pj1_directional_walk = false
 		var pj2_tres := "res://assets/images/sprites/idlepj2.tres"
 		if FileAccess.file_exists(pj2_tres):
 			frames = load(pj2_tres) as SpriteFrames
 		else:
 			frames = load("res://assets/images/sprites/idle.tres") as SpriteFrames
 	elif SKIN_FRAMES.has(skinname):
+		_uses_pj1_directional_walk = true
 		frames = SKIN_FRAMES[skinname]
 	else:
+		_uses_pj1_directional_walk = true
 		frames = SKIN_FRAMES["idle (1)"]
 	if frames != null:
 		$Animated.sprite_frames = frames
+		$Animated.flip_h = false
 		if frames.has_animation("Idle"):
 			$Animated.play("Idle")
+		elif frames.has_animation("idle"):
+			$Animated.play("idle")
+		else:
+			var names: Array = frames.get_animation_names()
+			if names.size() > 0:
+				$Animated.play(names[0])
+
+
+func _update_walk_animation(direction: Vector2) -> void:
+	if not _uses_pj1_directional_walk:
+		return
+
+	var moving: bool = direction != Vector2.ZERO
+	if moving:
+		if absf(direction.x) > absf(direction.y):
+			_facing_dir = "side"
+			$Animated.sprite_frames = WALK_SIDE_PJ1
+			$Animated.flip_h = direction.x < 0.0
+		elif direction.y < 0.0:
+			_facing_dir = "up"
+			$Animated.sprite_frames = WALK_UP_PJ1
+			$Animated.flip_h = false
+		else:
+			_facing_dir = "down"
+			$Animated.sprite_frames = WALK_DOWN_PJ1
+			$Animated.flip_h = false
+		if $Animated.sprite_frames.has_animation("default"):
+			$Animated.play("default")
+	else:
+		match _facing_dir:
+			"side":
+				$Animated.sprite_frames = WALK_SIDE_PJ1
+			"down":
+				$Animated.sprite_frames = WALK_DOWN_PJ1
+			_:
+				$Animated.sprite_frames = WALK_UP_PJ1
+		if $Animated.sprite_frames.has_animation("default"):
+			$Animated.stop()
+			$Animated.frame = 0
 
 
 func disable_movement() -> void:

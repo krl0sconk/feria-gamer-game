@@ -2,22 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://cmug3kyfacg74" path="res://assets/images/sprites/spritesheet npc.png" id="1_wvc0b"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_drj4m"]
-atlas = ExtResource("1_wvc0b")
-region = Rect2(0, 0, 2008, 2026)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vrwm7"]
-atlas = ExtResource("1_wvc0b")
-region = Rect2(2008, 0, 2008, 2026)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pajne"]
-atlas = ExtResource("1_wvc0b")
-region = Rect2(4016, 0, 2008, 2026)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6rp11"]
-atlas = ExtResource("1_wvc0b")
-region = Rect2(0, 2026, 2008, 2026)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_fl5h1"]
 atlas = ExtResource("1_wvc0b")
 region = Rect2(2008, 2026, 2008, 2026)
@@ -26,21 +10,9 @@ region = Rect2(2008, 2026, 2008, 2026)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_drj4m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vrwm7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pajne")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6rp11")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_fl5h1")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }, {

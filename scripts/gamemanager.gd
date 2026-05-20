@@ -33,6 +33,9 @@ var pending_dialogue_result: String = ""
 ## Override opcional del chart que debe usar la siguiente batalla.
 var pending_battle_chart_path: String = ""
 
+## Override opcional de música para la siguiente batalla.
+var pending_battle_music: AudioStream = null
+
 
 func _ready() -> void:
 	OptionsSettings.apply_saved()
@@ -55,6 +58,7 @@ func clear_pending_dialogue() -> void:
 	pending_npc_id = ""
 	pending_dialogue_result = ""
 	pending_battle_chart_path = ""
+	pending_battle_music = null
 
 
 func set_loaded_position(position: Vector2) -> void:
@@ -90,7 +94,17 @@ func set_pending_battle_chart_path(chart_path: String) -> void:
 	pending_battle_chart_path = chart_path
 
 
+func set_pending_battle_music(music: AudioStream) -> void:
+	pending_battle_music = music
+
+
 func consume_pending_battle_chart_path() -> String:
 	var result := pending_battle_chart_path
 	pending_battle_chart_path = ""
+	return result
+
+
+func consume_pending_battle_music() -> AudioStream:
+	var result: AudioStream = pending_battle_music
+	pending_battle_music = null
 	return result

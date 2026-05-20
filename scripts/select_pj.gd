@@ -1,6 +1,6 @@
 extends Control
 
-const SKINS := ["idle (1)", "idle pj2"]
+const SKINS := ["idle (1)", "idlepj2"]
 
 @onready var _grid: GridContainer = $GridContainer
 @onready var _back: Button = $BoxContainer/Back

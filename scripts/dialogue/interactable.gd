@@ -52,6 +52,9 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 ## Chart opcional para la batalla asociada. Vacío = usa el default de Battle.
 @export_file("*.json") var battle_chart_path: String = ""
 
+## Música opcional para la batalla asociada. Null = usa música por defecto.
+@export var battle_music: AudioStream = null
+
 ## Si es true, este interactuable se elimina después de mostrar el diálogo
 ## de victoria. Útil para bullies secundarios de un solo uso.
 @export var despawn_on_win: bool = false
@@ -194,6 +197,7 @@ func _queue_battle_transition() -> void:
 	Gamemanager.pending_npc_id = id
 	Gamemanager.pending_dialogue_result = ""
 	Gamemanager.set_pending_battle_chart_path(battle_chart_path)
+	Gamemanager.set_pending_battle_music(battle_music)
 	battle_requested.emit(battle_scene_path, id)
 	get_tree().change_scene_to_file(battle_scene_path)
 

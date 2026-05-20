@@ -205,11 +205,22 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 	bully.win_dialogue_id = DEFAULT_PROFILE["win_dialogue_id"]
 	bully.lose_dialogue_id = DEFAULT_PROFILE["lose_dialogue_id"]
 	bully.battle_scene_path = DEFAULT_PROFILE["battle_scene_path"]
+	var marker_chart_override: String = ""
+	var marker_music_override: AudioStream = null
+	if marker != null and marker.has_method("get"):
+		var try_chart = marker.get("battle_chart_path")
+		if try_chart != null and str(try_chart).strip_edges() != "":
+			marker_chart_override = str(try_chart)
+		var try_music = marker.get("battle_music")
+		if try_music != null and try_music is AudioStream:
+			marker_music_override = try_music
 	# Si el spawn point ya figura como derrotado, aplicar chart de rematch
 	# cuando esté disponible; si no hay rematch configurado, usar el chart
 	# por defecto.
 	var spawn_id := marker.name
-	if _defeated_bullies.has(spawn_id):
+	if marker_chart_override != "":
+		bully.battle_chart_path = marker_chart_override
+	elif _defeated_bullies.has(spawn_id):
 		var rematch: String = str(DEFAULT_PROFILE.get("rematch_battle_chart_path", ""))
 		if rematch != "":
 			bully.battle_chart_path = rematch
@@ -217,6 +228,7 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 			bully.battle_chart_path = DEFAULT_PROFILE["battle_chart_path"]
 	else:
 		bully.battle_chart_path = DEFAULT_PROFILE["battle_chart_path"]
+	bully.battle_music = marker_music_override
 	bully.despawn_on_win = bool(DEFAULT_PROFILE["despawn_on_win"])
 	var voice_path := str(DEFAULT_PROFILE["dialogue_voice_path"])
 	if not voice_path.is_empty():
