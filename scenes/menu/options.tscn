@@ -2,30 +2,25 @@
 
 [ext_resource type="Script" uid="uid://dm0afyap4v37q" path="res://scripts/menu/options.gd" id="1_opts"]
 [ext_resource type="Script" uid="uid://cxl3bnruct0vp" path="res://scripts/ui/keychain_button.gd" id="2_kbtn"]
-[ext_resource type="FontFile" uid="uid://f2r6c64a0i6v" path="res://assets/fonts/RetroBound.ttf" id="2_knos3"]
+[ext_resource type="Texture2D" uid="uid://dswt837ge71bv" path="res://assets/images/menu/options.png" id="2_ut0dv"]
 [ext_resource type="FontFile" uid="uid://dkhuvr1inqnvv" path="res://assets/fonts/RetroBoundUC.ttf" id="3_ut0dv"]
+[ext_resource type="FontFile" uid="uid://dsbq3ifavuvbh" path="res://assets/fonts/Schoolbell-Regular.ttf" id="3_vbf1p"]
 [ext_resource type="AudioStream" uid="uid://chybtbqfqkxl2" path="res://assets/audio/sfx/hover.tres" id="5_ehon1"]
+[ext_resource type="Texture2D" uid="uid://cg0h20odmb7l6" path="res://assets/images/menu/aplicar_btn.png" id="5_vbf1p"]
+[ext_resource type="Texture2D" uid="uid://b8rho03dr3vko" path="res://assets/images/menu/volver_btn.png" id="8_vbf1p"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.7213649, 0.6356943, 0.46634918, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-corner_detail = 12
-shadow_color = Color(0, 0, 0, 0.5)
-shadow_size = 14
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ehon1"]
+texture = ExtResource("2_ut0dv")
 
 [node name="Options" type="Control" unique_id=847814354]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -2.0
+offset_right = -7.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_opts")
@@ -35,6 +30,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.55)
@@ -50,7 +47,7 @@ grow_vertical = 2
 [node name="Panel" type="PanelContainer" parent="CenterContainer" unique_id=1614917888]
 custom_minimum_size = Vector2(560, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+theme_override_styles/panel = SubResource("StyleBoxTexture_ehon1")
 
 [node name="Margin" type="MarginContainer" parent="CenterContainer/Panel" unique_id=209527237]
 layout_mode = 2
@@ -66,13 +63,11 @@ theme_override_constants/separation = 18
 [node name="Title" type="Label" parent="CenterContainer/Panel/Margin/VBox" unique_id=471798674]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_knos3")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 36
 text = "OPCIONES"
 horizontal_alignment = 1
-
-[node name="Separator1" type="HSeparator" parent="CenterContainer/Panel/Margin/VBox" unique_id=1146496488]
-layout_mode = 2
+vertical_alignment = 1
 
 [node name="Grid" type="GridContainer" parent="CenterContainer/Panel/Margin/VBox" unique_id=859599190]
 layout_mode = 2
@@ -84,7 +79,7 @@ columns = 2
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_knos3")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Resolución"
 
@@ -100,7 +95,7 @@ theme_override_font_sizes/font_size = 18
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_knos3")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Modo de ventana"
 
@@ -116,7 +111,7 @@ theme_override_font_sizes/font_size = 18
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_knos3")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Volumen general"
 
@@ -139,7 +134,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_ut0dv")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 18
 text = "80%"
 horizontal_alignment = 2
@@ -148,7 +143,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_knos3")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Volumen SFX"
 
@@ -171,20 +166,20 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_ut0dv")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 18
 text = "80%"
 horizontal_alignment = 2
 
-[node name="LabelColorblind" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid"]
+[node name="LabelColorblind" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=125804096]
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_knos3")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Daltonismo"
 
-[node name="ColorblindOption" type="OptionButton" parent="CenterContainer/Panel/Margin/VBox/Grid"]
+[node name="ColorblindOption" type="OptionButton" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=255675902]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(260, 36)
 layout_mode = 2
@@ -192,20 +187,20 @@ size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("3_ut0dv")
 theme_override_font_sizes/font_size = 18
 
-[node name="LabelIntensity" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid"]
+[node name="LabelIntensity" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=45018626]
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_knos3")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Intensidad filtro"
 
-[node name="IntensityRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox/Grid"]
+[node name="IntensityRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=1745903234]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="IntensitySlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/Grid/IntensityRow"]
+[node name="IntensitySlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/Grid/IntensityRow" unique_id=1909876987]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -216,26 +211,26 @@ max_value = 1.0
 step = 0.05
 value = 0.35
 
-[node name="IntensityValue" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid/IntensityRow"]
+[node name="IntensityValue" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid/IntensityRow" unique_id=1174526855]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_ut0dv")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 18
 text = "35%"
 horizontal_alignment = 2
 
-[node name="LabelDyslexia" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid"]
+[node name="LabelDyslexia" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=412662051]
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_knos3")
+theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Modo Disléxico"
 
-[node name="DyslexiaCheck" type="CheckButton" parent="CenterContainer/Panel/Margin/VBox/Grid"]
+[node name="DyslexiaCheck" type="CheckButton" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=88611711]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -243,17 +238,14 @@ size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("3_ut0dv")
 theme_override_font_sizes/font_size = 18
 
-[node name="Separator2" type="HSeparator" parent="CenterContainer/Panel/Margin/VBox" unique_id=1963174597]
-layout_mode = 2
-
 [node name="ButtonRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox" unique_id=1203600605]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = -100
 alignment = 1
 
 [node name="ApplyButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/ButtonRow" unique_id=897738202]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 56)
+custom_minimum_size = Vector2(250, 80)
 layout_mode = 2
 focus_neighbor_right = NodePath("../BackButton")
 focus_next = NodePath("../BackButton")
@@ -262,13 +254,16 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.3254902, 0, 0.47843137, 1)
 theme_override_fonts/font = ExtResource("3_ut0dv")
 theme_override_font_sizes/font_size = 24
-text = "APLICAR"
+icon = ExtResource("5_vbf1p")
+flat = true
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("2_kbtn")
 hover_sfx = ExtResource("5_ehon1")
 
 [node name="BackButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/ButtonRow" unique_id=1455875609]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 56)
+custom_minimum_size = Vector2(250, 80)
 layout_mode = 2
 focus_neighbor_left = NodePath("../ApplyButton")
 focus_previous = NodePath("../ApplyButton")
@@ -276,7 +271,10 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.3254902, 0, 0.47843137, 1)
 theme_override_fonts/font = ExtResource("3_ut0dv")
-theme_override_font_sizes/font_size = 24
-text = "VOLVER"
+theme_override_font_sizes/font_size = 16
+icon = ExtResource("8_vbf1p")
+flat = true
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("2_kbtn")
 hover_sfx = ExtResource("5_ehon1")
