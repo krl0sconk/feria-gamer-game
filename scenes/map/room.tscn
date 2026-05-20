@@ -15,8 +15,15 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tmqj2"]
 size = Vector2(52, 49)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(43, 72)
+
 [node name="Room" type="Node2D" unique_id=1476698445]
 script = ExtResource("1_roomgd")
+exit_area_size = Vector2(-122, -154)
+debug_force_create_area = true
+debug_exit_area_position = Vector2(-122, -151)
+debug_exit_area_size = Vector2(43, 72)
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=1279367209]
 position = Vector2(-1, -0.9999999)
@@ -59,6 +66,14 @@ texture = ExtResource("7_f7eyw")
 position = Vector2(-60, 51)
 scale = Vector2(2, 2)
 
+[node name="ExitArea" type="Area2D" parent="." unique_id=2000000001]
+position = Vector2(-122, -147)
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitArea" unique_id=2000000002]
+position = Vector2(22, 32)
+shape = SubResource("RectangleShape2D_exit")
+
 [node name="DialogueRunner" parent="." unique_id=429825200 instance=ExtResource("6_qfafv")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1760532851]
@@ -72,12 +87,40 @@ offset_right = -1.0
 offset_bottom = 6.0
 metadata/_edit_use_anchors_ = true
 
+<<<<<<< Updated upstream
 [node name="QuestHud2" parent="CanvasLayer" unique_id=1493217908 instance=ExtResource("7_nq8on")]
 offset_left = -1.0
 offset_top = 6.0
 offset_right = -1.0
 offset_bottom = 6.0
 metadata/_edit_use_anchors_ = true
+=======
+[node name="Guitarra_Tutorial" parent="." unique_id=878503726 instance=ExtResource("8_dew3o")]
+position = Vector2(118, -53)
+scale = Vector2(0.5, 0.5)
+id = "cartel"
+mission_id = "1.1.1"
+dialogue_json_path = "res://assets/dialogues/guitarra_tutorial.json"
+battle_scene_path = "uid://bpjxvmi61lq5"
+
+[node name="Sprite2D" parent="Guitarra_Tutorial" index="1" unique_id=858663745]
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("6_nq8on")
+animation = &"default"
+
+[node name="Guitar" type="Sprite2D" parent="Guitarra_Tutorial" unique_id=1668956319]
+position = Vector2(-9.536743e-07, 1.1920929e-06)
+rotation = -0.75049156
+scale = Vector2(2.546875, 2.40625)
+texture = ExtResource("7_f7eyw")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2020790682]
+visible = false
+offset_left = -122.0
+offset_top = -147.0
+offset_right = -79.0
+offset_bottom = -75.0
+>>>>>>> Stashed changes
 
 [node name="Poker" type="Area2D" parent="." unique_id=894915156]
 position = Vector2(-97, 80)
