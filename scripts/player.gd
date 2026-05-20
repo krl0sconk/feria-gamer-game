@@ -4,7 +4,7 @@ const SPEED := 300.0
 const FOOTSTEPS_PATH := "res://assets/audio/sfx/footsteps2.wav"
 const SKIN_FRAMES := {
 	"idle (1)": preload("res://assets/images/sprites/walkUpj1.tres"),
-	"idle pj2": preload("res://assets/images/sprites/walkUpj1.tres")
+	"idle pj2": preload("res://assets/images/sprites/idlepj2.tres")
 }
 
 ## Controlado externamente por el Map (p. ej. DialogueRunner.dialogue_started
@@ -37,9 +37,21 @@ func _physics_process(_delta: float) -> void:
 
 
 func set_skin(skinname: String) -> void:
-	if SKIN_FRAMES.has(skinname):
-		$Animated.sprite_frames = SKIN_FRAMES[skinname]
-	$Animated.play("Idle")
+	var frames: SpriteFrames = null
+	if skinname == "idle pj2":
+		var pj2_tres := "res://assets/images/sprites/idlepj2.tres"
+		if FileAccess.file_exists(pj2_tres):
+			frames = load(pj2_tres) as SpriteFrames
+		else:
+			frames = load("res://assets/images/sprites/idle.tres") as SpriteFrames
+	elif SKIN_FRAMES.has(skinname):
+		frames = SKIN_FRAMES[skinname]
+	else:
+		frames = SKIN_FRAMES["idle (1)"]
+	if frames != null:
+		$Animated.sprite_frames = frames
+		if frames.has_animation("Idle"):
+			$Animated.play("Idle")
 
 
 func disable_movement() -> void:

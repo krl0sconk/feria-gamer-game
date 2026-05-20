@@ -26,6 +26,12 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 ## una batalla (Gamemanager.pending_npc_id).
 @export var id: String = ""
 
+## Identificador de misión (formato lineal): x.x.x donde la 3ra x=0 indica que
+## es la misión principal (no una submisión). Ejemplo: "1.2.0" o "1.2.3".
+@export var mission_id: String = ""
+
+## Identificador de misión secundaria (formato: x-x). Ejemplo: "1-3".
+@export var secondary_mission_id: String = ""
 ## Archivo JSON con los diálogos de este interactuable.
 @export_file("*.json") var dialogue_json_path: String = ""
 
@@ -77,7 +83,6 @@ var _runner: DialogueRunner = null
 #   "intro" → quizá dispara batalla
 #   "result" → solo reanuda al jugador
 var _current_mode: String = ""
-var _despawn_after_result: bool = false
 var _interaction_player: AudioStreamPlayer
 var _defeat_reported: bool = false
 
@@ -130,6 +135,15 @@ func play_result_dialogue(result: String) -> void:
 				continue
 			if node.has_method("on_npc_defeated"):
 				node.call("on_npc_defeated", id)
+
+		# Notificar al QuestManager sobre la derrota si este interactuable está
+		# vinculado a una misión (lineal o secundaria).
+		var qm := get_node_or_null("/root/QuestManager")
+		if qm != null and qm.has_method("on_enemy_defeated"):
+			if mission_id != null and mission_id.strip_edges() != "":
+				qm.call("on_enemy_defeated", str(mission_id))
+			if secondary_mission_id != null and secondary_mission_id.strip_edges() != "":
+				qm.call("on_enemy_defeated", str(secondary_mission_id))
 
 	_runner.play(_data, dialogue_id, dialogue_voice)
 

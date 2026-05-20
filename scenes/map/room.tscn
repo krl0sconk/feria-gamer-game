@@ -2,6 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://bicvtix43wtf1" path="res://assets/images/worldAssets/tileset.tres" id="1_f7eyw"]
 [ext_resource type="Script" uid="uid://qumc2qlcxntl" path="res://scripts/map/room.gd" id="1_roomgd"]
+[ext_resource type="PackedScene" uid="uid://dkrd76y7ipit4" path="res://scenes/ui/pause_button.tscn" id="5_6nkgt"]
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/player.tscn" id="5_f7eyw"]
 [ext_resource type="SpriteFrames" uid="uid://qufpvcx3qv5n" path="res://assets/images/worldAssets/Guitar.tres" id="6_nq8on"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="6_qfafv"]
@@ -34,6 +35,8 @@ scale = Vector2(2, 2)
 [node name="DialogueRunner" parent="." unique_id=429825200 instance=ExtResource("6_qfafv")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1760532851]
+
+[node name="PauseButton" parent="CanvasLayer" unique_id=1741637342 instance=ExtResource("5_6nkgt")]
 
 [node name="QuestHud" parent="CanvasLayer" unique_id=797831044 instance=ExtResource("7_nq8on")]
 offset_left = -1.0

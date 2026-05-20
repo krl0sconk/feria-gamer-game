@@ -4,9 +4,7 @@
 			"description": "Muevete e interactua con los objetos de la habitacion \n[Completa \"Cambia tu perspectiva\" para terminar la mision]",
 			"id": "1.1.0",
 			"progress_state": 0,
-			"requires_ids": [
-				"1.1.1"
-			],
+			"requires_ids": [],
 			"title": "Tu habitacion, tu dolor, tu comienzo",
 			"visibility_state": 2
 		},

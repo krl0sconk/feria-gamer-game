@@ -156,43 +156,80 @@ func _apply_expanded_state() -> void:
 
 func _refresh_quests() -> void:
 	_quest_list.clear()
+	# Ocultamos la descripción superior: mostramos la jerarquía directamente
 	_quest_description.text = ""
+	_quest_description.visible = false
 
+	# Obtenemos las quests en runtime (activas o todas si no hay activas)
 	var quests_to_show: Array[Quest] = _get_runtime_quests()
 	print("[QuestHud] refreshing quests, found=%d" % quests_to_show.size())
+	# Filtrar: solo mostrar quests "principales" (x.y.0) y secundarias (x-y).
+	var main_quests: Array = []
+	var secondary_quests: Array = []
 	var intro_quest: Quest = null
-	var has_any_visible_quest: bool = false
-	var first_description: String = ""
-
 	for quest in quests_to_show:
 		if quest.id == "quest_intro":
 			intro_quest = quest
+		# Solo mostrar visibles
 		if quest.visibility_state != Quest.QuestVisibility.VISIBLE:
 			continue
+		if _is_main_quest_id(quest.id):
+			main_quests.append(quest)
+		elif _is_secondary_quest_id(quest.id):
+			secondary_quests.append(quest)
 
-		has_any_visible_quest = true
+	var has_any_visible_quest: bool = (main_quests.size() + secondary_quests.size()) > 0
+	var first_description: String = ""
+
+	# Añadir quests principales primero
+	for quest in main_quests:
 		var status_text: String = _get_status_text(quest.progress_state)
 		_quest_list.add_item("%s [%s]" % [quest.title, status_text])
 		var item_index: int = _quest_list.item_count - 1
-		_quest_list.set_item_tooltip(item_index, "%s\n%s" % [quest.title, quest.description])
+		# Construir tooltip con descripción + list of subquests
+		var tt: String = "%s\n%s" % [quest.title, quest.description]
+		var subs: Array = _get_subquests_for_main(quest.id)
+		if subs.size() > 0:
+			tt += "\n\nSubmisiones:"
+			for s in subs:
+				var s_status := _get_status_text(s.progress_state)
+				tt += "\n - %s [%s]" % [s.title, s_status]
+		_quest_list.set_item_tooltip(item_index, tt)
+		if first_description.is_empty() and not quest.description.is_empty():
+			first_description = quest.description
+
+		# Añadir submisiones como entradas indentadas justo debajo
+		for s in subs:
+			var s_status2: String = _get_status_text(s.progress_state)
+			# Indentar visualmente con un guión y espacios
+			_quest_list.add_item("    - %s [%s]" % [s.title, s_status2])
+			var sub_idx := _quest_list.item_count - 1
+			_quest_list.set_item_tooltip(sub_idx, "%s\n%s" % [s.title, s.description])
+
+	# Luego las secundarias (si las hay)
+	for quest in secondary_quests:
+		var status_text2: String = _get_status_text(quest.progress_state)
+		_quest_list.add_item("%s [%s]" % [quest.title, status_text2])
+		var idx2: int = _quest_list.item_count - 1
+		_quest_list.set_item_tooltip(idx2, "%s\n%s" % [quest.title, quest.description])
 		if first_description.is_empty() and not quest.description.is_empty():
 			first_description = quest.description
 
 	if has_any_visible_quest:
-		_quest_description.text = first_description
 		_update_toggle_label()
 		return
 
 	if intro_quest != null:
 		_quest_list.add_item("%s [%s]" % [intro_quest.title, _get_status_text(intro_quest.progress_state)])
 		_quest_list.set_item_tooltip(0, "%s\n%s" % [intro_quest.title, intro_quest.description])
-		_quest_description.text = intro_quest.description
 		_update_toggle_label()
 		return
 
 	_quest_list.add_item("Sin misiones activas")
 	_quest_list.set_item_disabled(0, true)
-	_quest_description.text = "Explora para desbloquear misiones."
+	_quest_description.visible = false
+	# opcional: tooltip para indicar cómo desbloquear
+	_quest_list.set_item_tooltip(0, "Explora para desbloquear misiones.")
 	_update_toggle_label()
 
 
@@ -265,3 +302,42 @@ func _load_quests_from_json() -> Array[Quest]:
 		result.append(q)
 
 	return result
+
+
+func _is_main_quest_id(qid: String) -> bool:
+	if qid == null:
+		return false
+	var id := str(qid).strip_edges()
+	if id.find(".") == -1:
+		return false
+	var parts := id.split(".")
+	if parts.size() != 3:
+		return false
+	return parts[2] == "0"
+
+
+func _is_secondary_quest_id(qid: String) -> bool:
+	if qid == null:
+		return false
+	var id := str(qid).strip_edges()
+	return id.find("-") != -1
+
+
+func _get_subquests_for_main(main_id: String) -> Array:
+	var out: Array = []
+	if QuestManager == null:
+		return out
+	var all: Array = QuestManager.get_all_quests()
+	# main_id expected like "x.y.0" -> prefix "x.y."
+	var prefix := ""
+	if main_id.find(".") != -1:
+		var parts := main_id.split(".")
+		if parts.size() == 3:
+			prefix = "%s.%s." % [parts[0], parts[1]]
+	if prefix == "":
+		return out
+	for q in all:
+		var id := str(q.id)
+		if id.begins_with(prefix) and not _is_main_quest_id(id):
+			out.append(q)
+	return out

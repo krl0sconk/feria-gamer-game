@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_drun"]
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="9_intr"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="10_qhud"]
-[ext_resource type="PackedScene" uid="uid://vkjnvbwonuy7" path="res://scenes/map/bully_spawn_manager.tscn" id="12_bsmgr"]
+[ext_resource type="PackedScene" path="res://scenes/map/bully_spawn_manager.tscn" id="12_bsmgr"]
 
 [node name="Mapa" type="Node2D" unique_id=1460360920]
 script = ExtResource("7_mapgd")
@@ -34,7 +34,6 @@ tile_map_data = PackedByteArray("AAAVABIAAAAFAAMAAAAUABIAAAAEAAMAAAAZABIAAAAEAAM
 tile_set = ExtResource("2_sqgf4")
 
 [node name="Bully" parent="." unique_id=2126418452 instance=ExtResource("9_intr")]
-visible = false
 position = Vector2(827, 641)
 id = "bully_01"
 dialogue_json_path = "res://assets/dialogues/bully_01.json"
@@ -47,11 +46,9 @@ dialogue_voice = ExtResource("7_48h8m")
 sprite_frames = ExtResource("8_b56te")
 
 [node name="BullySpawnManager" parent="." unique_id=1546335740 instance=ExtResource("12_bsmgr")]
-visible = false
 position = Vector2(0, 2)
 
 [node name="Player" parent="." unique_id=1155853386 instance=ExtResource("5_xtmej")]
-visible = false
 position = Vector2(558, 524)
 scale = Vector2(2, 2)
 
@@ -59,7 +56,6 @@ scale = Vector2(2, 2)
 visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=116998281]
-visible = false
 
 [node name="QuestHud" parent="CanvasLayer" unique_id=1973330051 instance=ExtResource("10_qhud")]
 offset_left = -450.0
