@@ -19,8 +19,14 @@ const DEFAULT_PROFILE := {
 	"despawn_on_win": true,
 }
 
+# Map profile_id -> SpriteFrames resource to preserve original sprites
+const PROFILE_FRAMES := {
+	"easy_bully": preload("res://assets/images/sprites/idle.tres"),
+	"pj2_bully": preload("res://assets/images/sprites/idlepj2.tres"),
+}
+
 @export_range(5, 20, 1) var minimum_active: int = 5
-@export_range(5, 20, 1) var maximum_active: int = 10
+@export_range(5, 20, 1) var maximum_active: int = 5
 @export var allow_full_spawn: bool = false
 
 var _rng := RandomNumberGenerator.new()
@@ -91,10 +97,14 @@ func apply_state(state: Dictionary) -> void:
 		if spawn_point_id.is_empty():
 			continue
 		active_map[spawn_point_id] = str(item_dict.get("profile_id", DEFAULT_PROFILE["profile_id"]))
+	var spawned_count: int = 0
 	for marker in _get_spawn_markers():
 		if not active_map.has(marker.name):
 			continue
+		if spawned_count >= maximum_active:
+			break
 		_spawn_bully(marker, str(active_map[marker.name]))
+		spawned_count += 1
 
 
 func on_npc_defeated(npc_id: String) -> void:
@@ -169,6 +179,18 @@ func _get_spawn_markers() -> Array[Marker2D]:
 	return markers
 
 
+func _choose_animation(frames: SpriteFrames, preferred: Array = ["Idle", "idle"]) -> String:
+	if frames == null:
+		return ""
+	for p in preferred:
+		if frames.has_animation(str(p)):
+			return str(p)
+	var names: Array = frames.get_animation_names()
+	if names.size() > 0:
+		return names[0]
+	return ""
+
+
 func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 	if marker == null:
 		return
@@ -199,6 +221,57 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 	var voice_path := str(DEFAULT_PROFILE["dialogue_voice_path"])
 	if not voice_path.is_empty():
 		bully.dialogue_voice = load(voice_path) as AudioStream
+	# Allow per-marker overrides: if the marker exposes `profile_id` or
+	# `sprite_frames` (via SpawnPoint script), prefer them over the
+	# `profile_id` parameter.
+	if marker != null:
+		# marker.profile_id may exist if SpawnPoint.gd is attached.
+		var marker_profile := ""
+		if marker.has_method("get"):
+			var try_prof = marker.get("profile_id")
+			if try_prof != null and str(try_prof).strip_edges() != "":
+				marker_profile = str(try_prof)
+		if marker_profile != "":
+			profile_id = marker_profile
+
+	# Ensure the visible sprite uses a SpriteFrames resource (not a raw Texture)
+	var sprite_node := bully.get_node_or_null("Sprite2D")
+	# Force a proper SpriteFrames resource and play Idle animation to avoid
+	# showing the raw spritesheet texture as a single image.
+	if sprite_node != null:
+		# If the marker provides an explicit SpriteFrames, use it.
+		var marker_frames: SpriteFrames = null
+		if marker != null and marker.has_method("get"):
+			var try_frames = marker.get("sprite_frames")
+			if try_frames != null and try_frames is SpriteFrames:
+				marker_frames = try_frames
+		var default_frames: SpriteFrames = marker_frames if marker_frames != null else PROFILE_FRAMES.get(profile_id, preload("res://assets/images/sprites/idle.tres")) as SpriteFrames
+		if sprite_node is AnimatedSprite2D:
+			# Always override the scene's default frames so SpawnPoint settings win.
+			sprite_node.sprite_frames = default_frames
+			# Choose best animation name (handles 'Idle' vs 'idle')
+			var chosen: String = _choose_animation(sprite_node.sprite_frames)
+			if chosen != "":
+				sprite_node.animation = chosen
+				sprite_node.play()
+		elif sprite_node is Sprite2D:
+			# If a plain Sprite2D was used and it holds a full spritesheet texture,
+			# clear it and add a minimal AnimatedSprite2D to display frames.
+			if sprite_node.texture != null:
+				# Remove texture to avoid showing the entire sheet.
+				sprite_node.texture = null
+				var anim := AnimatedSprite2D.new()
+				anim.name = "Sprite2D"
+				anim.sprite_frames = default_frames
+				var chosen2: String = _choose_animation(anim.sprite_frames)
+				if chosen2 != "":
+					anim.animation = chosen2
+				anim.play()
+				# Replace the node in the parent
+				var parent := sprite_node.get_parent()
+				parent.remove_child(sprite_node)
+				parent.add_child(anim)
+
 	bully.set_meta("profile_id", profile_id)
 	add_child(bully)
 	_spawned_by_point[marker.name] = bully

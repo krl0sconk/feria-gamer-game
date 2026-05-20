@@ -121,9 +121,6 @@ func play_result_dialogue(result: String) -> void:
 			dialogue_id = lose_dialogue_id
 		_:
 			return
-	if dialogue_id.is_empty() or _data == null or _runner == null:
-		return
-	_current_mode = "result"
 
 	# Si el jugador ganó, notificar a cualquier sistema de estado mundial
 	# (por ejemplo BullySpawnManager) que este NPC fue derrotado, para que
@@ -144,6 +141,10 @@ func play_result_dialogue(result: String) -> void:
 				qm.call("on_enemy_defeated", str(mission_id))
 			if secondary_mission_id != null and secondary_mission_id.strip_edges() != "":
 				qm.call("on_enemy_defeated", str(secondary_mission_id))
+
+	if dialogue_id.is_empty() or _data == null or _runner == null:
+		return
+	_current_mode = "result"
 
 	_runner.play(_data, dialogue_id, dialogue_voice)
 

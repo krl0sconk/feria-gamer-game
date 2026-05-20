@@ -17,6 +17,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if _has_exited:
 		return
+	if QuestManager != null and not QuestManager.is_completed("1.1.1"):
+		return
 	var player := get_tree().get_first_node_in_group("player") as Node2D
 	if player == null:
 		return
