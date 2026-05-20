@@ -1,6 +1,6 @@
 extends Control
 
-const SKINS := ["idle (1)", "idle pj2"]
+const SKINS := ["idle (1)", "idlepj2"]
 
 @onready var _grid: GridContainer = $GridContainer
 @onready var _back: Button = $BoxContainer/Back
@@ -36,9 +36,9 @@ func selectedskin(skinname: String) -> void:
 	Gamemanager.selectedskin = skinname
 	var tree := get_tree()
 	if tree == null:
-		push_error("select_pj: no SceneTree disponible para cambiar a map.tscn")
+		push_error("select_pj: no SceneTree disponible para cambiar a room.tscn")
 		return
-	tree.call_deferred("change_scene_to_file", "res://scenes/map/map.tscn")
+	tree.call_deferred("change_scene_to_file", "res://scenes/map/room.tscn")
 	await tree.process_frame
 	await tree.process_frame
 	if _save_manager != null and _save_manager.has_method("get_active_slot"):

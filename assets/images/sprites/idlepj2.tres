@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bge26j1oybjcs"]
+
+[ext_resource type="Texture2D" uid="uid://osnulh3qmeq4" path="res://assets/images/sprites/idle pj2.png" id="1_pj2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_msxkc"]
+atlas = ExtResource("1_pj2")
+region = Rect2(0, 0, 800, 807)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_msxkc")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 7.0
+}]

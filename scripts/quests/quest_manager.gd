@@ -86,9 +86,6 @@ func start_progression() -> void:
 	_completed.clear()
 	_active.clear()
 
-	for q in _by_id.values():
-		(q as Quest).reset_states()
-
 	_refresh_unlocks()
 
 
@@ -195,3 +192,84 @@ func apply_state(serialized: Array) -> void:
 		else:
 			_active[id] = q
 	active_quests_changed.emit(_active_ids_array())
+
+
+## Notificación desde sistemas externos (p. ej. Interactable) cuando un
+## enemigo/objetivo es derrotado. `enemy_id` puede tener formato:
+##  - Lineal: "x.y.z" donde z==0 implica la misión principal, z!=0 es
+##    una submisión.
+##  - Secundaria: "x-y"
+func on_enemy_defeated(enemy_id: String) -> void:
+	if enemy_id == null:
+		return
+	var id: String = str(enemy_id).strip_edges()
+	if id == "":
+		return
+
+	# Dot-form (submisión o main)
+	if id.find(".") != -1:
+		if _by_id.has(id) and not _completed.has(id):
+			_mark_quest_completed(id)
+		var parts: Array = id.split(".")
+		if parts.size() == 3:
+			var zone: String = parts[0]
+			var main: String = parts[1]
+			var sub: String = parts[2]
+			if sub != "0":
+				_check_and_complete_main_from_sub(zone, main)
+		return
+
+	# Dash-form (secundaria)
+	if id.find("-") != -1:
+		if _by_id.has(id) and not _completed.has(id):
+			_mark_quest_completed(id)
+		return
+
+	# Fallback: intentar marcar por id literal
+	if _by_id.has(id) and not _completed.has(id):
+		_mark_quest_completed(id)
+
+
+func _mark_quest_completed(quest_id: String) -> void:
+	if not _by_id.has(quest_id):
+		return
+	if _completed.has(quest_id):
+		return
+	var q: Quest = _by_id[quest_id] as Quest
+	q.set_progress_state(Quest.QuestState.COMPLETADA)
+	_active.erase(quest_id)
+	_completed[quest_id] = true
+	quest_completed.emit(quest_id)
+	# Recalcular desbloqueos posteriores
+	_refresh_unlocks()
+
+
+func _check_and_complete_main_from_sub(zone: String, main: String) -> void:
+	var main_id := "%s.%s.0" % [zone, main]
+	if not _by_id.has(main_id):
+		return
+	# Buscar subquests definidas explícitamente
+	var sub_ids: Array = []
+	for k in _by_id.keys():
+		var key_str := str(k)
+		if key_str.begins_with("%s.%s." % [zone, main]):
+			var parts := key_str.split(".")
+			if parts.size() == 3 and parts[2] != "0":
+				sub_ids.append(key_str)
+	# Si no hay subquests definidas, usar requires_ids del main
+	if sub_ids.is_empty():
+		var main_q: Quest = _by_id[main_id] as Quest
+		var reqs: Array = main_q.requires_ids
+		if reqs.size() == 0:
+			return
+		for rid in reqs:
+			if not _completed.has(str(rid)):
+				return
+		_mark_quest_completed(main_id)
+		return
+
+	# Verificar que todas las subquests están completadas
+	for sid in sub_ids:
+		if not _completed.has(str(sid)):
+			return
+	_mark_quest_completed(main_id)

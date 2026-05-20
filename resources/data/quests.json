@@ -1,20 +1,180 @@
 {
 	"quests": [
 		{
-			"id": "quest_intro",
-			"title": "Habla con el primer NPC",
-			"description": "Acercate y conversa para iniciar la historia.",
-			"visibility_state": 2,
+			"description": "Muevete e interactua con los objetos de la habitacion \n[Completa \"Cambia tu perspectiva\" para terminar la mision]",
+			"id": "1.1.0",
 			"progress_state": 0,
-			"requires_ids": []
+			"requires_ids": [],
+			"title": "Tu habitacion, tu dolor, tu comienzo",
+			"visibility_state": 2
 		},
 		{
-			"id": "quest_battle_1",
-			"title": "Gana tu primera batalla",
-			"description": "Derrota al bully en el minijuego ritmico.",
-			"visibility_state": 1,
+			"description": "interactua con la guitarra y realiza el tutorial ",
+			"id": "1.1.1",
 			"progress_state": 0,
-			"requires_ids": ["quest_intro"]
+			"requires_ids": [],
+			"title": "Cambia tu perspectiva",
+			"visibility_state": 2
+		},
+		{
+			"description": "Defiende a tu compañero de clase a traves de la musica y el ritmo",
+			"id": "2.1.0",
+			"progress_state": 0,
+			"requires_ids": [
+				"1.1.0"
+			],
+			"title": "No eres el unico ",
+			"visibility_state": 1
+		},
+		{
+			"description": "un amigo del bully te esta molestando por defender a tu compañero, tambien enfrentalo antes de poner en su lugar al bully",
+			"id": "2.1.1",
+			"progress_state": 0,
+			"requires_ids": [
+				"1.1.0"
+			],
+			"title": "Repasemos lo aprendido",
+			"visibility_state": 1
+		},
+		{
+			"description": "ganale al bully en su propio juego",
+			"id": "2.1.2",
+			"progress_state": 0,
+			"requires_ids": [
+				"1.1.0"
+			],
+			"title": "Un nuevo reto",
+			"visibility_state": 1
+		},
+		{
+			"description": "interactua con el compañero al que ayudaste ",
+			"id": "2.1.3",
+			"progress_state": 0,
+			"requires_ids": [
+				"2.1.2"
+			],
+			"title": "Todos podemos ayudar a alguien",
+			"visibility_state": 1
+		},
+		{
+			"description": "Hay una batalla de bandas y participaras supera los obstaculos y llega al escenario",
+			"id": "3.1.0",
+			"progress_state": 0,
+			"requires_ids": [
+				"2.1.0"
+			],
+			"title": "La ley del mas fuerte",
+			"visibility_state": 1
+		},
+		{
+			"description": "vence al bully que te esta pidiendo dinero ",
+			"id": "3.1.1",
+			"progress_state": 0,
+			"requires_ids": [
+				"2.1.0"
+			],
+			"title": "No te dejes amedrantar ",
+			"visibility_state": 1
+		},
+		{
+			"description": "ha llegado el hermano del bully a armar problemas retalos y ganales a ambos",
+			"id": "3.1.2",
+			"progress_state": 0,
+			"requires_ids": [
+				"3.1.1"
+			],
+			"title": "Defiendete hasta el final",
+			"visibility_state": 1
+		},
+		{
+			"description": "se ha descubierto que alguien que hace cyberbullying tiene su base en la sala de computacion ve a averiguar que paso",
+			"id": "4.1.0",
+			"progress_state": 0,
+			"requires_ids": [
+				"3.1.0"
+			],
+			"title": "Detras de la pantallla",
+			"visibility_state": 1
+		},
+		{
+			"description": "encontraste a tu compañera llorando interactua con ella a ver que le paso",
+			"id": "4.1.1",
+			"progress_state": 0,
+			"requires_ids": [
+				"3.1.0"
+			],
+			"title": "El internet lastima",
+			"visibility_state": 1
+		},
+		{
+			"description": "has descubierto al bully cibernetico retalo a una batalla y ganale ",
+			"id": "4.1.2",
+			"progress_state": 0,
+			"requires_ids": [
+				"4.1.1"
+			],
+			"title": "Lo anonimo no lo es tanto",
+			"visibility_state": 1
+		},
+		{
+			"description": "venciste al bullying interactua con tu compañera y dile que borraste los mensajes falsos",
+			"id": "4.1.3",
+			"progress_state": 0,
+			"requires_ids": [
+				"4.1.2"
+			],
+			"title": "Todo siempre tiene solucion",
+			"visibility_state": 1
+		},
+		{
+			"description": "Demuestra lo que vales, gana la batalla de las bandas ",
+			"id": "5.1.0",
+			"progress_state": 0,
+			"requires_ids": [
+				"4.1.0"
+			],
+			"title": "Batalla de bandas ",
+			"visibility_state": 1
+		},
+		{
+			"description": "revisa contra quien te toca enfrentarte en esta ocasion",
+			"id": "5.1.1",
+			"progress_state": 0,
+			"requires_ids": [
+				"4.1.0"
+			],
+			"title": "Donde todo empezo",
+			"visibility_state": 1
+		},
+		{
+			"description": "ganale al bully en la batallas de las bandas frente a la escuela",
+			"id": "5.1.2",
+			"progress_state": 0,
+			"requires_ids": [
+				"5.1.1"
+			],
+			"title": "Deja tu nombre en alto",
+			"visibility_state": 1
+		},
+		{
+			"description": "ya ganaste la batalla de bandas ahora habla frente al microfono y ahora brindale ayuda al bully no seas como el ",
+			"id": "5.1.3",
+			"progress_state": 0,
+			"requires_ids": [
+				"5.1.2"
+			],
+			"title": "Eres una inspiracion",
+			"visibility_state": 1
+		},
+		{
+			"description": "derrota a 2 bullies que encuentres en los pasillos",
+			"id": "3-1",
+			"progress_state": 0,
+			"requires_ids": [
+				"2.1.0"
+			],
+			"title": "A combatir el bullying",
+			"visibility_state": 1
 		}
 	]
 }

@@ -1,6 +1,8 @@
 [gd_scene format=4 uid="uid://0ltynt3nflaq"]
 
 [ext_resource type="TileSet" uid="uid://bicvtix43wtf1" path="res://assets/images/worldAssets/tileset.tres" id="1_f7eyw"]
+[ext_resource type="Script" uid="uid://qumc2qlcxntl" path="res://scripts/map/room.gd" id="1_roomgd"]
+[ext_resource type="PackedScene" uid="uid://dkrd76y7ipit4" path="res://scenes/ui/pause_button.tscn" id="5_6nkgt"]
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/player.tscn" id="5_f7eyw"]
 [ext_resource type="SpriteFrames" uid="uid://qufpvcx3qv5n" path="res://assets/images/worldAssets/Guitar.tres" id="6_nq8on"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="6_qfafv"]
@@ -9,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="8_dew3o"]
 
 [node name="Room" type="Node2D" unique_id=1476698445]
+script = ExtResource("1_roomgd")
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=1279367209]
 scale = Vector2(2.5, 2.5)
@@ -25,10 +28,28 @@ tile_set = ExtResource("1_f7eyw")
 tile_map_data = PackedByteArray("AAAGAAEAAAAGAAcAAAAGAAIAAAAGAAgAAAAGAAAAAAAEAAQAAAADAP//AAAIAAIAAAAEAP//AAAHAAIAAAAAAPz/BwAAAAIAACAAAPv/BwACAAEAACADAP7/AAAGAAEAAAD9/wIAAAAFAAsAAAD7/wEAAAAKAAUAAAD7/wIAAAAKAAYAAAD8/wEAAAAKAAUAAAD8/wIAAAAKAAYAAAAAAP3/AQAJAAcAAAAAAP7/AQAJAAgAAAADAP3/AAAGAAAAAAA=")
 tile_set = ExtResource("1_f7eyw")
 
+[node name="Player" parent="." unique_id=1155853386 instance=ExtResource("5_f7eyw")]
+position = Vector2(-59, 50)
+scale = Vector2(2, 2)
+
+[node name="DialogueRunner" parent="." unique_id=429825200 instance=ExtResource("6_qfafv")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1760532851]
+
+[node name="PauseButton" parent="CanvasLayer" unique_id=1741637342 instance=ExtResource("5_6nkgt")]
+
+[node name="QuestHud" parent="CanvasLayer" unique_id=797831044 instance=ExtResource("7_nq8on")]
+offset_left = -1.0
+offset_top = 6.0
+offset_right = -1.0
+offset_bottom = 6.0
+metadata/_edit_use_anchors_ = true
+
 [node name="Guitarra_Tutorial" parent="." unique_id=878503726 instance=ExtResource("8_dew3o")]
 position = Vector2(118, -53)
 scale = Vector2(0.5, 0.5)
 id = "cartel"
+mission_id = "1.1.1"
 dialogue_json_path = "res://assets/dialogues/guitarra_tutorial.json"
 battle_scene_path = "uid://bpjxvmi61lq5"
 

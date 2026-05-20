@@ -26,6 +26,12 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 ## una batalla (Gamemanager.pending_npc_id).
 @export var id: String = ""
 
+## Identificador de misión (formato lineal): x.x.x donde la 3ra x=0 indica que
+## es la misión principal (no una submisión). Ejemplo: "1.2.0" o "1.2.3".
+@export var mission_id: String = ""
+
+## Identificador de misión secundaria (formato: x-x). Ejemplo: "1-3".
+@export var secondary_mission_id: String = ""
 ## Archivo JSON con los diálogos de este interactuable.
 @export_file("*.json") var dialogue_json_path: String = ""
 
@@ -45,6 +51,9 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 
 ## Chart opcional para la batalla asociada. Vacío = usa el default de Battle.
 @export_file("*.json") var battle_chart_path: String = ""
+
+## Música opcional para la batalla asociada. Null = usa música por defecto.
+@export var battle_music: AudioStream = null
 
 ## Si es true, este interactuable se elimina después de mostrar el diálogo
 ## de victoria. Útil para bullies secundarios de un solo uso.
@@ -77,7 +86,6 @@ var _runner: DialogueRunner = null
 #   "intro" → quizá dispara batalla
 #   "result" → solo reanuda al jugador
 var _current_mode: String = ""
-var _despawn_after_result: bool = false
 var _interaction_player: AudioStreamPlayer
 var _defeat_reported: bool = false
 
@@ -116,9 +124,6 @@ func play_result_dialogue(result: String) -> void:
 			dialogue_id = lose_dialogue_id
 		_:
 			return
-	if dialogue_id.is_empty() or _data == null or _runner == null:
-		return
-	_current_mode = "result"
 
 	# Si el jugador ganó, notificar a cualquier sistema de estado mundial
 	# (por ejemplo BullySpawnManager) que este NPC fue derrotado, para que
@@ -130,6 +135,19 @@ func play_result_dialogue(result: String) -> void:
 				continue
 			if node.has_method("on_npc_defeated"):
 				node.call("on_npc_defeated", id)
+
+		# Notificar al QuestManager sobre la derrota si este interactuable está
+		# vinculado a una misión (lineal o secundaria).
+		var qm := get_node_or_null("/root/QuestManager")
+		if qm != null and qm.has_method("on_enemy_defeated"):
+			if mission_id != null and mission_id.strip_edges() != "":
+				qm.call("on_enemy_defeated", str(mission_id))
+			if secondary_mission_id != null and secondary_mission_id.strip_edges() != "":
+				qm.call("on_enemy_defeated", str(secondary_mission_id))
+
+	if dialogue_id.is_empty() or _data == null or _runner == null:
+		return
+	_current_mode = "result"
 
 	_runner.play(_data, dialogue_id, dialogue_voice)
 
@@ -179,6 +197,7 @@ func _queue_battle_transition() -> void:
 	Gamemanager.pending_npc_id = id
 	Gamemanager.pending_dialogue_result = ""
 	Gamemanager.set_pending_battle_chart_path(battle_chart_path)
+	Gamemanager.set_pending_battle_music(battle_music)
 	battle_requested.emit(battle_scene_path, id)
 	get_tree().change_scene_to_file(battle_scene_path)
 
