@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="9_g04a8"]
 [ext_resource type="AudioStream" uid="uid://drk4wj32fsdl1" path="res://assets/audio/music/cool_guy.wav" id="10_0ibgl"]
 [ext_resource type="AudioStream" uid="uid://cwkwfig0lcpac" path="res://assets/audio/music/rude_girl.wav" id="10_o0av7"]
+[ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="11_battle"]
 [ext_resource type="Script" uid="uid://qumc2qlcxntl" path="res://scripts/map/room.gd" id="12_exitctrl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
