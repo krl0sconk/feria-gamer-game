@@ -2,11 +2,11 @@
 	"id": "classroom_intro",
 	"steps": [
 		{
-			"type": "disable_player"
-		},
-		{
 			"duration": 0.6,
 			"type": "fade_to_black"
+		},
+		{
+			"type": "disable_player"
 		},
 		{
 			"seconds": 0.4,

@@ -45,6 +45,7 @@ anchor_left = 0.05
 anchor_top = 0.1
 anchor_right = 0.95
 anchor_bottom = 0.92
+offset_bottom = -130.40002
 
 [node name="Slot1" type="PanelContainer" parent="VBox" unique_id=100002]
 custom_minimum_size = Vector2(0, 140)
@@ -73,6 +74,7 @@ theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 16
 
 [node name="BtnDel1" type="Button" parent="VBox/Slot1" unique_id=100004]
+visible = false
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("3_rn2yw")
@@ -107,6 +109,7 @@ theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 16
 
 [node name="BtnDel2" type="Button" parent="VBox/Slot2" unique_id=100007]
+visible = false
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("3_rn2yw")
@@ -141,6 +144,7 @@ theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 16
 
 [node name="BtnDel3" type="Button" parent="VBox/Slot3" unique_id=1834913458]
+visible = false
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("3_rn2yw")

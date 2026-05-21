@@ -87,6 +87,10 @@ func _setup_sfx() -> void:
 
 
 func _on_highlight_gained(source: String) -> void:
+	if source == "mouse":
+		var focused := get_viewport().gui_get_focus_owner()
+		if focused != null and focused != self:
+			focused.release_focus()
 	var was_highlighted := _is_any_highlighted()
 	_highlight_sources[source] = true
 	if not was_highlighted:

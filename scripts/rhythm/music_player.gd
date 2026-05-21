@@ -21,7 +21,8 @@ func _process(_delta: float) -> void:
 
 
 func get_position_ms() -> float:
-	return get_playback_position() * 1000.0
+	var corrected := get_playback_position() + AudioServer.get_time_since_last_mix()
+	return corrected * 1000.0 - AudioServer.get_output_latency() * 1000.0
 
 
 func switch_stream(new_stream: AudioStream, offset_sec: float) -> void:

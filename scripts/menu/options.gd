@@ -1,15 +1,14 @@
 # Pantalla de opciones — pensada como overlay sobre el main menu (puede
 # correrse standalone con F6 para debug). Consume `OptionsSettings` para
-# leer/escribir y aplicar las preferencias.
+# leer/escribir y aplicar las preferencias, y `ControlsSettings` para
+# el remapeo de teclas.
 #
-# Flujo Apply explícito: los cambios en sliders/dropdowns NO tocan el
+# Flujo Apply explícito: los cambios en sliders/dropdowns/teclas NO tocan el
 # motor hasta que se aprieta "Aplicar". "Volver" cierra el overlay; si
-# nunca se apretó Aplicar, los cambios pendientes se descartan (porque
-# nunca se llegaron a guardar/aplicar).
+# nunca se apretó Aplicar, los cambios pendientes se descartan.
 extends Control
 
-## Emitida al cerrar el overlay con "Volver". El padre (main_menu) lo
-## escucha para liberar la instancia y restaurar el focus.
+## Emitida al cerrar el overlay con "Volver".
 signal closed
 
 @onready var _resolution_option: OptionButton = %ResolutionOption
@@ -27,17 +26,40 @@ signal closed
 @onready var _apply_button: Button = %ApplyButton
 @onready var _back_button: Button = %BackButton
 
-# Estado pendiente: refleja la UI. Se persiste/aplica al apretar Aplicar.
-# Inicialmente espeja lo guardado en disco.
 var _settings: Dictionary = {}
+
+# Estado pendiente de controles: action_name → physical_keycode
+var _pending_bindings: Dictionary = {}
+# Fila de rebind actualmente escuchando, null si ninguna
+var _listening_row: RebindRow = null
 
 
 func _ready() -> void:
 	_settings = OptionsSettings.load_settings()
+	_pending_bindings = ControlsSettings.load_bindings()
 	_populate_dropdowns()
 	_apply_to_ui()
 	_connect_signals()
+	_populate_rebind_rows()
 	_apply_button.grab_focus()
+
+
+func _input(event: InputEvent) -> void:
+	if _listening_row == null:
+		return
+	if not (event is InputEventKey) or not event.pressed or event.echo:
+		return
+	var key := event as InputEventKey
+	if key.physical_keycode == KEY_ESCAPE:
+		_listening_row.set_listening(false)
+		_listening_row = null
+		accept_event()
+		return
+	_pending_bindings[_listening_row.action_name] = key.physical_keycode
+	_listening_row.set_keycode(key.physical_keycode)
+	_listening_row.set_listening(false)
+	_listening_row = null
+	accept_event()
 
 
 func _populate_dropdowns() -> void:
@@ -72,9 +94,6 @@ func _apply_to_ui() -> void:
 
 
 func _connect_signals() -> void:
-	# Cada handler solo actualiza el dict pendiente y los labels — sin
-	# tocar disco ni motor. La aplicación real es responsabilidad del
-	# botón Aplicar.
 	_resolution_option.item_selected.connect(_on_resolution_selected)
 	_window_option.item_selected.connect(_on_window_mode_selected)
 	_master_slider.value_changed.connect(_on_master_changed)
@@ -86,6 +105,36 @@ func _connect_signals() -> void:
 	_apply_button.pressed.connect(_on_apply_pressed)
 	_back_button.pressed.connect(_on_back_pressed)
 
+
+func _populate_rebind_rows() -> void:
+	var rows := find_children("*", "RebindRow", true, false)
+	for row_node in rows:
+		var row := row_node as RebindRow
+		var action := row.action_name
+		if action.is_empty() or not ControlsSettings.ACTIONS.has(action):
+			continue
+		# Mostrar label de la acción en el Label hijo de la fila
+		var lbl := row.get_node_or_null("ActionLabel") as Label
+		if lbl:
+			lbl.text = ControlsSettings.ACTIONS[action]["label"]
+		row.set_keycode(_pending_bindings.get(action, ControlsSettings.ACTIONS[action]["default"]))
+		row.rebind_requested.connect(_on_rebind_requested)
+		row.reset_requested.connect(_on_reset_requested)
+
+
+func _on_rebind_requested(row: RebindRow) -> void:
+	if _listening_row != null and _listening_row != row:
+		_listening_row.set_listening(false)
+	_listening_row = row
+	row.set_listening(true)
+
+
+func _on_reset_requested(row: RebindRow) -> void:
+	if _listening_row == row:
+		_listening_row = null
+	var default_key: int = ControlsSettings.ACTIONS[row.action_name]["default"]
+	_pending_bindings[row.action_name] = default_key
+	row.set_keycode(default_key)
 
 
 func _on_resolution_selected(idx: int) -> void:
@@ -127,12 +176,13 @@ func _on_dyslexia_toggled(pressed: bool) -> void:
 func _on_apply_pressed() -> void:
 	OptionsSettings.save_settings(_settings)
 	OptionsSettings.apply(_settings)
+	ControlsSettings.save_bindings(_pending_bindings)
+	ControlsSettings.apply_bindings(_pending_bindings)
 
 
 func _on_back_pressed() -> void:
 	closed.emit()
 	queue_free()
-
 
 
 func _update_volume_labels() -> void:

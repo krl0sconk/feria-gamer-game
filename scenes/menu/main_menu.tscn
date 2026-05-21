@@ -209,11 +209,20 @@ flat = true
 [node name="Label" type="Label" parent="." unique_id=527829040]
 layout_mode = 0
 offset_left = 7.0
-offset_top = 687.0
+offset_top = 690.0
 offset_right = 157.0
-offset_bottom = 710.0
+offset_bottom = 713.0
 theme_override_fonts/font = ExtResource("8_qgo02")
-text = "© 2026 Crealgames"
+text = "© 2026 Creal. "
+
+[node name="Label2" type="Label" parent="." unique_id=1470344052]
+layout_mode = 0
+offset_left = 1085.0
+offset_top = 690.0
+offset_right = 1270.0
+offset_bottom = 713.0
+theme_override_fonts/font = ExtResource("8_qgo02")
+text = "BEAT THE BULLY BETA 0.1"
 
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]

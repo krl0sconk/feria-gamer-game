@@ -24,6 +24,9 @@ signal cinematic_finished(id: String)
 ## Si true, la cinemática sólo se reproduce una vez por partida (guarda en
 ## Gamemanager.cinematics_played). Desactívalo para cinemáticas repetibles.
 @export var play_once: bool = true
+## Si true, la pantalla arranca en negro desde el primer frame — evita el
+## flash del mapa en cinemáticas con delay 0 que empiezan con fade_from_black.
+@export var start_black: bool = false
 
 var _black_screen: ColorRect = null
 var _runner: DialogueRunner  = null
@@ -65,7 +68,7 @@ func _setup_black_screen() -> void:
 		_black_screen = ColorRect.new()
 		_black_screen.name = "BlackScreen"
 		add_child(_black_screen)
-	_black_screen.color = Color(0.0, 0.0, 0.0, 0.0)
+	_black_screen.color = Color(0.0, 0.0, 0.0, 1.0 if start_black else 0.0)
 	_black_screen.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_black_screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	get_viewport().size_changed.connect(func() -> void:
@@ -135,6 +138,7 @@ func play() -> void:
 	if _data == null or _is_playing:
 		return
 	if play_once and Gamemanager.cinematics_played.get(_data.id, false):
+		_black_screen.color.a = 0.0
 		return
 
 	_is_playing = true

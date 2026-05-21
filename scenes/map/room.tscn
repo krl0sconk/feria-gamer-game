@@ -92,6 +92,7 @@ shape = SubResource("RectangleShape2D_tmqj2")
 [node name="CinematicPlayer" type="CanvasLayer" parent="." unique_id=2055853810]
 script = ExtResource("13_c6l7p")
 cinematic_json_path = "res://assets/cinematics/room_intro.json"
+start_black = true
 metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 
 [node name="CinematicPlayer2" type="CanvasLayer" parent="." unique_id=1367247324]

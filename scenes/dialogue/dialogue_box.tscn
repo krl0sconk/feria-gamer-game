@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dlgboxaaaaaa1"]
 
 [ext_resource type="Script" uid="uid://bx537q2gj0rxu" path="res://scripts/dialogue/dialogue_box.gd" id="1_dbox"]
-[ext_resource type="FontFile" uid="uid://dye7jmtmy4vqr" path="res://assets/fonts/retro_pixel.otf" id="2_gbb6a"]
 [ext_resource type="FontFile" uid="uid://f2r6c64a0i6v" path="res://assets/fonts/retro_bound.ttf" id="3_qtmnj"]
 [ext_resource type="FontFile" uid="uid://dkhuvr1inqnvv" path="res://assets/fonts/retro_bound_uc.ttf" id="4_ch5tr"]
 
@@ -56,7 +55,7 @@ theme_override_constants/separation = 8
 [node name="SpeakerLabel" type="Label" parent="Panel/Margin/VBox" unique_id=877404858]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
-theme_override_fonts/font = ExtResource("2_gbb6a")
+theme_override_fonts/font = ExtResource("4_ch5tr")
 theme_override_font_sizes/font_size = 34
 text = "Speaker"
 
@@ -66,7 +65,7 @@ size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_qtmnj")
 theme_override_font_sizes/font_size = 28
-text = "Lorem ipsum dolor sit amet."
+text = "Lorem ipsum dolor sit amet. "
 autowrap_mode = 2
 
 [node name="HintLabel" type="Label" parent="Panel/Margin/VBox" unique_id=1448417048]

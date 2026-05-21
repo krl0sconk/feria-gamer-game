@@ -12,6 +12,8 @@ extends Node2D
 @export_range(0.0, 5.0, 0.1, "suffix:s") var intro_delay_s: float = 0.0
 ## Pausa tras terminar el nivel antes de cambiar a la pantalla de resultado.
 @export_range(0.0, 5.0, 0.1, "suffix:s") var outro_delay_s: float = 1.5
+## Fade-in al arrancar la música. 0 = sin fade (recomendado por defecto).
+@export_range(0.0, 3.0, 0.1, "suffix:s") var music_fade_in_s: float = 0.0
 
 @export_group("Debug")
 ## Activa la tecla de debug para saltar la canción (F5 = saltar; F6 = forzar derrota).
@@ -122,7 +124,9 @@ func _load_chart() -> void:
 func _get_current_ms() -> float:
 	if _in_pre_roll:
 		return _pre_roll_elapsed_ms - _pre_roll_total_ms + _phase_audio_offset_ms
-	return _fallback_ms if _using_fallback else _music_player.get_position_ms() + _phase_audio_offset_ms
+	if _using_fallback:
+		return _fallback_ms
+	return _fallback_ms + _phase_audio_offset_ms
 
 
 func _get_song_total_ms() -> float:
@@ -145,11 +149,18 @@ func _process(delta: float) -> void:
 			if _music_player.stream != null:
 				_music_player.volume_db = -80.0
 				_music_player.play()
-				_music_player.fade_in(1.0)
+				if music_fade_in_s > 0.0:
+					_music_player.fade_in(music_fade_in_s)
+				else:
+					_music_player.volume_db = 0.0
 			else:
 				_using_fallback = true
-	elif _using_fallback:
+	if not _in_pre_roll:
 		_fallback_ms += delta * 1000.0
+		if not _using_fallback:
+			var audio_pos: float = _music_player.get_position_ms()
+			if audio_pos > 0.0:
+				_fallback_ms = lerpf(_fallback_ms, audio_pos, 0.3)
 	var current_ms: float = _get_current_ms()
 	_metronome.update_time(current_ms)
 	_composer.update_time(current_ms)
@@ -214,6 +225,7 @@ func _begin_phase_transition(idx: int) -> void:
 			_music_player.stream = new_stream
 	_pre_roll_total_ms = _arrow_travel_ms
 	_pre_roll_elapsed_ms = 0.0
+	_fallback_ms = 0.0
 	_in_pre_roll = true
 	_phase_transition_active = false
 

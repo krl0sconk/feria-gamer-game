@@ -45,8 +45,8 @@ func _physics_process(_delta: float) -> void:
 		move_and_slide()
 		return
 	var direction := Vector2.ZERO
-	direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	direction.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	velocity = direction.normalized() * SPEED
 	_set_walking(velocity != Vector2.ZERO)
 	_update_walk_animation(direction)
