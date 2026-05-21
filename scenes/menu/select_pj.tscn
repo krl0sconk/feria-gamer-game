@@ -8,6 +8,7 @@
 [ext_resource type="SpriteFrames" uid="uid://btgbdrv3gb6xj" path="res://assets/images/characters/pj1/player_battle_pj1.tres" id="3_pa4ul"]
 [ext_resource type="Script" uid="uid://cxl3bnruct0vp" path="res://scripts/ui/keychain_button.gd" id="4_pa4ul"]
 [ext_resource type="AudioStream" uid="uid://chybtbqfqkxl2" path="res://assets/audio/sfx/hover.tres" id="5_lvgf7"]
+[ext_resource type="Texture2D" uid="uid://flttdpgo200r" path="res://assets/images/characters/pj3/pj3_icon.png" id="9_pa4ul"]
 
 [node name="Select_PJ" type="Control" unique_id=1459544091]
 layout_mode = 3
@@ -30,14 +31,6 @@ offset_right = 986.1667
 offset_bottom = 559.49994
 color = Color(0, 0, 0, 0.41960785)
 metadata/_edit_use_anchors_ = true
-
-[node name="ColorRect2" type="ColorRect" parent="." unique_id=1492214012]
-layout_mode = 0
-offset_left = 587.0
-offset_top = 93.0
-offset_right = 1159.0
-offset_bottom = 629.0
-size_flags_horizontal = 3
 
 [node name="PreviewSprite" type="AnimatedSprite2D" parent="." unique_id=2000000002]
 position = Vector2(318, 310)
@@ -88,69 +81,86 @@ expand_icon = true
 [node name="Button7" type="Button" parent="GridContainer" unique_id=1709083188]
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
-text = "3"
+text = "
+"
+icon = ExtResource("9_pa4ul")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Button8" type="Button" parent="GridContainer" unique_id=1606369504]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "4"
 
 [node name="Button9" type="Button" parent="GridContainer" unique_id=1778320618]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "5"
 
 [node name="Button10" type="Button" parent="GridContainer" unique_id=1865521691]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "6"
 
 [node name="Button11" type="Button" parent="GridContainer" unique_id=1271927963]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "7"
 
 [node name="Button12" type="Button" parent="GridContainer" unique_id=325460681]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "8"
 
 [node name="Button13" type="Button" parent="GridContainer" unique_id=2928033]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "9"
 
 [node name="Button14" type="Button" parent="GridContainer" unique_id=1500449340]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "10"
 
 [node name="Button15" type="Button" parent="GridContainer" unique_id=1877861135]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "11"
 
 [node name="Button16" type="Button" parent="GridContainer" unique_id=1889835770]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "12"
 
 [node name="Button2" type="Button" parent="GridContainer" unique_id=508087019]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "13"
 
 [node name="Button3" type="Button" parent="GridContainer" unique_id=1216913501]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "14"
 
 [node name="Button4" type="Button" parent="GridContainer" unique_id=1153634049]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "15"
 
 [node name="Button5" type="Button" parent="GridContainer" unique_id=1600416776]
+visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "16"

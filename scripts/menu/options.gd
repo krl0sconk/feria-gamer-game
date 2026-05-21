@@ -16,8 +16,10 @@ signal closed
 @onready var _window_option: OptionButton = %WindowOption
 @onready var _master_slider: HSlider = %MasterSlider
 @onready var _sfx_slider: HSlider = %SfxSlider
+@onready var _music_slider: HSlider = %MusicSlider
 @onready var _master_value_label: Label = %MasterValue
 @onready var _sfx_value_label: Label = %SfxValue
+@onready var _music_value_label: Label = %MusicValue
 @onready var _colorblind_option: OptionButton = %ColorblindOption
 @onready var _intensity_slider: HSlider = %IntensitySlider
 @onready var _intensity_label: Label = %IntensityValue
@@ -61,6 +63,7 @@ func _apply_to_ui() -> void:
 	_window_option.selected = int(_settings["window_mode"])
 	_master_slider.value = float(_settings["master_vol"])
 	_sfx_slider.value = float(_settings["sfx_vol"])
+	_music_slider.value = float(_settings["music_vol"])
 	_colorblind_option.selected = int(_settings["colorblind_mode"])
 	_intensity_slider.value = float(_settings["colorblind_strength"])
 	_intensity_label.text = "%d%%" % int(_settings["colorblind_strength"] * 100.0)
@@ -76,6 +79,7 @@ func _connect_signals() -> void:
 	_window_option.item_selected.connect(_on_window_mode_selected)
 	_master_slider.value_changed.connect(_on_master_changed)
 	_sfx_slider.value_changed.connect(_on_sfx_changed)
+	_music_slider.value_changed.connect(_on_music_changed)
 	_colorblind_option.item_selected.connect(_on_colorblind_selected)
 	_intensity_slider.value_changed.connect(_on_intensity_changed)
 	_dyslexia_check.toggled.connect(_on_dyslexia_toggled)
@@ -99,6 +103,11 @@ func _on_master_changed(value: float) -> void:
 
 func _on_sfx_changed(value: float) -> void:
 	_settings["sfx_vol"] = value
+	_update_volume_labels()
+
+
+func _on_music_changed(value: float) -> void:
+	_settings["music_vol"] = value
 	_update_volume_labels()
 
 
@@ -129,3 +138,4 @@ func _on_back_pressed() -> void:
 func _update_volume_labels() -> void:
 	_master_value_label.text = "%d%%" % int(_master_slider.value)
 	_sfx_value_label.text = "%d%%" % int(_sfx_slider.value)
+	_music_value_label.text = "%d%%" % int(_music_slider.value)

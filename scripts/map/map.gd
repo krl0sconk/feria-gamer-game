@@ -15,6 +15,18 @@ extends Node2D
 func _ready() -> void:
 	_wire_dialogue_to_player()
 	_resume_post_battle_dialogue_deferred()
+	_setup_bg_music()
+
+
+func _setup_bg_music() -> void:
+	for node in find_children("*", "AudioStreamPlayer", true, false):
+		var player := node as AudioStreamPlayer
+		if not player.autoplay:
+			continue
+		if AudioServer.get_bus_index(&"Music") != -1:
+			player.bus = &"Music"
+		if not player.finished.is_connected(player.play):
+			player.finished.connect(player.play)
 
 
 

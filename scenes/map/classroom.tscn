@@ -1,23 +1,23 @@
 [gd_scene format=4 uid="uid://bpncmp8kw5yjo"]
 
-[ext_resource type="Script" path="res://scripts/map/map.gd" id="1_46iph"]
+[ext_resource type="Script" uid="uid://cvb28nsoo4xmq" path="res://scripts/map/map.gd" id="1_46iph"]
+[ext_resource type="AudioStream" uid="uid://dusukrxcbu8w0" path="res://assets/audio/music/musica_fondo_salon.wav" id="2_0dgy4"]
 [ext_resource type="TileSet" uid="uid://bicvtix43wtf1" path="res://assets/images/world_assets/tileset.tres" id="2_o0av7"]
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="3_0ibgl"]
 [ext_resource type="AudioStream" uid="uid://cv23y5wuou4bq" path="res://assets/audio/sfx/dialogue1.wav" id="4_g52xa"]
-[ext_resource type="SpriteFrames" uid="uid://dowjykg1cc3er" path="res://assets/images/characters/pj1/idle_pj1.tres" id="5_0dgy4"]
+[ext_resource type="SpriteFrames" path="res://assets/images/characters/pj1/idle.tres" id="5_0dgy4"]
 [ext_resource type="PackedScene" uid="uid://vkjnvbwonuy7" path="res://scenes/map/bully_spawn_manager.tscn" id="6_4cdl6"]
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/player.tscn" id="7_44ndg"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_vpwi3"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="9_g04a8"]
 [ext_resource type="AudioStream" uid="uid://drk4wj32fsdl1" path="res://assets/audio/music/cool_guy.wav" id="10_0ibgl"]
 [ext_resource type="AudioStream" uid="uid://cwkwfig0lcpac" path="res://assets/audio/music/rude_girl.wav" id="10_o0av7"]
-[ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="11_battle"]
 [ext_resource type="Script" uid="uid://qumc2qlcxntl" path="res://scripts/map/room.gd" id="12_exitctrl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
 size = Vector2(43, 72)
 
-[node name="Mapa" type="Node2D" unique_id=1460360920]
+[node name="Mapa2" type="Node2D" unique_id=1460360920]
 script = ExtResource("1_46iph")
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=1814724747]
@@ -42,7 +42,6 @@ id = "bully_01"
 dialogue_json_path = "res://assets/dialogues/classroom_bully_01.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
-	battle_scene = ExtResource("11_battle")
 dialogue_voice = ExtResource("4_g52xa")
 
 [node name="Sprite2D" parent="Bully" index="1" unique_id=858663745]
@@ -70,11 +69,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ExitController" type="Node2D" parent="." unique_id=2000000003]
 script = ExtResource("12_exitctrl")
-exit_scene_path = "res://scenes/map/map.tscn"
-exit_unlock_quest_id = "2.1.0"
 
 [node name="ExitArea" type="Area2D" parent="ExitController" unique_id=2000000004]
-position = Vector2(0, 0)
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitController/ExitArea" unique_id=2000000005]
@@ -103,7 +99,6 @@ complete_mission_on_win = true
 dialogue_json_path = "res://assets/dialogues/classroom_bully_02.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
-	battle_scene = ExtResource("11_battle")
 battle_chart_path = "res://assets/charts/coolguy.json"
 battle_music = ExtResource("10_0ibgl")
 dialogue_voice = ExtResource("4_g52xa")
@@ -119,13 +114,17 @@ complete_mission_on_win = true
 dialogue_json_path = "res://assets/dialogues/classroom_bully_01.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
-	battle_scene = ExtResource("11_battle")
 battle_chart_path = "res://assets/charts/rudegirl.json"
 battle_music = ExtResource("10_o0av7")
 dialogue_voice = ExtResource("4_g52xa")
 
 [node name="Sprite2D" parent="Bully1salon" index="1" unique_id=858663745]
 sprite_frames = ExtResource("5_0dgy4")
+
+[node name="MusicaFondoSalon" type="AudioStreamPlayer" parent="." unique_id=1635448951]
+stream = ExtResource("2_0dgy4")
+autoplay = true
+bus = &"Music"
 
 [editable path="Bully"]
 [editable path="compañero"]

@@ -1,5 +1,9 @@
 extends Node
 
+const MENU_MUSIC := preload("res://assets/audio/music/musica_menu.wav")
+
+var _menu_music_player: AudioStreamPlayer = null
+
 # Singleton / autoload global. Guarda el run-state que debe sobrevivir a un
 # cambio de escena (skin elegido, retorno a Map post-batalla, etc.).
 
@@ -39,12 +43,28 @@ var pending_battle_music: AudioStream = null
 
 func _ready() -> void:
 	OptionsSettings.apply_saved()
+	_menu_music_player = AudioStreamPlayer.new()
+	_menu_music_player.name = "MenuMusicPlayer"
+	_menu_music_player.stream = MENU_MUSIC
+	if AudioServer.get_bus_index(&"Music") != -1:
+		_menu_music_player.bus = &"Music"
+	_menu_music_player.finished.connect(func() -> void: _menu_music_player.play())
+	add_child(_menu_music_player)
 	get_tree().node_added.connect(_on_node_added)
+
+
+func _is_menu_scene(node: Node) -> bool:
+	return node.scene_file_path.contains("scenes/menu/")
 
 
 func _on_node_added(node: Node) -> void:
 	if node.get_parent() != get_tree().root:
 		return
+	if _is_menu_scene(node):
+		if not _menu_music_player.playing:
+			_menu_music_player.play()
+	else:
+		_menu_music_player.stop()
 	var settings := OptionsSettings.load_settings()
 	if bool(settings.get("dyslexia_mode", false)):
 		OptionsSettings.apply_dyslexia_fonts(node, true)
