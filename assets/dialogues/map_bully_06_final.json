@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "speaker": "Bully", "text": "Volviste al punto de partida." },
+        { "speaker": "Jugador", "text": "Si. Pero ya no soy el mismo de antes." },
+        { "speaker": "Bully", "text": "Entonces hagamos que toda la escuela lo vea." }
+      ]
+    },
+    "victory": {
+      "lines": [
+        { "speaker": "Bully", "text": "Perdi... y aun asi no me humillaste." },
+        { "speaker": "Jugador", "text": "Porque ganar no es aplastar." },
+        { "speaker": "Bully", "text": "Quizas todavia pueda cambiar." }
+      ]
+    },
+    "defeat": {
+      "lines": [
+        { "speaker": "Bully", "text": "La tarima me pertenece." },
+        { "speaker": "Jugador", "text": "Todavia no termina." }
+      ]
+    }
+  }
+}

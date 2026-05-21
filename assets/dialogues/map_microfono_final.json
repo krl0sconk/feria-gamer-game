@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "speaker": "Jugador", "text": "(Respiro hondo frente al microfono...)" },
+        { "speaker": "Jugador", "text": "Hoy no solo ganamos una batalla. Rompimos un silencio." },
+        { "speaker": "Jugador", "text": "Si ves bullying, no te quedes solo: habla, pide ayuda y acompana." }
+      ]
+    }
+  }
+}
