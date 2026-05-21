@@ -3,7 +3,22 @@
 	"dialogues": {
 		"intro": {
 			"lines": [
-				{ "text": "Inserte texto de tutorial" },
+				{ "speaker": "Jugador", "text": "(La guitarra sigue aqui... llena de polvo, como yo.)" },
+				{ "speaker": "Jugador", "text": "(Si quiero cambiar algo, tengo que empezar por una cuerda.)" },
+				{ "speaker": "Jugador", "text": "(Vamos. Desempolvemos habilidades.)" }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Jugador", "text": "(Lo logre. No fue suerte: fue practica y decision.)" },
+				{ "speaker": "Jugador", "text": "(Si pude con esto, tambien puedo defender a otros.)" },
+				{ "speaker": "Jugador", "text": "(Un paso a la vez. Hoy ya di el primero.)" }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Jugador", "text": "(Me falto ritmo... pero no ganas.)" },
+				{ "speaker": "Jugador", "text": "(Respiro, practico y vuelvo.)" }
 			]
 		}
 	}

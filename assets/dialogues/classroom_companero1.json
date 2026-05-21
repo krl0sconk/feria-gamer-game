@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "speaker": "Companero", "text": "Gracias por acercarte... me tienen de punto en el salon." },
+        { "speaker": "Jugador", "text": "No estas solo. Primero te escucho, luego actuamos." },
+        { "speaker": "Companero", "text": "Me da pena, pero contigo me siento un poco mas fuerte." }
+      ]
+    },
+    "win": {
+      "lines": [
+        { "speaker": "Companero", "text": "Volviste. Ya no me siento invisible." },
+        { "speaker": "Jugador", "text": "Pedir ayuda tambien es valentia." },
+        { "speaker": "Companero", "text": "Si alguien mas pasa por esto, yo tambien voy a ayudar." }
+      ]
+    }
+  }
+}

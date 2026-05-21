@@ -1,10 +1,11 @@
 extends Node2D
 
-@export_file("*.tscn") var exit_scene_path: String = "res://scenes/map/map.tscn"
+@export_file("*.tscn") var exit_scene_path: String = "res://scenes/map/classroom.tscn"
 @export var exit_tile_coords: Array[Vector2i] = [Vector2i(-3, -4), Vector2i(-3, -3)]
 @export var tilemap_layer_path: NodePath = NodePath("Tilemaps")
 @export var dialogue_runner_path: NodePath = NodePath("DialogueRunner")
 @export var use_area_exit: bool = true
+@export var exit_unlock_quest_id: String = "1.1.0"
 @export var exit_area_size: Vector2 = Vector2(24, 24)
 @export var debug_force_create_area: bool = false
 @export var debug_exit_area_position: Vector2 = Vector2.ZERO
@@ -22,7 +23,7 @@ func _ready() -> void:
 	if QuestManager != null and QuestManager.has_signal("quest_completed"):
 		QuestManager.connect("quest_completed", Callable(self, "_on_quest_completed"))
 	# If quest already completed, enable area exit immediately
-	if use_area_exit and QuestManager != null and QuestManager.is_completed("1.1.0"):
+	if use_area_exit and QuestManager != null and QuestManager.is_completed(exit_unlock_quest_id):
 		_enable_area_exit()
 	# Debug: force-create an exit area at a specific position/size
 	if debug_force_create_area:
@@ -36,7 +37,7 @@ func _process(_delta: float) -> void:
 	if use_area_exit:
 		return
 	# Fallback: original tile-based exit (keeps compatibility)
-	if QuestManager != null and not (QuestManager.is_completed("1.1.1") or QuestManager.is_completed("1.1.0")):
+	if QuestManager != null and not (QuestManager.is_completed("1.1.1") or QuestManager.is_completed(exit_unlock_quest_id)):
 		return
 	var player := get_tree().get_first_node_in_group("player") as Node2D
 	if player == null:
@@ -54,7 +55,7 @@ func _process(_delta: float) -> void:
 				return
 
 func _on_quest_completed(quest_id: String) -> void:
-	if str(quest_id) == "1.1.0":
+	if str(quest_id) == exit_unlock_quest_id:
 		_enable_area_exit()
 
 

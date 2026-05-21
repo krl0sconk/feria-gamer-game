@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "speaker": "Hermano del bully", "text": "Tocaste a mi hermano. Ahora respondes conmigo." },
+        { "speaker": "Jugador", "text": "No vine a destruir a nadie. Vine a cortar la cadena." },
+        { "speaker": "Hermano del bully", "text": "Cadenas, discursos... mejor toca." }
+      ]
+    },
+    "victory": {
+      "lines": [
+        { "speaker": "Hermano del bully", "text": "Basta. Entendi el mensaje." },
+        { "speaker": "Jugador", "text": "Bien. Ser fuerte tambien es saber frenar." }
+      ]
+    },
+    "defeat": {
+      "lines": [
+        { "speaker": "Hermano del bully", "text": "Asi termina quien se mete en lo ajeno." },
+        { "speaker": "Jugador", "text": "No me voy a rendir." }
+      ]
+    }
+  }
+}
