@@ -1,55 +1,13 @@
 [gd_scene format=3 uid="uid://b5e8vpi18j2ob"]
 
 [ext_resource type="Script" uid="uid://bo4mstv3ma651" path="res://scripts/menu/select_pj.gd" id="1_kscf2"]
+[ext_resource type="Texture2D" uid="uid://cesunilhlbgjj" path="res://assets/images/menu/background_menu.png" id="2_kqd4c"]
 [ext_resource type="Texture2D" uid="uid://bm3rgmlujs5c" path="res://assets/images/characters/pj1/pj1_icon.jpg" id="2_whu1b"]
+[ext_resource type="Texture2D" uid="uid://ytwjw43lukpg" path="res://assets/images/menu/volver_btn2.png" id="3_b7212"]
 [ext_resource type="Texture2D" uid="uid://dljd58x4rud3k" path="res://assets/images/characters/pj2/pj2_icon.jpg" id="3_dt4db"]
-
-
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5u7of"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 15
-shadow_color = Color(0, 0, 0, 0.6627451)
-shadow_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_whu1b"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 15
-shadow_color = Color(1, 1, 1, 0.6)
-shadow_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dt4db"]
-bg_color = Color(0.3254902, 0, 0.47843137, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 15
-shadow_color = Color(1, 1, 1, 0.6)
-shadow_size = 10
+[ext_resource type="SpriteFrames" uid="uid://btgbdrv3gb6xj" path="res://assets/images/characters/pj1/player_battle_pj1.tres" id="3_pa4ul"]
+[ext_resource type="Script" uid="uid://cxl3bnruct0vp" path="res://scripts/ui/keychain_button.gd" id="4_pa4ul"]
+[ext_resource type="AudioStream" uid="uid://chybtbqfqkxl2" path="res://assets/audio/sfx/hover.tres" id="5_lvgf7"]
 
 [node name="Select_PJ" type="Control" unique_id=1459544091]
 layout_mode = 3
@@ -60,12 +18,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kscf2")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=814534035]
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 720.0
-size_flags_horizontal = 3
-color = Color(0.54699427, 0.11710515, 0.63266987, 1)
+[node name="Reference" type="Sprite2D" parent="." unique_id=790430366]
+position = Vector2(643.7777, 357.99997)
+scale = Vector2(0.67106485, 0.6666667)
+texture = ExtResource("2_kqd4c")
+
+[node name="ColorRect" type="ColorRect" parent="Reference" unique_id=1166384356]
+offset_left = -989.3332
+offset_top = -557.99994
+offset_right = 986.1667
+offset_bottom = 559.49994
+color = Color(0, 0, 0, 0.41960785)
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect2" type="ColorRect" parent="." unique_id=1492214012]
 layout_mode = 0
@@ -74,26 +38,25 @@ offset_top = 93.0
 offset_right = 1159.0
 offset_bottom = 629.0
 size_flags_horizontal = 3
-color = Color(0.90121055, 0.09012795, 0.7217185, 1)
 
-[node name="BoxContainer" type="BoxContainer" parent="." unique_id=1125842957]
+[node name="PreviewSprite" type="AnimatedSprite2D" parent="." unique_id=2000000002]
+position = Vector2(318, 310)
+scale = Vector2(0.3, 0.3)
+sprite_frames = ExtResource("3_pa4ul")
+animation = &"idle"
+
+[node name="Back" type="Button" parent="." unique_id=1131034226]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 26.0
-offset_right = 103.0
-offset_bottom = 103.0
-
-[node name="Back" type="Button" parent="BoxContainer" unique_id=1825531066]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.3254902, 0, 0.47843137, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_5u7of")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_whu1b")
-theme_override_styles/hover = SubResource("StyleBoxFlat_dt4db")
-text = "←"
+offset_left = 36.0
+offset_top = 607.0
+offset_right = 264.0
+offset_bottom = 696.0
+icon = ExtResource("3_b7212")
+flat = true
+expand_icon = true
+script = ExtResource("4_pa4ul")
+hover_sfx = ExtResource("5_lvgf7")
+metadata/_custom_type_script = "uid://cxl3bnruct0vp"
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1607800854]
 layout_mode = 0
@@ -101,7 +64,6 @@ offset_left = 587.0
 offset_top = 93.0
 offset_right = 1159.0
 offset_bottom = 629.0
-theme_override_constants/h_separation = 4
 theme_override_constants/v_separation = 4
 columns = 4
 
@@ -192,4 +154,3 @@ text = "15"
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
 text = "16"
-

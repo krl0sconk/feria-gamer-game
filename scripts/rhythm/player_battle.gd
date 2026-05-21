@@ -1,26 +1,18 @@
 extends CharacterBody2D
 
+const PLAYER_BATTLE_PJ1: SpriteFrames = preload("res://assets/images/characters/pj1/player_battle_pj1.tres")
+const PLAYER_BATTLE_PJ2: SpriteFrames = preload("res://assets/images/characters/pj2/player_battle_pj2.tres")
+
 @onready var anim = $AnimatedSprite2D
 
+
 func _ready():
-	anim.play("idle")
-
-func _process(delta):
-
-	if Input.is_action_just_pressed("ui_left"):
-		play_temp("left")
-
-	elif Input.is_action_just_pressed("ui_down"):
-		play_temp("down")
-
-	elif Input.is_action_just_pressed("ui_up"):
-		play_temp("up")
-
-	elif Input.is_action_just_pressed("ui_right"):
-		play_temp("right")
-
-
-func play_temp(animation_name):
-	anim.play(animation_name)
-	await anim.animation_finished
-	anim.play("idle")
+	var skin := Gamemanager.selectedskin.strip_edges().to_lower().replace(" ", "")
+	if skin == "idlepj2" or skin == "idlepj2":
+		anim.sprite_frames = PLAYER_BATTLE_PJ2
+	else:
+		anim.sprite_frames = PLAYER_BATTLE_PJ1
+	if anim.sprite_frames.has_animation("idle"):
+		anim.play("idle")
+	elif anim.sprite_frames.has_animation("Idle"):
+		anim.play("Idle")

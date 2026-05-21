@@ -2,24 +2,30 @@ extends CharacterBody2D
 
 const SPEED := 300.0
 const FOOTSTEPS_PATH := "res://assets/audio/sfx/footsteps2.wav"
-const WALK_UP_PJ1: SpriteFrames = preload("res://assets/images/characters/pj1/walk_up_pj1.tres")
-const WALK_DOWN_PJ1: SpriteFrames = preload("res://assets/images/characters/pj1/walk_down_pj1.tres")
-const WALK_SIDE_PJ1: SpriteFrames = preload("res://assets/images/characters/pj1/walk_side_pj1.tres")
-const WALK_STATIC_PJ2: SpriteFrames = preload("res://assets/images/characters/pj2/walk_static_pj2.tres")
-const WALK_DOWN_PJ2: SpriteFrames = preload("res://assets/images/characters/pj2/walk_down_pj2.tres")
+const PLAYER_MAP_PJ1: SpriteFrames = preload("res://assets/images/characters/pj1/player_map_pj1.tres")
+const PLAYER_MAP_PJ2: SpriteFrames = preload("res://assets/images/characters/pj2/player_map_pj2.tres")
+const PLAYER_MAP_PJ3: SpriteFrames = preload("res://assets/images/characters/pj3/player_map_pj3.tres")
+const SKIN_MAP := {
+	"idle (1)": "pj1",
+	"idle pj2": "pj2",
+	"idlepj2": "pj2",
+	"idle pj3": "pj3",
+	"idlepj3": "pj3",
+}
 const SKIN_FRAMES := {
-	"idle (1)": preload("res://assets/images/characters/pj1/walk_up_pj1.tres"),
-	"idle pj2": preload("res://assets/images/characters/pj2/walk_static_pj2.tres"),
-	"idlepj2": preload("res://assets/images/characters/pj2/walk_static_pj2.tres")
+	"idle (1)": PLAYER_MAP_PJ1,
+	"idle pj2": PLAYER_MAP_PJ2,
+	"idlepj2": PLAYER_MAP_PJ2,
+	"idle pj3": PLAYER_MAP_PJ3,
+	"idlepj3": PLAYER_MAP_PJ3,
 }
 
 ## Controlado externamente por el Map (p. ej. DialogueRunner.dialogue_started
 ## → `disable_movement`). Cuando es false, el Player ignora input y se detiene.
 var can_move: bool = true
 var _is_walking: bool = false
-var _uses_pj1_directional_walk: bool = false
-var _uses_pj2_down_walk: bool = false
-var _facing_dir: String = "up"
+var _skin_id: String = "pj1"
+var _facing_dir: String = "down"
 
 @onready var _footsteps_player: AudioStreamPlayer = _create_footsteps_player()
 
@@ -48,23 +54,12 @@ func _physics_process(_delta: float) -> void:
 
 
 func set_skin(skinname: String) -> void:
-	var frames: SpriteFrames = null
 	var normalized_skin := skinname.strip_edges().to_lower().replace(" ", "")
-	if skinname == "idle pj2" or skinname == "idlepj2" or normalized_skin == "idlepj2":
-		_uses_pj1_directional_walk = false
-		_uses_pj2_down_walk = true
-		var pj2_tres := "res://assets/images/characters/pj2/walk_static_pj2.tres"
-		if FileAccess.file_exists(pj2_tres):
-			frames = load(pj2_tres) as SpriteFrames
-		else:
-			frames = load("res://assets/images/characters/pj1/idle.tres") as SpriteFrames
-	elif SKIN_FRAMES.has(skinname):
-		_uses_pj1_directional_walk = true
-		_uses_pj2_down_walk = false
+	_skin_id = SKIN_MAP.get(normalized_skin, "pj1")
+	var frames: SpriteFrames = null
+	if SKIN_FRAMES.has(skinname):
 		frames = SKIN_FRAMES[skinname]
 	else:
-		_uses_pj1_directional_walk = true
-		_uses_pj2_down_walk = false
 		frames = SKIN_FRAMES["idle (1)"]
 	if frames != null:
 		$Animated.sprite_frames = frames
@@ -73,6 +68,10 @@ func set_skin(skinname: String) -> void:
 			$Animated.play("Idle")
 		elif frames.has_animation("idle"):
 			$Animated.play("idle")
+		elif frames.has_animation("walk_down"):
+			$Animated.play("walk_down")
+		elif frames.has_animation("default"):
+			$Animated.play("default")
 		else:
 			var names: Array = frames.get_animation_names()
 			if names.size() > 0:
@@ -80,50 +79,65 @@ func set_skin(skinname: String) -> void:
 
 
 func _update_walk_animation(direction: Vector2) -> void:
-	if _uses_pj2_down_walk:
-		if direction.y > 0.0:
-			$Animated.sprite_frames = WALK_DOWN_PJ2
+	var moving: bool = direction != Vector2.ZERO
+
+	if _skin_id == "pj1":
+		if moving:
+			if absf(direction.x) > absf(direction.y):
+				_facing_dir = "side"
+				$Animated.flip_h = direction.x < 0.0
+				if $Animated.sprite_frames.has_animation("walk_side"):
+					$Animated.play("walk_side")
+			elif direction.y < 0.0:
+				_facing_dir = "up"
+				$Animated.flip_h = false
+				if $Animated.sprite_frames.has_animation("walk_up"):
+					$Animated.play("walk_up")
+			else:
+				_facing_dir = "down"
+				$Animated.flip_h = false
+				if $Animated.sprite_frames.has_animation("walk_down"):
+					$Animated.play("walk_down")
+		else:
+			$Animated.flip_h = false
+			if $Animated.sprite_frames.has_animation("walk_down"):
+				$Animated.stop()
+				$Animated.play("walk_down")
+				$Animated.frame = 0
+
+	elif _skin_id == "pj2":
+		if moving:
+			if absf(direction.x) > absf(direction.y):
+				_facing_dir = "side"
+				$Animated.flip_h = direction.x < 0.0
+				if $Animated.sprite_frames.has_animation("walk_side"):
+					$Animated.play("walk_side")
+			elif direction.y < 0.0:
+				_facing_dir = "up"
+				$Animated.flip_h = false
+				if $Animated.sprite_frames.has_animation("walk_up"):
+					$Animated.play("walk_up")
+			else:
+				_facing_dir = "down"
+				$Animated.flip_h = false
+				if $Animated.sprite_frames.has_animation("walk_down"):
+					$Animated.play("walk_down")
+		else:
+			$Animated.flip_h = false
+			if $Animated.sprite_frames.has_animation("walk_down"):
+				$Animated.stop()
+				$Animated.play("walk_down")
+				$Animated.frame = 0
+
+	elif _skin_id == "pj3":
+		if moving:
 			if $Animated.sprite_frames.has_animation("default"):
 				$Animated.play("default")
-			return
-		$Animated.sprite_frames = WALK_STATIC_PJ2
-		if not direction == Vector2.ZERO and $Animated.sprite_frames.has_animation("default"):
-			$Animated.play("default")
 		else:
-			$Animated.stop()
-			$Animated.frame = 0
-		return
-
-	if not _uses_pj1_directional_walk:
-		return
-
-	var moving: bool = direction != Vector2.ZERO
-	if moving:
-		if absf(direction.x) > absf(direction.y):
-			_facing_dir = "side"
-			$Animated.sprite_frames = WALK_SIDE_PJ1
-			$Animated.flip_h = direction.x < 0.0
-		elif direction.y < 0.0:
-			_facing_dir = "up"
-			$Animated.sprite_frames = WALK_DOWN_PJ1
-			$Animated.flip_h = false
-		else:
-			_facing_dir = "down"
-			$Animated.sprite_frames = WALK_UP_PJ1
-			$Animated.flip_h = false
-		if $Animated.sprite_frames.has_animation("default"):
-			$Animated.play("default")
-	else:
-		match _facing_dir:
-			"side":
-				$Animated.sprite_frames = WALK_SIDE_PJ1
-			"down":
-				$Animated.sprite_frames = WALK_UP_PJ1
-			_:
-				$Animated.sprite_frames = WALK_DOWN_PJ1
-		if $Animated.sprite_frames.has_animation("default"):
-			$Animated.stop()
-			$Animated.frame = 0
+			if $Animated.sprite_frames.has_animation("default"):
+				$Animated.stop()
+				$Animated.play("default")
+				$Animated.frame = 0
 
 
 func disable_movement() -> void:

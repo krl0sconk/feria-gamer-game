@@ -5,7 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cblnd"]
 shader = ExtResource("2_shader")
-shader_parameter/mode = 0
+shader_parameter/mode = 0.0
 
 [node name="ColorblindOverlay" type="CanvasLayer"]
 layer = 1000
