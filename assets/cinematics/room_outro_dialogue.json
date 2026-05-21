@@ -1,0 +1,13 @@
+{
+	"version": 1,
+	"dialogues": {
+		"mama": {
+			"lines": [
+				{ "speaker": "Mamá", "text": "¡Lo lograste! Sabía que podías con eso." },
+				{ "speaker": "Mamá", "text": "El ritmo que tienes no te lo da nadie. Es tuyo." },
+				{ "speaker": "Jugador", "text": "(Tiene razón. Esto es mío.)" },
+				{ "speaker": "Mamá", "text": "Ya es hora. El colegio te espera. La puerta está abierta." }
+			]
+		}
+	}
+}

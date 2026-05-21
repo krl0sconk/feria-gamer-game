@@ -13,6 +13,11 @@ extends Node2D
 ## Pausa tras terminar el nivel antes de cambiar a la pantalla de resultado.
 @export_range(0.0, 5.0, 0.1, "suffix:s") var outro_delay_s: float = 1.5
 
+@export_group("Debug")
+## Activa la tecla de debug para saltar la canción (F5 = saltar; F6 = forzar derrota).
+## Desactivar antes de builds de producción.
+@export var debug_skip_enabled: bool = false
+
 var _arrow_travel_ms: float = 0.0
 
 @onready var _player_input: PlayerInput = $PlayerInput
@@ -82,6 +87,15 @@ func _connect_hud() -> void:
 	_hud.setup_targets(_left_target, _down_target, _up_target, _right_target)
 	_arrow_travel_ms = _hud.arrow_travel_ms
 	_composer.anticipation_ms = _arrow_travel_ms
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not debug_skip_enabled or _level_ended:
+		return
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_F5:
+			print("[DEBUG] Saltar canción → victoria forzada")
+			_referee.declare_survival()
 
 
 func _load_chart() -> void:

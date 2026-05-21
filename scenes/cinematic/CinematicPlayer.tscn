@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cplayer001aaaa"]
+
+[ext_resource type="Script" path="res://scripts/cinematic/cinematic_player.gd" id="1_cplayer"]
+[ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="2_drun"]
+
+[node name="CinematicPlayer" type="CanvasLayer"]
+layer = 20
+script = ExtResource("1_cplayer")
+
+[node name="BlackScreen" type="ColorRect" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+mouse_filter = 2
+
+[node name="DialogueRunner" parent="." instance=ExtResource("2_drun")]
+layer = 21

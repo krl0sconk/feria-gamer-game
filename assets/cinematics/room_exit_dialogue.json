@@ -1,0 +1,11 @@
+{
+	"version": 1,
+	"dialogues": {
+		"salida": {
+			"lines": [
+				{ "speaker": "Jugador", "text": "(Aquí empieza todo. El colegio no va a saber qué lo llegó.)" },
+				{ "speaker": "Jugador", "text": "(Ritmo, calma y decisión. Eso es todo lo que necesito.)" }
+			]
+		}
+	}
+}

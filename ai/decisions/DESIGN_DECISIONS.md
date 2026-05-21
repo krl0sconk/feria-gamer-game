@@ -314,4 +314,62 @@ objetos, disparara batallas y conectara los tres resultados posibles
 
 ---
 
+### 2026-05-21 — Sistema de Cinemáticas (CinematicPlayer + patrón Command)
+
+**Contexto:** El juego necesitaba cinemáticas narrativas simples: pantalla negra +
+diálogos de contexto al entrar a la habitación, diálogo de mamá al terminar el tutorial,
+intro en el salón, y cualquier futuro momento de historia. Los sistemas de diálogo y
+quests existentes no tenían concepto de "secuencia orquestada" y no debían modificarse.
+
+**Decisión tomada:**
+- Nueva clase `CinematicLoader` (RefCounted) — parsea JSON → `CinematicData` / `CinematicStep`.
+  Espejo de `DialogueLoader` para consistencia arquitectural.
+- Nueva clase `CinematicPlayer` (CanvasLayer) — ejecuta los pasos en secuencia con `await`.
+  Usa el **patrón Command**: `_commands: Dictionary[String, Callable]` mapea cada tipo de
+  paso a su función handler. Agregar un nuevo tipo de paso = agregar una entrada al dict.
+- Árbol de `CinematicPlayer.tscn`:
+  `CinematicPlayer (CanvasLayer, layer=20) → BlackScreen (ColorRect) + DialogueRunner propio (layer=21)`.
+  El runner embebido es independiente del runner de NPCs → sin interferencias.
+- Triggers soportados: `on_scene_ready`, `on_quest_completed`, `on_area_entered` (Area2D
+  hijo llamado "TriggerArea" — colocado y dimensionado en el editor como ExitArea).
+- Guard `play_once`: antes de reproducir, consulta `Gamemanager.cinematics_played[id]`.
+  Persiste en sesión; sobrevive a round-trips Map → Battle → Map.
+- **Único archivo existente tocado:** `Gamemanager` gana
+  `var cinematics_played: Dictionary = {}` (campo aditivo, sin cambio de comportamiento).
+
+**Pasos disponibles (JSON):**
+`fade_to_black`, `fade_from_black`, `wait`, `dialogue`, `move_node`, `show_node`,
+`hide_node`, `disable_player`, `enable_player`.
+
+**Cinematics de ejemplo creados:**
+- `assets/cinematics/room_intro.json` — `on_scene_ready` — contexto narrativo al inicio.
+- `assets/cinematics/room_outro.json` — `on_quest_completed: "1.1.0"` — mamá felicita al jugador.
+- `assets/cinematics/classroom_intro.json` — `on_scene_ready` — entrada al salón.
+
+**Para agregar a una escena:**
+1. Instanciar `scenes/cinematic/CinematicPlayer.tscn` como hijo de la escena.
+2. Asignar `cinematic_json_path` en el Inspector.
+3. Para trigger `on_area_entered`: añadir Area2D hijo de CinematicPlayer llamado "TriggerArea".
+
+**Consecuencias:**
+- (+) Cero modificaciones a Dialog/Quest/Map/Room — totalmente no-invasivo.
+- (+) Clases nuevas (CinematicLoader + CinematicData + CinematicStep + CinematicPlayer)
+  contribuyen al requisito de 5+ TAD y el patrón Command al requisito de diseño.
+- (+) Añadir un nuevo tipo de paso = una función + una línea en el dict.
+- (+) Trigger `on_area_entered` permite cinemáticas mid-level sin interacción del jugador.
+- (-) `cinematics_played` se pierde al cerrar el juego (no persiste en save); si se
+  necesita persistence cross-session, incluirlo en `SaveManager`.
+
+**Archivos creados:**
+`scripts/cinematic/cinematic_loader.gd`, `scripts/cinematic/cinematic_player.gd`,
+`scenes/cinematic/CinematicPlayer.tscn`,
+`assets/cinematics/room_intro.json`, `assets/cinematics/room_intro_dialogue.json`,
+`assets/cinematics/room_outro.json`, `assets/cinematics/room_outro_dialogue.json`,
+`assets/cinematics/classroom_intro.json`, `assets/cinematics/classroom_intro_dialogue.json`.
+
+**Archivo modificado:**
+`scripts/gamemanager.gd` — añadido `var cinematics_played: Dictionary = {}`.
+
+**Asistida por IA:** Sí — Claude Sonnet 4.6
+
 <!-- Agrega nuevas decisiones aquí -->

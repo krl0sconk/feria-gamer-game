@@ -10,14 +10,15 @@
 [ext_resource type="Texture2D" uid="uid://7a3pqqeqjut5" path="res://assets/images/world_assets/guitar.png" id="7_f7eyw"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="7_nq8on"]
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="8_dew3o"]
-[ext_resource type="PackedScene" uid="uid://bpjxvmi61lq5" path="res://scenes/rhythm/tutorial.tscn" id="11_battle"]
 [ext_resource type="Script" uid="uid://uv2v2rcs4htf" path="res://scripts/dialogue/interactable.gd" id="10_6nkgt"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
-size = Vector2(43, 72)
+[ext_resource type="PackedScene" uid="uid://bpjxvmi61lq5" path="res://scenes/rhythm/tutorial.tscn" id="11_battle"]
+[ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="13_c6l7p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tmqj2"]
 size = Vector2(52, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(43, 72)
 
 [node name="Room" type="Node2D" unique_id=1476698445]
 script = ExtResource("1_roomgd")
@@ -40,7 +41,7 @@ tile_set = ExtResource("1_f7eyw")
 
 [node name="Guitarra_Tutorial" parent="." unique_id=878503726 instance=ExtResource("8_dew3o")]
 position = Vector2(118, -53)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.7, 0.7)
 id = "guitarra"
 mission_id = "1.1.1"
 dialogue_json_path = "res://assets/dialogues/guitarra_tutorial.json"
@@ -58,21 +59,12 @@ animation = &"default"
 
 [node name="Guitar" type="Sprite2D" parent="Guitarra_Tutorial" unique_id=1668956319]
 position = Vector2(-9.536743e-07, 1.1920929e-06)
-rotation = -0.75049156
 scale = Vector2(2.546875, 2.40625)
 texture = ExtResource("7_f7eyw")
 
 [node name="Player" parent="." unique_id=1155853386 instance=ExtResource("5_f7eyw")]
 position = Vector2(-60, 51)
 scale = Vector2(2, 2)
-
-[node name="ExitArea" type="Area2D" parent="." unique_id=2000000001]
-position = Vector2(-122, -147)
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitArea" unique_id=2000000002]
-position = Vector2(21, 37)
-shape = SubResource("RectangleShape2D_exit")
 
 [node name="DialogueRunner" parent="." unique_id=429825200 instance=ExtResource("6_qfafv")]
 
@@ -96,5 +88,29 @@ dialogue_json_path = "res://assets/dialogues/poker.json"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Poker" unique_id=1980700317]
 shape = SubResource("RectangleShape2D_tmqj2")
+
+[node name="CinematicPlayer" type="CanvasLayer" parent="." unique_id=2055853810]
+script = ExtResource("13_c6l7p")
+cinematic_json_path = "res://assets/cinematics/room_intro.json"
+metadata/_custom_type_script = "uid://dmhjsredjb7nj"
+
+[node name="CinematicPlayer2" type="CanvasLayer" parent="." unique_id=1367247324]
+script = ExtResource("13_c6l7p")
+cinematic_json_path = "res://assets/cinematics/room_outro.json"
+play_once = false
+metadata/_custom_type_script = "uid://dmhjsredjb7nj"
+
+[node name="CinematicPlayer3" type="CanvasLayer" parent="." unique_id=569537824]
+script = ExtResource("13_c6l7p")
+cinematic_json_path = "res://assets/cinematics/room_exit.json"
+play_once = false
+metadata/_custom_type_script = "uid://dmhjsredjb7nj"
+
+[node name="TriggerArea" type="Area2D" parent="CinematicPlayer3" unique_id=2000000001]
+position = Vector2(-122, -147)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CinematicPlayer3/TriggerArea" unique_id=2000000002]
+position = Vector2(21, 37)
+shape = SubResource("RectangleShape2D_exit")
 
 [editable path="Guitarra_Tutorial"]

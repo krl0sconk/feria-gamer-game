@@ -1,0 +1,16 @@
+{
+	"version": 1,
+	"id": "room_intro",
+	"trigger": {
+		"type": "on_scene_ready",
+		"delay": 0.3
+	},
+	"steps": [
+		{ "type": "disable_player" },
+		{ "type": "fade_to_black",   "duration": 0.6 },
+		{ "type": "wait",            "seconds": 0.5 },
+		{ "type": "dialogue",        "path": "res://assets/cinematics/room_intro_dialogue.json", "id": "contexto" },
+		{ "type": "fade_from_black", "duration": 0.6 },
+		{ "type": "enable_player" }
+	]
+}

@@ -40,6 +40,10 @@ var pending_battle_chart_path: String = ""
 ## Override opcional de música para la siguiente batalla.
 var pending_battle_music: AudioStream = null
 
+## Registro de cinemáticas ya reproducidas (id → true). Persiste en sesión para
+## evitar que un on_scene_ready se re-dispare al volver desde una batalla.
+var cinematics_played: Dictionary = {}
+
 
 func _ready() -> void:
 	OptionsSettings.apply_saved()
