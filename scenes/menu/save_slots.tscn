@@ -76,8 +76,9 @@ theme_override_font_sizes/font_size = 16
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("3_rn2yw")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 30
 text = "Delete"
+alignment = 0
 
 [node name="Slot2" type="PanelContainer" parent="VBox" unique_id=100005]
 custom_minimum_size = Vector2(0, 140)
@@ -109,8 +110,9 @@ theme_override_font_sizes/font_size = 16
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("3_rn2yw")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 30
 text = "Delete"
+alignment = 0
 
 [node name="Slot3" type="PanelContainer" parent="VBox" unique_id=100008]
 custom_minimum_size = Vector2(0, 140)
@@ -142,8 +144,17 @@ theme_override_font_sizes/font_size = 16
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("3_rn2yw")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 30
 text = "Delete"
+alignment = 0
+
+[node name="DeleteLabel" type="Label" parent="VBox" unique_id=1826765617]
+layout_mode = 2
+size_flags_vertical = 5
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_rn2yw")
+theme_override_font_sizes/font_size = 20
+text = "Presiona D para borrar"
 
 [node name="Back" type="Button" parent="." unique_id=922327871]
 layout_mode = 1

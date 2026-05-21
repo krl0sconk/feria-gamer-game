@@ -1,0 +1,29 @@
+{
+	"id": "map_intro",
+	"steps": [
+		{
+			"type": "disable_player"
+		},
+		{
+			"seconds": 0.3,
+			"type": "wait"
+		},
+		{
+			"id": "entrada",
+			"path": "res://assets/cinematics/map_intro_dialogue.json",
+			"type": "dialogue"
+		},
+		{
+			"duration": 0.5,
+			"type": "fade_from_black"
+		},
+		{
+			"type": "enable_player"
+		}
+	],
+	"trigger": {
+		"delay": 0.3,
+		"type": "on_scene_ready"
+	},
+	"version": 1
+}

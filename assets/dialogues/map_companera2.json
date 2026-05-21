@@ -3,9 +3,21 @@
   "dialogues": {
     "intro": {
       "lines": [
-        { "speaker": "Companera", "text": "Me estan quemando en redes. Inventaron cosas horribles." },
-        { "speaker": "Jugador", "text": "No hiciste nada para merecer eso." },
-        { "speaker": "Companera", "text": "Si puedes llegar a quien lo hace... ya no quiero esconderme." }
+        { "speaker": "Compañera", "text": "Oye. Hay alguien que anda haciendo daño por mensajes. Nadie lo enfrenta." },
+        { "speaker": "Jugador", "text": "¿Sabes dónde está?" },
+        { "speaker": "Compañera", "text": "Sí. Ven, te llevo." }
+      ]
+    },
+    "win": {
+      "lines": [
+        { "speaker": "Compañera", "text": "Lo encontramos. Ahora tú." },
+        { "speaker": "Jugador", "text": "Voy." }
+      ]
+    },
+    "defeated": {
+      "lines": [
+        { "speaker": "Compañera", "text": "Ya está. Gracias por ayudar." },
+        { "speaker": "Jugador", "text": "Era lo que había que hacer." }
       ]
     }
   }

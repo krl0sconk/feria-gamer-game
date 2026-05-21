@@ -1,0 +1,13 @@
+{
+	"version": 1,
+	"dialogues": {
+		"salida": {
+			"lines": [
+				{ "speaker": "Daniel", "text": "El pasillo también tiene lo suyo, ¿lo sabías?" },
+				{ "speaker": "Jugador", "text": "Ya me lo imaginaba." },
+				{ "speaker": "Daniel", "text": "Pero ya sé que no estoy solo. Ve." },
+				{ "speaker": "Jugador", "text": "(El salón ya está. Ahora el pasillo.)" }
+			]
+		}
+	}
+}

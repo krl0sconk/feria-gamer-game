@@ -1,0 +1,13 @@
+{
+	"version": 1,
+	"dialogues": {
+		"final": {
+			"lines": [
+				{ "speaker": "Narrador", "text": "Nadie esperaba esto cuando todo empezó." },
+				{ "speaker": "Jugador", "text": "(Yo tampoco. Pero acá estamos.)" },
+				{ "speaker": "Narrador", "text": "Una escuela que habla no es perfecta. Pero es honesta." },
+				{ "speaker": "Narrador", "text": "Y eso ya es algo." }
+			]
+		}
+	}
+}

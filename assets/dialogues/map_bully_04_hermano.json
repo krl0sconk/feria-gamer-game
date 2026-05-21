@@ -3,21 +3,26 @@
   "dialogues": {
     "intro": {
       "lines": [
-        { "speaker": "Hermano del bully", "text": "Tocaste a mi hermano. Ahora respondes conmigo." },
-        { "speaker": "Jugador", "text": "No vine a destruir a nadie. Vine a cortar la cadena." },
-        { "speaker": "Hermano del bully", "text": "Cadenas, discursos... mejor toca." }
+        { "speaker": "Hermano", "text": "Mi hermano no gana solo. Yo tampoco." },
+        { "speaker": "Jugador", "text": "Dos contra el ritmo. Bien." }
       ]
     },
     "victory": {
       "lines": [
-        { "speaker": "Hermano del bully", "text": "Basta. Entendi el mensaje." },
-        { "speaker": "Jugador", "text": "Bien. Ser fuerte tambien es saber frenar." }
+        { "speaker": "Hermano", "text": "Ni mal. Dos nulos." },
+        { "speaker": "Jugador", "text": "Empate de respeto." }
       ]
     },
     "defeat": {
       "lines": [
-        { "speaker": "Hermano del bully", "text": "Asi termina quien se mete en lo ajeno." },
-        { "speaker": "Jugador", "text": "No me voy a rendir." }
+        { "speaker": "Hermano", "text": "Hoy no. Mañana si quieres." },
+        { "speaker": "Jugador", "text": "Mañana entonces." }
+      ]
+    },
+    "defeated": {
+      "lines": [
+        { "speaker": "Hermano", "text": "No te guardo rencor." },
+        { "speaker": "Jugador", "text": "Bien." }
       ]
     }
   }

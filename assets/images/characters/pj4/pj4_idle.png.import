@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjlkpxeebimna"
-path="res://.godot/imported/Pj2Man.png-caac562f3a8c5c01c8e4ea0ecb563f7b.ctex"
+path="res://.godot/imported/pj4_idle.png-c5e71051689a3bd1dc7ca11fa2608c95.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/characters/Pj2Man.png"
-dest_files=["res://.godot/imported/Pj2Man.png-caac562f3a8c5c01c8e4ea0ecb563f7b.ctex"]
+source_file="res://assets/images/characters/pj4/pj4_idle.png"
+dest_files=["res://.godot/imported/pj4_idle.png-c5e71051689a3bd1dc7ca11fa2608c95.ctex"]
 
 [params]
 

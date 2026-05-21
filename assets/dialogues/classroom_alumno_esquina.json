@@ -1,0 +1,11 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Alumno", "text": "¿Eres el nuevo? Bienvenido." },
+				{ "speaker": "Alumno", "text": "Consejo gratis: no le hables al Bocón primero." }
+			]
+		}
+	}
+}

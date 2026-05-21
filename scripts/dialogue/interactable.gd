@@ -45,6 +45,9 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 @export var intro_dialogue_id: String = "intro"
 ## Diálogo alternativo si la misión vinculada ya está completada
 @export var intro_dialogue_completed_id: String = ""
+## Diálogo que se muestra cuando el enemigo ya fue derrotado (evita re-batalla).
+## Si está vacío usa intro_dialogue_completed_id; si ese también está vacío usa "defeated".
+@export var defeated_dialogue_id: String = ""
 
 ## Diálogo que se reproduce al volver al Map tras GANAR una batalla
 ## lanzada por este interactuable. Vacío = nada.
@@ -216,6 +219,17 @@ func _start_intro() -> void:
 			_queue_battle_transition()
 		return
 	var chosen_intro := intro_dialogue_id
+	# Si el enemigo ya fue derrotado, mostrar diálogo de derrota y nunca re-batallar.
+	if _defeat_reported and battle_scene != null:
+		var fallback := defeated_dialogue_id
+		if fallback.is_empty():
+			fallback = intro_dialogue_completed_id
+		if fallback.is_empty():
+			fallback = "defeated"
+		_current_mode = "intro"
+		interaction_started.emit(id)
+		_runner.play(_data, fallback, dialogue_voice)
+		return
 	var qm := get_node_or_null("/root/QuestManager")
 	if qm != null:
 		if mission_id != null and mission_id.strip_edges() != "" and qm.is_completed(mission_id):
@@ -263,7 +277,7 @@ func _on_dialogue_finished(dialogue_id: String) -> void:
 				if secondary_mission_id != null and secondary_mission_id.strip_edges() != "":
 					qm2.call("complete_quest", str(secondary_mission_id))
 		
-		if battle_scene != null:
+		if battle_scene != null and not _defeat_reported:
 			# Comprobamos que el id terminado sea el de intro (safety — por si el
 			# Runner reprodujo otra cosa por encima).
 			if dialogue_id == intro_dialogue_id:

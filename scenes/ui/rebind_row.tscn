@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://rebindrow001"]
+
+[ext_resource type="Script" path="res://scripts/ui/rebind_row.gd" id="1_rbrow"]
+
+[node name="RebindRow" type="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+script = ExtResource("1_rbrow")
+
+[node name="ActionLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Acción"
+
+[node name="KeyButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 32)
+layout_mode = 2
+size_flags_vertical = 5
+text = "---"
+
+[node name="ResetButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+size_flags_vertical = 5
+text = "↩"

@@ -3,21 +3,27 @@
   "dialogues": {
     "intro": {
       "lines": [
-        { "speaker": "Bully", "text": "Pasa y deja el dinero. Regla del pasillo." },
-        { "speaker": "Jugador", "text": "Esa no es una regla. Es abuso." },
-        { "speaker": "Bully", "text": "Entonces paga con musica." }
+        { "speaker": "Bully", "text": "Por aquí no pasas." },
+        { "speaker": "Hermano", "text": "Sin ganar, no." },
+        { "speaker": "Jugador", "text": "Entonces voy a ganar." }
       ]
     },
     "victory": {
       "lines": [
-        { "speaker": "Bully", "text": "Ya... no voy a volver a cobrarle a nadie." },
-        { "speaker": "Jugador", "text": "Empieza por devolver lo que quitaste." }
+        { "speaker": "Bully", "text": "Pasó el ritmo. Pasa él también." },
+        { "speaker": "Jugador", "text": "Gracias." }
       ]
     },
     "defeat": {
       "lines": [
-        { "speaker": "Bully", "text": "Aqui mando yo." },
-        { "speaker": "Jugador", "text": "Por ahora." }
+        { "speaker": "Bully", "text": "Inténtalo de nuevo cuando estés listo." },
+        { "speaker": "Jugador", "text": "Voy a estarlo." }
+      ]
+    },
+    "defeated": {
+      "lines": [
+        { "speaker": "Bully", "text": "Ya te abrimos paso. No empujes." },
+        { "speaker": "Jugador", "text": "No iba a." }
       ]
     }
   }

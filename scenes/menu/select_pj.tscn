@@ -57,33 +57,40 @@ offset_left = 587.0
 offset_top = 93.0
 offset_right = 1159.0
 offset_bottom = 629.0
+theme_override_constants/h_separation = -18
 theme_override_constants/v_separation = 4
 columns = 4
 
 [node name="Button" type="Button" parent="GridContainer" unique_id=1587896910]
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
+theme_override_colors/icon_hover_color = Color(0.5409905, 0.5409905, 0.5409905, 1)
 text = "
 "
 icon = ExtResource("2_whu1b")
+flat = true
 icon_alignment = 1
 expand_icon = true
 
 [node name="Button6" type="Button" parent="GridContainer" unique_id=151725289]
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
+theme_override_colors/icon_hover_color = Color(0.5409905, 0.5409905, 0.5409905, 1)
 text = "
 "
 icon = ExtResource("3_dt4db")
+flat = true
 icon_alignment = 1
 expand_icon = true
 
 [node name="Button7" type="Button" parent="GridContainer" unique_id=1709083188]
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
+theme_override_colors/icon_hover_color = Color(0.5409905, 0.5409905, 0.5409905, 1)
 text = "
 "
 icon = ExtResource("9_pa4ul")
+flat = true
 icon_alignment = 1
 expand_icon = true
 

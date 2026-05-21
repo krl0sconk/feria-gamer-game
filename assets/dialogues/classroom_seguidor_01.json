@@ -1,0 +1,12 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Seguidor", "text": "..." },
+				{ "speaker": "Seguidor", "text": "No es tan mala persona cuando lo conoces." },
+				{ "speaker": "Seguidor", "text": "Bueno. A veces sí lo es." }
+			]
+		}
+	}
+}

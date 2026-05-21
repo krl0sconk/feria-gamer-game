@@ -1,0 +1,12 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Alumna", "text": "Lo que hiciste... estuvo bien." },
+				{ "speaker": "Alumna", "text": "El año pasado le hicieron lo mismo a otra. Nadie dijo nada." },
+				{ "speaker": "Alumna", "text": "Cuídate. El Bocón no olvida fácil." }
+			]
+		}
+	}
+}

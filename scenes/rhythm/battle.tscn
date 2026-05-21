@@ -23,6 +23,7 @@
 script = ExtResource("1_uhcme")
 chart_path = ""
 lose_scene_path = "res://scenes/rhythm/lose_screen.tscn"
+debug_skip_enabled = true
 
 [node name="Background" type="Sprite2D" parent="." unique_id=287379656]
 modulate = Color(1, 1, 1, 0.5411765)

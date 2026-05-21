@@ -9,14 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/player.tscn" id="7_44ndg"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_vpwi3"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="9_g04a8"]
-[ext_resource type="AudioStream" uid="uid://drk4wj32fsdl1" path="res://assets/audio/music/cool_guy.wav" id="10_0ibgl"]
-[ext_resource type="AudioStream" uid="uid://cwkwfig0lcpac" path="res://assets/audio/music/rude_girl.wav" id="10_o0av7"]
-[ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="11_battle"]
-[ext_resource type="Script" uid="uid://qumc2qlcxntl" path="res://scripts/map/room.gd" id="12_exitctrl"]
+[ext_resource type="PackedScene" path="res://scenes/rhythm/cool_battle.tscn" id="9_g52xa"]
+[ext_resource type="AudioStream" uid="uid://cwkwfig0lcpac" path="res://assets/audio/music/rude_girl.wav" id="12_rude"]
 [ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="14_4cdl6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
-size = Vector2(43, 72)
+size = Vector2(212, 72)
 
 [node name="Mapa2" type="Node2D" unique_id=1460360920]
 script = ExtResource("1_46iph")
@@ -53,54 +51,47 @@ offset_right = -450.0
 offset_bottom = 295.0
 metadata/_edit_use_anchors_ = true
 
-[node name="ExitController" type="Node2D" parent="." unique_id=2000000003]
-script = ExtResource("12_exitctrl")
-
-[node name="ExitArea" type="Area2D" parent="ExitController" unique_id=2000000004]
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitController/ExitArea" unique_id=2000000005]
-shape = SubResource("RectangleShape2D_exit")
-
-[node name="compañero" parent="." unique_id=878503726 instance=ExtResource("3_0ibgl")]
-position = Vector2(767, 204)
+[node name="Daniel" parent="." unique_id=878503726 instance=ExtResource("3_0ibgl")]
+position = Vector2(765, 671)
 scale = Vector2(1.5, 1.5)
 id = "compañero1"
 mission_id = "2.1.1"
 complete_mission_on_dialogue = true
-talk_mission_ids = Array[String](["2.1.1", "2.1.4"])
+talk_mission_ids = Array[String](["2.1.1"])
 dialogue_json_path = "res://assets/dialogues/classroom_companero1.json"
 intro_dialogue_completed_id = "win"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
 dialogue_voice = ExtResource("4_g52xa")
 
-[node name="Bully2salon" parent="." unique_id=696459709 instance=ExtResource("3_0ibgl")]
+[node name="ElBocon" parent="." unique_id=696459709 instance=ExtResource("3_0ibgl")]
 position = Vector2(924, 430)
 scale = Vector2(1.5, 1.5)
-id = "bully_02"
-mission_id = "2.1.2"
-complete_mission_on_win = true
-dialogue_json_path = "res://assets/dialogues/classroom_bully_02.json"
-win_dialogue_id = "victory"
-lose_dialogue_id = "defeat"
-battle_scene = ExtResource("11_battle")
-battle_chart_path = "res://assets/charts/coolguy.json"
-battle_music = ExtResource("10_0ibgl")
-dialogue_voice = ExtResource("4_g52xa")
-
-[node name="Bully1salon" parent="." unique_id=1122916025 instance=ExtResource("3_0ibgl")]
-position = Vector2(451, 365)
-scale = Vector2(1.5, 1.5)
 id = "bully_01"
-mission_id = "2.1.1"
+mission_id = "2.1.3"
 complete_mission_on_win = true
 dialogue_json_path = "res://assets/dialogues/classroom_bully_01.json"
+defeated_dialogue_id = "defeated"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
-battle_scene = ExtResource("11_battle")
-battle_chart_path = "res://assets/charts/rudegirl.json"
-battle_music = ExtResource("10_o0av7")
+battle_scene = ExtResource("9_g52xa")
+battle_chart_path = "res://assets/charts/coolguy.json"
+battle_music = ExtResource("12_rude")
+dialogue_voice = ExtResource("4_g52xa")
+
+[node name="NpcSalon1" parent="." unique_id=1392541665 instance=ExtResource("3_0ibgl")]
+position = Vector2(963, 538)
+scale = Vector2(1.5, 1.5)
+dialogue_json_path = "res://assets/dialogues/classroom_bully_02.json"
+dialogue_voice = ExtResource("4_g52xa")
+
+[node name="CollisionShape2D" parent="NpcSalon1" index="0" unique_id=1889423936]
+position = Vector2(-1.666626, 3)
+
+[node name="NpcSalon2" parent="." unique_id=1715314364 instance=ExtResource("3_0ibgl")]
+position = Vector2(955, 329)
+scale = Vector2(1.5, 1.5)
+dialogue_json_path = "res://assets/dialogues/classroom_alumna_testigo.json"
 dialogue_voice = ExtResource("4_g52xa")
 
 [node name="MusicaFondoSalon" type="AudioStreamPlayer" parent="." unique_id=1635448951]
@@ -113,6 +104,23 @@ script = ExtResource("14_4cdl6")
 cinematic_json_path = "res://assets/cinematics/classroom_intro.json"
 metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 
-[editable path="compañero"]
-[editable path="Bully2salon"]
-[editable path="Bully1salon"]
+[node name="CinematicPlayer2" type="CanvasLayer" parent="." unique_id=358245731]
+script = ExtResource("14_4cdl6")
+cinematic_json_path = "res://assets/cinematics/classroom_outro.json"
+metadata/_custom_type_script = "uid://dmhjsredjb7nj"
+
+[node name="CinematicPlayer3" type="CanvasLayer" parent="." unique_id=1905363756]
+script = ExtResource("14_4cdl6")
+cinematic_json_path = "res://assets/cinematics/classroom_exit.json"
+metadata/_custom_type_script = "uid://dmhjsredjb7nj"
+
+[node name="TriggerArea" type="Area2D" parent="CinematicPlayer3" unique_id=2000000004]
+position = Vector2(523, 901)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CinematicPlayer3/TriggerArea" unique_id=2000000005]
+shape = SubResource("RectangleShape2D_exit")
+
+[editable path="Daniel"]
+[editable path="ElBocon"]
+[editable path="NpcSalon1"]
+[editable path="NpcSalon2"]

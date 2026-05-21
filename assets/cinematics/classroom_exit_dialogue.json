@@ -1,0 +1,11 @@
+{
+	"version": 1,
+	"dialogues": {
+		"salida": {
+			"lines": [
+				{ "speaker": "Jugador", "text": "(El salón ya no me da miedo. Paso a paso.)" },
+				{ "speaker": "Jugador", "text": "(A ver qué hay del otro lado.)" }
+			]
+		}
+	}
+}
