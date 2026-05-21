@@ -3,7 +3,9 @@
 	"dialogues": {
 		"intro": {
 			"lines": [
-				{ "text": "POKER" }
+				{ "text": "Baraja sobre la mesa." },
+				{ "text": "Regla escrita a mano: No juegues con el silencio cuando alguien necesita ayuda." },
+				{ "text": "A veces la mejor jugada es hablar." }
 			]
 		}
 	}

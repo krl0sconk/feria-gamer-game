@@ -4,10 +4,10 @@
 #  1. Player entra al Area2D → `player_in_range = true`.
 #  2. Player presiona `Interact` (E) → cargamos el JSON y pedimos al
 #     `DialogueRunner` que reproduzca `intro_dialogue_id`.
-#  3. Al terminar el diálogo, si `battle_scene_path` está seteado:
+#  3. Al terminar el diálogo, si `battle_scene` está seteado:
 #       - Guardamos en `Gamemanager` el id, la posición de retorno y el path
 #         del Map (para que Battle sepa a dónde volver).
-#       - `change_scene_to_file(battle_scene_path)`.
+#       - `change_scene_to_packed(battle_scene)`.
 #     Si está vacío, no pasa nada más (caso "cartel / objeto").
 #
 # Este nodo no sabe qué dice el JSON ni cómo se renderiza; delega todo al
@@ -17,7 +17,7 @@ class_name Interactable
 extends Area2D
 
 signal interaction_started(id: String)
-signal battle_requested(battle_scene_path: String, npc_id: String)
+signal battle_requested(battle_scene: PackedScene, npc_id: String)
 
 const INTERACT_ACTION := "Interact"
 const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
@@ -55,7 +55,7 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 
 ## Si está seteado, el intro dispara un cambio a esta escena de batalla al
 ## terminar. Vacío = solo dialoga y vuelve al control del jugador.
-@export_file("*.tscn") var battle_scene_path: String = ""
+@export var battle_scene: PackedScene = null
 
 ## Chart opcional para la batalla asociada. Vacío = usa el default de Battle.
 @export_file("*.json") var battle_chart_path: String = ""
@@ -212,7 +212,7 @@ func _start_intro() -> void:
 	if _data == null or _runner == null:
 		# Fallback: si no hay JSON/Runner pero sí batalla, preservamos el
 		# comportamiento del viejo quest_object (ir directo a la batalla).
-		if not battle_scene_path.is_empty():
+		if battle_scene != null:
 			_queue_battle_transition()
 		return
 	var chosen_intro := intro_dialogue_id
@@ -263,7 +263,7 @@ func _on_dialogue_finished(dialogue_id: String) -> void:
 				if secondary_mission_id != null and secondary_mission_id.strip_edges() != "":
 					qm2.call("complete_quest", str(secondary_mission_id))
 		
-		if not battle_scene_path.is_empty():
+		if battle_scene != null:
 			# Comprobamos que el id terminado sea el de intro (safety — por si el
 			# Runner reprodujo otra cosa por encima).
 			if dialogue_id == intro_dialogue_id:
@@ -283,8 +283,8 @@ func _queue_battle_transition() -> void:
 	Gamemanager.pending_dialogue_result = ""
 	Gamemanager.set_pending_battle_chart_path(battle_chart_path)
 	Gamemanager.set_pending_battle_music(battle_music)
-	battle_requested.emit(battle_scene_path, id)
-	get_tree().change_scene_to_file(battle_scene_path)
+	battle_requested.emit(battle_scene, id)
+	get_tree().change_scene_to_packed(battle_scene)
 
 
 func _on_body_entered(body: Node2D) -> void:

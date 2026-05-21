@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "speaker": "Cyber bully", "text": "Detras de una pantalla mando yo." },
+        { "speaker": "Jugador", "text": "No eres anonimo. Solo cobarde." },
+        { "speaker": "Cyber bully", "text": "Hablas mucho para alguien tan visible." }
+      ]
+    },
+    "victory": {
+      "lines": [
+        { "speaker": "Cyber bully", "text": "Borro todo... ya esta." },
+        { "speaker": "Jugador", "text": "Y pide disculpas de frente." }
+      ]
+    },
+    "defeat": {
+      "lines": [
+        { "speaker": "Cyber bully", "text": "En internet siempre vuelvo." },
+        { "speaker": "Jugador", "text": "Entonces yo tambien." }
+      ]
+    }
+  }
+}
