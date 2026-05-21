@@ -200,11 +200,40 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 	bully.name = "%s_bully" % marker.name
 	bully.id = marker.name
 	bully.position = marker.position
-	bully.dialogue_json_path = DEFAULT_PROFILE["dialogue_json_path"]
-	bully.intro_dialogue_id = DEFAULT_PROFILE["intro_dialogue_id"]
-	bully.win_dialogue_id = DEFAULT_PROFILE["win_dialogue_id"]
-	bully.lose_dialogue_id = DEFAULT_PROFILE["lose_dialogue_id"]
-	bully.battle_scene = DEFAULT_PROFILE["battle_scene"]
+	var marker_dialogue_json := ""
+	var marker_intro_dialogue := ""
+	var marker_win_dialogue := ""
+	var marker_lose_dialogue := ""
+	var marker_battle_scene: PackedScene = null
+	var marker_despawn_on_win: bool = bool(DEFAULT_PROFILE["despawn_on_win"])
+	var marker_dialogue_voice: AudioStream = null
+	if marker != null and marker.has_method("get"):
+		var try_dialogue_json = marker.get("dialogue_json_path")
+		if try_dialogue_json != null and str(try_dialogue_json).strip_edges() != "":
+			marker_dialogue_json = str(try_dialogue_json)
+		var try_intro_dialogue = marker.get("intro_dialogue_id")
+		if try_intro_dialogue != null and str(try_intro_dialogue).strip_edges() != "":
+			marker_intro_dialogue = str(try_intro_dialogue)
+		var try_win_dialogue = marker.get("win_dialogue_id")
+		if try_win_dialogue != null and str(try_win_dialogue).strip_edges() != "":
+			marker_win_dialogue = str(try_win_dialogue)
+		var try_lose_dialogue = marker.get("lose_dialogue_id")
+		if try_lose_dialogue != null and str(try_lose_dialogue).strip_edges() != "":
+			marker_lose_dialogue = str(try_lose_dialogue)
+		var try_battle_scene = marker.get("battle_scene")
+		if try_battle_scene != null and try_battle_scene is PackedScene:
+			marker_battle_scene = try_battle_scene
+		var try_despawn = marker.get("despawn_on_win")
+		if try_despawn != null:
+			marker_despawn_on_win = bool(try_despawn)
+		var try_voice = marker.get("dialogue_voice")
+		if try_voice != null and try_voice is AudioStream:
+			marker_dialogue_voice = try_voice
+	bully.dialogue_json_path = marker_dialogue_json if marker_dialogue_json != "" else DEFAULT_PROFILE["dialogue_json_path"]
+	bully.intro_dialogue_id = marker_intro_dialogue if marker_intro_dialogue != "" else DEFAULT_PROFILE["intro_dialogue_id"]
+	bully.win_dialogue_id = marker_win_dialogue if marker_win_dialogue != "" else DEFAULT_PROFILE["win_dialogue_id"]
+	bully.lose_dialogue_id = marker_lose_dialogue if marker_lose_dialogue != "" else DEFAULT_PROFILE["lose_dialogue_id"]
+	bully.battle_scene = marker_battle_scene if marker_battle_scene != null else DEFAULT_PROFILE["battle_scene"]
 	var marker_chart_override: String = ""
 	var marker_music_override: AudioStream = null
 	if marker != null and marker.has_method("get"):
@@ -229,10 +258,13 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 	else:
 		bully.battle_chart_path = DEFAULT_PROFILE["battle_chart_path"]
 	bully.battle_music = marker_music_override
-	bully.despawn_on_win = bool(DEFAULT_PROFILE["despawn_on_win"])
+	bully.despawn_on_win = marker_despawn_on_win
 	var voice_path := str(DEFAULT_PROFILE["dialogue_voice_path"])
 	if not voice_path.is_empty():
-		bully.dialogue_voice = load(voice_path) as AudioStream
+		if marker_dialogue_voice != null:
+			bully.dialogue_voice = marker_dialogue_voice
+		else:
+			bully.dialogue_voice = load(voice_path) as AudioStream
 	# Allow per-marker overrides: if the marker exposes `profile_id` or
 	# `sprite_frames` (via SpawnPoint script), prefer them over the
 	# `profile_id` parameter.
