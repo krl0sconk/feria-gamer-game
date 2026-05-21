@@ -5,8 +5,7 @@
 [ext_resource type="TileSet" uid="uid://bicvtix43wtf1" path="res://assets/images/world_assets/tileset.tres" id="2_o0av7"]
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="3_0ibgl"]
 [ext_resource type="AudioStream" uid="uid://cv23y5wuou4bq" path="res://assets/audio/sfx/dialogue1.wav" id="4_g52xa"]
-[ext_resource type="SpriteFrames" path="res://assets/images/characters/pj1/idle.tres" id="5_0dgy4"]
-[ext_resource type="PackedScene" uid="uid://vkjnvbwonuy7" path="res://scenes/map/bully_spawn_manager.tscn" id="6_4cdl6"]
+[ext_resource type="PackedScene" uid="uid://dkrd76y7ipit4" path="res://scenes/ui/pause_button.tscn" id="5_g52xa"]
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/player.tscn" id="7_44ndg"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_vpwi3"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="9_g04a8"]
@@ -35,30 +34,15 @@ tile_set = ExtResource("2_o0av7")
 tile_map_data = PackedByteArray("AAALAAIAAAAIAAAAAAALAAMAAAAEAAEAAAAMAAIAAAAFAAAAAAAMAAMAAAAFAAEAAAAOAAQAAAAEAAgAAAALAAQAAAAIAAIAAAAMAAQAAAAFAAIAAAAKAAMAAAAJAAkAAAAKAAQAAAAJAAoAAAA=")
 tile_set = ExtResource("2_o0av7")
 
-[node name="Bully" parent="." unique_id=2126418452 instance=ExtResource("3_0ibgl")]
-visible = false
-position = Vector2(827, 641)
-id = "bully_01"
-dialogue_json_path = "res://assets/dialogues/classroom_bully_01.json"
-win_dialogue_id = "victory"
-lose_dialogue_id = "defeat"
-dialogue_voice = ExtResource("4_g52xa")
-
-[node name="Sprite2D" parent="Bully" index="1" unique_id=858663745]
-sprite_frames = ExtResource("5_0dgy4")
-
-[node name="BullySpawnManager" parent="." unique_id=1546335740 instance=ExtResource("6_4cdl6")]
-visible = false
-
 [node name="Player" parent="." unique_id=1155853386 instance=ExtResource("7_44ndg")]
 position = Vector2(481, 812)
 scale = Vector2(2, 2)
 
 [node name="DialogueRunner" parent="." unique_id=1990822026 instance=ExtResource("8_vpwi3")]
-visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=116998281]
-visible = false
+
+[node name="PauseButton" parent="CanvasLayer" unique_id=1741637342 instance=ExtResource("5_g52xa")]
 
 [node name="QuestHud" parent="CanvasLayer" unique_id=1973330051 instance=ExtResource("9_g04a8")]
 offset_left = -450.0
@@ -78,6 +62,7 @@ shape = SubResource("RectangleShape2D_exit")
 
 [node name="compañero" parent="." unique_id=878503726 instance=ExtResource("3_0ibgl")]
 position = Vector2(767, 204)
+scale = Vector2(1.5, 1.5)
 id = "compañero1"
 mission_id = "2.1.1"
 complete_mission_on_dialogue = true
@@ -88,45 +73,39 @@ win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
 dialogue_voice = ExtResource("4_g52xa")
 
-[node name="Sprite2D" parent="compañero" index="1" unique_id=858663745]
-sprite_frames = ExtResource("5_0dgy4")
-
 [node name="Bully2salon" parent="." unique_id=696459709 instance=ExtResource("3_0ibgl")]
 position = Vector2(924, 430)
+scale = Vector2(1.5, 1.5)
 id = "bully_02"
 mission_id = "2.1.2"
 complete_mission_on_win = true
 dialogue_json_path = "res://assets/dialogues/classroom_bully_02.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
+battle_scene = ExtResource("11_battle")
 battle_chart_path = "res://assets/charts/coolguy.json"
 battle_music = ExtResource("10_0ibgl")
 dialogue_voice = ExtResource("4_g52xa")
 
-[node name="Sprite2D" parent="Bully2salon" index="1" unique_id=858663745]
-sprite_frames = ExtResource("5_0dgy4")
-
 [node name="Bully1salon" parent="." unique_id=1122916025 instance=ExtResource("3_0ibgl")]
 position = Vector2(451, 365)
+scale = Vector2(1.5, 1.5)
 id = "bully_01"
 mission_id = "2.1.1"
 complete_mission_on_win = true
 dialogue_json_path = "res://assets/dialogues/classroom_bully_01.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
+battle_scene = ExtResource("11_battle")
 battle_chart_path = "res://assets/charts/rudegirl.json"
 battle_music = ExtResource("10_o0av7")
 dialogue_voice = ExtResource("4_g52xa")
-
-[node name="Sprite2D" parent="Bully1salon" index="1" unique_id=858663745]
-sprite_frames = ExtResource("5_0dgy4")
 
 [node name="MusicaFondoSalon" type="AudioStreamPlayer" parent="." unique_id=1635448951]
 stream = ExtResource("2_0dgy4")
 autoplay = true
 bus = &"Music"
 
-[editable path="Bully"]
 [editable path="compañero"]
 [editable path="Bully2salon"]
 [editable path="Bully1salon"]
