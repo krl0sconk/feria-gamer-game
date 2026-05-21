@@ -1,9 +1,20 @@
 [gd_scene format=3 uid="uid://bdd6347mq5mpn"]
 
 [ext_resource type="Script" uid="uid://crshwoqw3k61x" path="res://scripts/ui/save_slots.gd" id="1_save_slots_gd"]
+[ext_resource type="Texture2D" uid="uid://cesunilhlbgjj" path="res://assets/images/menu/background_menu.png" id="2_ri0h4"]
+[ext_resource type="Texture2D" uid="uid://ytwjw43lukpg" path="res://assets/images/menu/volver_btn2.png" id="3_mihvm"]
+[ext_resource type="FontFile" uid="uid://dsbq3ifavuvbh" path="res://assets/fonts/schoolbell_regular.ttf" id="3_rn2yw"]
+[ext_resource type="Script" uid="uid://cxl3bnruct0vp" path="res://scripts/ui/keychain_button.gd" id="4_j740j"]
+[ext_resource type="AudioStream" uid="uid://chybtbqfqkxl2" path="res://assets/audio/sfx/hover.tres" id="5_j740j"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rn2yw"]
 
 [sub_resource type="StyleBoxFlat" id="200003"]
 bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ena2l"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lnfex"]
 
 [node name="SaveSlots" type="Control" unique_id=100000]
 layout_mode = 3
@@ -14,12 +25,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_save_slots_gd")
 
-[node name="BG" type="ColorRect" parent="." unique_id=100012]
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 720.0
-mouse_filter = 2
-color = Color(0.9686, 0.9412, 0.9176, 1)
+[node name="Reference" type="Sprite2D" parent="." unique_id=1864156134]
+position = Vector2(643.7777, 357.99997)
+scale = Vector2(0.67106485, 0.6666667)
+texture = ExtResource("2_ri0h4")
+
+[node name="ColorRect" type="ColorRect" parent="Reference" unique_id=825068419]
+offset_left = -989.3332
+offset_top = -557.99994
+offset_right = 986.1667
+offset_bottom = 559.49994
+color = Color(0, 0, 0, 0.41960785)
+metadata/_edit_use_anchors_ = true
 
 [node name="VBox" type="VBoxContainer" parent="." unique_id=100001]
 layout_mode = 1
@@ -32,11 +49,13 @@ anchor_bottom = 0.92
 [node name="Slot1" type="PanelContainer" parent="VBox" unique_id=100002]
 custom_minimum_size = Vector2(0, 140)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_rn2yw")
 
 [node name="BtnSlot1" type="Button" parent="VBox/Slot1" unique_id=100003]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("200003")
 text = "Slot 1"
@@ -50,23 +69,26 @@ anchor_top = 0.08
 anchor_right = 0.65
 anchor_bottom = 0.34
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 16
-mouse_filter = 2
 
 [node name="BtnDel1" type="Button" parent="VBox/Slot1" unique_id=100004]
 layout_mode = 2
 focus_mode = 0
+theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 14
 text = "Delete"
 
 [node name="Slot2" type="PanelContainer" parent="VBox" unique_id=100005]
 custom_minimum_size = Vector2(0, 140)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ena2l")
 
 [node name="BtnSlot2" type="Button" parent="VBox/Slot2" unique_id=100006]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("200003")
 text = "Slot 2"
@@ -80,23 +102,26 @@ anchor_top = 0.08
 anchor_right = 0.65
 anchor_bottom = 0.34
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 16
-mouse_filter = 2
 
 [node name="BtnDel2" type="Button" parent="VBox/Slot2" unique_id=100007]
 layout_mode = 2
 focus_mode = 0
+theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 14
 text = "Delete"
 
 [node name="Slot3" type="PanelContainer" parent="VBox" unique_id=100008]
 custom_minimum_size = Vector2(0, 140)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_lnfex")
 
 [node name="BtnSlot3" type="Button" parent="VBox/Slot3" unique_id=100009]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("200003")
 text = "Slot 3"
@@ -110,22 +135,30 @@ anchor_top = 0.08
 anchor_right = 0.65
 anchor_bottom = 0.34
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 16
-mouse_filter = 2
 
 [node name="BtnDel3" type="Button" parent="VBox/Slot3" unique_id=1834913458]
 layout_mode = 2
 focus_mode = 0
+theme_override_fonts/font = ExtResource("3_rn2yw")
 theme_override_font_sizes/font_size = 14
 text = "Delete"
 
-[node name="Back" type="Button" parent="." unique_id=100011]
+[node name="Back" type="Button" parent="." unique_id=922327871]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.94
 anchor_right = 0.5
 anchor_bottom = 0.94
-text = "Back"
-
-
+offset_left = -188.0
+offset_top = -124.79999
+offset_right = 94.0
+offset_bottom = 22.0
+icon = ExtResource("3_mihvm")
+flat = true
+expand_icon = true
+script = ExtResource("4_j740j")
+hover_sfx = ExtResource("5_j740j")
+metadata/_custom_type_script = "uid://cxl3bnruct0vp"

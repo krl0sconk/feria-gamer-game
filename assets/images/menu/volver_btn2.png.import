@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvsl0a80i77ma"
-path="res://.godot/imported/pj1_walk.png-b66b7823248d813e4f7734c217da7155.ctex"
+uid="uid://ytwjw43lukpg"
+path="res://.godot/imported/volver_btn2.png-2bd8005d90c6b9e9e727f0f35c3db54b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/characters/pj1/pj1_walk.png"
-dest_files=["res://.godot/imported/pj1_walk.png-b66b7823248d813e4f7734c217da7155.ctex"]
+source_file="res://assets/images/menu/volver_btn2.png"
+dest_files=["res://.godot/imported/volver_btn2.png-2bd8005d90c6b9e9e727f0f35c3db54b.ctex"]
 
 [params]
 

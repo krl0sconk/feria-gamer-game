@@ -21,7 +21,7 @@ const DEFAULT_PROFILE := {
 
 # Map profile_id -> SpriteFrames resource to preserve original sprites
 const PROFILE_FRAMES := {
-	"easy_bully": preload("res://assets/images/characters/pj1/idle.tres"),
+	"easy_bully": preload("res://assets/images/characters/pj1/idle_pj1.tres"),
 	"pj2_bully": preload("res://assets/images/characters/pj2/idle_pj2.tres"),
 }
 
@@ -257,7 +257,7 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 			var try_frames = marker.get("sprite_frames")
 			if try_frames != null and try_frames is SpriteFrames:
 				marker_frames = try_frames
-		var default_frames: SpriteFrames = marker_frames if marker_frames != null else PROFILE_FRAMES.get(profile_id, preload("res://assets/images/characters/pj1/idle.tres")) as SpriteFrames
+		var default_frames: SpriteFrames = marker_frames if marker_frames != null else PROFILE_FRAMES.get(profile_id, preload("res://assets/images/characters/pj1/idle_pj1.tres")) as SpriteFrames
 		if sprite_node is AnimatedSprite2D:
 			# Always override the scene's default frames so SpawnPoint settings win.
 			sprite_node.sprite_frames = default_frames

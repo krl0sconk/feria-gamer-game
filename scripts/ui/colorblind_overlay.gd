@@ -27,7 +27,7 @@ func set_mode(mode: int) -> void:
 		return
 	visible = true
 	if _rect != null and _rect.material is ShaderMaterial:
-		(_rect.material as ShaderMaterial).set_shader_parameter("mode", mode)
+		(_rect.material as ShaderMaterial).set_shader_parameter("mode", float(mode))
 
 
 ## Ajusta la intensidad del filtro (0.0–1.0). Llamado desde `OptionsSettings.apply()`.

@@ -89,8 +89,8 @@ grow_vertical = 2
 script = ExtResource("1_ekxnf")
 
 [node name="Reference" type="Sprite2D" parent="." unique_id=586560208]
-position = Vector2(639.5555, 357.99997)
-scale = Vector2(0.6666667, 0.6666667)
+position = Vector2(643.7777, 357.99997)
+scale = Vector2(0.67106485, 0.6666667)
 texture = ExtResource("2_isoef")
 
 [node name="ColorRect" type="ColorRect" parent="Reference" unique_id=1209523814]
