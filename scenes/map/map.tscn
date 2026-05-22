@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://vkjnvbwonuy7" path="res://scenes/map/bully_spawn_manager.tscn" id="12_bsmgr"]
 [ext_resource type="AudioStream" uid="uid://bcv45n2bj714r" path="res://assets/audio/music/musica_fondo_pasillo.wav" id="15_mrjnl"]
 [ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="15_rqo2c"]
-[ext_resource type="AudioStream" uid="uid://cwkwfig0lcpac" path="res://assets/audio/music/rude_girl.wav" id="16_rude"]
 
 [node name="Mapa" type="Node2D" unique_id=1460360920]
 script = ExtResource("7_mapgd")
@@ -78,7 +77,7 @@ sprite_frames = ExtResource("7_58ndj")
 animation = &"default"
 
 [node name="BullyCyber" parent="." unique_id=1888292220 instance=ExtResource("9_intr")]
-position = Vector2(1563, 980)
+position = Vector2(1898, 1092)
 scale = Vector2(1.5, 1.5)
 id = "bully_05"
 mission_id = "4.1.2"
@@ -92,24 +91,6 @@ battle_music = ExtResource("8_cumk7")
 dialogue_voice = ExtResource("7_48h8m")
 
 [node name="Sprite2D" parent="BullyCyber" index="1" unique_id=858663745]
-sprite_frames = ExtResource("7_58ndj")
-animation = &"default"
-
-[node name="BullyFinal" parent="." unique_id=2106598975 instance=ExtResource("9_intr")]
-position = Vector2(688, 1546)
-scale = Vector2(1.5, 1.5)
-id = "bully_06"
-mission_id = "5.1.2"
-complete_mission_on_win = true
-dialogue_json_path = "res://assets/dialogues/map_bully_06_final.json"
-defeated_dialogue_id = "defeated"
-win_dialogue_id = "victory"
-lose_dialogue_id = "defeat"
-battle_chart_path = "res://assets/charts/rudegirl.json"
-battle_music = ExtResource("16_rude")
-dialogue_voice = ExtResource("7_48h8m")
-
-[node name="Sprite2D" parent="BullyFinal" index="1" unique_id=858663745]
 sprite_frames = ExtResource("7_58ndj")
 animation = &"default"
 
@@ -160,10 +141,8 @@ position = Vector2(-1200, 1000)
 scale = Vector2(2, 2)
 
 [node name="DialogueRunner" parent="." unique_id=1990822026 instance=ExtResource("8_drun")]
-visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=116998281]
-visible = false
 
 [node name="QuestHud" parent="CanvasLayer" unique_id=1973330051 instance=ExtResource("10_qhud")]
 offset_left = -450.0
@@ -187,7 +166,6 @@ metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 [editable path="BullyPasillo1"]
 [editable path="BullyPasillo2"]
 [editable path="BullyCyber"]
-[editable path="BullyFinal"]
 [editable path="compañero2"]
 [editable path="microfono"]
 [editable path="tablerobandas"]
