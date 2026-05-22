@@ -76,7 +76,7 @@ Se usa para servicios transversales:
 - SaveManager: persistencia de slots.
 - ColorblindOverlay: filtro global de accesibilidad visual.
 
-### 3.2 Observer / Event-Driven (senales)
+### 3.2 Observer / Event-Driven (señales)
 El juego desacopla componentes con signals:
 - dialogue_started/dialogue_finished
 - note_expected/note_result
@@ -104,6 +104,24 @@ Contenido y reglas viven fuera del codigo duro:
 ### 3.5 Composicion por componentes
 Escenas Godot ensamblan nodos especializados:
 Battle = PlayerInput + Metronome + Judge + Referee + HUD + Composer + MusicPlayer.
+
+### 3.6 Strategy
+Este patron si esta implementado, pero de forma practica y data-driven.
+
+- Contexto: `Referee`, que recibe el resultado de la nota y decide como actualizar HP, score y combo.
+- Estrategias concretas: `ScoreRules` y `HealthRules`, ambas como `Resource` configurables desde el Inspector.
+- Metodo delegador: `Referee` no calcula directamente las formulas, sino que llama a `score_rules.calculate_points(...)` y `health_rules.get_hp_delta(...)`.
+
+En otras palabras, el algoritmo de puntuacion y el de daño/cura se pueden cambiar sin tocar el contexto. Eso es la idea central de Strategy: encapsular una familia de algoritmos y hacerlos intercambiables.
+
+Ejemplo de lectura del flujo:
+
+1. `Judge` emite el resultado de la entrada.
+2. `Referee` recibe `timing` y `success`.
+3. `ScoreRules` decide cuántos puntos sumar o restar.
+4. `HealthRules` decide cuánto HP modificar.
+
+Esto permite ajustar dificultad, balance y comportamiento del combate desde datos, no desde lógica fija.
 
 ## 4. Estructuras de datos usadas
 
@@ -154,7 +172,8 @@ Carpetas clave:
 
 4) Evaluacion de entradas Perfect/Good/Miss con impacto.
 - Estado: CUMPLIDO.
-- Evidencia: metronome.gd (timing), judge.gd (validacion), referee.gd + health_rules.gd (impacto en HP).
+- Evidencia: metronome.gd (timing), judge.gd (validacion), referee.gd + score_rules.gd + health_rules.gd.
+- Nota de patron: aqui aparece Strategy, porque `Referee` delega en `ScoreRules` y `HealthRules` la formula exacta de puntaje y HP.
 
 5) Indicador HP jugador/enemigos y condicion de victoria/derrota.
 - Estado: PARCIAL.
@@ -189,7 +208,8 @@ Carpetas clave:
 1. El sistema esta bien modularizado y orientado a componentes.
 2. El flujo principal exploracion -> dialogo -> batalla -> retorno -> guardado esta claramente implementado.
 3. El proyecto cumple la mayoria de requerimientos funcionales clave.
-4. Los puntos a defender como "parcial" son HP enemigo funcional, ayuda formal y contraste explicito.
+4. Strategy esta implementado en el subsistema ritmico como delegacion de formulas en Resources configurables.
+5. Los puntos a defender como "parcial" son HP enemigo funcional, ayuda formal y contraste explicito.
 
 ## 8. 10 preguntas que podria hacer el profesor (con respuesta)
 
