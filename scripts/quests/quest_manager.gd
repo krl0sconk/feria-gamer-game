@@ -191,6 +191,7 @@ func apply_state(serialized: Array) -> void:
 			_completed[id] = true
 		else:
 			_active[id] = q
+		_refresh_unlocks()
 	active_quests_changed.emit(_active_ids_array())
 
 

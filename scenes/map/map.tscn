@@ -1,10 +1,10 @@
 [gd_scene format=4 uid="uid://jm41wdkx0c80"]
 
 [ext_resource type="TileSet" uid="uid://bicvtix43wtf1" path="res://assets/images/world_assets/tileset.tres" id="2_sqgf4"]
-[ext_resource type="PackedScene" path="res://scenes/rhythm/double_battle.tscn" id="4_rqo2c"]
+[ext_resource type="PackedScene" uid="uid://0kd52o7rv4h4" path="res://scenes/rhythm/double_battle.tscn" id="4_rqo2c"]
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/player.tscn" id="5_xtmej"]
 [ext_resource type="AudioStream" uid="uid://cv23y5wuou4bq" path="res://assets/audio/sfx/dialogue1.wav" id="7_48h8m"]
-[ext_resource type="PackedScene" path="res://scenes/rhythm/cyber_battle.tscn" id="7_e07uo"]
+[ext_resource type="PackedScene" uid="uid://dxumduc66qhvi" path="res://scenes/rhythm/cyber_battle.tscn" id="7_e07uo"]
 [ext_resource type="Script" uid="uid://cvb28nsoo4xmq" path="res://scripts/map/map.gd" id="7_mapgd"]
 [ext_resource type="AudioStream" uid="uid://f5s0a1ryr535" path="res://assets/audio/music/double.wav" id="7_x2kg6"]
 [ext_resource type="AudioStream" uid="uid://hfrvoxa0d68w" path="res://assets/audio/music/cyber.wav" id="8_cumk7"]

@@ -44,6 +44,8 @@ var pending_battle_music: AudioStream = null
 ## evitar que un on_scene_ready se re-dispare al volver desde una batalla.
 var cinematics_played: Dictionary = {}
 
+## Estado de misiones cargado desde un save.
+var _pending_quests_state: Array = []
 
 func _ready() -> void:
 	OptionsSettings.apply_saved()
@@ -69,6 +71,7 @@ func _on_node_added(node: Node) -> void:
 			_menu_music_player.play()
 	else:
 		_menu_music_player.stop()
+		apply_pending_quests_state()  
 	var settings := OptionsSettings.load_settings()
 	if bool(settings.get("dyslexia_mode", false)):
 		OptionsSettings.apply_dyslexia_fonts(node, true)
@@ -112,6 +115,7 @@ func clear_loaded_save_state() -> void:
 	has_loaded_position = false
 	loaded_world_state = {}
 	has_loaded_world_state = false
+	_pending_quests_state = []
 
 
 func set_pending_battle_chart_path(chart_path: String) -> void:
@@ -132,3 +136,15 @@ func consume_pending_battle_music() -> AudioStream:
 	var result: AudioStream = pending_battle_music
 	pending_battle_music = null
 	return result
+
+
+func set_loaded_quests_state(state: Array) -> void:
+	_pending_quests_state = state
+
+func apply_pending_quests_state() -> void:
+	if _pending_quests_state.is_empty():
+		return
+	var qm := get_node_or_null("/root/QuestManager")
+	if qm != null and qm.has_method("apply_state"):
+		qm.apply_state(_pending_quests_state)
+	_pending_quests_state = []
