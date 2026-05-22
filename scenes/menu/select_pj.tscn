@@ -5,10 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://bm3rgmlujs5c" path="res://assets/images/characters/pj1/pj1_icon.jpg" id="2_whu1b"]
 [ext_resource type="Texture2D" uid="uid://ytwjw43lukpg" path="res://assets/images/menu/volver_btn2.png" id="3_b7212"]
 [ext_resource type="Texture2D" uid="uid://dljd58x4rud3k" path="res://assets/images/characters/pj2/pj2_icon.jpg" id="3_dt4db"]
-[ext_resource type="SpriteFrames" uid="uid://btgbdrv3gb6xj" path="res://assets/images/characters/pj1/player_battle_pj1.tres" id="3_pa4ul"]
+[ext_resource type="SpriteFrames" uid="uid://btgbdrv3gb6xj" path="res://assets/images/characters/pj1/pj1_battle.tres" id="3_pa4ul"]
 [ext_resource type="Script" uid="uid://cxl3bnruct0vp" path="res://scripts/ui/keychain_button.gd" id="4_pa4ul"]
 [ext_resource type="AudioStream" uid="uid://chybtbqfqkxl2" path="res://assets/audio/sfx/hover.tres" id="5_lvgf7"]
 [ext_resource type="Texture2D" uid="uid://flttdpgo200r" path="res://assets/images/characters/pj3/pj3_icon.png" id="9_pa4ul"]
+[ext_resource type="Texture2D" uid="uid://btg2ig8xuncna" path="res://assets/images/characters/pj4/pj4_icon.png" id="10_lvgf7"]
 
 [node name="Select_PJ" type="Control" unique_id=1459544091]
 layout_mode = 3
@@ -95,10 +96,13 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Button8" type="Button" parent="GridContainer" unique_id=1606369504]
-visible = false
 custom_minimum_size = Vector2(140, 131)
 layout_mode = 2
-text = "4"
+theme_override_colors/icon_hover_color = Color(0.5409905, 0.5409905, 0.5409905, 1)
+icon = ExtResource("10_lvgf7")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="Button9" type="Button" parent="GridContainer" unique_id=1778320618]
 visible = false

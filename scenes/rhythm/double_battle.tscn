@@ -1,15 +1,23 @@
-[gd_scene format=3 uid="uid://0kd52o7rv4h4"]
+[gd_scene format=3 uid="uid://cyfkkeb2wcrmr"]
 
 [ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_j55gp"]
 [ext_resource type="AudioStream" uid="uid://f5s0a1ryr535" path="res://assets/audio/music/double.wav" id="2_ptqwa"]
+[ext_resource type="Texture2D" uid="uid://ck45u308f8w0m" path="res://assets/images/backgrounds/bgPasillo.png" id="2_v27so"]
 
 [node name="Battle" unique_id=1239436012 instance=ExtResource("1_j55gp")]
 chart_path = "res://assets/charts/doubletrouble.json"
 lose_scene_path = ""
 
-[node name="MusicPlayer" parent="." index="2" unique_id=1075957386]
+[node name="Background" parent="." index="0" unique_id=287379656]
+position = Vector2(5.000001, 1)
+scale = Vector2(0.7918985, 0.79189855)
+texture = ExtResource("2_v27so")
+
+[node name="MusicPlayer" parent="." index="3" unique_id=1075957386]
 stream = ExtResource("2_ptqwa")
 bpm = 200.0
 
-[node name="Metronome" parent="." index="3" unique_id=984578197]
+[node name="Metronome" parent="." index="4" unique_id=984578197]
 bpm = 200.0
+
+[editable path="BattleHUD"]

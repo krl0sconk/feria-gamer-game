@@ -42,6 +42,7 @@ var _pending_notes: Dictionary = {
 	"note_left": [], "note_down": [], "note_up": [], "note_right": [],
 }
 var _fallback_ms: float = 0.0
+var _audio_sync_warmup_ms: float = 0.0
 var _using_fallback: bool = false
 var _last_note_ms: float = 0.0
 var _survival_declared: bool = false
@@ -118,6 +119,7 @@ func _load_chart() -> void:
 	_phase_audio_offset_ms = 0.0
 	_pre_roll_total_ms = _arrow_travel_ms + intro_delay_s * 1000.0
 	_pre_roll_elapsed_ms = 0.0
+	_audio_sync_warmup_ms = 0.0
 	_in_pre_roll = true
 
 
@@ -149,6 +151,7 @@ func _process(delta: float) -> void:
 			if _music_player.stream != null:
 				_music_player.volume_db = -80.0
 				_music_player.play()
+				_audio_sync_warmup_ms = 250.0
 				if music_fade_in_s > 0.0:
 					_music_player.fade_in(music_fade_in_s)
 				else:
@@ -158,9 +161,12 @@ func _process(delta: float) -> void:
 	if not _in_pre_roll:
 		_fallback_ms += delta * 1000.0
 		if not _using_fallback:
-			var audio_pos: float = _music_player.get_position_ms()
-			if audio_pos > 0.0:
-				_fallback_ms = lerpf(_fallback_ms, audio_pos, 0.3)
+			_audio_sync_warmup_ms = maxf(0.0, _audio_sync_warmup_ms - delta * 1000.0)
+			if _audio_sync_warmup_ms <= 0.0:
+				var audio_pos: float = _music_player.get_position_ms()
+				# Limitar correcciones hacia adelante: valores muy grandes son datos obsoletos
+				if audio_pos > 0.0 and audio_pos < _fallback_ms + _metronome.window_good * 2.0:
+					_fallback_ms = lerpf(_fallback_ms, audio_pos, 0.3)
 	var current_ms: float = _get_current_ms()
 	_metronome.update_time(current_ms)
 	_composer.update_time(current_ms)
@@ -226,6 +232,7 @@ func _begin_phase_transition(idx: int) -> void:
 	_pre_roll_total_ms = _arrow_travel_ms
 	_pre_roll_elapsed_ms = 0.0
 	_fallback_ms = 0.0
+	_audio_sync_warmup_ms = 0.0
 	_in_pre_roll = true
 	_phase_transition_active = false
 

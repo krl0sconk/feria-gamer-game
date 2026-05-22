@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://dyt4xd2vqn546"]
+[gd_scene format=3 uid="uid://csvffon3ipk2a"]
 
 [ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_xn5ui"]
 [ext_resource type="AudioStream" uid="uid://cwkwfig0lcpac" path="res://assets/audio/music/rude_girl.wav" id="2_lug5d"]
+[ext_resource type="Texture2D" uid="uid://5gvl4gpqkuaa" path="res://assets/images/backgrounds/bgStage.png" id="2_ni5dh"]
 
 [node name="Battle" unique_id=1239436012 instance=ExtResource("1_xn5ui")]
 chart_path = "res://assets/charts/rudegirl.json"
@@ -9,6 +10,12 @@ win_scene_path = null
 fallback_map_scene_path = null
 intro_delay_s = null
 outro_delay_s = null
+
+[node name="Background" parent="." index="0" unique_id=287379656]
+position = Vector2(2.7036753, -5.4791665)
+scale = Vector2(0.51733214, 0.51733214)
+texture = ExtResource("2_ni5dh")
+flip_h = false
 
 [node name="MusicPlayer" parent="." index="3" unique_id=1075957386]
 stream = ExtResource("2_lug5d")

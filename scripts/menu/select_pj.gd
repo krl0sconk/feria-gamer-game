@@ -1,21 +1,26 @@
 extends Control
 
-const SKINS := ["idle (1)", "idlepj2", "idlepj3"]
+const SKINS := ["idle (1)", "idlepj2", "idlepj3", "idlepj4"]
 
 const SKIN_DATA := {
 	"idle (1)": {
-		"frames": preload("res://assets/images/characters/pj1/player_battle_pj1.tres"),
+		"frames": preload("res://assets/images/characters/pj1/pj1_battle.tres"),
 		"display_name": "Personaje 1",
 		"idle_anim": &"idle"
 	},
 	"idlepj2": {
-		"frames": preload("res://assets/images/characters/pj2/player_battle_pj2.tres"),
+		"frames": preload("res://assets/images/characters/pj2/pj2_battle.tres"),
 		"display_name": "Personaje 2",
 		"idle_anim": &"idle"
 	},
 	"idlepj3": {
-		"frames": preload("res://assets/images/characters/pj2/player_battle_pj2.tres"),
+		"frames": preload("res://assets/images/characters/pj2/pj2_battle.tres"),
 		"display_name": "Personaje 3",
+		"idle_anim": &"idle"
+	},
+	"idlepj4": {
+		"frames": preload("res://assets/images/characters/pj4/pj4_battle.tres"),
+		"display_name": "Personaje 4",
 		"idle_anim": &"idle"
 	}
 }

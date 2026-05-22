@@ -1,14 +1,25 @@
-[gd_scene format=3 uid="uid://dxumduc66qhvi"]
+[gd_scene format=3 uid="uid://bt8lkneyt0wj0"]
 
 [ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_o5y0f"]
 [ext_resource type="AudioStream" uid="uid://hfrvoxa0d68w" path="res://assets/audio/music/cyber.wav" id="2_86phr"]
+[ext_resource type="Texture2D" uid="uid://mksr6bjd73fv" path="res://assets/images/backgrounds/bgLab.png" id="2_p41lk"]
 
 [node name="Battle" unique_id=1239436012 instance=ExtResource("1_o5y0f")]
 chart_path = "res://assets/charts/cyberbattle.json"
 
-[node name="MusicPlayer" parent="." index="2" unique_id=1075957386]
+[node name="Background" parent="." index="0" unique_id=287379656]
+position = Vector2(9.962978, 1.4791584)
+scale = Vector2(0.51872104, 0.51872104)
+texture = ExtResource("2_p41lk")
+
+[node name="MusicPlayer" parent="." index="3" unique_id=1075957386]
 stream = ExtResource("2_86phr")
 bpm = 185.0
 
-[node name="Metronome" parent="." index="3" unique_id=984578197]
+[node name="Metronome" parent="." index="4" unique_id=984578197]
 bpm = 185.0
+
+[node name="EnemyBattle" parent="." index="12" unique_id=446230275]
+position = Vector2(538.1481, 74.95828)
+
+[editable path="BattleHUD"]
