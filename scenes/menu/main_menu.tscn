@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d4tj4rmnxce0" path="res://assets/images/menu/options_btn.png" id="6_1k4da"]
 [ext_resource type="Texture2D" uid="uid://bo0lbqhyqhog4" path="res://assets/images/menu/exit_btn.png" id="7_bbqo6"]
 [ext_resource type="FontFile" uid="uid://dkhuvr1inqnvv" path="res://assets/fonts/retro_bound_uc.ttf" id="8_qgo02"]
+[ext_resource type="Texture2D" uid="uid://c16bp2ww7y6ht" path="res://assets/images/menu/title.png" id="9_vovv2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfbao"]
 bg_color = Color(1, 1, 1, 1)
@@ -195,7 +196,7 @@ offset_bottom = 68.43508
 [node name="Help" type="Button" parent="BoxContainer" unique_id=1593895808]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("8_qgo02")
@@ -217,12 +218,17 @@ text = "© 2026 Creal. "
 
 [node name="Label2" type="Label" parent="." unique_id=1470344052]
 layout_mode = 0
-offset_left = 1085.0
+offset_left = 1077.0
 offset_top = 690.0
-offset_right = 1270.0
+offset_right = 1274.0
 offset_bottom = 713.0
 theme_override_fonts/font = ExtResource("8_qgo02")
-text = "BEAT THE BULLY BETA 0.1"
+text = "BEAT THE BULLY BETA 0.1.3"
+
+[node name="Title" type="Sprite2D" parent="." unique_id=1180546544]
+position = Vector2(654, 230)
+scale = Vector2(0.23034668, 0.23034668)
+texture = ExtResource("9_vovv2")
 
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]

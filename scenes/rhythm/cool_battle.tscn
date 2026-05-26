@@ -1,12 +1,18 @@
-[gd_scene format=3 uid="uid://bton8cs5otkgn"]
+[gd_scene format=3 uid="uid://cjwpibmypm3ey"]
 
 [ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_fhexk"]
 [ext_resource type="AudioStream" uid="uid://drk4wj32fsdl1" path="res://assets/audio/music/cool_guy.wav" id="2_3f5yq"]
+[ext_resource type="Texture2D" uid="uid://b8wxp8vtfng2w" path="res://assets/images/backgrounds/bgSalon.png" id="2_seq28"]
 
 [node name="Battle" unique_id=1239436012 instance=ExtResource("1_fhexk")]
 chart_path = "res://assets/charts/coolguy.json"
 intro_delay_s = 0.4
 outro_delay_s = 3.0
+
+[node name="Background" parent="." index="0" unique_id=287379656]
+position = Vector2(0.4573779, 2.1617513)
+scale = Vector2(0.77098393, 0.7711759)
+texture = ExtResource("2_seq28")
 
 [node name="MusicPlayer" parent="." index="3" unique_id=1075957386]
 stream = ExtResource("2_3f5yq")

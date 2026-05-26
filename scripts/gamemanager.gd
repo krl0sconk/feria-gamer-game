@@ -44,10 +44,19 @@ var pending_battle_music: AudioStream = null
 ## evitar que un on_scene_ready se re-dispare al volver desde una batalla.
 var cinematics_played: Dictionary = {}
 
+## Estadísticas de la batalla recién terminada: score, perfects, goods, misses,
+## max_combo y chart_path. La WinScreen las consume y luego se limpian.
+var pending_battle_stats: Dictionary = {}
+
+## Mejor score por chart (chart_path → int). Persiste en disco entre sesiones.
+const HIGHSCORES_PATH := "user://highscores.json"
+var highscores: Dictionary = {}
+
 ## Estado de misiones cargado desde un save.
 var _pending_quests_state: Array = []
 
 func _ready() -> void:
+	_load_highscores()
 	OptionsSettings.apply_saved()
 	_menu_music_player = AudioStreamPlayer.new()
 	_menu_music_player.name = "MenuMusicPlayer"
@@ -86,6 +95,7 @@ func clear_pending_dialogue() -> void:
 	pending_dialogue_result = ""
 	pending_battle_chart_path = ""
 	pending_battle_music = null
+	pending_battle_stats = {}
 
 
 func set_loaded_position(position: Vector2) -> void:
@@ -148,3 +158,39 @@ func apply_pending_quests_state() -> void:
 	if qm != null and qm.has_method("apply_state"):
 		qm.apply_state(_pending_quests_state)
 	_pending_quests_state = []
+
+
+## Compara el score con el highscore guardado del chart. Si mejora, lo guarda
+## en disco. Devuelve {previous, current, is_new}.
+func record_highscore(chart_path: String, score: int) -> Dictionary:
+	if chart_path.is_empty():
+		return {"previous": 0, "current": score, "is_new": false}
+	var previous: int = int(highscores.get(chart_path, 0))
+	var is_new: bool = score > previous
+	if is_new:
+		highscores[chart_path] = score
+		_save_highscores()
+	return {"previous": previous, "current": maxi(previous, score), "is_new": is_new}
+
+
+func _load_highscores() -> void:
+	if not FileAccess.file_exists(HIGHSCORES_PATH):
+		return
+	var text: String = FileAccess.get_file_as_string(HIGHSCORES_PATH)
+	if text.is_empty():
+		return
+	var json := JSON.new()
+	if json.parse(text) != OK:
+		push_warning("Gamemanager: highscores.json inválido — se ignora.")
+		return
+	if typeof(json.data) == TYPE_DICTIONARY:
+		highscores = json.data
+
+
+func _save_highscores() -> void:
+	var f := FileAccess.open(HIGHSCORES_PATH, FileAccess.WRITE)
+	if f == null:
+		push_warning("Gamemanager: no se pudo abrir %s para escribir highscores." % HIGHSCORES_PATH)
+		return
+	f.store_string(JSON.stringify(highscores, "\t"))
+	f.close()

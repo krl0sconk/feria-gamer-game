@@ -372,4 +372,51 @@ quests existentes no tenían concepto de "secuencia orquestada" y no debían mod
 
 **Asistida por IA:** Sí — Claude Sonnet 4.6
 
+### 2026-05-26 — Reloj rítmico: frame clock en web, audio sync en desktop
+
+**Contexto:** En desktop el tutorial jugaba bien; en export HTML5 las primeras notas
+(y luego todas si el jugador dejaba de pulsar) se registraban como Miss automático
+(`presionada=` vacío) con `delta ≈ +130 ms` entre `note.time_ms` y el auto-miss.
+Instrumentación (`RhythmClockDebug`, ver `docs/debug/rhythm_clock_baseline.md`)
+confirmó que el reloj de juicio corría por delante de las flechas visuales.
+
+**Causa raíz:** Las flechas caen con `_process(delta)` (tiempo real de frames). El
+juicio en web se corregía hacia `MusicPlayer.get_position_ms()`, que en HTML5 avanza
+antes que el audio oído y antes que la animación de las flechas. Resultado: la cola
+expiraba ~130 ms antes de que la flecha llegara visualmente al target.
+
+**Opciones consideradas:**
+- Offset calibrable global (`audio_offset_ms`) — correcto pero requiere UI y tuning.
+- Snap agresivo del reloj de audio en todas las plataformas — arriesgado en desktop
+  donde el sync por audio ya funcionaba.
+- **Reloj por frames en web (`_using_fallback = true`)** — elegida.
+- Mover flechas a posición derivada de `current_ms` — más correcto a largo plazo,
+  cambio más invasivo; pospuesto.
+
+**Decisión tomada:**
+- Tras el pre-roll, si `OS.has_feature("web")`, Battle activa `_using_fallback` y
+  avanza `_fallback_ms` solo con `delta`, sin corrección hacia la posición del audio.
+- `MusicPlayer.get_position_ms()` en web devuelve solo `playback * 1000` (sin
+  `get_time_since_last_mix` ni restar `output_latency`).
+- Desktop mantiene corrección suave hacia audio tras warmup de 250 ms.
+- Instrumentación de debug (`rhythm_clock_debug`, `RhythmClockDebug`) se deja en el
+  código pero **desactivada por defecto** (`false`).
+
+**Consecuencias:**
+- (+) Web jugable: flechas, juicio y ventanas Perfect/Good alineados al inicio.
+- (+) Desktop sin cambio de comportamiento perceptible.
+- (-) En web, el reloj puede derivar levemente del audio en canciones muy largas;
+  mitigación futura: offset calibrable en Opciones (no implementado aún).
+- (-) Música y chart pueden quedar unos ms desfasados en web respecto al oído;
+  aceptable para la feria; el jugador sincroniza con las flechas.
+
+**Archivos modificados:**
+`scripts/rhythm/battle.gd`, `scripts/rhythm/music_player.gd`,
+`scripts/rhythm/rhythm_clock_debug.gd`, `scripts/rhythm/battle_hud.gd`,
+`docs/debug/rhythm_clock_baseline.md`, `DOCUMENTATION.md` §7.3 / §7.7.
+
+**Asistida por IA:** Sí — Claude Sonnet
+
+---
+
 <!-- Agrega nuevas decisiones aquí -->

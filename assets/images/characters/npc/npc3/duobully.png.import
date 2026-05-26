@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c37wcugmu8hjj"
-path="res://.godot/imported/bullysSpritesheet.png-676a78805a4c18a6c64c9cd8ac45aeca.ctex"
+uid="uid://cubme0nku6c7i"
+path="res://.godot/imported/duobully.png-7ffc2befb301a6126f8d26bb615a4e31.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/characters/npc/bullysSpritesheet.png"
-dest_files=["res://.godot/imported/bullysSpritesheet.png-676a78805a4c18a6c64c9cd8ac45aeca.ctex"]
+source_file="res://assets/images/characters/npc/npc3/duobully.png"
+dest_files=["res://.godot/imported/duobully.png-7ffc2befb301a6126f8d26bb615a4e31.ctex"]
 
 [params]
 

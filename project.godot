@@ -12,12 +12,13 @@ config_version=5
 
 config/name="Beat the bully"
 config/description="Beat the Bully es un RPG rítmico 2D ambientado en una High School de los años 90, donde la música es la única arma contra el bullying."
-config/version="0.1.2"
+config/version="0.1.5"
 run/main_scene="res://scenes/menu/main_menu.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(1, 1, 1, 1)
+boot_splash/stretch_mode=0
 boot_splash/image="uid://dprwo8fknd0t2"
-config/icon="res://assets/images/icons/icon.svg"
+config/icon="uid://s0m5p3ac685k"
 
 [audio]
 

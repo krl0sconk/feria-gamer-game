@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dwu33kju7dyer"]
 
-[ext_resource type="SpriteFrames" uid="uid://db8bkft1e1jot" path="res://assets/images/characters/npc/enemy_1.tres" id="1_7udhy"]
+[ext_resource type="SpriteFrames" uid="uid://db8bkft1e1jot" path="res://assets/images/characters/npc/npc1/enemy_1.tres" id="1_7udhy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ftrnt"]
 size = Vector2(75, 290)

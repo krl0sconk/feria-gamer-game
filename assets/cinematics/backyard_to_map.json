@@ -1,0 +1,12 @@
+{
+	"version": 1,
+	"id": "backyard_to_map",
+	"trigger": {
+		"type": "on_area_entered"
+	},
+	"steps": [
+		{ "type": "disable_player" },
+		{ "type": "fade_to_black", "duration": 0.5 },
+		{ "type": "change_scene", "path": "res://scenes/map/map.tscn" }
+	]
+}

@@ -6,12 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://csvffon3ipk2a" path="res://scenes/rhythm/final_battle.tscn" id="4_pyh6m"]
 [ext_resource type="AudioStream" uid="uid://cwkwfig0lcpac" path="res://assets/audio/music/rude_girl.wav" id="4_wm1sh"]
 [ext_resource type="AudioStream" uid="uid://cv23y5wuou4bq" path="res://assets/audio/sfx/dialogue1.wav" id="5_r3g8p"]
-[ext_resource type="SpriteFrames" uid="uid://cendrq73aq5wt" path="res://assets/images/characters/npc/placeholdernpc.tres" id="6_2e31x"]
+[ext_resource type="SpriteFrames" uid="uid://cendrq73aq5wt" path="res://assets/images/characters/npc/npc1/placeholdernpc.tres" id="6_2e31x"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="7_2e31x"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="8_pyh6m"]
 [ext_resource type="PackedScene" uid="uid://dkrd76y7ipit4" path="res://scenes/ui/pause_button.tscn" id="9_hb1b8"]
+[ext_resource type="Script" uid="uid://cvb28nsoo4xmq" path="res://scripts/map/map.gd" id="10_mapgd"]
+[ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="11_cingd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit_top"]
+size = Vector2(900, 60)
 
 [node name="Backyard" type="Node2D" unique_id=1617861522]
+script = ExtResource("10_mapgd")
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=748432578]
 scale = Vector2(2.5, 2.5)
@@ -27,10 +33,6 @@ tile_set = ExtResource("1_6f3kd")
 [node name="TileMapLayer3" type="TileMapLayer" parent="Tilemaps" unique_id=408891814]
 tile_map_data = PackedByteArray("AAAJAA0AAQAEAAgAAAASAA0AAQAEAAgAAAA=")
 tile_set = ExtResource("1_6f3kd")
-
-[node name="Player" parent="." unique_id=1155853386 instance=ExtResource("2_atpd0")]
-position = Vector2(561, -40)
-scale = Vector2(2, 2)
 
 [node name="BullyFinal" parent="." unique_id=878503726 instance=ExtResource("3_anvsj")]
 position = Vector2(599, 530)
@@ -147,6 +149,29 @@ dialogue_voice = ExtResource("5_r3g8p")
 [node name="Sprite2D" parent="NpcPatio7" index="1" unique_id=858663745]
 sprite_frames = ExtResource("6_2e31x")
 animation = &"default"
+
+[node name="CinematicPlayer" type="CanvasLayer" parent="." unique_id=2100000001]
+script = ExtResource("11_cingd")
+cinematic_json_path = "res://assets/cinematics/backyard_intro.json"
+play_once = false
+start_black = true
+metadata/_custom_type_script = "uid://dmhjsredjb7nj"
+
+[node name="CinematicPlayer2" type="CanvasLayer" parent="." unique_id=2100000002]
+script = ExtResource("11_cingd")
+cinematic_json_path = "res://assets/cinematics/backyard_to_map.json"
+play_once = false
+metadata/_custom_type_script = "uid://dmhjsredjb7nj"
+
+[node name="TriggerArea" type="Area2D" parent="CinematicPlayer2" unique_id=2100000003]
+position = Vector2(561, -120)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CinematicPlayer2/TriggerArea" unique_id=2100000004]
+shape = SubResource("RectangleShape2D_exit_top")
+
+[node name="Player" parent="." unique_id=1155853386 instance=ExtResource("2_atpd0")]
+position = Vector2(561, -40)
+scale = Vector2(2, 2)
 
 [editable path="BullyFinal"]
 [editable path="NpcPatio"]

@@ -1,25 +1,24 @@
-[gd_scene format=3 uid="uid://lose_screen001"]
+[gd_scene format=3 uid="uid://qhxmu01yf1dc"]
 
 [ext_resource type="Script" path="res://scripts/rhythm/lose_screen.gd" id="1_lose"]
-[ext_resource type="AudioStream" path="res://assets/audio/sfx/gameover.wav" id="2_gameover"]
+[ext_resource type="Texture2D" uid="uid://dswt837ge71bv" path="res://assets/images/menu/options.png" id="2_c1pqa"]
+[ext_resource type="AudioStream" uid="uid://bitmg4k0w74b2" path="res://assets/audio/sfx/gameover.wav" id="2_gameover"]
+[ext_resource type="FontFile" uid="uid://dsbq3ifavuvbh" path="res://assets/fonts/schoolbell_regular.ttf" id="3_ektle"]
 
-[node name="LoseScreen" type="Control"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_atjjq"]
+texture = ExtResource("2_c1pqa")
+
+[node name="LoseScreen" type="Control" unique_id=1238264805]
+custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_minimum_size = Vector2(1280, 720)
-mouse_filter = 0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_lose")
 
-[node name="Dim" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0.18, 0.05, 0.05, 0.92)
-
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=432157793]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -29,28 +28,34 @@ anchor_bottom = 0.5
 offset_left = -240.0
 offset_top = -160.0
 offset_right = 240.0
-offset_bottom = 160.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_atjjq")
 
-[node name="VBox" type="VBoxContainer" parent="Panel"]
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=329110341]
 custom_minimum_size = Vector2(420, 280)
+layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="Title" type="Label" parent="Panel/VBox"]
+[node name="Spacer" type="Control" parent="Panel/VBox" unique_id=1112035576]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="Panel/VBox" unique_id=1994041645]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ektle")
 theme_override_font_sizes/font_size = 64
 text = "DERROTA"
-
-[node name="Subtitle" type="Label" parent="Panel/VBox"]
-layout_mode = 2
 horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Panel/VBox" unique_id=1727126890]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ektle")
 theme_override_font_sizes/font_size = 18
 text = "Volviendo al mapa..."
+horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="Panel/VBox"]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-
-[node name="SfxPlayer" type="AudioStreamPlayer" parent="."]
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="." unique_id=869255049]
 stream = ExtResource("2_gameover")
 volume_db = -14.0

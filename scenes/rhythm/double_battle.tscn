@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_j55gp"]
 [ext_resource type="AudioStream" uid="uid://f5s0a1ryr535" path="res://assets/audio/music/double.wav" id="2_ptqwa"]
 [ext_resource type="Texture2D" uid="uid://ck45u308f8w0m" path="res://assets/images/backgrounds/bgPasillo.png" id="2_v27so"]
+[ext_resource type="SpriteFrames" uid="uid://bnyb0cang2ji2" path="res://assets/images/characters/npc/npc3/npc3.tres" id="4_qhri2"]
 
 [node name="Battle" unique_id=1239436012 instance=ExtResource("1_j55gp")]
 chart_path = "res://assets/charts/doubletrouble.json"
@@ -20,4 +21,16 @@ bpm = 200.0
 [node name="Metronome" parent="." index="4" unique_id=984578197]
 bpm = 200.0
 
+[node name="AnimatedSprite2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="0" unique_id=1657430708]
+position = Vector2(-11, -7)
+scale = Vector2(0.22998047, 0.22998047)
+sprite_frames = ExtResource("4_qhri2")
+autoplay = ""
+frame_progress = 0.0
+speed_scale = 1.0
+
+[node name="CollisionShape2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="1" unique_id=1144116667]
+visible = true
+
 [editable path="BattleHUD"]
+[editable path="EnemyBattle"]

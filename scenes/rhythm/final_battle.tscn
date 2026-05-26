@@ -3,13 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_xn5ui"]
 [ext_resource type="AudioStream" uid="uid://cwkwfig0lcpac" path="res://assets/audio/music/rude_girl.wav" id="2_lug5d"]
 [ext_resource type="Texture2D" uid="uid://5gvl4gpqkuaa" path="res://assets/images/backgrounds/bgStage.png" id="2_ni5dh"]
+[ext_resource type="SpriteFrames" uid="uid://5u6ae0xj8vh0" path="res://assets/images/characters/npc/npc4/npc4.tres" id="4_ux1dn"]
 
 [node name="Battle" unique_id=1239436012 instance=ExtResource("1_xn5ui")]
 chart_path = "res://assets/charts/rudegirl.json"
-win_scene_path = null
-fallback_map_scene_path = null
-intro_delay_s = null
-outro_delay_s = null
 
 [node name="Background" parent="." index="0" unique_id=287379656]
 position = Vector2(2.7036753, -5.4791665)
@@ -24,4 +21,11 @@ bpm = 144.0
 [node name="Metronome" parent="." index="4" unique_id=984578197]
 bpm = 144.0
 
+[node name="AnimatedSprite2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="0" unique_id=1657430708]
+sprite_frames = ExtResource("4_ux1dn")
+autoplay = ""
+frame_progress = 0.0
+speed_scale = 1.0
+
 [editable path="BattleHUD"]
+[editable path="EnemyBattle"]

@@ -138,6 +138,7 @@ func setup_targets(left: NoteTarget, down: NoteTarget, up: NoteTarget, right: No
 	}
 	_target_y = _notes_node.to_local(left.global_position).y
 	arrow_travel_ms = (_target_y - SPAWN_Y) / 400.0 * 1000.0
+	RhythmClockDebug.log_hud(arrow_travel_ms, _target_y, SPAWN_Y, _notes_node.scale)
 
 
 func _on_composer_note_expected(note: NoteData) -> void:

@@ -436,8 +436,12 @@ Iterates the sorted notes array and emits `note_expected(NoteData)` exactly `ant
 
 Thin wrapper over `AudioStreamPlayer`. Adds:
 - `bpm` export (forwarded to Metronome).
-- `get_position_ms() → float`: converts `get_playback_position()` (seconds) to milliseconds.
+- `get_position_ms() → float`: song position in milliseconds.
 - Signals: `music_started`, `time_updated(ms)`.
+
+**Platform behaviour for `get_position_ms()`:**
+- **Desktop:** `get_playback_position() + AudioServer.get_time_since_last_mix()`, minus `AudioServer.get_output_latency()`.
+- **Web (HTML5):** `get_playback_position()` only. On web, stream position often runs ahead of heard audio; Battle does not use it as the authoritative clock (see §7.7).
 
 ### 7.4 Input & Judgment
 
@@ -542,6 +546,8 @@ Root `Node2D` of the battle scene. Wires all subsystems together — it knows ab
 | `lose_scene_path` | `""` | Scene on loss (empty = fallback to map) |
 | `win_scene_path` | win_screen.tscn | Scene on win |
 | `fallback_map_scene_path` | map.tscn | Ultimate fallback if other paths empty |
+| `intro_delay_s` | 0.0 | Extra pause before music starts (on top of technical pre-roll) |
+| `rhythm_clock_debug` | false | Verbose `[CLOCK]` / `[INPUT]` logs for timing diagnosis |
 
 **Wiring in `_ready()`:**
 
@@ -561,9 +567,17 @@ Referee.level_ended → Battle._on_level_ended
 
 **Pending notes queues:** a `Dictionary` keyed by action string holds arrays of upcoming notes. `_process()` pops notes from these queues whose window has expired and calls `Judge.evaluate("", note, "Miss")` to register them as misses.
 
-**Fallback timing:** when no audio stream is assigned (`_using_fallback = true`), `_fallback_ms` is incremented manually each frame. `_get_current_ms()` returns whichever source is active. This allows testing charts without audio.
+**Pre-roll:** before music starts, `current_ms` runs from `−arrow_travel_ms` up to `0`. The Composer spawns early notes so arrows have time to reach the target when the song begins. `anticipation_ms` equals `arrow_travel_ms` (computed by BattleHUD from spawn distance and arrow speed).
+
+**Song clock (`current_ms`):**
+- During pre-roll: driven by elapsed pre-roll time.
+- **Desktop (with audio):** `_fallback_ms` advances each frame and is gently corrected toward `MusicPlayer.get_position_ms()` after a short warmup.
+- **Web (HTML5):** `_using_fallback = true` after pre-roll — clock stays frame-based so it stays aligned with arrows (which also move by `delta`). Web audio position is not used as the authoritative clock because it can run ~130 ms ahead of visuals.
+- **No audio stream:** same frame-based fallback as web; useful for chart testing without music.
 
 **Survival detection:** once `current_ms ≥ _last_note_ms + window_good` and all queues are empty, `Referee.declare_survival()` is called — triggering `level_ended(true)`.
+
+**Timing debug:** set `rhythm_clock_debug = true` on the Battle node and see `docs/debug/rhythm_clock_baseline.md`.
 
 ### 7.8 Battle Actors
 
