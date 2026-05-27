@@ -12,10 +12,16 @@ extends Node2D
 @onready var _runner: DialogueRunner = get_node_or_null(dialogue_runner_path) as DialogueRunner
 
 
+## Format: "NodePath|quest_id|MarkerPath|optional_cinematic_id"
+## Repositions the node when quest is done. If cinematic_id is set, skips until
+## that cinematic has already played (so the outro walk is visible the first time).
+@export var reposition_when_quest_done: Array[String] = []
+
 func _ready() -> void:
 	_wire_dialogue_to_player()
 	_resume_post_battle_dialogue_deferred()
 	_setup_bg_music()
+	call_deferred("_apply_quest_repositions")
 
 
 func _setup_bg_music() -> void:
@@ -77,6 +83,33 @@ func _resume_post_battle_dialogue() -> void:
 	# Limpiamos antes de que el jugador pueda volver a interactuar — así no
 	# re-disparamos el resultado si recarga la escena.
 	Gamemanager.clear_pending_dialogue()
+
+
+func _apply_quest_repositions() -> void:
+	for entry in reposition_when_quest_done:
+		var parts := str(entry).split("|")
+		if parts.size() < 3:
+			continue
+		var node_path := parts[0].strip_edges()
+		var quest_id := parts[1].strip_edges()
+		var marker_path := parts[2].strip_edges()
+		var cinematic_id := parts[3].strip_edges() if parts.size() > 3 else ""
+		if not QuestManager.is_completed(quest_id):
+			continue
+		if not cinematic_id.is_empty() and not Gamemanager.cinematics_played.get(cinematic_id, false):
+			continue
+		var target := get_node_or_null(node_path) as Node2D
+		var marker := get_node_or_null(marker_path) as Node2D
+		if target == null or marker == null:
+			continue
+		target.global_position = marker.global_position
+		if target is Area2D:
+			var area := target as Area2D
+			area.monitoring = false
+			area.monitorable = false
+		var indicator := target.get_node_or_null("InteractionIndicator")
+		if indicator != null:
+			indicator.visible = false
 
 
 func _find_interactable_by_id(npc_id: String) -> Interactable:

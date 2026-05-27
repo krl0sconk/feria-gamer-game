@@ -1,0 +1,15 @@
+{
+	"version": 1,
+	"id": "companion_to_lab",
+	"trigger": {
+		"type": "on_quest_completed",
+		"quest_id": "4.1.1"
+	},
+	"steps": [
+		{ "type": "disable_player" },
+		{ "type": "follower_lead", "node": "Npc/NpcLab", "path_node": "Npc/NpcLab/LabPath", "speed": 110, "wait_for_arrival": true, "wait_for_player": false },
+		{ "type": "follower_stop", "node": "Npc/NpcLab" },
+		{ "type": "dialogue", "path": "res://assets/dialogues/map_companera2.json", "id": "win" },
+		{ "type": "enable_player" }
+	]
+}

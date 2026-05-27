@@ -1,0 +1,16 @@
+{
+	"version": 1,
+	"id": "hallway_bully_intro",
+	"steps": [
+		{ "type": "disable_player" },
+		{ "type": "letterbox", "enabled": true, "bar_height": 64, "duration": 0.4 },
+		{ "type": "camera_focus", "target": "Bullys/HallwayBully", "duration": 0.8, "zoom": 1.8 },
+		{ "type": "follower_follow", "node": "Bullys/HallwayBully2", "target": "Bullys/HallwayBully", "speed": 120 },
+		{ "type": "walk_to", "node": "Bullys/HallwayBully", "to_node": "Markers/BullyStopPos", "speed": 120 },
+		{ "type": "follower_stop", "node": "Bullys/HallwayBully2" },
+		{ "type": "face_direction", "node": "Bullys/HallwayBully", "look_at_node": "Player" },
+		{ "type": "face_direction", "node": "Bullys/HallwayBully2", "look_at_node": "Player" },
+		{ "type": "dialogue", "path": "res://assets/dialogues/map_bully_03_pasillo.json", "id": "intro" },
+		{ "type": "start_battle", "chart_path": "res://assets/charts/doubletrouble.json", "battle_scene_path": "res://scenes/rhythm/double_battle.tscn", "return_npc_id": "hallway_bully" }
+	]
+}

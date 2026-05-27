@@ -20,6 +20,7 @@
 8. [UI Components](#8-ui-components)
 9. [Developer Tools](#9-developer-tools)
 10. [Design Pattern: Strategy](#10-design-pattern-strategy)
+11. [Cinematic System](#11-cinematic-system)
 
 ---
 
@@ -798,6 +799,112 @@ func get_hp_delta(timing: String) -> int:
 ```
 
 Assign `hard_health_rules.tres` to the `Referee.health_rules` slot in the Inspector. `Referee` needs zero changes.
+
+---
+
+## 11. Cinematic System
+
+JSON-driven cutscenes for the Map. Uses the **Command pattern**: each step in a cinematic JSON maps to a handler in `CinematicPlayer._commands`. Scene references (`Marker2D`, `WaypointPath`, node paths) replace hard-coded coordinates.
+
+**Authoring guide (Spanish, full reference):** `docs/cinematics/GUIA_COMPLETA_CINEMATICAS.md`  
+**Command tables:** `docs/cinematics/AUTHORING_GUIDE.md`  
+**Quick examples:** `docs/cinematics/USAGE_QUICKSTART.md`
+
+```
+CinematicLoader          (static parser: JSON → CinematicData + CinematicStep)
+       │
+       ▼
+CinematicPlayer          (CanvasLayer: Command executor, fade, letterbox, skip)
+       │  uses helpers: CinematicActor, CinematicCamera, CinematicTargetResolver
+       │  signals: cinematic_started, cinematic_finished, cinematic_skipped
+       ▼
+Scene authoring nodes: ScriptedTrigger, ScriptedBarrier, WaypointPath,
+                       Follower, InteractionIndicator
+```
+
+### 11.1 Core Classes
+
+| File | Class | Base | Role |
+|------|-------|------|------|
+| `cinematic_loader.gd` | CinematicLoader + CinematicStep + CinematicData | RefCounted | Parses cinematic JSON |
+| `cinematic_player.gd` | CinematicPlayer | CanvasLayer | Executes steps sequentially; embedded DialogueRunner |
+| `cinematic_actor.gd` | CinematicActor | RefCounted | Walk/face/animation helpers for NPC sprites |
+| `cinematic_camera.gd` | CinematicCamera | RefCounted | Pan, zoom, shake, restore player camera |
+| `cinematic_target_resolver.gd` | CinematicTargetResolver | RefCounted | Resolves `to_path` / `to_node` / `to` |
+| `waypoint_path.gd` | WaypointPath | Node2D | Editable route (`@tool`); child Marker2D nodes |
+| `scripted_trigger.gd` | ScriptedTrigger | Area2D | Independent trigger → `Gamemanager.request_cinematic()` |
+| `scripted_barrier.gd` | ScriptedBarrier | StaticBody2D | Toggleable invisible wall by `id` |
+| `follower.gd` | Follower | Node2D | NPC lead/follow along WaypointPath |
+| `interaction_indicator.gd` | InteractionIndicator | Node2D | Floating `!` bob over pending interactions |
+
+Template scenes live in `scenes/cinematic/`.
+
+### 11.2 Triggers
+
+**In-scene (recommended):** place `ScriptedTrigger.tscn`, resize its `CollisionShape2D`, assign `cinematic_json_path`. Optional: `requires_quest`, `blocked_if_quest_completed`, `play_once`, `show_indicator`.
+
+**Embedded in JSON** (when using `CinematicPlayer` with `auto_play = true`):
+
+| Trigger type | Fields | Fires when |
+|--------------|--------|------------|
+| `on_scene_ready` | `delay` (optional seconds) | Scene loads |
+| `on_quest_completed` | `quest_id` | Quest completes |
+| `on_area_entered` | `requires_quest` (optional) | Legacy `TriggerArea` child entered by player |
+
+### 11.3 Destination Convention
+
+Priority: **`to_path`** > **`to_node`** > **`to`** (literal `[x,y]` debug fallback only).
+
+| Field | Resolves to |
+|-------|-------------|
+| `to_path` | First waypoint or full path from a `WaypointPath` node |
+| `to_node` | Global position of any `Node2D` / `Marker2D` |
+| `to` | Raw coordinates (avoid in production) |
+
+### 11.4 Command Reference
+
+**Presentation:** `fade_to_black`, `fade_from_black`, `wait`, `letterbox`, `show_node`, `hide_node`
+
+**Dialogue / player:** `dialogue`, `disable_player`, `enable_player`
+
+**Movement:** `move_node`, `walk_to`, `walk_path`, `face_direction`, `play_animation`, `set_collision`, `wait_for_player_near`
+
+**Barriers / battle:** `enable_barrier`, `disable_barrier`, `start_battle`
+
+**Follower:** `follower_lead`, `follower_follow`, `follower_stop`
+
+**Camera / audio:** `camera_focus`, `camera_release`, `shake_camera`, `play_sfx`
+
+**Scene:** `change_scene`
+
+Full parameter tables: `docs/cinematics/AUTHORING_GUIDE.md` §5.
+
+### 11.5 Gamemanager Integration
+
+| API / field | Purpose |
+|-------------|---------|
+| `request_cinematic(path, options)` | Enqueues playback; strict queue, no overlap |
+| `cinematics_played: Dictionary` | Tracks one-shot cinematics by JSON `id` |
+| `active_cinematic_id: String` | Currently playing cinematic id |
+| `CinematicPlayer.play_from(path, parent, once)` | One-shot player instance (used by ScriptedTrigger) |
+
+`start_battle` step mirrors `Interactable._queue_battle_transition()`: sets `return_scene_path`, `return_position`, `pending_npc_id`, chart/music overrides, then changes to the battle scene.
+
+### 11.6 Skip
+
+While `_is_playing`, pressing **`Interact` (E)** calls `CinematicPlayer.stop()` when `allow_skip = true` (default). Emits `cinematic_skipped` then `cinematic_finished`. Aborts embedded dialogue via `DialogueRunner.abort()`, kills tweens, resets camera and letterbox.
+
+### 11.7 NPC Animation Convention
+
+Flexible name resolution in `CinematicActor`: tries `walk`, `Walk`, `walk_left`, `Idle`, etc. Recommended per NPC: `idle` + `walk` (with `flip_h` for horizontal facing).
+
+### 11.8 Node Groups
+
+| Group | Members |
+|-------|---------|
+| `"player"` | Map Player CharacterBody2D |
+| `"scripted_barriers"` | All ScriptedBarrier instances |
+| `"interactables"` | All Interactable instances |
 
 ---
 

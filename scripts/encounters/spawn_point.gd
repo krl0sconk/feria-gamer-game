@@ -1,5 +1,8 @@
 extends Marker2D
 
+## Si false, BullySpawnManager ignora este punto (útil junto a bullies scriptados).
+@export var enabled: bool = true
+
 # Perfil opcional para este punto de spawn. Si está vacío, usa el perfil dado
 # por el BullySpawnManager o el DEFAULT_PROFILE.
 @export var profile_id: String = ""

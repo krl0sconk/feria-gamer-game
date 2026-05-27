@@ -175,6 +175,8 @@ func _on_slot_pressed(slot_idx: int) -> void:
 			# Antes se intentaba leerlo desde `player`, lo cual no coincide con
 			# el formato de `SaveManager._build_default_payload`.
 			gm.set_loaded_world_state(payload.get("world_flags", {}) as Dictionary)
+		if gm.has_method("apply_cinematics_played"):
+			gm.apply_cinematics_played(payload.get("cinematics_played", {}))
 
 	# Cambiar a la escena guardada y esperar unos frames a que cargue
 	print("save_slots: cargando escena guardada: %s" % scene_path)

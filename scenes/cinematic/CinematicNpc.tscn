@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c4npc8x2m1k7p"]
+
+[ext_resource type="Script" path="res://scripts/cinematic/follower.gd" id="1_fl"]
+[ext_resource type="SpriteFrames" uid="uid://cendrq73aq5wt" path="res://assets/images/characters/npc/npc1/placeholdernpc.tres" id="2_sf"]
+
+[node name="CinematicNpc" type="Node2D"]
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.09571871)
+sprite_frames = ExtResource("2_sf")
+animation = &"default"
+
+[node name="Follower" type="Node2D" parent="."]
+script = ExtResource("1_fl")
+speed = 120.0
+arrival_distance = 40.0
+animation_walk = "default"
+animation_idle = "default"

@@ -13,6 +13,7 @@
 # Este nodo no sabe qué dice el JSON ni cómo se renderiza; delega todo al
 # DialogueRunner (SRP). La decisión "dialogo → batalla" vive aquí y no en el
 # JSON a propósito: el JSON describe qué se dice, la escena decide qué hacer.
+@tool
 class_name Interactable
 extends Area2D
 
@@ -86,6 +87,10 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 ## para que la voz no sea repetitiva.
 @export var dialogue_voice: AudioStream = null
 
+@export_group("Indicador")
+## Muestra un ! flotante cuando hay interacción pendiente.
+@export var show_indicator: bool = true
+
 # Nota: la apariencia (sprite / spritesheet / animación) se personaliza por
 # instancia vía "Editable Children" sobre el Sprite2D o AnimatedSprite2D hijo.
 # Ver comentario en docs del proyecto.
@@ -112,6 +117,7 @@ func serialize_state() -> Dictionary:
 	return {
 		"talk_count": int(_talk_count),
 		"defeat_reported": bool(_defeat_reported),
+		"visible": bool(visible),
 	}
 
 func apply_state(state: Dictionary) -> void:
@@ -119,15 +125,20 @@ func apply_state(state: Dictionary) -> void:
 		return
 	_talk_count = int(state.get("talk_count", int(_talk_count)))
 	_defeat_reported = bool(state.get("defeat_reported", bool(_defeat_reported)))
-	# If the saved state indicates this NPC was defeated, notify world systems
-	if _defeat_reported:
-		for node in get_tree().get_nodes_in_group("world_state_serializers"):
-			pass
+	if state.has("visible"):
+		visible = bool(state.get("visible", true))
+		if not visible:
+			set_process(false)
+			monitoring = false
 	return
 ## -----------------------------------------------------------------------
 
 
 func _ready() -> void:
+	_ensure_unique_instance_resources()
+	if Engine.is_editor_hint():
+		return
+
 	add_to_group("interactables")
 	# Register for world save/load so this interactuable can persist talk count
 	add_to_group("world_state_serializers")
@@ -151,8 +162,68 @@ func _ready() -> void:
 			if typeof(st) == TYPE_DICTIONARY:
 				apply_state(st)
 
+	_setup_indicator()
+
+
+func _ensure_unique_instance_resources() -> void:
+	_ensure_unique_sprite_frames()
+	_ensure_unique_collision_shapes()
+
+
+func _ensure_unique_collision_shapes() -> void:
+	for shape_node in find_children("*", "CollisionShape2D", false, false):
+		var collision := shape_node as CollisionShape2D
+		if collision.shape == null:
+			continue
+		if collision.has_meta("_unique_collision_shape"):
+			continue
+		collision.shape = collision.shape.duplicate()
+		collision.set_meta("_unique_collision_shape", true)
+
+
+func _ensure_unique_sprite_frames() -> void:
+	var sprite := get_node_or_null("Sprite2D") as AnimatedSprite2D
+	if sprite == null or sprite.sprite_frames == null:
+		return
+	if sprite.has_meta("_unique_sprite_frames"):
+		return
+	sprite.sprite_frames = sprite.sprite_frames.duplicate(true)
+	sprite.set_meta("_unique_sprite_frames", true)
+
+
+func should_show_indicator() -> bool:
+	if not show_indicator:
+		return false
+	if _defeat_reported and battle_scene != null:
+		return false
+	if dialogue_json_path.is_empty() and battle_scene == null:
+		return false
+	if _runner != null and _runner.is_playing():
+		return false
+	return true
+
+
+func _setup_indicator() -> void:
+	var indicator := get_node_or_null("InteractionIndicator")
+	if not show_indicator:
+		if indicator != null:
+			indicator.visible = false
+		return
+	if indicator == null:
+		var packed: PackedScene = load("res://scenes/cinematic/InteractionIndicator.tscn")
+		if packed == null:
+			push_warning("Interactable '%s': no se pudo cargar InteractionIndicator.tscn." % id)
+			return
+		indicator = packed.instantiate()
+		indicator.name = "InteractionIndicator"
+		add_child(indicator)
+	if indicator.has_method("refresh"):
+		indicator.call("refresh")
+
 
 func _process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	if not _player_in_range:
 		return
 	if _runner != null and _runner.is_playing():

@@ -44,8 +44,11 @@ feria-gamer-game/
 │   │                #   Metronome, Composer, Judge, Referee, ScoreRules,
 │   │                #   HealthRules, EnemyGauge, RatingFeedback, LoseScreen,
 │   │                #   WinScreen)
-│   └── dialogue/    # Sistema de diálogo: 4 clases (DialogueLoader + DialogueData
-│                    #   + DialogueLine, DialogueBox, DialogueRunner, Interactable)
+│   ├── dialogue/    # Sistema de diálogo: 4 clases (DialogueLoader + DialogueData
+│   │                #   + DialogueLine, DialogueBox, DialogueRunner, Interactable)
+│   └── cinematic/   # Sistema de cinemáticas: CinematicLoader, CinematicPlayer,
+│                    #   CinematicActor, CinematicCamera, WaypointPath, ScriptedTrigger,
+│                    #   ScriptedBarrier, Follower, InteractionIndicator
 ├── resources/       # Temas, shaders, materiales, datos
 ├── addons/          # Plugins de Godot (Asset Library)
 ├── tests/           # Tests unitarios / integración
@@ -110,3 +113,27 @@ in the `Gamemanager` autoload.
 
 Dialogue JSON lives in `assets/dialogues/*.json`; schema supports multiple
 named dialogues per file (intro / victory / defeat / etc.).
+
+## 🎬 Cinematic System — Implemented Classes
+
+JSON-driven cutscenes for Map scenes. Command pattern in `CinematicPlayer`.
+Authoring guide: `docs/cinematics/AUTHORING_GUIDE.md`.
+
+| File | Class | Base | Role |
+|------|-------|------|------|
+| `cinematic_loader.gd` | CinematicLoader + CinematicStep + CinematicData | RefCounted | Parses cinematic JSON |
+| `cinematic_player.gd` | CinematicPlayer | CanvasLayer | Executes steps; fade, letterbox, skip (E) |
+| `cinematic_actor.gd` | CinematicActor | RefCounted | NPC walk / face / animation helpers |
+| `cinematic_camera.gd` | CinematicCamera | RefCounted | Pan, zoom, shake, restore |
+| `cinematic_target_resolver.gd` | CinematicTargetResolver | RefCounted | `to_path` / `to_node` / `to` resolution |
+| `waypoint_path.gd` | WaypointPath | Node2D | Editable route with Marker2D children (`@tool`) |
+| `scripted_trigger.gd` | ScriptedTrigger | Area2D | In-scene trigger → `Gamemanager.request_cinematic()` |
+| `scripted_barrier.gd` | ScriptedBarrier | StaticBody2D | Toggleable barrier by `id` |
+| `follower.gd` | Follower | Node2D | NPC lead/follow along WaypointPath |
+| `interaction_indicator.gd` | InteractionIndicator | Node2D | Floating `!` on pending interactions |
+
+Template scenes: `scenes/cinematic/*.tscn`. Cinematic JSON convention: `assets/cinematics/`.
+Queue and one-shot state in `Gamemanager` (`request_cinematic`, `cinematics_played`).
+
+**Editor plugin:** `addons/cinematic_authoring/` — toolbar 2D (+ Trigger, Barrier, Path, Waypoint, !).
+Full guide (ES): `docs/cinematics/GUIA_COMPLETA_CINEMATICAS.md`.

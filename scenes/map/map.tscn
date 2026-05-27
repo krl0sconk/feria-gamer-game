@@ -4,24 +4,136 @@
 [ext_resource type="PackedScene" uid="uid://cyfkkeb2wcrmr" path="res://scenes/rhythm/double_battle.tscn" id="4_rqo2c"]
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/player.tscn" id="5_xtmej"]
 [ext_resource type="AudioStream" uid="uid://cv23y5wuou4bq" path="res://assets/audio/sfx/dialogue1.wav" id="7_48h8m"]
-[ext_resource type="SpriteFrames" uid="uid://cendrq73aq5wt" path="res://assets/images/characters/npc/npc1/placeholdernpc.tres" id="7_58ndj"]
 [ext_resource type="PackedScene" uid="uid://bt8lkneyt0wj0" path="res://scenes/rhythm/cyber_battle.tscn" id="7_e07uo"]
 [ext_resource type="Script" uid="uid://cvb28nsoo4xmq" path="res://scripts/map/map.gd" id="7_mapgd"]
+[ext_resource type="SpriteFrames" uid="uid://dfby6yyf6153j" path="res://assets/images/characters/npc/npc3/npc3.1topdown.tres" id="7_omedl"]
+[ext_resource type="Texture2D" uid="uid://3lf86ywif8is" path="res://assets/images/characters/npc/npc1/placeholdernpc.png" id="7_uclq6"]
 [ext_resource type="AudioStream" uid="uid://f5s0a1ryr535" path="res://assets/audio/music/double.wav" id="7_x2kg6"]
+[ext_resource type="PackedScene" uid="uid://dvqwi5c732lna" path="res://scenes/cinematic/ScriptedBarrier.tscn" id="8_58ndj"]
 [ext_resource type="AudioStream" uid="uid://hfrvoxa0d68w" path="res://assets/audio/music/cyber.wav" id="8_cumk7"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_drun"]
+[ext_resource type="SpriteFrames" uid="uid://caj0fiee5cntv" path="res://assets/images/characters/npc/npc3/npc3.2topdown.tres" id="9_3xi6f"]
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="9_intr"]
 [ext_resource type="PackedScene" uid="uid://dkrd76y7ipit4" path="res://scenes/ui/pause_button.tscn" id="10_f17u5"]
+[ext_resource type="PackedScene" uid="uid://c4npc8x2m1k7p" path="res://scenes/cinematic/CinematicNpc.tscn" id="10_npcx"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="10_qhud"]
+[ext_resource type="PackedScene" uid="uid://d1u7wfevf7o7i" path="res://scenes/cinematic/ScriptedTrigger.tscn" id="10_uclq6"]
 [ext_resource type="PackedScene" uid="uid://vkjnvbwonuy7" path="res://scenes/map/bully_spawn_manager.tscn" id="12_bsmgr"]
+[ext_resource type="Texture2D" uid="uid://uas7d5b154el" path="res://assets/images/characters/pj1/pj1_idle.png" id="13_30ska"]
+[ext_resource type="SpriteFrames" uid="uid://ipns413yy7tr" path="res://assets/images/characters/npc/npc2/npc2topdown.tres" id="13_tmgcv"]
 [ext_resource type="AudioStream" uid="uid://bcv45n2bj714r" path="res://assets/audio/music/musica_fondo_pasillo.wav" id="15_mrjnl"]
 [ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="15_rqo2c"]
+[ext_resource type="PackedScene" uid="uid://b7wrl2078pq8o" path="res://scenes/cinematic/WaypointPath.tscn" id="16_78kcs"]
+[ext_resource type="Script" uid="uid://dhbmfq72lws8o" path="res://scripts/cinematic/waypoint_path.gd" id="17_2kc6l"]
+[ext_resource type="Script" uid="uid://d1no0sqtffhfq" path="res://scripts/cinematic/follower.gd" id="18_eix18"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tmgcv"]
+size = Vector2(60.666664, 73.33338)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xks3a"]
+size = Vector2(60.666664, 73.33338)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eix18"]
+size = Vector2(60.666664, 73.33338)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25aov"]
+atlas = ExtResource("7_uclq6")
+region = Rect2(0, 0, 326, 542)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_etaqi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25aov")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hs4c0"]
+size = Vector2(60.666664, 73.33338)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ah1fr"]
+atlas = ExtResource("13_30ska")
+region = Rect2(0, 0, 800, 807)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4o0h"]
+atlas = ExtResource("13_30ska")
+region = Rect2(800, 0, 800, 807)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2b7t"]
+atlas = ExtResource("13_30ska")
+region = Rect2(1600, 0, 800, 807)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cde6h"]
+atlas = ExtResource("13_30ska")
+region = Rect2(2400, 0, 800, 807)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqpwe"]
+atlas = ExtResource("13_30ska")
+region = Rect2(3200, 0, 800, 807)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hw1h"]
+atlas = ExtResource("13_30ska")
+region = Rect2(4000, 0, 800, 807)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f24ks"]
+atlas = ExtResource("13_30ska")
+region = Rect2(0, 807, 800, 807)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eat5w"]
+atlas = ExtResource("13_30ska")
+region = Rect2(800, 807, 800, 807)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo64c"]
+atlas = ExtResource("13_30ska")
+region = Rect2(1600, 807, 800, 807)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1rggc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ah1fr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4o0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2b7t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cde6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqpwe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hw1h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f24ks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eat5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo64c")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sxtst"]
+size = Vector2(60.666664, 70.66667)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
 size = Vector2(220, 80)
 
 [node name="Mapa" type="Node2D" unique_id=1460360920]
 script = ExtResource("7_mapgd")
+reposition_when_quest_done = ["Bullys/HallwayBully|3.1.1|Markers/BullyExit|hallway_bully_outro", "Bullys/HallwayBully2|3.1.1|Markers/BullyExit2|hallway_bully_outro"]
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=1814724747]
 scale = Vector2(2.5, 2.5)
@@ -43,10 +155,24 @@ tile_set = ExtResource("2_sqgf4")
 tile_map_data = PackedByteArray("AAAZAAoAAAAKAAkAAAAZAAsAAAAKAAoAAAAaAAoAAAALAAkAAAAaAAsAAAALAAoAAAAPAAgAAAAJAAcAAAAPAAkAAAAJAAgAAAD9/w4AAAABAAAAAAD+/w4AAAACAAAAAAABAA4AAAAAAAAAAAACAA4AAAABAAAAAAADAA4AAAACAAAAAAAEAA4AAAADAAAAAAD//w4AAAADAAAAAAAAAA4AAAAFAAkAAAD3/w4AAAABAAAAAAD4/w4AAAACAAAAAADr/w4AAAABAAAAAADs/w4AAAACAAAAAADk/w4AAAAAAAAAAADl/w4AAAABAAAAAADg/w4AAAAFAAkAAADg/w8AAAAFAAoAAADk/w8AAAAAAAEAAADl/w8AAAABAAEAAADm/w4AAAACAAAAAADm/w8AAAACAAEAAADk/xAAAAAAAAIAAADl/xAAAAABAAIAAADm/xAAAAACAAIAAADq/w4AAAAAAAAAAADq/w8AAAAAAAEAAADr/w8AAAABAAEAAADs/w8AAAACAAEAAADt/w4AAAADAAAAAADt/w8AAAADAAEAAADq/xAAAAAAAAIAAADr/xAAAAABAAIAAADs/xAAAAACAAIAAADt/xAAAAADAAIAAAD2/w4AAAAAAAAAAAD2/w8AAAAAAAEAAAD2/xAAAAAAAAIAAAD3/w8AAAABAAEAAAD3/xAAAAABAAIAAAD4/w8AAAACAAEAAAD4/xAAAAACAAIAAAD5/w4AAAADAAAAAAD5/w8AAAADAAEAAAD5/xAAAAADAAIAAAD8/w4AAAAAAAAAAAD8/w8AAAAAAAEAAAD8/xAAAAAAAAIAAAD9/w8AAAABAAEAAAD9/xAAAAABAAIAAAD+/w8AAAACAAEAAAD+/xAAAAACAAIAAAD//w8AAAADAAEAAAD//xAAAAADAAIAAAABAA8AAAAAAAEAAAABABAAAAAAAAIAAAACAA8AAAABAAEAAAACABAAAAABAAIAAAADAA8AAAACAAEAAAADABAAAAACAAIAAAAEAA8AAAADAAEAAAAEABAAAAADAAIAAADk/xkAAAABAAsAAADl/xkAAAACAAsAAADm/xkAAAADAAsAAADq/xkAAAAAAAsAAADr/xkAAAABAAsAAADs/xkAAAACAAsAAADt/xkAAAADAAsAAAD2/xkAAAABAAsAAAD3/xkAAAACAAsAAAD4/xkAAAACAAsAAAD5/xkAAAADAAsAAAD8/xkAAAABAAsAAAD9/xkAAAACAAsAAAD+/xkAAAADAAsAAAD//xkAAAAAAAsAAAABABkAAAABAAsAAAACABkAAAACAAsAAAADABkAAAACAAsAAAAEABkAAAADAAsAAAAFAA8AAAAEAAgAAADw/w8AAAAEAAgAAAAgABEAAAAGAAoAAAAgABIAAAAGAAsAAAAhABEAAAAHAAoAAAAhABIAAAAHAAsAAAAiABIAAAAIAAsAAAAkABEAAAAGAAoAAAAkABIAAAAGAAsAAAAlABEAAAAHAAoAAAAlABIAAAAHAAsAAAAmABIAAAAIAAsAAAAoABEAAAAGAAoAAAAoABIAAAAGAAsAAAApABEAAAAHAAoAAAApABIAAAAHAAsAAAAqABIAAAAIAAsAAAAsABEAAAAGAAoAAAAsABIAAAAGAAsAAAAtABEAAAAHAAoAAAAtABIAAAAHAAsAAAAuABIAAAAIAAsAAAAwABEAAAAGAAoAAAAwABIAAAAGAAsAAAAxABEAAAAHAAoAAAAxABIAAAAHAAsAAAAyABIAAAAIAAsAAAAwABMAAAAGAAoAAAAwABQAAAAGAAsAAAAxABMAAAAHAAoAAAAxABQAAAAHAAsAAAAyABQAAAAIAAsAAAAsABMAAAAGAAoAAAAsABQAAAAGAAsAAAAtABMAAAAHAAoAAAAtABQAAAAHAAsAAAAuABQAAAAIAAsAAAAoABMAAAAGAAoAAAAoABQAAAAGAAsAAAApABMAAAAHAAoAAAApABQAAAAHAAsAAAAqABQAAAAIAAsAAAAkABMAAAAGAAoAAAAkABQAAAAGAAsAAAAlABMAAAAHAAoAAAAlABQAAAAHAAsAAAAmABQAAAAIAAsAAAAgABMAAAAGAAoAAAAgABQAAAAGAAsAAAAhABMAAAAHAAoAAAAhABQAAAAHAAsAAAAiABQAAAAIAAsAAAAgABYAAAAGAAoAAAAgABcAAAAGAAsAAAAhABYAAAAHAAoAAAAhABcAAAAHAAsAAAAiABcAAAAIAAsAAAAkABYAAAAGAAoAAAAkABcAAAAGAAsAAAAlABYAAAAHAAoAAAAlABcAAAAHAAsAAAAmABcAAAAIAAsAAAAoABYAAAAGAAoAAAAoABcAAAAGAAsAAAApABYAAAAHAAoAAAApABcAAAAHAAsAAAAqABcAAAAIAAsAAAAsABYAAAAGAAoAAAAsABcAAAAGAAsAAAAtABYAAAAHAAoAAAAtABcAAAAHAAsAAAAuABcAAAAIAAsAAAAwABYAAAAGAAoAAAAwABcAAAAGAAsAAAAxABYAAAAHAAoAAAAxABcAAAAHAAsAAAAyABcAAAAIAAsAAAAsABkAAAAGAAoAAAAsABoAAAAGAAsAAAAtABkAAAAHAAoAAAAtABoAAAAHAAsAAAAuABoAAAAIAAsAAAAoABkAAAAGAAoAAAAoABoAAAAGAAsAAAApABkAAAAHAAoAAAApABoAAAAHAAsAAAAqABoAAAAIAAsAAAAkABkAAAAGAAoAAAAkABoAAAAGAAsAAAAlABkAAAAHAAoAAAAlABoAAAAHAAsAAAAmABoAAAAIAAsAAAAgABkAAAAGAAoAAAAgABoAAAAGAAsAAAAhABkAAAAHAAoAAAAhABoAAAAHAAsAAAAiABoAAAAIAAsAAAAoABsAAAAHAAcAAAAoABwAAAAHAAgAAAApABsAAAAHAAcAAAApABwAAAAHAAgAAAAlABsAAAAHAAcAAAAlABwAAAAHAAgAAAAhABsAAAAHAAcAAAAhABwAAAAHAAgAAAAgABsAAAAHAAcAAAAgABwAAAAHAAgAAAAsABsAAAAHAAcAAAAsABwAAAAHAAgAAAA=")
 tile_set = ExtResource("2_sqgf4")
 
-[node name="BullyPasillo1" parent="." unique_id=953260643 instance=ExtResource("9_intr")]
-position = Vector2(-1060, 878)
+[node name="Markers" type="Node2D" parent="." unique_id=221876600]
+
+[node name="BullyStopPos" type="Marker2D" parent="Markers" unique_id=593028417]
+position = Vector2(-1089, 922)
+
+[node name="BullyExit" type="Marker2D" parent="Markers" unique_id=1030025940]
+position = Vector2(253, 944)
+
+[node name="BullyExit2" type="Marker2D" parent="Markers" unique_id=1030025941]
+position = Vector2(180, 944)
+
+[node name="Bullys" type="Node2D" parent="." unique_id=1020794360]
+position = Vector2(197, 5)
+
+[node name="HallwayBully" parent="Bullys" unique_id=953260643 instance=ExtResource("9_intr")]
+position = Vector2(-1124, 874.00006)
 scale = Vector2(1.5, 1.5)
-id = "bully_03"
+id = "hallway_bully"
 mission_id = "3.1.1"
 complete_mission_on_win = true
 dialogue_json_path = "res://assets/dialogues/map_bully_03_pasillo.json"
@@ -56,31 +182,35 @@ lose_dialogue_id = "defeat"
 battle_scene = ExtResource("4_rqo2c")
 battle_chart_path = "res://assets/charts/doubletrouble.json"
 battle_music = ExtResource("7_x2kg6")
+dialogue_runner_path = NodePath("../../DialogueRunner")
 dialogue_voice = ExtResource("7_48h8m")
 
-[node name="Sprite2D" parent="BullyPasillo1" index="1" unique_id=858663745]
-sprite_frames = ExtResource("7_58ndj")
+[node name="CollisionShape2D" parent="Bullys/HallwayBully" index="0" unique_id=1889423936]
+position = Vector2(1.666687, -0.66674805)
+shape = SubResource("RectangleShape2D_tmgcv")
+
+[node name="Sprite2D" parent="Bullys/HallwayBully" index="1" unique_id=858663745]
+scale = Vector2(1.4, 1.4)
+sprite_frames = ExtResource("7_omedl")
 animation = &"default"
 
-[node name="BullyPasillo2" parent="." unique_id=1681983886 instance=ExtResource("9_intr")]
-position = Vector2(-1004, 955)
+[node name="InteractionIndicator" parent="Bullys/HallwayBully" index="2" unique_id=536604281]
+position = Vector2(-2.0000002, -34.434494)
+bob_amplitude = 4.42
+vertical_offset = -36.605
+font_size = 26
+
+[node name="HallwayBully2" parent="Bullys" unique_id=518954778 instance=ExtResource("10_npcx")]
+position = Vector2(-1078, 853)
 scale = Vector2(1.5, 1.5)
-id = "bully_04"
-mission_id = "3.1.2"
-complete_mission_on_win = true
-dialogue_json_path = "res://assets/dialogues/map_bully_04_hermano.json"
-win_dialogue_id = "victory"
-lose_dialogue_id = "defeat"
-battle_chart_path = "res://assets/charts/doubletrouble.json"
-battle_music = ExtResource("7_x2kg6")
-dialogue_voice = ExtResource("7_48h8m")
 
-[node name="Sprite2D" parent="BullyPasillo2" index="1" unique_id=858663745]
-sprite_frames = ExtResource("7_58ndj")
-animation = &"default"
+[node name="Sprite2D" parent="Bullys/HallwayBully2" index="0"]
+scale = Vector2(1.4, 1.4)
+sprite_frames = ExtResource("9_3xi6f")
+frame_progress = 0.27556753
 
-[node name="BullyCyber" parent="." unique_id=1888292220 instance=ExtResource("9_intr")]
-position = Vector2(1898, 1092)
+[node name="BullyCyber" parent="Bullys" unique_id=1888292220 instance=ExtResource("9_intr")]
+position = Vector2(1701, 1087)
 scale = Vector2(1.5, 1.5)
 id = "bully_05"
 mission_id = "4.1.2"
@@ -91,13 +221,43 @@ lose_dialogue_id = "defeat"
 battle_scene = ExtResource("7_e07uo")
 battle_chart_path = "res://assets/charts/cyberbattle.json"
 battle_music = ExtResource("8_cumk7")
+dialogue_runner_path = NodePath("../../DialogueRunner")
 dialogue_voice = ExtResource("7_48h8m")
 
-[node name="Sprite2D" parent="BullyCyber" index="1" unique_id=858663745]
-sprite_frames = ExtResource("7_58ndj")
-animation = &"default"
+[node name="CollisionShape2D" parent="Bullys/BullyCyber" index="0" unique_id=1889423936]
+shape = SubResource("RectangleShape2D_xks3a")
 
-[node name="compañero2" parent="." unique_id=598222318 instance=ExtResource("9_intr")]
+[node name="Sprite2D" parent="Bullys/BullyCyber" index="1" unique_id=858663745]
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("13_tmgcv")
+animation = &"idle"
+
+[node name="InteractionIndicator" parent="Bullys/BullyCyber" index="2" unique_id=536604281]
+position = Vector2(-0.6666666, -29.784676)
+vertical_offset = -32.24
+
+[node name="Barriers" type="Node2D" parent="." unique_id=2047936799]
+position = Vector2(197, 5)
+
+[node name="Hallway" parent="Barriers" unique_id=596673765 instance=ExtResource("8_58ndj")]
+position = Vector2(-1219, 824.00006)
+scale = Vector2(1, 4.6)
+id = "hallway_bully"
+disabled_by_quests = Array[String](["3.1.1"])
+
+[node name="Triggers" type="Node2D" parent="." unique_id=1928422258]
+position = Vector2(-2006, 1216)
+
+[node name="Hallway" parent="Triggers" unique_id=1524103151 instance=ExtResource("10_uclq6")]
+position = Vector2(851, -303)
+scale = Vector2(3.479224, 0.49675804)
+cinematic_json_path = "res://assets/cinematics/hallway_bully_intro.json"
+blocked_if_quest_completed = "3.1.1"
+show_indicator = false
+
+[node name="Npc" type="Node2D" parent="." unique_id=1284436691]
+
+[node name="NpcLab" parent="Npc" unique_id=598222318 instance=ExtResource("9_intr")]
 position = Vector2(-373, 894.00006)
 scale = Vector2(1.5, 1.5)
 id = "compañero2"
@@ -106,11 +266,46 @@ talk_mission_ids = Array[String](["4.1.1", "4.1.3"])
 dialogue_json_path = "res://assets/dialogues/map_companera2.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
+dialogue_runner_path = NodePath("../../DialogueRunner")
 dialogue_voice = ExtResource("7_48h8m")
 
-[node name="Sprite2D" parent="compañero2" index="1" unique_id=858663745]
-sprite_frames = ExtResource("7_58ndj")
+[node name="CollisionShape2D" parent="Npc/NpcLab" index="0" unique_id=1889423936]
+shape = SubResource("RectangleShape2D_eix18")
+
+[node name="Sprite2D" parent="Npc/NpcLab" index="1" unique_id=858663745]
+sprite_frames = SubResource("SpriteFrames_etaqi")
 animation = &"default"
+
+[node name="InteractionIndicator" parent="Npc/NpcLab" index="2" unique_id=536604281]
+position = Vector2(0, -61.544674)
+
+[node name="LabPath" type="Node2D" parent="Npc/NpcLab" unique_id=476009496 instance=ExtResource("16_78kcs")]
+position = Vector2(3.3333588, 26.666603)
+scale = Vector2(0.6666667, 0.6666667)
+script = ExtResource("17_2kc6l")
+
+[node name="Waypoint3" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=695453025]
+position = Vector2(658, -4.999939)
+
+[node name="Waypoint4" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=1855186929]
+position = Vector2(971, -1.999939)
+
+[node name="Waypoint5" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=153507957]
+position = Vector2(1032, 409.00006)
+
+[node name="Waypoint6" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=1488374659]
+position = Vector2(1452, 415.00006)
+
+[node name="Waypoint7" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=603068395]
+position = Vector2(2487, 415.00006)
+
+[node name="Waypoint8" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=1705126870]
+position = Vector2(2487, 172.00006)
+
+[node name="Follower" type="Node2D" parent="Npc/NpcLab" unique_id=1285863571]
+script = ExtResource("18_eix18")
+path_node = NodePath("../LabPath")
+metadata/_custom_type_script = "uid://d1no0sqtffhfq"
 
 [node name="microfono" parent="." unique_id=534216647 instance=ExtResource("9_intr")]
 position = Vector2(1022, 1023)
@@ -123,6 +318,15 @@ win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
 dialogue_voice = ExtResource("7_48h8m")
 
+[node name="CollisionShape2D" parent="microfono" index="0" unique_id=1889423936]
+shape = SubResource("RectangleShape2D_hs4c0")
+
+[node name="Sprite2D" parent="microfono" index="1" unique_id=858663745]
+sprite_frames = SubResource("SpriteFrames_1rggc")
+
+[node name="InteractionIndicator" parent="microfono" index="2" unique_id=536604281]
+position = Vector2(0, -61.544674)
+
 [node name="tablerobandas" parent="." unique_id=1018065660 instance=ExtResource("9_intr")]
 position = Vector2(-557, 605)
 scale = Vector2(1.5, 1.5)
@@ -134,8 +338,16 @@ win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
 dialogue_voice = ExtResource("7_48h8m")
 
+[node name="CollisionShape2D" parent="tablerobandas" index="0" unique_id=1889423936]
+position = Vector2(0.6666565, 5.3333435)
+shape = SubResource("RectangleShape2D_sxtst")
+
 [node name="Sprite2D" parent="tablerobandas" index="1" unique_id=858663745]
 sprite_frames = null
+
+[node name="InteractionIndicator" parent="tablerobandas" index="2" unique_id=536604281]
+position = Vector2(-3.3333335, -34.839676)
+vertical_offset = -37.295
 
 [node name="BullySpawnManager" parent="." unique_id=1546335740 instance=ExtResource("12_bsmgr")]
 
@@ -162,38 +374,50 @@ stream = ExtResource("15_mrjnl")
 autoplay = true
 bus = &"Music"
 
-[node name="CinematicPlayer" type="CanvasLayer" parent="." unique_id=1537857463]
+[node name="Cinematics" type="Node2D" parent="." unique_id=1433391580]
+
+[node name="CinematicPlayer" type="CanvasLayer" parent="Cinematics" unique_id=1537857463]
 script = ExtResource("15_rqo2c")
 cinematic_json_path = "res://assets/cinematics/map_intro.json"
 metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 
-[node name="CinematicPlayerToBackyard" type="CanvasLayer" parent="." unique_id=-2094967295]
+[node name="CinematicPlayerHallwayOutro" type="CanvasLayer" parent="Cinematics" unique_id=1537857464]
+script = ExtResource("15_rqo2c")
+cinematic_json_path = "res://assets/cinematics/hallway_bully_outro.json"
+metadata/_custom_type_script = "uid://dmhjsredjb7nj"
+
+[node name="CinematicPlayerToBackyard" type="CanvasLayer" parent="Cinematics" unique_id=-2094967295]
 script = ExtResource("15_rqo2c")
 cinematic_json_path = "res://assets/cinematics/map_to_backyard.json"
 play_once = false
 metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 
-[node name="TriggerArea" type="Area2D" parent="CinematicPlayerToBackyard" unique_id=-2094967294]
+[node name="TriggerArea" type="Area2D" parent="Cinematics/CinematicPlayerToBackyard" unique_id=-2094967294]
 position = Vector2(679, 1642)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CinematicPlayerToBackyard/TriggerArea" unique_id=-2094967293]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cinematics/CinematicPlayerToBackyard/TriggerArea" unique_id=-2094967293]
 shape = SubResource("RectangleShape2D_door")
 
-[node name="CinematicPlayerToClassroom" type="CanvasLayer" parent="." unique_id=-2094967292]
+[node name="CinematicPlayerToClassroom" type="CanvasLayer" parent="Cinematics" unique_id=-2094967292]
 script = ExtResource("15_rqo2c")
 cinematic_json_path = "res://assets/cinematics/map_to_classroom.json"
 play_once = false
 metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 
-[node name="TriggerArea" type="Area2D" parent="CinematicPlayerToClassroom" unique_id=-2094967291]
+[node name="TriggerArea" type="Area2D" parent="Cinematics/CinematicPlayerToClassroom" unique_id=-2094967291]
 position = Vector2(-1182, 1075)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CinematicPlayerToClassroom/TriggerArea" unique_id=-2094967290]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cinematics/CinematicPlayerToClassroom/TriggerArea" unique_id=-2094967290]
 shape = SubResource("RectangleShape2D_door")
 
-[editable path="BullyPasillo1"]
-[editable path="BullyPasillo2"]
-[editable path="BullyCyber"]
-[editable path="compañero2"]
+[node name="CinematicPlayerLab" type="CanvasLayer" parent="Cinematics" unique_id=1254009849]
+script = ExtResource("15_rqo2c")
+cinematic_json_path = "res://assets/cinematics/companion_to_lab.json"
+metadata/_custom_type_script = "uid://dmhjsredjb7nj"
+
+[editable path="Bullys/HallwayBully"]
+[editable path="Bullys/HallwayBully2"]
+[editable path="Bullys/BullyCyber"]
+[editable path="Npc/NpcLab"]
 [editable path="microfono"]
 [editable path="tablerobandas"]

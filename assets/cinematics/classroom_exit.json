@@ -2,8 +2,7 @@
 	"version": 1,
 	"id": "classroom_exit",
 	"trigger": {
-		"type": "on_area_entered",
-		"requires_quest": "2.1.3"
+		"type": "on_area_entered"
 	},
 	"steps": [
 		{ "type": "disable_player" },

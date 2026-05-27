@@ -171,7 +171,7 @@ func _rebuild_spawn_points() -> void:
 func _get_spawn_markers() -> Array[Marker2D]:
 	var markers: Array[Marker2D] = []
 	for child in get_children():
-		if child is Marker2D:
+		if child is Marker2D and child.get("enabled") != false:
 			markers.append(child as Marker2D)
 	markers.sort_custom(func(a: Marker2D, b: Marker2D) -> bool:
 		return a.name < b.name

@@ -130,6 +130,7 @@ metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 [node name="CinematicPlayer3" type="CanvasLayer" parent="." unique_id=1905363756]
 script = ExtResource("14_4cdl6")
 cinematic_json_path = "res://assets/cinematics/classroom_exit.json"
+play_once = false
 metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 
 [node name="TriggerArea" type="Area2D" parent="CinematicPlayer3" unique_id=2000000004]

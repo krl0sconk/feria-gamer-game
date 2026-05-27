@@ -65,6 +65,12 @@ func is_playing() -> bool:
 	return _active
 
 
+## Interrumpe el diálogo activo (p. ej. skip de cinemática).
+func abort() -> void:
+	if not _active:
+		return
+	_finish()
+
 
 func _on_advance_requested() -> void:
 	if _active:

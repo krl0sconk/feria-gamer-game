@@ -1,0 +1,16 @@
+{
+	"version": 1,
+	"id": "hallway_bully_outro",
+	"trigger": {
+		"type": "on_quest_completed",
+		"quest_id": "3.1.1"
+	},
+	"steps": [
+		{ "type": "follower_follow", "node": "Bullys/HallwayBully2", "target": "Bullys/HallwayBully", "speed": 180 },
+		{ "type": "walk_to", "node": "Bullys/HallwayBully", "to_node": "Markers/BullyExit", "speed": 180 },
+		{ "type": "walk_to", "node": "Bullys/HallwayBully2", "to_node": "Markers/BullyExit2", "speed": 180 },
+		{ "type": "follower_stop", "node": "Bullys/HallwayBully2" },
+		{ "type": "disable_barrier", "id": "hallway_bully" },
+		{ "type": "camera_release", "duration": 0.5 }
+	]
+}

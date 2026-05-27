@@ -18,6 +18,38 @@ region = Rect2(32, 0, 16, 32)
 atlas = ExtResource("1_gu2d5")
 region = Rect2(48, 0, 16, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmxcb"]
+atlas = ExtResource("1_gu2d5")
+region = Rect2(64, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ug4of"]
+atlas = ExtResource("1_gu2d5")
+region = Rect2(80, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6uut"]
+atlas = ExtResource("1_gu2d5")
+region = Rect2(96, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7bka"]
+atlas = ExtResource("1_gu2d5")
+region = Rect2(112, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0wcy"]
+atlas = ExtResource("1_gu2d5")
+region = Rect2(128, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2as74"]
+atlas = ExtResource("1_gu2d5")
+region = Rect2(144, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ton58"]
+atlas = ExtResource("1_gu2d5")
+region = Rect2(160, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0cy5"]
+atlas = ExtResource("1_gu2d5")
+region = Rect2(176, 0, 16, 32)
+
 [resource]
 animations = [{
 "frames": [{
@@ -34,6 +66,40 @@ animations = [{
 "texture": SubResource("AtlasTexture_ml22n")
 }],
 "loop": true,
-"name": &"default",
+"name": &"walk_down",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmxcb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ug4of")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6uut")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7bka")
+}],
+"loop": true,
+"name": &"walk_side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0wcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2as74")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ton58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0cy5")
+}],
+"loop": true,
+"name": &"walk_up",
+"speed": 5.0
 }]

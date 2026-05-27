@@ -11,6 +11,7 @@ script = ExtResource("1_bsm")
 [node name="SpawnPoint01" type="Marker2D" parent="." unique_id=1382850326]
 position = Vector2(-1193, 823)
 script = ExtResource("2_sp")
+enabled = false
 sprite_frames = ExtResource("3_w35wr")
 
 [node name="SpawnPoint02" type="Marker2D" parent="." unique_id=1746771161]
@@ -56,4 +57,5 @@ sprite_frames = ExtResource("3_w35wr")
 [node name="SpawnPoint10" type="Marker2D" parent="." unique_id=1601927607]
 position = Vector2(-1168, 854)
 script = ExtResource("2_sp")
+enabled = false
 sprite_frames = ExtResource("3_w35wr")
