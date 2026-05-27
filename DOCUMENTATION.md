@@ -21,6 +21,11 @@
 9. [Developer Tools](#9-developer-tools)
 10. [Design Pattern: Strategy](#10-design-pattern-strategy)
 11. [Cinematic System](#11-cinematic-system)
+12. [Save System](#12-save-system)
+13. [Encounter System — BullySpawnManager](#13-encounter-system--bullyspawnmanager)
+14. [Controls Rebinding](#14-controls-rebinding)
+15. [NPC & Asset Organization](#15-npc--asset-organization)
+16. [Project Inventory](#16-project-inventory)
 
 ---
 
@@ -29,10 +34,10 @@
 The game is divided into five top-level systems that communicate through Godot signals and a single shared singleton (`Gamemanager`). No system directly imports another system's nodes — coupling is kept to the signal boundary.
 
 ```
-┌──────────────────────────────────────────────────────────┐
-│                      AUTOLOADS                           │
-│   Gamemanager   ·   QuestManager   ·   ColorblindOverlay │
-└────────────────────────┬─────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────┐
+│                            AUTOLOADS                               │
+│  Gamemanager  ·  QuestManager  ·  SaveManager  ·  ColorblindOverlay │
+└────────────────────────┬───────────────────────────────────────────┘
                          │ read/write cross-scene state
           ┌──────────────┼──────────────┐
           ▼              ▼              ▼
@@ -50,22 +55,41 @@ The game is divided into five top-level systems that communicate through Godot s
 main_menu.tscn
     │ Start pressed
     ▼
-select_pj.tscn  (character selection)
-    │ skin chosen
+save_slots.tscn  (3 slots: load / new / delete)
+    │ slot chosen
     ▼
-map.tscn  ◀──────────────────────────────────────────┐
-    │ Player touches Interactable (E key)             │
-    │ Dialogue plays                                  │
-    │ battle_scene_path set → change_scene            │
-    ▼                                                 │
-battle.tscn                                           │
-    │ Player wins                                     │
-    ▼                                                 │
-win_screen.tscn ─── Continue ──── return_scene_path ─┘
+select_pj.tscn  (4 playable skins)
+    │ skin chosen → auto-save slot
+    ▼
+room.tscn  (bedroom / tutorial start)
+    │ cinematic room_exit → quest 1.1.0 unlocks exit
+    ▼
+classroom.tscn
+    │ cinematic classroom_exit
+    ▼
+map.tscn  ◄──────────────────────────────────────────────┐
+    │  ◄── cinematics to classroom / backyard            │
+    │ Player touches Interactable (E key)                 │
+    │ Dialogue plays → battle_scene_path → change_scene │
+    ▼                                                     │
+battle.tscn (or themed variant)                           │
+    │ Player wins                                         │
+    ▼                                                     │
+win_screen.tscn ─── Continue ─── return_scene_path ──────┘
     │ Player loses
     ▼
-(falls back directly to return_scene_path / map)
+lose_screen.tscn  OR  fallback to return_scene_path / map
 ```
+
+**World map connections:**
+
+| Scene | Script | Exit mechanism | Target |
+|-------|--------|----------------|--------|
+| `room.tscn` | `room.gd` | Cinematic `room_exit.json` + quest `1.1.0` | `classroom.tscn` |
+| `classroom.tscn` | `map.gd` | Cinematic `classroom_exit.json` | `map.tscn` |
+| `map.tscn` | `map.gd` | Cinematics `map_to_classroom.json`, `map_to_backyard.json` | classroom / backyard |
+| `backyard.tscn` | `map.gd` | Cinematic `backyard_to_map.json` | `map.tscn` |
+| `tableros.tscn` | *(none)* | Standalone bulletin-board sub-scene (not wired yet) | — |
 
 ---
 
@@ -76,15 +100,27 @@ win_screen.tscn ─── Continue ──── return_scene_path ─┘
 
 The only piece of state that must survive scene changes lives here. It is intentionally minimal.
 
-| Property | Type | Purpose |
-|----------|------|---------|
+| Property / API | Type | Purpose |
+|----------------|------|---------|
 | `selectedskin` | String | Skin key chosen in `select_pj.tscn`. Read by `Player._ready()`. |
+| `loaded_position` / `has_loaded_position` | Vector2 / bool | Position restored when loading a save slot. |
+| `loaded_world_state` / `has_loaded_world_state` | Dictionary / bool | World serializers (e.g. bully spawner) restored on load. |
 | `return_scene_path` | String | Path of the Map scene to return to after a battle. Set by `Interactable` before transitioning. |
 | `return_position` | Vector2 | Player world position at the moment the battle started. Used by Map to restore position. |
 | `pending_npc_id` | String | ID of the NPC whose dialogue should resume on return. |
 | `pending_dialogue_result` | String | `"win"`, `"lose"`, or `""`. Read by Map on re-entry to pick which dialogue branch to play. |
+| `pending_battle_chart_path` | String | Optional chart override for the next battle. |
+| `pending_battle_music` | AudioStream | Optional music override for the next battle. |
+| `pending_battle_stats` | Dictionary | Score, perfects, goods, misses, max_combo for WinScreen. |
+| `highscores` | Dictionary | Best score per chart path (`user://highscores.json`). |
+| `cinematics_played` | Dictionary | One-shot cinematic ids already played this session/save. |
+| `active_cinematic_id` | String | Currently playing cinematic id. |
+| `request_cinematic(path, options)` | method | Enqueues cinematic playback (strict queue). |
+| `apply_cinematics_played(dict)` | method | Restores cinematic state from save. |
+| `set_loaded_quests_state(array)` | method | Restores quest state from save. |
+| `clear_loaded_save_state()` | method | Clears pending load hooks after consumption. |
 
-**`_ready()`** applies saved settings (`OptionsSettings.apply_saved()`) before the first scene renders.
+**`_ready()`** loads highscores, applies saved settings (`OptionsSettings.apply_saved()`), and starts looping menu music on menu scenes.
 
 **`clear_pending_dialogue()`** resets all battle-return fields. Called by Map after the result dialogue finishes.
 
@@ -96,7 +132,7 @@ The only piece of state that must survive scene changes lives here. It is intent
 
 **File:** `scripts/main_menu.gd` · **Scene:** `scenes/menu/main_menu.tscn`
 
-Entry point of the game (`run/main_scene`). Manages three buttons: Start, Options, Exit.
+Entry point of the game (`run/main_scene`). Manages three buttons: Start (→ `save_slots.tscn`), Options, Exit.
 
 - **Options overlay**: instantiated from `scenes/menu/options.tscn` as an overlay child. A guard (`_options_overlay != null`) prevents double-instantiation on rapid clicks. While open, all menu buttons are set to `FOCUS_NONE` so joystick navigation cannot escape the panel.
 - **`_on_options_closed()`**: nullifies the reference, restores button focus, and returns focus to the Options button as a visual confirmation.
@@ -105,9 +141,21 @@ Entry point of the game (`run/main_scene`). Manages three buttons: Start, Option
 
 **File:** `scripts/select_pj.gd` · **Scene:** `scenes/menu/select_pj.tscn`
 
-Two-button screen. Each button calls `selectedskin(skinname)` which writes to `Gamemanager.selectedskin` then transitions to the Map.
+Four-skin grid picker. Each button calls `selectedskin(skinname)` which writes to `Gamemanager.selectedskin`, auto-saves the active slot via `SaveManager`, then transitions to `room.tscn`.
 
-Available skins: `"idle (1)"` (button 1), `"idle pj2"` (button 2).
+Available skins: `"idle (1)"`, `"idlepj2"`, `"idlepj3"`, `"idlepj4"` (see `SKIN_DATA` in `select_pj.gd` for battle frames and display names).
+
+### 3.4 Save Slots
+
+**File:** `scripts/ui/save_slots.gd` · **Scene:** `scenes/menu/save_slots.tscn`
+
+Three-slot picker shown after Start on the main menu.
+
+- **Empty slot** → character select → new game in `room.tscn`.
+- **Filled slot** → restores scene, position, quests, world state, and cinematics played.
+- **Delete mode** (D key toggle) → removes slot file from disk.
+
+Sets `SaveManager.active_slot_idx` before transitioning.
 
 ### 3.3 Options & OptionsSettings
 
@@ -127,23 +175,41 @@ Split into two layers by responsibility:
 | Master volume | 0–100% | 80% |
 | SFX volume | 0–100% | 80% |
 | Colorblind mode | None, Protanopia, Deuteranopia, Tritanopia | None |
+| Music volume | 0–100% | 80% |
+| Dyslexia font mode | On / Off | Off |
 
-`apply_saved()` is called from `Gamemanager._ready()` so settings take effect before the first frame of any scene.
+`apply_saved()` is called from `Gamemanager._ready()` so settings take effect before the first frame of any scene. Dyslexia mode swaps the global theme font via `Gamemanager.apply_dyslexia_font()`.
 
 ---
 
 ## 4. World & Player
 
-### 4.1 Map
+### 4.1 World Scenes
 
-**File:** `scripts/map.gd` · **Scene:** `scenes/map/map.tscn`
+All playable world scenes share the same wiring pattern via `map.gd` (or `room.gd` for the bedroom). Each includes `Player`, `DialogueRunner`, `QuestHud`, and `PauseButton` as children.
 
-Root of the overworld. Responsibilities:
+| Scene | Script | Role |
+|-------|--------|------|
+| `room.tscn` | `room.gd` | Tutorial bedroom; guitar tutorial battle; quest-gated exit to classroom |
+| `classroom.tscn` | `map.gd` | Classroom hub with scripted bullies and witnesses |
+| `map.tscn` | `map.gd` | School hallway overworld; random bully spawner; transitions to classroom/backyard |
+| `backyard.tscn` | `map.gd` | Final area; rude-girl boss encounter |
+| `tableros.tscn` | — | Bulletin-board sub-scene (mission `5.1.3` microphone NPC; not yet wired into map) |
+
+### 4.2 Map / Room Controller
+
+**Files:** `scripts/map.gd`, `scripts/map/room.gd`
+**Scenes:** `scenes/map/*.tscn`
+
+Responsibilities:
 
 1. **Wires `DialogueRunner` ↔ `Player`**: on `dialogue_started`, disables player movement; on `dialogue_finished`, re-enables it.
 2. **Post-battle resumption**: on `_ready()`, checks `Gamemanager.pending_dialogue_result`. If non-empty, finds the NPC (`pending_npc_id`) in the `"interactables"` group, restores the player's position from `Gamemanager.return_position`, and calls `interactable.play_result_dialogue(result)` to trigger the win/lose dialogue branch. Then calls `Gamemanager.clear_pending_dialogue()`.
+3. **Save load hooks**: consumes `Gamemanager.loaded_position` and `loaded_world_state` on entry.
+4. **Quest-based NPC reposition** (`map.gd` only): after quest `3.1.1`, moves hallway bully NPCs to new positions via `reposition_when_quest_done` export array.
+5. **Background music**: loops ambient track on the Music bus (`map.gd`).
 
-### 4.2 Player
+### 4.3 Player
 
 **File:** `scripts/player.gd` · **Scene:** `scenes/map/player.tscn`
 
@@ -152,6 +218,8 @@ Root of the overworld. Responsibilities:
 - **`SPEED`**: 300 px/s.
 - **`movement_enabled`**: toggled by Map during dialogue. When `false`, `_physics_process` is a no-op.
 - **Skin swapping**: on `_ready()`, reads `Gamemanager.selectedskin` and calls `set_animation(skin)` on its `AnimatedSprite2D` child.
+- **Save restore**: applies `Gamemanager.loaded_position` when `has_loaded_position` is true.
+- **Footsteps**: optional SFX on tile movement.
 
 ---
 
@@ -240,7 +308,14 @@ Sequences lines from a `DialogueData` object.
 | `win_dialogue_id` | Dialogue to play when returning after winning |
 | `lose_dialogue_id` | Dialogue to play when returning after losing |
 | `battle_scene_path` | If set, triggers a battle after `intro` completes |
+| `battle_chart_path` | Optional chart JSON override for this NPC's battle |
+| `battle_music` | Optional AudioStream override for battle music |
 | `dialogue_voice` | AudioStream for this NPC's voice |
+| `mission_id` | Quest mission id activated on first talk |
+| `talk_mission_ids` | Array of mission ids to advance on talk |
+| `defeated_dialogue_id` | Dialogue when NPC was already beaten |
+| `despawn_on_win` | If true, NPC is removed after victory |
+| `rematch_battle_chart_path` | Alternative chart for rematches |
 
 **Interaction flow:**
 1. Player enters Area2D → `_player_in_range = true`.
@@ -595,6 +670,25 @@ Shown after a win. A single "Continue" button calls `get_tree().change_scene_to_
 
 On loss, `Battle._go_to_post_battle` routes to `lose_scene_path` (configurable per-battle in the Inspector) or directly to the Map if empty.
 
+### 7.10 Post-Battle Flow — LoseScreen
+
+**File:** `scripts/rhythm/lose_screen.gd` · **Scene:** `scenes/rhythm/lose_screen.tscn`
+
+Shown after a defeat (when `lose_scene_path` is set on the battle scene). Offers Retry, Return to Map, and Main Menu actions.
+
+### 7.11 Battle Scenes & Charts
+
+| Battle scene | Default chart | Used by |
+|--------------|---------------|---------|
+| `tutorial.tscn` | `tutorial.json` | Room guitar NPC (`guitarra`) |
+| `battle.tscn` | `tutorial.json` (overridable) | Random map bullies via `BullySpawnManager` |
+| `cool_battle.tscn` | `coolguy.json` | Classroom `bully_01` |
+| `double_battle.tscn` | `doubletrouble.json` | Map hallway duo bully |
+| `cyber_battle.tscn` | `cyberbattle.json` | Map cyber bully (`bully_05`) |
+| `final_battle.tscn` | `rudegirl.json` | Backyard final boss (`bully_06`) |
+
+All charts live in `assets/charts/`. Additional file `grandfinal.json` exists but is not wired to any scene yet. Charts can be overridden at runtime via `Gamemanager.pending_battle_chart_path` (set by `Interactable` or cinematic `start_battle` step).
+
 ---
 
 ## 8. UI Components
@@ -628,6 +722,21 @@ Tracks two independent highlight sources (`_mouse_over`, `_focus_in`) to avoid s
 
 Supports an optional hover SFX routed to a configurable audio bus.
 
+### 8.3 Pause Menu & Pause Button
+
+**Files:** `scripts/ui/pause_menu.gd`, `scripts/ui/pause_button.gd`
+**Scenes:** `scenes/ui/pause_menu.tscn`, `scenes/ui/pause_button.tscn`
+
+`PauseButton` is placed in world scenes. On press it pauses the tree and instantiates `pause_menu.tscn`.
+
+`PauseMenu` uses `PROCESS_MODE_ALWAYS` so it runs while paused. **Resume** unpauses and frees the overlay. **Exit** auto-saves the active slot via `SaveManager.save_slot()` then returns to `main_menu.tscn`.
+
+### 8.4 RebindRow
+
+**File:** `scripts/ui/rebind_row.gd` · **Scene:** `scenes/ui/rebind_row.tscn`
+
+Single-row widget used by the Options panel to capture and display one remappable input action. See [§14 Controls Rebinding](#14-controls-rebinding).
+
 ---
 
 ## 9. Developer Tools
@@ -660,6 +769,18 @@ Visual layout: notes scroll vertically at `PX_PER_MS = 0.4` px/ms (400 px/s), ma
 In-engine quest authoring tool. Left panel: list of quests with New, Delete, Duplicate, and reorder buttons. Right panel: all fields for the selected quest (id, title, visibility, progress state, description, prerequisites list).
 
 Includes DFS cycle detection when prerequisite IDs are modified — prevents circular dependency chains. Saves/loads the quest JSON file.
+
+### 9.3 CinematicEditor
+
+**File:** `scripts/editor/cinematic_editor.gd` · **Scene:** `scenes/editor/cinematic_editor.tscn`
+
+In-engine cinematic JSON step editor. Complements the runtime `CinematicPlayer` command set.
+
+### 9.4 Cinematic Authoring Addon
+
+**Path:** `addons/cinematic_authoring/`
+
+Editor plugin enabled in `project.godot`. Adds a 2D toolbar to place cinematic authoring nodes on map scenes: ScriptedTrigger, ScriptedBarrier, WaypointPath, Follower, InteractionIndicator.
 
 ---
 
@@ -837,7 +958,17 @@ Scene authoring nodes: ScriptedTrigger, ScriptedBarrier, WaypointPath,
 | `follower.gd` | Follower | Node2D | NPC lead/follow along WaypointPath |
 | `interaction_indicator.gd` | InteractionIndicator | Node2D | Floating `!` bob over pending interactions |
 
-Template scenes live in `scenes/cinematic/`.
+Template scenes live in `scenes/cinematic/`:
+
+| Scene | Role |
+|-------|------|
+| `CinematicPlayer.tscn` | Runtime cutscene executor (embedded or one-shot) |
+| `CinematicNpc.tscn` | Prefab: AnimatedSprite2D + Follower child |
+| `Follower.tscn` | Standalone follower node |
+| `InteractionIndicator.tscn` | Floating `!` bob indicator |
+| `ScriptedBarrier.tscn` | Toggleable invisible wall |
+| `ScriptedTrigger.tscn` | Area2D trigger + optional indicator |
+| `WaypointPath.tscn` | Editable path with default Marker2D waypoints |
 
 ### 11.2 Triggers
 
@@ -905,7 +1036,181 @@ Flexible name resolution in `CinematicActor`: tries `walk`, `Walk`, `walk_left`,
 | `"player"` | Map Player CharacterBody2D |
 | `"scripted_barriers"` | All ScriptedBarrier instances |
 | `"interactables"` | All Interactable instances |
+| `"world_state_serializers"` | Nodes that persist state in saves (e.g. BullySpawnManager) |
 
 ---
 
-*Document generated for Beat the Bully — V Feria Gamer 2026 · Universidad del Norte.*
+## 12. Save System
+
+**File:** `scripts/save/save_manager.gd` · **Autoload:** `SaveManager`
+
+Three-slot JSON save system at `user://savesgames/save_slot_{1,2,3}.json`. Writes atomically via a `.tmp` file then rename.
+
+### 12.1 Save Payload (`save_version: 1`)
+
+| Key | Contents |
+|-----|----------|
+| `metadata` | Slot id, ISO timestamp |
+| `player` | `scene_path`, `position`, `selected_skin` |
+| `quests` | `QuestManager.serialize_state()` output |
+| `scores` | Battle stats snapshot when saving from a battle scene |
+| `world_flags` | Serialized state from all nodes in group `"world_state_serializers"` |
+| `cinematics_played` | One-shot cinematic ids already seen |
+
+### 12.2 Save Triggers
+
+- First skin pick in `select_pj.gd` (new game).
+- Pause menu Exit (auto-save before main menu).
+- Manual calls via `SaveManager.save_slot(idx, payload)`.
+
+### 12.3 Load Flow
+
+1. `save_slots.gd` reads slot JSON and validates scene path (deletes invalid saves pointing at menu scenes).
+2. Sets `Gamemanager.loaded_position`, `loaded_world_state`, quest state, and `cinematics_played`.
+3. Target scene consumes load hooks in `_ready()` then calls `Gamemanager.clear_loaded_save_state()`.
+
+**Separate persistence (not in slot saves):** highscores at `user://highscores.json` (Gamemanager); settings at `user://settings.cfg` (OptionsSettings + ControlsSettings).
+
+---
+
+## 13. Encounter System — BullySpawnManager
+
+**Files:** `scripts/encounters/bully_spawn_manager.gd`, `scripts/encounters/spawn_point.gd`
+**Scene:** `scenes/map/bully_spawn_manager.tscn` (child of `map.tscn`)
+
+Random bully encounter system for the hallway map.
+
+### 13.1 Behaviour
+
+- On `_ready`, restores from save key `"random_bullies"` or generates a fresh seeded spawn set (default 5 active bullies).
+- Iterates `Marker2D` spawn points (children with `spawn_point.gd`) via a circular linked list cursor.
+- Instantiates `interactable.tscn` at each chosen marker with a profile dict (dialogue, battle scene, chart, sprite).
+- Notifies spawner on defeat via `on_npc_defeated(id)`; supports rematch charts and `despawn_on_win`.
+
+### 13.2 Spawn Point Exports
+
+| Export | Description |
+|--------|-------------|
+| `profile_id` | Profile key (`easy_bully`, `pj2_bully`, …) |
+| `sprite_frames` | Optional SpriteFrames override |
+| `battle_chart_path` | Chart JSON for this marker |
+| `battle_music` | Optional battle music stream |
+| `enabled` | Whether this marker participates in spawning |
+
+### 13.3 Default Profiles
+
+`easy_bully` → `pj1_idle.tres` sprites, `bully_01.json` dialogue, `battle.tscn` + `tutorial.json`.
+`pj2_bully` → `pj2_idle.tres` sprites.
+
+Registers in group `"world_state_serializers"`; serializes seed, cursor index, active bullies, and defeated list.
+
+---
+
+## 14. Controls Rebinding
+
+**File:** `scripts/menu/controls_settings.gd` · **UI:** Options panel + `rebind_row.tscn`
+
+Static helper class (not an autoload). Persists bindings in `user://settings.cfg` under section `[controls]`.
+
+### 14.1 Remappable Actions
+
+| Action | Default key |
+|--------|-------------|
+| `move_up` / `move_down` / `move_left` / `move_right` | Arrow keys |
+| `Interact` | E |
+| `note_up` / `note_down` / `note_left` / `note_right` | J / F / D / K |
+
+`ControlsSettings.apply_bindings()` rebuilds `InputMap` events on startup (called from `OptionsSettings.apply_saved()`).
+
+---
+
+## 15. NPC & Asset Organization
+
+### 15.1 NPC Folders (`assets/images/characters/npc/`)
+
+| Folder | Assets | In-game usage |
+|--------|--------|---------------|
+| `npc1/` | `placeholdernpc`, `spritesheet_npc`, `npc.webp`, `enemy_1.tres` | Generic NPCs, classroom companion, witnesses |
+| `npc2/` | `cyberbully.png`, topdown/battle `.tres` | Map cyber bully (`bully_05`) |
+| `npc3/` | `duobully.png`, topdown `.tres` variants | Map hallway duo bullies |
+| `npc4/` | `girlbully.png`, topdown `.tres` | Backyard final boss (`bully_06`) |
+
+Legacy bully sprites were moved from `npc/` root into `npc2/`–`npc4/` subfolders.
+
+### 15.2 Playable Characters (`assets/images/characters/pj1`–`pj4`)
+
+Each folder holds walk/battle SpriteFrames (`.tres`), icons, and sprite sheets. Four skins selectable in `select_pj.tscn`.
+
+### 15.3 Dialogue JSON (`assets/dialogues/`)
+
+21 JSON files covering room, classroom, map hallway, backyard, and mission-specific conversations. Schema: multiple named dialogues per file (`intro`, `victory`, `defeat`, …).
+
+### 15.4 Cinematic JSON (`assets/cinematics/`)
+
+24 JSON files for scene transitions, intros/outros, companion escorts, and hallway bully sequences. Convention: `{scene}_{event}.json`.
+
+### 15.5 Charts & Audio
+
+- **Charts:** `assets/charts/` — 6 JSON files (5 in use + `grandfinal.json`).
+- **Music:** `assets/audio/music/` — menu, battle themes per encounter.
+- **SFX:** `assets/audio/sfx/` — note hits, dialogue blips, victory/defeat.
+- **Tilesets:** `assets/images/world_assets/tileset.tres`, `tablero.tres` (bulletin board).
+
+---
+
+## 16. Project Inventory
+
+### 16.1 Scripts by Folder (39 GDScript files)
+
+| Folder | Count | Systems |
+|--------|-------|---------|
+| `scripts/` (root) | 1 | Gamemanager |
+| `scripts/cinematic/` | 10 | Cutscene pipeline |
+| `scripts/dialogue/` | 4 | Dialogue pipeline |
+| `scripts/encounters/` | 3 | Bully spawner + spawn points |
+| `scripts/map/` | 3 | World controller, room, player |
+| `scripts/menu/` | 5 | Menu, options, controls, character select |
+| `scripts/quests/` | 3 | Quest resource, manager, HUD |
+| `scripts/rhythm/` | 18 | Full battle system |
+| `scripts/save/` | 1 | SaveManager |
+| `scripts/ui/` | 5 | Pause, save slots, rebind, colorblind, keychain |
+| `scripts/editor/` | 5 | Chart, quest, cinematic editors |
+| `addons/cinematic_authoring/` | 1 | Editor plugin |
+
+### 16.2 Scenes by Folder (29 game scenes + 3 editor scenes)
+
+| Folder | Scenes |
+|--------|--------|
+| `scenes/menu/` | main_menu, save_slots, select_pj, options |
+| `scenes/map/` | room, classroom, map, backyard, tableros, player, bully_spawn_manager |
+| `scenes/rhythm/` | battle, tutorial, cool/cyber/double/final_battle, HUD, arrows, targets, win/lose, battle_actors |
+| `scenes/dialogue/` | dialogue_box, dialogue_runner, interactable |
+| `scenes/ui/` | pause_menu, pause_button, rebind_row, keychain_button, colorblind_overlay |
+| `scenes/cinematic/` | 7 template scenes (see §11.1) |
+| `scenes/quest/` | quest_hud |
+| `scenes/editor/` | chart_editor, quest_editor, cinematic_editor |
+
+### 16.3 Autoloads & Plugins
+
+| Name | Path |
+|------|------|
+| Gamemanager | `scripts/gamemanager.gd` |
+| QuestManager | `scripts/quests/quest_manager.gd` |
+| SaveManager | `scripts/save/save_manager.gd` |
+| ColorblindOverlay | `scenes/ui/colorblind_overlay.tscn` |
+| Cinematic Authoring | `addons/cinematic_authoring/` (editor only) |
+
+### 16.4 POO Requirements Checklist
+
+| Requirement | Status |
+|-------------|--------|
+| ≥ 5 custom classes (TAD) | ✅ 39+ GDScript classes across 10 modules |
+| Design pattern (non-Singleton) | ✅ Strategy (`ScoreRules` / `HealthRules` → `Referee`); Command (cinematic steps) |
+| GUI | ✅ Godot UI throughout |
+| Random component | ✅ BullySpawnManager seeded random encounters |
+| Inclusive component | ✅ Colorblind shader, dyslexia font, 4 avatar skins, subtitles via dialogue |
+| Robust input handling | ✅ DialogueLoader/ChartLoader graceful parse errors; SaveManager atomic writes; ControlsSettings validation |
+
+---
+
+*Document updated for Beat the Bully — V Feria Gamer 2026 · Universidad del Norte · Godot 4.6.1 · v0.1.5*
