@@ -179,7 +179,7 @@ func _get_spawn_markers() -> Array[Marker2D]:
 	return markers
 
 
-func _choose_animation(frames: SpriteFrames, preferred: Array = ["Idle", "idle"]) -> String:
+func _choose_animation(frames: SpriteFrames, preferred: Array = ["frente", "normal", "Idle", "idle", "default"]) -> String:
 	if frames == null:
 		return ""
 	for p in preferred:
@@ -200,6 +200,7 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 	bully.name = "%s_bully" % marker.name
 	bully.id = marker.name
 	bully.position = marker.position
+	bully.scale = Vector2(1.5, 1.5)
 	var marker_dialogue_json := ""
 	var marker_intro_dialogue := ""
 	var marker_win_dialogue := ""
@@ -293,8 +294,20 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 		if sprite_node is AnimatedSprite2D:
 			# Always override the scene's default frames so SpawnPoint settings win.
 			sprite_node.sprite_frames = default_frames
-			# Choose best animation name (handles 'Idle' vs 'idle')
-			var chosen: String = _choose_animation(sprite_node.sprite_frames)
+			var marker_scale: Vector2 = Vector2(4, 4)
+			var marker_anim := ""
+			if marker != null and marker.has_method("get"):
+				var try_scale = marker.get("sprite_scale")
+				if try_scale is Vector2:
+					marker_scale = try_scale
+				var try_anim = marker.get("preferred_animation")
+				if try_anim != null and str(try_anim).strip_edges() != "":
+					marker_anim = str(try_anim)
+			sprite_node.scale = marker_scale
+			var preferred_anims: Array = ["frente", "normal", "Idle", "idle", "default"]
+			if marker_anim != "":
+				preferred_anims.insert(0, marker_anim)
+			var chosen: String = _choose_animation(sprite_node.sprite_frames, preferred_anims)
 			if chosen != "":
 				sprite_node.animation = chosen
 				sprite_node.play()

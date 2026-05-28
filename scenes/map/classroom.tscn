@@ -8,7 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://dkrd76y7ipit4" path="res://scenes/ui/pause_button.tscn" id="5_g52xa"]
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/player.tscn" id="7_44ndg"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_vpwi3"]
-[ext_resource type="SpriteFrames" uid="uid://cendrq73aq5wt" path="res://assets/images/characters/npc/npc1/placeholdernpc.tres" id="9_0dgy4"]
+[ext_resource type="SpriteFrames" uid="uid://tnfdjivsbe8v" path="res://assets/images/ReDesignCursor/daniel.tres" id="9_daniel"]
+[ext_resource type="SpriteFrames" uid="uid://82mpv4wiikvk" path="res://assets/images/ReDesignCursor/hermano1.tres" id="9_elbocon"]
+[ext_resource type="SpriteFrames" path="res://assets/images/ReDesignCursor/rediseños/chica_cafe_rosa.tres" id="9_salon1"]
+[ext_resource type="SpriteFrames" path="res://assets/images/ReDesignCursor/rediseños/chico_rubio_verde.tres" id="9_salon2"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="9_g04a8"]
 [ext_resource type="PackedScene" uid="uid://cjwpibmypm3ey" path="res://scenes/rhythm/cool_battle.tscn" id="9_g52xa"]
 [ext_resource type="AudioStream" uid="uid://drk4wj32fsdl1" path="res://assets/audio/music/cool_guy.wav" id="10_g52xa"]
@@ -68,8 +71,9 @@ after_quest_dialogue_id = "salida"
 complete_quest_on_after_dialogue = "2.1.4"
 
 [node name="Sprite2D" parent="Daniel" index="1" unique_id=858663745]
-sprite_frames = ExtResource("9_0dgy4")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("9_daniel")
+animation = &"normal"
 
 [node name="InteractionIndicator" parent="Daniel" index="2" unique_id=536604281]
 position = Vector2(-2, -68.43583)
@@ -93,7 +97,8 @@ dialogue_voice = ExtResource("4_g52xa")
 position = Vector2(1.333313, -0.3333435)
 
 [node name="Sprite2D" parent="ElBocon" index="1" unique_id=858663745]
-sprite_frames = ExtResource("9_0dgy4")
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("9_elbocon")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="ElBocon" index="2" unique_id=536604281]
@@ -110,8 +115,9 @@ dialogue_voice = ExtResource("4_g52xa")
 position = Vector2(-1.666626, 3)
 
 [node name="Sprite2D" parent="NpcSalon1" index="1" unique_id=858663745]
-sprite_frames = ExtResource("9_0dgy4")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("9_salon1")
+animation = &"frente"
 
 [node name="InteractionIndicator" parent="NpcSalon1" index="2" unique_id=536604281]
 position = Vector2(-2, -68.43583)
@@ -124,8 +130,9 @@ intro_dialogue_completed_id = "after_win"
 dialogue_voice = ExtResource("4_g52xa")
 
 [node name="Sprite2D" parent="NpcSalon2" index="1" unique_id=858663745]
-sprite_frames = ExtResource("9_0dgy4")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("9_salon2")
+animation = &"frente"
 
 [node name="InteractionIndicator" parent="NpcSalon2" index="2" unique_id=536604281]
 position = Vector2(-2, -68.43583)

@@ -31,3 +31,9 @@ extends Marker2D
 # Canción específica para la batalla de este bully en battle.tscn.
 # Si es null, se usa la música por defecto de la escena de batalla.
 @export var battle_music: AudioStream = null
+
+# Escala del AnimatedSprite2D (walk 16x32 ~ Vector2(4, 4); batalla FNF ~ 0.1).
+@export var sprite_scale: Vector2 = Vector2(4, 4)
+
+# Animación inicial preferida (p. ej. "frente" para NPCs top-down).
+@export var preferred_animation: String = "frente"

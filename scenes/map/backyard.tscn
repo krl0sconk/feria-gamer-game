@@ -6,7 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://csvffon3ipk2a" path="res://scenes/rhythm/final_battle.tscn" id="4_pyh6m"]
 [ext_resource type="AudioStream" uid="uid://cwkwfig0lcpac" path="res://assets/audio/music/rude_girl.wav" id="4_wm1sh"]
 [ext_resource type="AudioStream" uid="uid://cv23y5wuou4bq" path="res://assets/audio/sfx/dialogue1.wav" id="5_r3g8p"]
-[ext_resource type="SpriteFrames" uid="uid://cendrq73aq5wt" path="res://assets/images/characters/npc/npc1/placeholdernpc.tres" id="6_2e31x"]
+[ext_resource type="SpriteFrames" path="res://assets/images/ReDesignCursor/rediseños/chico_pelirrojo_morado.tres" id="6_patio1"]
+[ext_resource type="SpriteFrames" path="res://assets/images/ReDesignCursor/rediseños/chica_rubia_azul.tres" id="6_patio2"]
+[ext_resource type="SpriteFrames" path="res://assets/images/ReDesignCursor/rediseños/chica_pelirroja_verde.tres" id="6_patio3"]
+[ext_resource type="SpriteFrames" path="res://assets/images/ReDesignCursor/rediseños/chica_morena_rojo.tres" id="6_patio4"]
+[ext_resource type="SpriteFrames" path="res://assets/images/ReDesignCursor/rediseños/chico_moreno_rojo.tres" id="6_patio5"]
+[ext_resource type="SpriteFrames" path="res://assets/images/ReDesignCursor/rediseños/chico_negro_amarillo.tres" id="6_patio6"]
+[ext_resource type="SpriteFrames" path="res://assets/images/ReDesignCursor/rediseños/chico_cafe_azul.tres" id="6_patio7"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="7_2e31x"]
 [ext_resource type="SpriteFrames" uid="uid://bh8p35jk58n0j" path="res://assets/images/characters/npc/npc4/npc4topdown.tres" id="7_b1dcw"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="8_pyh6m"]
@@ -89,8 +95,9 @@ dialogue_voice = ExtResource("5_r3g8p")
 show_indicator = false
 
 [node name="Sprite2D" parent="NpcPatio" index="1" unique_id=858663745]
-sprite_frames = ExtResource("6_2e31x")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("6_patio1")
+animation = &"frente"
 
 [node name="InteractionIndicator" parent="NpcPatio" index="2" unique_id=536604281]
 visible = false
@@ -106,8 +113,9 @@ dialogue_voice = ExtResource("5_r3g8p")
 show_indicator = false
 
 [node name="Sprite2D" parent="NpcPatio2" index="1" unique_id=858663745]
-sprite_frames = ExtResource("6_2e31x")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("6_patio2")
+animation = &"frente"
 
 [node name="InteractionIndicator" parent="NpcPatio2" index="2" unique_id=536604281]
 visible = false
@@ -123,8 +131,9 @@ dialogue_voice = ExtResource("5_r3g8p")
 show_indicator = false
 
 [node name="Sprite2D" parent="NpcPatio3" index="1" unique_id=858663745]
-sprite_frames = ExtResource("6_2e31x")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("6_patio3")
+animation = &"frente"
 
 [node name="InteractionIndicator" parent="NpcPatio3" index="2" unique_id=536604281]
 visible = false
@@ -140,8 +149,9 @@ dialogue_voice = ExtResource("5_r3g8p")
 show_indicator = false
 
 [node name="Sprite2D" parent="NpcPatio4" index="1" unique_id=858663745]
-sprite_frames = ExtResource("6_2e31x")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("6_patio4")
+animation = &"frente"
 
 [node name="InteractionIndicator" parent="NpcPatio4" index="2" unique_id=536604281]
 visible = false
@@ -157,8 +167,9 @@ dialogue_voice = ExtResource("5_r3g8p")
 show_indicator = false
 
 [node name="Sprite2D" parent="NpcPatio5" index="1" unique_id=858663745]
-sprite_frames = ExtResource("6_2e31x")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("6_patio5")
+animation = &"frente"
 
 [node name="InteractionIndicator" parent="NpcPatio5" index="2" unique_id=536604281]
 visible = false
@@ -174,8 +185,9 @@ dialogue_voice = ExtResource("5_r3g8p")
 show_indicator = false
 
 [node name="Sprite2D" parent="NpcPatio6" index="1" unique_id=858663745]
-sprite_frames = ExtResource("6_2e31x")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("6_patio6")
+animation = &"frente"
 
 [node name="InteractionIndicator" parent="NpcPatio6" index="2" unique_id=536604281]
 visible = false
@@ -191,8 +203,9 @@ dialogue_voice = ExtResource("5_r3g8p")
 show_indicator = false
 
 [node name="Sprite2D" parent="NpcPatio7" index="1" unique_id=858663745]
-sprite_frames = ExtResource("6_2e31x")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("6_patio7")
+animation = &"frente"
 
 [node name="InteractionIndicator" parent="NpcPatio7" index="2" unique_id=536604281]
 visible = false

@@ -1,0 +1,34 @@
+[gd_scene format=3 load_steps=5]
+
+[ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_base"]
+[ext_resource type="Texture2D" uid="uid://ck45u308f8w0m" path="res://assets/images/backgrounds/bgPasillo.png" id="2_bg"]
+[ext_resource type="AudioStream" uid="uid://co5wluprbwb83" path="res://assets/audio/music/midnightcity_piano_full.wav" id="3_music"]
+[ext_resource type="SpriteFrames" path="res://assets/images/ReDesignCursor/rediseños/batalla/chico_negro_amarillo_battle.tres" id="4_enemy"]
+
+[node name="Battle" instance=ExtResource("1_base")]
+chart_path = "res://assets/charts/midnightcity_piano_40s.json"
+lose_scene_path = ""
+
+[node name="Background" parent="." index="0"]
+position = Vector2(5, 1)
+scale = Vector2(0.7918985, 0.79189855)
+texture = ExtResource("2_bg")
+
+[node name="MusicPlayer" parent="." index="3"]
+stream = ExtResource("3_music")
+bpm = 150.0
+
+[node name="Metronome" parent="." index="4"]
+bpm = 150.0
+
+[node name="AnimatedSprite2D" parent="EnemyBattle" index="0"]
+position = Vector2(-11, -7)
+scale = Vector2(0.23, 0.23)
+sprite_frames = ExtResource("4_enemy")
+animation = &"Enemy"
+
+[node name="CollisionShape2D" parent="EnemyBattle" index="1"]
+visible = true
+
+[editable path="BattleHUD"]
+[editable path="EnemyBattle"]
