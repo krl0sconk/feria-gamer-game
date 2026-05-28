@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Sofi", "text": "Ay, qué fastidio. Justo cuando me iba." },
+				{ "speaker": "Sofi", "text": "Ya que estás acá... ¿me bailas algo o qué?" },
+				{ "speaker": "Jugador", "text": "Bailar... ¿como una batalla?" },
+				{ "speaker": "Sofi", "text": "Exacto. Y no me hagas perder el tiempo." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Sofi", "text": "Bueno, tampoco estuvo TAN mal." },
+				{ "speaker": "Sofi", "text": "Igual no me voy a olvidar de esto." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Sofi", "text": "Demasiada lentitud, querido." },
+				{ "speaker": "Sofi", "text": "Practica antes de pisarme el escenario." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Sofi", "text": "Ya. Suficiente por hoy." }
+			]
+		}
+	}
+}

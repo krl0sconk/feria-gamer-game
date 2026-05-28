@@ -1,0 +1,17 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Mi hermano mayor tocaba aquí. Antes de que llegaran ELLOS." },
+				{ "speaker": "Estudiante", "text": "Dijo que un día alguien iba a venir a hacerles frente. No le creí." }
+			]
+		},
+		"after_win": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Mi hermano va a alucinar cuando se lo cuente." },
+				{ "speaker": "Estudiante", "text": "Quizá venga a verte tocar." }
+			]
+		}
+	}
+}

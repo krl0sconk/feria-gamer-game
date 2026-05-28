@@ -79,7 +79,7 @@ sprite_frames = ExtResource("9_daniel")
 animation = &"lloron"
 
 [node name="InteractionIndicator" parent="Daniel" index="2" unique_id=536604281]
-position = Vector2(-2, -68.324646)
+position = Vector2(-2, -67.42248)
 
 [node name="ElBocon" parent="." unique_id=696459709 instance=ExtResource("3_0ibgl")]
 position = Vector2(914.00006, 459.00003)
@@ -105,13 +105,15 @@ sprite_frames = ExtResource("11_g04a8")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="ElBocon" index="2" unique_id=536604281]
-position = Vector2(-2, -68.324646)
+position = Vector2(-2, -67.42248)
 
 [node name="NpcSalon1" parent="." unique_id=1392541665 instance=ExtResource("3_0ibgl")]
 position = Vector2(963, 538)
 scale = Vector2(0.5, 0.5)
 dialogue_json_path = "res://assets/dialogues/classroom_bully_02.json"
-intro_dialogue_id = ""
+defeated_dialogue_id = "defeated"
+win_dialogue_id = "victory"
+lose_dialogue_id = "defeat"
 dialogue_voice = ExtResource("4_g52xa")
 
 [node name="CollisionShape2D" parent="NpcSalon1" index="0" unique_id=1889423936]
@@ -123,7 +125,7 @@ sprite_frames = ExtResource("9_salon1")
 animation = &"frente"
 
 [node name="InteractionIndicator" parent="NpcSalon1" index="2" unique_id=536604281]
-position = Vector2(-2, -68.324646)
+position = Vector2(-2, -67.42248)
 
 [node name="NpcSalon2" parent="." unique_id=1715314364 instance=ExtResource("3_0ibgl")]
 position = Vector2(610, 454)
@@ -138,7 +140,7 @@ sprite_frames = ExtResource("9_salon2")
 animation = &"frente"
 
 [node name="InteractionIndicator" parent="NpcSalon2" index="2" unique_id=536604281]
-position = Vector2(-2, -68.324646)
+position = Vector2(-2, -67.42248)
 
 [node name="MusicaFondoSalon" type="AudioStreamPlayer" parent="." unique_id=1635448951]
 stream = ExtResource("2_0dgy4")
@@ -186,7 +188,7 @@ sprite_frames = ExtResource("14_44ndg")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="tablero_salon_2" index="2" unique_id=536604281]
-position = Vector2(-2, -68.324646)
+position = Vector2(-2, -67.42248)
 
 [editable path="Daniel"]
 [editable path="ElBocon"]

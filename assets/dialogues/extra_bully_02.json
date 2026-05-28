@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Vicky", "text": "Uff, otro novato queriendo lucirse." },
+				{ "speaker": "Vicky", "text": "Mi banda me dijo que este pasillo es mío. Y lo digo yo." },
+				{ "speaker": "Jugador", "text": "¿Y si paso sin más?" },
+				{ "speaker": "Vicky", "text": "Pasas cuando yo lo diga. Vamos." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Vicky", "text": "No... esto no debería pasar." },
+				{ "speaker": "Vicky", "text": "Bien. Pasa. Pero no se lo digas a nadie." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Vicky", "text": "¿Ves? Por algo soy yo la que manda acá." },
+				{ "speaker": "Vicky", "text": "Aprende a leer la sala, novato." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Vicky", "text": "No me hables." }
+			]
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Sí, ya sé qué buscas. Los del tablero, ¿no?" },
+				{ "speaker": "Estudiante", "text": "Acá nadie se mete. Si tocas, tocas bajito." }
+			]
+		},
+		"after_win": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Te oí. Tocaste duro." },
+				{ "speaker": "Estudiante", "text": "Quizá ya no tengamos que tocar tan bajito." }
+			]
+		}
+	}
+}

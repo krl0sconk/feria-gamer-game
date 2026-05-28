@@ -1,0 +1,17 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Estoy escribiendo una canción. La letra dice algo así..." },
+				{ "speaker": "Estudiante", "text": "\"El pasillo es largo, el miedo más largo aún.\" ¿Demasiado?" }
+			]
+		},
+		"after_win": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Le cambié la letra. Ahora dice \"el pasillo se acortó hoy\"." },
+				{ "speaker": "Estudiante", "text": "Gracias por la inspiración." }
+			]
+		}
+	}
+}

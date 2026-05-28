@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Leo", "text": "¿Otra vez novatos creyéndose la última gaseosa del desierto?" },
+				{ "speaker": "Leo", "text": "Vamos a ver de qué estás hecho." },
+				{ "speaker": "Jugador", "text": "Acaba con esto." },
+				{ "speaker": "Leo", "text": "Tú lo pediste." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Leo", "text": "...interesante." },
+				{ "speaker": "Leo", "text": "Anota mi nombre. La próxima me preparo en serio." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Leo", "text": "Demasiado fácil." },
+				{ "speaker": "Leo", "text": "Si quieres revancha, sabes dónde encontrarme." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Leo", "text": "Hasta la próxima." }
+			]
+		}
+	}
+}

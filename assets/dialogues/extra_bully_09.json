@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Diego", "text": "¡Eh! El chiste de hoy: ¿qué le dice un novato a otro?" },
+				{ "speaker": "Diego", "text": "Nada. Le tira los libros y sale corriendo." },
+				{ "speaker": "Jugador", "text": "...muy gracioso." },
+				{ "speaker": "Diego", "text": "Ya, ya, ahora pelea. Es la regla." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Diego", "text": "Jaja, vale, esa estuvo buena." },
+				{ "speaker": "Diego", "text": "Te dejo pasar. Y guarda el chiste, ¿sí?" }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Diego", "text": "Te dije que iba en serio." },
+				{ "speaker": "Diego", "text": "Sigue intentando, campeón." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Diego", "text": "Buena onda. Ándale." }
+			]
+		}
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Tom", "text": "Eh, tú, el del walkman fantasma." },
+				{ "speaker": "Tom", "text": "Dicen que tocas. A ver si es cierto." },
+				{ "speaker": "Jugador", "text": "¿Y si no quiero demostrarlo?" },
+				{ "speaker": "Tom", "text": "Entonces este pasillo no es para ti." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Tom", "text": "Ok ok, sabes mover los dedos." },
+				{ "speaker": "Tom", "text": "Sigue ensayando. Te voy a estar mirando." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Tom", "text": "Te lo dije. Pura pose." },
+				{ "speaker": "Tom", "text": "Vuelve cuando suenes de verdad." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Tom", "text": "Buena, crack. Sigue." }
+			]
+		}
+	}
+}

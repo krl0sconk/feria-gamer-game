@@ -1,0 +1,17 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Aquí casi todos se juntan a ensayar... cuando dejan." },
+				{ "speaker": "Estudiante", "text": "Yo quería formar una banda. Pero después de lo del Bocón, mejor no destaco." }
+			]
+		},
+		"after_win": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Le ganaste al Bocón. ¿Es en serio?" },
+				{ "speaker": "Estudiante", "text": "Bueno... a ver si me animo a sacar la guitarra." }
+			]
+		}
+	}
+}

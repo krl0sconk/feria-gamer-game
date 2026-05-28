@@ -33,6 +33,7 @@ script = ExtResource("1_bsm")
 position = Vector2(520, 1175)
 script = ExtResource("2_sp")
 enabled = false
+dialogue_json_path = "res://assets/dialogues/extra_bully_01.json"
 battle_scene = ExtResource("b01")
 despawn_on_win = false
 sprite_frames = ExtResource("w09")
@@ -43,6 +44,7 @@ sprite_scale = Vector2(1.4, 1.5)
 [node name="SpawnPoint02" type="Marker2D" parent="." unique_id=54331251]
 position = Vector2(1480, 1326)
 script = ExtResource("2_sp")
+dialogue_json_path = "res://assets/dialogues/extra_bully_02.json"
 battle_scene = ExtResource("b02")
 despawn_on_win = false
 sprite_frames = ExtResource("w02")
@@ -53,6 +55,7 @@ sprite_scale = Vector2(1.4, 1.5)
 [node name="SpawnPoint03" type="Marker2D" parent="." unique_id=1833849987]
 position = Vector2(926, 1015)
 script = ExtResource("2_sp")
+dialogue_json_path = "res://assets/dialogues/extra_bully_03.json"
 battle_scene = ExtResource("b03")
 despawn_on_win = false
 sprite_frames = ExtResource("w03")
@@ -63,6 +66,7 @@ sprite_scale = Vector2(1.4, 1.5)
 [node name="SpawnPoint04" type="Marker2D" parent="." unique_id=885583058]
 position = Vector2(-650, 689)
 script = ExtResource("2_sp")
+dialogue_json_path = "res://assets/dialogues/extra_bully_04.json"
 battle_scene = ExtResource("b04")
 despawn_on_win = false
 sprite_frames = ExtResource("w04")
@@ -73,6 +77,7 @@ sprite_scale = Vector2(1.4, 1.5)
 [node name="SpawnPoint05" type="Marker2D" parent="." unique_id=767972068]
 position = Vector2(-200, 580)
 script = ExtResource("2_sp")
+dialogue_json_path = "res://assets/dialogues/extra_bully_05.json"
 battle_scene = ExtResource("b05")
 despawn_on_win = false
 sprite_frames = ExtResource("w05")
@@ -83,6 +88,7 @@ sprite_scale = Vector2(1.4, 1.5)
 [node name="SpawnPoint06" type="Marker2D" parent="." unique_id=1283081832]
 position = Vector2(850, 720)
 script = ExtResource("2_sp")
+dialogue_json_path = "res://assets/dialogues/extra_bully_06.json"
 battle_scene = ExtResource("b06")
 despawn_on_win = false
 sprite_frames = ExtResource("w06")
@@ -93,6 +99,7 @@ sprite_scale = Vector2(1.4, 1.5)
 [node name="SpawnPoint07" type="Marker2D" parent="." unique_id=1315705851]
 position = Vector2(438, 1389)
 script = ExtResource("2_sp")
+dialogue_json_path = "res://assets/dialogues/extra_bully_07.json"
 battle_scene = ExtResource("b07")
 despawn_on_win = false
 sprite_frames = ExtResource("w07")
@@ -103,6 +110,7 @@ sprite_scale = Vector2(1.4, 1.5)
 [node name="SpawnPoint08" type="Marker2D" parent="." unique_id=384272572]
 position = Vector2(940, 1312)
 script = ExtResource("2_sp")
+dialogue_json_path = "res://assets/dialogues/extra_bully_08.json"
 battle_scene = ExtResource("b08")
 despawn_on_win = false
 sprite_frames = ExtResource("w08")
@@ -113,6 +121,7 @@ sprite_scale = Vector2(1.4, 1.5)
 [node name="SpawnPoint09" type="Marker2D" parent="." unique_id=1728009091]
 position = Vector2(1942, 1405)
 script = ExtResource("2_sp")
+dialogue_json_path = "res://assets/dialogues/extra_bully_09.json"
 battle_scene = ExtResource("b09")
 despawn_on_win = false
 sprite_frames = ExtResource("w09")
@@ -124,6 +133,7 @@ sprite_scale = Vector2(1.4, 1.5)
 position = Vector2(-971, 728)
 script = ExtResource("2_sp")
 enabled = false
+dialogue_json_path = "res://assets/dialogues/extra_bully_10.json"
 battle_scene = ExtResource("b10")
 despawn_on_win = false
 sprite_frames = ExtResource("w10")

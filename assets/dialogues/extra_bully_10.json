@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Iván", "text": "..." },
+				{ "speaker": "Iván", "text": "Si pasas, peleas." },
+				{ "speaker": "Jugador", "text": "Eres directo. Me gusta." },
+				{ "speaker": "Iván", "text": "Cállate y juega." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Iván", "text": "..." },
+				{ "speaker": "Iván", "text": "Buen ritmo. Pasa." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Iván", "text": "Suficiente." },
+				{ "speaker": "Iván", "text": "Lárgate." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Iván", "text": "..." }
+			]
+		}
+	}
+}

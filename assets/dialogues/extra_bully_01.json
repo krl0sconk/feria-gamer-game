@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Bryan", "text": "Mira a quién tenemos aquí. ¿Te perdiste, novato?" },
+				{ "speaker": "Bryan", "text": "Este pasillo es zona mía." },
+				{ "speaker": "Jugador", "text": "No tengo tiempo para esto." },
+				{ "speaker": "Bryan", "text": "Vas a tener que hacer tiempo." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Bryan", "text": "Bah... fue suerte." },
+				{ "speaker": "Bryan", "text": "...okey, igual no me importaba este lugar." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Bryan", "text": "Eso pasa cuando te metes conmigo." },
+				{ "speaker": "Bryan", "text": "Largo. Y avísale a los demás." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Bryan", "text": "Vete a otro lado, ¿quieres?" }
+			]
+		}
+	}
+}

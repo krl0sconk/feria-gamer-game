@@ -1,0 +1,17 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Cada tanto miro el tablero a ver si publican algo nuevo." },
+				{ "speaker": "Estudiante", "text": "Pero nadie sube nada desde que mandan los del Bocón." }
+			]
+		},
+		"after_win": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Acabo de leer el tablero. Hay flyers nuevos." },
+				{ "speaker": "Estudiante", "text": "Parece que el patio está volviendo a la vida." }
+			]
+		}
+	}
+}

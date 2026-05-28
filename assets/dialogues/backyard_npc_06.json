@@ -1,0 +1,17 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Yo solo vengo a comer. No me metas en líos." },
+				{ "speaker": "Estudiante", "text": "Pero... ojalá alguien les baje los humos a los del Bocón." }
+			]
+		},
+		"after_win": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "Ahora puedo comer tranquilo. Eso vale oro." },
+				{ "speaker": "Estudiante", "text": "Si necesitas algo del kiosko, yo invito." }
+			]
+		}
+	}
+}

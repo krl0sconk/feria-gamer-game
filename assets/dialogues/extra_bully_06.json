@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Robin", "text": "Eh, perdón... me dijeron que tenía que pararte el paso." },
+				{ "speaker": "Robin", "text": "No sé si quiero, pero... reglas son reglas." },
+				{ "speaker": "Jugador", "text": "Entonces resolvámoslo rápido." },
+				{ "speaker": "Robin", "text": "Sí... rápido, por favor." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Robin", "text": "Uff, qué alivio. Yo no quería de verdad." },
+				{ "speaker": "Robin", "text": "Pasa, pasa, antes que vuelvan los otros." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Robin", "text": "Lo siento, en serio." },
+				{ "speaker": "Robin", "text": "No te lo tomes personal." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Robin", "text": "Sigue, sigue. Yo no vi nada." }
+			]
+		}
+	}
+}

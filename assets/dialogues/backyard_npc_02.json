@@ -1,0 +1,17 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "El Bocón se queda con los espacios donde tocábamos." },
+				{ "speaker": "Estudiante", "text": "No es justo. Pero ¿quién le dice?" }
+			]
+		},
+		"after_win": {
+			"lines": [
+				{ "speaker": "Estudiante", "text": "...se lo dijiste con la guitarra. Increíble." },
+				{ "speaker": "Estudiante", "text": "Cuenta conmigo si arman algo." }
+			]
+		}
+	}
+}

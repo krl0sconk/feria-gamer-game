@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Mara", "text": "Eh, eh. ¿A dónde crees que vas con esa cara?" },
+				{ "speaker": "Mara", "text": "Acá hay que pagar peaje." },
+				{ "speaker": "Jugador", "text": "Me imagino que el peaje es a duelo de ritmo." },
+				{ "speaker": "Mara", "text": "Mira nomás, listillo. Que sea rápido." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Mara", "text": "...vale, vale, no me esperaba eso." },
+				{ "speaker": "Mara", "text": "Llévate el peaje. Yo no te vi pasar." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Mara", "text": "Predecible. Siguiente, por favor." },
+				{ "speaker": "Mara", "text": "Cuando aprendas, vuelve." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Mara", "text": "Pasa, pasa. Que ya no quiero más bochorno hoy." }
+			]
+		}
+	}
+}

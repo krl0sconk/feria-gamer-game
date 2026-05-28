@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Cami", "text": "No me mires así. No estoy de humor." },
+				{ "speaker": "Cami", "text": "Pero si quieres pelear, te la doy. Me da igual." },
+				{ "speaker": "Jugador", "text": "No vine a pelear, vine a pasar." },
+				{ "speaker": "Cami", "text": "Pues no pasas. Punto." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Cami", "text": "...whatever. No iba a quedarme acá igual." },
+				{ "speaker": "Cami", "text": "Suerte con los demás. La vas a necesitar." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Cami", "text": "Te lo dije." },
+				{ "speaker": "Cami", "text": "Camina." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Cami", "text": "Déjame en paz." }
+			]
+		}
+	}
+}
