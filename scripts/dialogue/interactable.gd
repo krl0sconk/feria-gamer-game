@@ -287,8 +287,7 @@ func _refresh_sprite_animation() -> void:
 	var sprite := get_node_or_null("Sprite2D") as AnimatedSprite2D
 	if sprite == null or sprite.sprite_frames == null:
 		return
-	var qm := get_node_or_null("/root/QuestManager")
-	var completed := qm != null and qm.is_completed(quest_id)
+	var completed: bool = QuestManager.is_completed(quest_id)
 	var target := after if completed else before
 	if target == "" or not sprite.sprite_frames.has_animation(target):
 		return
