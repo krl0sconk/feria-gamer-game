@@ -9,5 +9,5 @@ script = ExtResource("1_ffekg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1407547462]
 scale = Vector2(0.25, 0.25)
 sprite_frames = ExtResource("2_r3kyg")
-animation = &"down"
+animation = &"idle"
 speed_scale = 0.2

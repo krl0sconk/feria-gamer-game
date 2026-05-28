@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_fhexk"]
 [ext_resource type="AudioStream" uid="uid://drk4wj32fsdl1" path="res://assets/audio/music/cool_guy.wav" id="2_3f5yq"]
 [ext_resource type="Texture2D" uid="uid://b8wxp8vtfng2w" path="res://assets/images/backgrounds/bgSalon.png" id="2_seq28"]
+[ext_resource type="SpriteFrames" uid="uid://db8bkft1e1jot" path="res://assets/images/characters/npc/npc1/enemy_1.tres" id="3_enemy"]
 
 [node name="Battle" unique_id=1239436012 instance=ExtResource("1_fhexk")]
 chart_path = "res://assets/charts/coolguy.json"
@@ -21,4 +22,11 @@ bpm = 123.0
 [node name="Metronome" parent="." index="4" unique_id=984578197]
 bpm = 123.0
 
+[node name="AnimatedSprite2D" parent="EnemyBattle" index="0" unique_id=1657430708]
+position = Vector2(-11, -7)
+scale = Vector2(0.25, 0.25)
+sprite_frames = ExtResource("3_enemy")
+animation = &"Enemy"
+
 [editable path="BattleHUD"]
+[editable path="EnemyBattle"]
