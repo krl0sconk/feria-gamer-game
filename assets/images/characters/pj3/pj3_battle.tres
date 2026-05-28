@@ -30,28 +30,19 @@ region = Rect2(6400, 0, 1280, 1280)
 atlas = ExtResource("1_pj3idle")
 region = Rect2(7680, 0, 1280, 1280)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f7"]
-atlas = ExtResource("1_pj3idle")
-region = Rect2(8960, 0, 1280, 1280)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f8"]
-atlas = ExtResource("1_pj3idle")
-region = Rect2(10240, 0, 1280, 1280)
-
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f0")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_f1")
+}],
+"loop": false,
+"name": &"down",
+"speed": 7.0
 }, {
+"frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f3")
+"texture": SubResource("AtlasTexture_f0")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f4")
@@ -61,14 +52,32 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f8")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2")
+}],
+"loop": false,
+"name": &"left",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3")
+}],
+"loop": false,
+"name": &"right",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0")
+}],
+"loop": false,
+"name": &"up",
+"speed": 7.0
 }]
