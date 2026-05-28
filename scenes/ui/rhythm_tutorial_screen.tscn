@@ -55,9 +55,9 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
 
 [node name="Margin" type="MarginContainer" parent="CenterContainer/Panel"]
 layout_mode = 2
-theme_override_constants/margin_left = 28
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 28
+theme_override_constants/margin_left = 56
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 24
 
 [node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel/Margin"]
@@ -93,9 +93,10 @@ custom_minimum_size = Vector2(0, 220)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("5_body_font")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 22
 text = "Texto del tutorial."
 autowrap_mode = 3
+clip_text = true
 
 [node name="Footer" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox"]
 layout_mode = 2

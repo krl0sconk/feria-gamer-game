@@ -23,7 +23,7 @@ bpm = 176.0
 
 [node name="AnimatedSprite2D" parent="EnemyBattle" index="0"]
 position = Vector2(-11, -7)
-scale = Vector2(0.23, 0.23)
+scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("4_enemy")
 animation = &"Enemy"
 

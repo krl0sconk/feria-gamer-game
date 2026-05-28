@@ -4,7 +4,7 @@
 	"pages": [
 		{
 			"title": "Las flechas",
-			"body": "Las notas caen desde arriba hacia las flechas de abajo.\n\nCuando una nota llegue a la zona, pulsa la tecla que corresponda:\n\n  Izquierda  {left}\n  Abajo      {down}\n  Arriba     {up}\n  Derecha    {right}\n\nSi remapeaste los controles en Opciones, se usan esas teclas.",
+			"body": "Las notas caen desde arriba hacia las flechas de abajo.\n\nCuando una nota llegue a la zona, pulsa la tecla o el botón del mando:\n\nIzquierda: {left}\nAbajo:     {down}\nArriba:    {up}\nDerecha:   {right}\n\nSi remapeaste los controles en Opciones, se usan esas teclas y botones.",
 			"icons": [
 				"res://assets/images/ui/arrow.webp"
 			]

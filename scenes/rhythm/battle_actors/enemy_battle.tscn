@@ -10,7 +10,7 @@ size = Vector2(75, 290)
 script = ExtResource("1_ebgd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1657430708]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("1_7udhy")
 speed_scale = 0.1
 

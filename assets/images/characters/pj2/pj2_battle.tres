@@ -1,61 +1,40 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://b87d64wafniys"]
 
-[ext_resource type="Texture2D" uid="uid://osnulh3qmeq4" path="res://assets/images/characters/pj2/pj2_idle.png" id="1_dmt2d"]
+[ext_resource type="Texture2D" uid="uid://osnulh3qmeq4" path="res://assets/images/characters/pj2/pj2_idle.png" id="1_tex"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
-atlas = ExtResource("1_dmt2d")
+atlas = ExtResource("1_tex")
 region = Rect2(0, 0, 2008, 2026)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
-atlas = ExtResource("1_dmt2d")
+atlas = ExtResource("1_tex")
 region = Rect2(2008, 0, 2008, 2026)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
-atlas = ExtResource("1_dmt2d")
+atlas = ExtResource("1_tex")
 region = Rect2(4016, 0, 2008, 2026)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f3"]
-atlas = ExtResource("1_dmt2d")
+atlas = ExtResource("1_tex")
 region = Rect2(6024, 0, 2008, 2026)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f4"]
-atlas = ExtResource("1_dmt2d")
-region = Rect2(8032, 0, 2008, 2026)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f5"]
-atlas = ExtResource("1_dmt2d")
-region = Rect2(10040, 0, 2008, 2026)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f6"]
-atlas = ExtResource("1_dmt2d")
-region = Rect2(0, 2026, 2008, 2026)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f1")
 }],
 "loop": false,
 "name": &"down",
-"speed": 7.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f6")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -63,7 +42,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"left",
-"speed": 7.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -71,7 +50,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"right",
-"speed": 7.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -79,5 +58,5 @@ animations = [{
 }],
 "loop": false,
 "name": &"up",
-"speed": 7.0
+"speed": 8.0
 }]

@@ -65,6 +65,13 @@ func _resume_post_battle_dialogue_deferred() -> void:
 
 
 func _resume_post_battle_dialogue() -> void:
+	if Gamemanager.pending_map_return:
+		Gamemanager.pending_map_return = false
+		var player := get_tree().get_first_node_in_group("player") as Node2D
+		if player != null and Gamemanager.return_position != Vector2.ZERO:
+			player.global_position = Gamemanager.return_position
+		return
+
 	var result: String = Gamemanager.pending_dialogue_result
 	var npc_id: String = Gamemanager.pending_npc_id
 	if result.is_empty() or npc_id.is_empty():

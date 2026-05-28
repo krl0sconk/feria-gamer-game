@@ -57,6 +57,9 @@ var _current_cinematic_player: CinematicPlayer = null
 ## max_combo y chart_path. La WinScreen las consume y luego se limpian.
 var pending_battle_stats: Dictionary = {}
 
+## True cuando el jugador aborta batalla/tutorual desde pausa (volver al mapa sin diálogo).
+var pending_map_return: bool = false
+
 ## Mejor score por chart (chart_path → int). Persiste en disco entre sesiones.
 const HIGHSCORES_PATH := "user://highscores.json"
 var highscores: Dictionary = {}
@@ -106,6 +109,17 @@ func clear_pending_dialogue() -> void:
 	pending_battle_music = null
 	pending_battle_scene_path = ""
 	pending_battle_stats = {}
+	pending_map_return = false
+
+
+## Limpia el estado de batalla pendiente y marca retorno al mapa (abortar desde pausa).
+func prepare_abort_from_battle() -> void:
+	pending_dialogue_result = ""
+	pending_battle_stats = {}
+	consume_pending_battle_scene_path()
+	consume_pending_battle_chart_path()
+	consume_pending_battle_music()
+	pending_map_return = true
 
 
 func set_loaded_position(position: Vector2) -> void:

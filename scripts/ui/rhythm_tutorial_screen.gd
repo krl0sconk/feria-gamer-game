@@ -31,25 +31,29 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not (event is InputEventKey and event.pressed and not event.is_echo()):
-		return
-	if event.keycode == KEY_ESCAPE:
+	if event.is_action_pressed("ui_cancel"):
+		_mark_input_handled()
 		_go_back_to_map()
-		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("ui_accept") or event.is_action_pressed("Interact"):
+		_mark_input_handled()
 		if _page_index >= _pages.size() - 1:
 			_start_battle()
 		else:
 			_show_page(_page_index + 1)
-		get_viewport().set_input_as_handled()
 		return
-	if event.keycode == KEY_LEFT:
+	if event.is_action_pressed("ui_left"):
 		_on_prev_pressed()
-		get_viewport().set_input_as_handled()
-	elif event.keycode == KEY_RIGHT:
+		_mark_input_handled()
+	elif event.is_action_pressed("ui_right"):
 		_on_next_pressed()
-		get_viewport().set_input_as_handled()
+		_mark_input_handled()
+
+
+func _mark_input_handled() -> void:
+	var vp := get_viewport()
+	if vp != null:
+		vp.set_input_as_handled()
 
 
 func _load_pages() -> void:
@@ -77,7 +81,7 @@ func _load_pages() -> void:
 func _fallback_page() -> Dictionary:
 	return {
 		"title": "Controles",
-		"body": "Pulsa {left}, {down}, {up} y {right} cuando las flechas lleguen abajo.",
+		"body": "Pulsa la tecla o el botón del mando cuando las flechas lleguen abajo:\n\n{left}  {down}  {up}  {right}",
 	}
 
 
@@ -93,7 +97,7 @@ func _show_page(index: int) -> void:
 	_prev_button.visible = _page_index > 0
 	var is_last := _page_index >= _pages.size() - 1
 	_next_button.text = "A la batalla" if is_last else "Siguiente"
-	_hint.text = "[Enter / E] %s" % ("empezar" if is_last else "siguiente")
+	_hint.text = "[Enter / E / A] %s" % ("empezar" if is_last else "siguiente")
 
 
 func _populate_icons(icons: Variant) -> void:
@@ -117,26 +121,23 @@ func _populate_icons(icons: Variant) -> void:
 
 
 func _substitute_keys(text: String) -> String:
-	return text.replace("{left}", _action_key_label("note_left")) \
-		.replace("{down}", _action_key_label("note_down")) \
-		.replace("{up}", _action_key_label("note_up")) \
-		.replace("{right}", _action_key_label("note_right"))
+	return text.replace("{left}", _action_binding_label("note_left")) \
+		.replace("{down}", _action_binding_label("note_down")) \
+		.replace("{up}", _action_binding_label("note_up")) \
+		.replace("{right}", _action_binding_label("note_right"))
 
 
-func _action_key_label(action: String) -> String:
-	if not InputMap.has_action(action):
-		return "?"
-	for ev in InputMap.action_get_events(action):
-		if ev is InputEventKey:
-			var key_ev := ev as InputEventKey
-			var label := OS.get_keycode_string(key_ev.physical_keycode)
-			if label.is_empty():
-				label = OS.get_keycode_string(key_ev.keycode)
-			return label if not label.is_empty() else "?"
-		if ev is InputEventJoypadButton:
-			var joy_ev := ev as InputEventJoypadButton
-			return "Joy %d" % joy_ev.button_index
-	return "?"
+func _action_binding_label(action: String) -> String:
+	var defaults := ControlsSettings.default_bindings()
+	var entry: Dictionary = ControlsSettings.load_bindings().get(action, defaults.get(action, {}))
+	var key_label := ControlsSettings.key_display(int(entry.get("key", 0)))
+	var joy: Variant = entry.get("joy", {})
+	var joy_label := ""
+	if typeof(joy) == TYPE_DICTIONARY:
+		joy_label = ControlsSettings.joy_display(joy as Dictionary)
+	if joy_label.is_empty() or joy_label == "---":
+		return key_label if not key_label.is_empty() else "?"
+	return "%s  |  %s" % [key_label, joy_label]
 
 
 func _on_prev_pressed() -> void:
@@ -160,7 +161,7 @@ func _start_battle() -> void:
 		push_error("RhythmTutorialScreen: no hay escena de batalla pendiente.")
 		_go_back_to_map()
 		return
-	get_tree().change_scene_to_file(battle_path)
+	get_tree().call_deferred("change_scene_to_file", battle_path)
 
 
 func _go_back_to_map() -> void:
@@ -168,4 +169,4 @@ func _go_back_to_map() -> void:
 	if target.is_empty():
 		target = fallback_return_scene_path
 	Gamemanager.consume_pending_battle_scene_path()
-	get_tree().change_scene_to_file(target)
+	get_tree().call_deferred("change_scene_to_file", target)
