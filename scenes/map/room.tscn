@@ -14,8 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://bpjxvmi61lq5" path="res://scenes/rhythm/tutorial.tscn" id="11_battle"]
 [ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="13_c6l7p"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tmqj2"]
-size = Vector2(52, 49)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c6l7p"]
+size = Vector2(37.333336, 49)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
 size = Vector2(43, 72)
@@ -57,6 +57,9 @@ scale = Vector2(1, 1)
 sprite_frames = ExtResource("6_nq8on")
 animation = &"default"
 
+[node name="InteractionIndicator" parent="Guitarra_Tutorial" index="2" unique_id=536604281]
+position = Vector2(-2, -66.82761)
+
 [node name="Guitar" type="Sprite2D" parent="Guitarra_Tutorial" unique_id=1668956319]
 position = Vector2(-9.536743e-07, 1.1920929e-06)
 scale = Vector2(2.546875, 2.40625)
@@ -80,14 +83,29 @@ offset_bottom = 6.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Poker" type="Area2D" parent="." unique_id=894915156]
-position = Vector2(-97, 80)
+position = Vector2(-100, 83)
 scale = Vector2(1.5, 1.5)
 script = ExtResource("10_6nkgt")
 id = "poker"
 dialogue_json_path = "res://assets/dialogues/poker.json"
+show_indicator = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Poker" unique_id=1980700317]
-shape = SubResource("RectangleShape2D_tmqj2")
+shape = SubResource("RectangleShape2D_c6l7p")
+metadata/_unique_collision_shape = true
+
+[node name="mclovin" type="Area2D" parent="." unique_id=1100457473]
+position = Vector2(-147, -107.00001)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("10_6nkgt")
+id = "mclovin"
+dialogue_json_path = "res://assets/dialogues/mclovin.json"
+show_indicator = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mclovin" unique_id=1007727932]
+position = Vector2(-4.666666, 3.8146973e-06)
+shape = SubResource("RectangleShape2D_c6l7p")
+metadata/_unique_collision_shape = true
 
 [node name="CinematicPlayer" type="CanvasLayer" parent="." unique_id=2055853810]
 script = ExtResource("13_c6l7p")

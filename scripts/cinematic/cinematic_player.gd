@@ -416,7 +416,11 @@ func _cmd_dialogue(params: Dictionary) -> void:
 	if player != null and player.has_method("disable_movement"):
 		player.disable_movement()
 	var data := DialogueLoader.load_json(path)
-	_runner.play(data, dialogue_id)
+	var voice: AudioStream = null
+	var voice_path := str(params.get("voice_path", ""))
+	if not voice_path.is_empty():
+		voice = load(voice_path) as AudioStream
+	_runner.play(data, dialogue_id, voice)
 	await _runner.dialogue_finished
 	if player != null and player.has_method("enable_movement"):
 		player.enable_movement()

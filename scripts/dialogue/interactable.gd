@@ -90,6 +90,23 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 @export_group("Indicador")
 ## Muestra un ! flotante cuando hay interacción pendiente.
 @export var show_indicator: bool = true
+## Muestra ! mientras alguna de estas quests esté activa.
+@export var indicator_quest_ids: Array[String] = []
+## Muestra ! cuando estas quests ya se completaron pero aún no se habló con el NPC.
+@export var indicator_after_quests: Array[String] = []
+
+@export_group("Cinemática tras charla")
+## Al completar esta quest por charla, reproduce la cinemática indicada.
+@export var cinematic_on_talk_quest: String = ""
+@export_file("*.json") var cinematic_on_talk_path: String = ""
+
+@export_group("Diálogo tras misión")
+## Tras completar esta quest, la siguiente interacción usa otro JSON/diálogo.
+@export var after_quest_required: String = ""
+@export_file("*.json") var after_quest_dialogue_path: String = ""
+@export var after_quest_dialogue_id: String = ""
+## Quest que se completa al terminar el diálogo post-misión.
+@export var complete_quest_on_after_dialogue: String = ""
 
 # Nota: la apariencia (sprite / spritesheet / animación) se personaliza por
 # instancia vía "Editable Children" sobre el Sprite2D o AnimatedSprite2D hijo.
@@ -105,6 +122,7 @@ var _current_mode: String = ""
 var _interaction_player: AudioStreamPlayer
 var _defeat_reported: bool = false
 var _talk_count: int = 0
+var _acknowledged_after_quests: Dictionary = {}
 
 
 ## --- Save/Load hooks for world state serialization --------------------
@@ -118,6 +136,7 @@ func serialize_state() -> Dictionary:
 		"talk_count": int(_talk_count),
 		"defeat_reported": bool(_defeat_reported),
 		"visible": bool(visible),
+		"acknowledged_after_quests": _acknowledged_after_quests.duplicate(),
 	}
 
 func apply_state(state: Dictionary) -> void:
@@ -125,6 +144,8 @@ func apply_state(state: Dictionary) -> void:
 		return
 	_talk_count = int(state.get("talk_count", int(_talk_count)))
 	_defeat_reported = bool(state.get("defeat_reported", bool(_defeat_reported)))
+	if state.has("acknowledged_after_quests") and typeof(state.get("acknowledged_after_quests")) == TYPE_DICTIONARY:
+		_acknowledged_after_quests = (state.get("acknowledged_after_quests") as Dictionary).duplicate()
 	if state.has("visible"):
 		visible = bool(state.get("visible", true))
 		if not visible:
@@ -162,7 +183,16 @@ func _ready() -> void:
 			if typeof(st) == TYPE_DICTIONARY:
 				apply_state(st)
 
+	if QuestManager.has_signal("quest_completed"):
+		QuestManager.quest_completed.connect(_on_quest_completed_for_indicator)
+	if QuestManager.has_signal("quest_activated"):
+		QuestManager.quest_activated.connect(_on_quest_completed_for_indicator)
+
 	_setup_indicator()
+
+
+func _on_quest_completed_for_indicator(_quest_id: String = "") -> void:
+	_refresh_indicator()
 
 
 func _ensure_unique_instance_resources() -> void:
@@ -196,11 +226,42 @@ func should_show_indicator() -> bool:
 		return false
 	if _defeat_reported and battle_scene != null:
 		return false
-	if dialogue_json_path.is_empty() and battle_scene == null:
+	if dialogue_json_path.is_empty() and battle_scene == null and after_quest_dialogue_path.is_empty():
 		return false
 	if _runner != null and _runner.is_playing():
 		return false
+	if Gamemanager.active_cinematic_id != "":
+		return false
+	return _has_pending_interaction()
+
+
+func _has_pending_interaction() -> bool:
+	var qm := get_node_or_null("/root/QuestManager")
+	if indicator_quest_ids.size() > 0 or indicator_after_quests.size() > 0:
+		if qm == null:
+			return false
+		for qid in indicator_quest_ids:
+			if qm.is_active(str(qid).strip_edges()):
+				return true
+		for qid in indicator_after_quests:
+			var quest_key := str(qid).strip_edges()
+			if quest_key != "" and qm.is_completed(quest_key) and not bool(_acknowledged_after_quests.get(quest_key, false)):
+				return true
+		return false
+
+	if battle_scene != null and not _defeat_reported:
+		return true
+	if talk_mission_ids.size() > _talk_count:
+		return true
+	if dialogue_json_path.is_empty() and battle_scene == null:
+		return false
 	return true
+
+
+func _refresh_indicator() -> void:
+	var indicator := get_node_or_null("InteractionIndicator")
+	if indicator != null and indicator.has_method("refresh"):
+		indicator.call("refresh")
 
 
 func _setup_indicator() -> void:
@@ -283,6 +344,8 @@ func play_result_dialogue(result: String) -> void:
 
 func _start_intro() -> void:
 	_play_interaction_sfx()
+	if _try_start_after_quest_dialogue():
+		return
 	if _data == null or _runner == null:
 		# Fallback: si no hay JSON/Runner pero sí batalla, preservamos el
 		# comportamiento del viejo quest_object (ir directo a la batalla).
@@ -315,6 +378,28 @@ func _start_intro() -> void:
 	_runner.play(_data, chosen_intro, dialogue_voice)
 
 
+func _try_start_after_quest_dialogue() -> bool:
+	if after_quest_required.is_empty() or after_quest_dialogue_path.is_empty() or after_quest_dialogue_id.is_empty():
+		return false
+	if _runner == null:
+		return false
+	var qm := get_node_or_null("/root/QuestManager")
+	if qm == null or not qm.is_completed(after_quest_required):
+		return false
+	if bool(_acknowledged_after_quests.get(after_quest_required, false)):
+		return false
+
+	var after_data := DialogueLoader.load_json(after_quest_dialogue_path)
+	if after_data == null:
+		push_warning("Interactable '%s': no se pudo cargar after_quest_dialogue_path." % id)
+		return false
+
+	_current_mode = "after_quest"
+	interaction_started.emit(id)
+	_runner.play(after_data, after_quest_dialogue_id, dialogue_voice)
+	return true
+
+
 func _on_dialogue_finished(dialogue_id: String) -> void:
 	# Ignorar finales que no correspondan a este interactuable.
 	if _current_mode == "":
@@ -326,9 +411,18 @@ func _on_dialogue_finished(dialogue_id: String) -> void:
 	# el mapa es el esperado; si se desea conservabilidad por diseño, se
 	# controla por la propiedad `despawn_on_win`, pero por defecto no se
 	# realiza `queue_free` aquí.
+	if mode == "after_quest":
+		_acknowledged_after_quests[after_quest_required] = true
+		var qm_after := get_node_or_null("/root/QuestManager")
+		if complete_quest_on_after_dialogue != "" and qm_after != null and qm_after.has_method("complete_quest"):
+			qm_after.call("complete_quest", str(complete_quest_on_after_dialogue).strip_edges())
+		_refresh_indicator()
+		return
+
 	if mode == "intro":
 		# Si este interactuable tiene misiones por charla, contabilizamos
 		# y marcamos la misión correspondiente cuando aplique.
+		var completed_talk_quest := ""
 		if talk_mission_ids.size() > 0:
 			_talk_count += 1
 			var idx := _talk_count - 1
@@ -337,6 +431,10 @@ func _on_dialogue_finished(dialogue_id: String) -> void:
 				var qid := str(talk_mission_ids[idx]).strip_edges()
 				if qid != "" and qm != null and qm.has_method("complete_quest"):
 					qm.call("complete_quest", qid)
+					completed_talk_quest = qid
+		if not cinematic_on_talk_path.is_empty() and completed_talk_quest == cinematic_on_talk_quest.strip_edges():
+			Gamemanager.request_cinematic(cinematic_on_talk_path, {"play_once": true})
+		_refresh_indicator()
 
 		# Si el inspector indica que la(s) misión(es) vinculada(s) se deben
 		# completar tras el diálogo, notificamos al QuestManager.
@@ -369,6 +467,7 @@ func _queue_battle_transition() -> void:
 	Gamemanager.set_pending_battle_chart_path(battle_chart_path)
 	Gamemanager.set_pending_battle_music(battle_music)
 	battle_requested.emit(battle_scene, id)
+	_refresh_indicator()
 	get_tree().change_scene_to_packed(battle_scene)
 
 

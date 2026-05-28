@@ -19,13 +19,10 @@
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="10_qhud"]
 [ext_resource type="PackedScene" uid="uid://d1u7wfevf7o7i" path="res://scenes/cinematic/ScriptedTrigger.tscn" id="10_uclq6"]
 [ext_resource type="PackedScene" uid="uid://vkjnvbwonuy7" path="res://scenes/map/bully_spawn_manager.tscn" id="12_bsmgr"]
-[ext_resource type="Texture2D" uid="uid://uas7d5b154el" path="res://assets/images/characters/pj1/pj1_idle.png" id="13_30ska"]
 [ext_resource type="SpriteFrames" uid="uid://ipns413yy7tr" path="res://assets/images/characters/npc/npc2/npc2topdown.tres" id="13_tmgcv"]
 [ext_resource type="AudioStream" uid="uid://bcv45n2bj714r" path="res://assets/audio/music/musica_fondo_pasillo.wav" id="15_mrjnl"]
 [ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="15_rqo2c"]
 [ext_resource type="PackedScene" uid="uid://b7wrl2078pq8o" path="res://scenes/cinematic/WaypointPath.tscn" id="16_78kcs"]
-[ext_resource type="Script" uid="uid://dhbmfq72lws8o" path="res://scripts/cinematic/waypoint_path.gd" id="17_2kc6l"]
-[ext_resource type="Script" uid="uid://d1no0sqtffhfq" path="res://scripts/cinematic/follower.gd" id="18_eix18"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tmgcv"]
 size = Vector2(60.666664, 73.33338)
@@ -51,80 +48,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hs4c0"]
-size = Vector2(60.666664, 73.33338)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ah1fr"]
-atlas = ExtResource("13_30ska")
-region = Rect2(0, 0, 800, 807)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j4o0h"]
-atlas = ExtResource("13_30ska")
-region = Rect2(800, 0, 800, 807)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p2b7t"]
-atlas = ExtResource("13_30ska")
-region = Rect2(1600, 0, 800, 807)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cde6h"]
-atlas = ExtResource("13_30ska")
-region = Rect2(2400, 0, 800, 807)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gqpwe"]
-atlas = ExtResource("13_30ska")
-region = Rect2(3200, 0, 800, 807)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7hw1h"]
-atlas = ExtResource("13_30ska")
-region = Rect2(4000, 0, 800, 807)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f24ks"]
-atlas = ExtResource("13_30ska")
-region = Rect2(0, 807, 800, 807)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eat5w"]
-atlas = ExtResource("13_30ska")
-region = Rect2(800, 807, 800, 807)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uo64c"]
-atlas = ExtResource("13_30ska")
-region = Rect2(1600, 807, 800, 807)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_1rggc"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ah1fr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j4o0h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p2b7t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cde6h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gqpwe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7hw1h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f24ks")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eat5w")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uo64c")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 7.0
-}]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sxtst"]
 size = Vector2(60.666664, 70.66667)
 
@@ -133,7 +56,7 @@ size = Vector2(220, 80)
 
 [node name="Mapa" type="Node2D" unique_id=1460360920]
 script = ExtResource("7_mapgd")
-reposition_when_quest_done = ["Bullys/HallwayBully|3.1.1|Markers/BullyExit|hallway_bully_outro", "Bullys/HallwayBully2|3.1.1|Markers/BullyExit2|hallway_bully_outro"]
+reposition_when_quest_done = Array[String](["Bullys/HallwayBully|3.1.1|Markers/BullyExit|hallway_bully_outro", "Bullys/HallwayBully2|3.1.1|Markers/BullyExit2|hallway_bully_outro"])
 
 [node name="Tilemaps" type="Node2D" parent="." unique_id=1814724747]
 scale = Vector2(2.5, 2.5)
@@ -195,7 +118,7 @@ sprite_frames = ExtResource("7_omedl")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="Bullys/HallwayBully" index="2" unique_id=536604281]
-position = Vector2(-2.0000002, -34.434494)
+position = Vector2(-2.0000002, -32.18814)
 bob_amplitude = 4.42
 vertical_offset = -36.605
 font_size = 26
@@ -233,7 +156,7 @@ sprite_frames = ExtResource("13_tmgcv")
 animation = &"idle"
 
 [node name="InteractionIndicator" parent="Bullys/BullyCyber" index="2" unique_id=536604281]
-position = Vector2(-0.6666666, -29.784676)
+position = Vector2(-0.6666666, -27.243553)
 vertical_offset = -32.24
 
 [node name="Barriers" type="Node2D" parent="." unique_id=2047936799]
@@ -243,7 +166,7 @@ position = Vector2(197, 5)
 position = Vector2(-1219, 824.00006)
 scale = Vector2(1, 4.6)
 id = "hallway_bully"
-disabled_by_quests = Array[String](["3.1.1"])
+disabled_by_quests = Array[String](["2.1.4"])
 
 [node name="Triggers" type="Node2D" parent="." unique_id=1928422258]
 position = Vector2(-2006, 1216)
@@ -268,6 +191,9 @@ win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
 dialogue_runner_path = NodePath("../../DialogueRunner")
 dialogue_voice = ExtResource("7_48h8m")
+indicator_quest_ids = Array[String](["4.1.1"])
+cinematic_on_talk_quest = "4.1.1"
+cinematic_on_talk_path = "res://assets/cinematics/companion_to_lab.json"
 
 [node name="CollisionShape2D" parent="Npc/NpcLab" index="0" unique_id=1889423936]
 shape = SubResource("RectangleShape2D_eix18")
@@ -277,55 +203,30 @@ sprite_frames = SubResource("SpriteFrames_etaqi")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="Npc/NpcLab" index="2" unique_id=536604281]
-position = Vector2(0, -61.544674)
+position = Vector2(0, -59.003555)
 
-[node name="LabPath" type="Node2D" parent="Npc/NpcLab" unique_id=476009496 instance=ExtResource("16_78kcs")]
-position = Vector2(3.3333588, 26.666603)
-scale = Vector2(0.6666667, 0.6666667)
-script = ExtResource("17_2kc6l")
+[node name="Routes" type="Node2D" parent="." unique_id=476009497]
 
-[node name="Waypoint3" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=695453025]
-position = Vector2(658, -4.999939)
+[node name="CompanionLabPath" parent="Routes" unique_id=476009496 instance=ExtResource("16_78kcs")]
+position = Vector2(-7, 944)
 
-[node name="Waypoint4" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=1855186929]
-position = Vector2(971, -1.999939)
+[node name="Waypoint3" type="Marker2D" parent="Routes/CompanionLabPath" unique_id=695453024]
+position = Vector2(349, 0)
 
-[node name="Waypoint5" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=153507957]
-position = Vector2(1032, 409.00006)
+[node name="Waypoint4" type="Marker2D" parent="Routes/CompanionLabPath" unique_id=695453025]
+position = Vector2(618, 8)
 
-[node name="Waypoint6" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=1488374659]
-position = Vector2(1452, 415.00006)
+[node name="Waypoint5" type="Marker2D" parent="Routes/CompanionLabPath" unique_id=1855186929]
+position = Vector2(673, 411.00006)
 
-[node name="Waypoint7" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=603068395]
-position = Vector2(2487, 415.00006)
+[node name="Waypoint6" type="Marker2D" parent="Routes/CompanionLabPath" unique_id=153507957]
+position = Vector2(1401, 411.00006)
 
-[node name="Waypoint8" type="Marker2D" parent="Npc/NpcLab/LabPath" unique_id=1705126870]
-position = Vector2(2487, 172.00006)
+[node name="Waypoint7" type="Marker2D" parent="Routes/CompanionLabPath" unique_id=1488374659]
+position = Vector2(2096, 403.00006)
 
-[node name="Follower" type="Node2D" parent="Npc/NpcLab" unique_id=1285863571]
-script = ExtResource("18_eix18")
-path_node = NodePath("../LabPath")
-metadata/_custom_type_script = "uid://d1no0sqtffhfq"
-
-[node name="microfono" parent="." unique_id=534216647 instance=ExtResource("9_intr")]
-position = Vector2(1022, 1023)
-scale = Vector2(1.5, 1.5)
-id = "microfono"
-mission_id = "5.1.3"
-talk_mission_ids = Array[String](["5.1.3"])
-dialogue_json_path = "res://assets/dialogues/map_microfono_final.json"
-win_dialogue_id = "victory"
-lose_dialogue_id = "defeat"
-dialogue_voice = ExtResource("7_48h8m")
-
-[node name="CollisionShape2D" parent="microfono" index="0" unique_id=1889423936]
-shape = SubResource("RectangleShape2D_hs4c0")
-
-[node name="Sprite2D" parent="microfono" index="1" unique_id=858663745]
-sprite_frames = SubResource("SpriteFrames_1rggc")
-
-[node name="InteractionIndicator" parent="microfono" index="2" unique_id=536604281]
-position = Vector2(0, -61.544674)
+[node name="Waypoint8" type="Marker2D" parent="Routes/CompanionLabPath" unique_id=603068395]
+position = Vector2(2098.3335, 183.99994)
 
 [node name="tablerobandas" parent="." unique_id=1018065660 instance=ExtResource("9_intr")]
 position = Vector2(-557, 605)
@@ -346,7 +247,7 @@ shape = SubResource("RectangleShape2D_sxtst")
 sprite_frames = null
 
 [node name="InteractionIndicator" parent="tablerobandas" index="2" unique_id=536604281]
-position = Vector2(-3.3333335, -34.839676)
+position = Vector2(-3.3333335, -32.298553)
 vertical_offset = -37.295
 
 [node name="BullySpawnManager" parent="." unique_id=1546335740 instance=ExtResource("12_bsmgr")]
@@ -413,11 +314,11 @@ shape = SubResource("RectangleShape2D_door")
 [node name="CinematicPlayerLab" type="CanvasLayer" parent="Cinematics" unique_id=1254009849]
 script = ExtResource("15_rqo2c")
 cinematic_json_path = "res://assets/cinematics/companion_to_lab.json"
+auto_play = false
 metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 
 [editable path="Bullys/HallwayBully"]
 [editable path="Bullys/HallwayBully2"]
 [editable path="Bullys/BullyCyber"]
 [editable path="Npc/NpcLab"]
-[editable path="microfono"]
 [editable path="tablerobandas"]
