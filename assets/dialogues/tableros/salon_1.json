@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "text": "Aviso del salón:" },
+        { "text": "Si alguien molesta a un compañero, no mires para otro lado." },
+        { "text": "Hablar con quien lo necesita puede marcar la diferencia." }
+      ]
+    }
+  }
+}

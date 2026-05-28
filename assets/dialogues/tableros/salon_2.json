@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "text": "Cartel del aula:" },
+        { "text": "Algunos problemas no se arreglan solo con palabras." },
+        { "text": "Cuando llegue el momento, confía en el ritmo que practicaste." }
+      ]
+    }
+  }
+}

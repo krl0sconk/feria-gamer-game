@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "text": "Nota en la pared:" },
+        { "text": "Explora tu habitación. A veces la respuesta está más cerca de lo que crees." },
+        { "text": "¿Una guitarra? Puede valer la pena probarla." }
+      ]
+    }
+  }
+}

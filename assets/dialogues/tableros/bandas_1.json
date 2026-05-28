@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "text": "Cartel de la batalla de bandas:" },
+        { "text": "Ronda final frente a la escuela." },
+        { "text": "Rival conocido: el bully de siempre." }
+      ]
+    }
+  }
+}
