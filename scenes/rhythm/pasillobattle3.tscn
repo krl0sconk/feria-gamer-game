@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bipunctwetwkb"]
+
+[ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_u75bi"]
+[ext_resource type="Texture2D" uid="uid://ck45u308f8w0m" path="res://assets/images/backgrounds/bgPasillo.png" id="2_bpqey"]
+[ext_resource type="AudioStream" uid="uid://f5s0a1ryr535" path="res://assets/audio/music/double.wav" id="3_q4q0d"]
+[ext_resource type="SpriteFrames" uid="uid://bnyb0cang2ji2" path="res://assets/images/characters/npc/npc3/npc3.tres" id="4_7v8qy"]
+
+[node name="Battle" unique_id=1239436012 instance=ExtResource("1_u75bi")]
+chart_path = "res://assets/charts/doubletrouble.json"
+lose_scene_path = ""
+
+[node name="Background" parent="." index="0" unique_id=287379656]
+position = Vector2(5.000001, 1)
+scale = Vector2(0.7918985, 0.79189855)
+texture = ExtResource("2_bpqey")
+
+[node name="MusicPlayer" parent="." index="3" unique_id=1075957386]
+stream = ExtResource("3_q4q0d")
+bpm = 200.0
+
+[node name="Metronome" parent="." index="4" unique_id=984578197]
+bpm = 200.0
+
+[node name="AnimatedSprite2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="0" unique_id=1657430708]
+position = Vector2(-11, -7)
+scale = Vector2(0.22998047, 0.22998047)
+sprite_frames = ExtResource("4_7v8qy")
+autoplay = ""
+frame_progress = 0.0
+speed_scale = 1.0
+
+[node name="CollisionShape2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="1" unique_id=1144116667]
+visible = true
+
+[editable path="BattleHUD"]
+[editable path="EnemyBattle"]
