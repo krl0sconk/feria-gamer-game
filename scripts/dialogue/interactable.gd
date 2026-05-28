@@ -186,11 +186,10 @@ func _ready() -> void:
 		_data = DialogueLoader.load_json(dialogue_json_path)
 
 	# If a world state was loaded, try to restore our saved state (non-consuming)
-	var gm: Node = get_node_or_null("/root/Gamemanager") as Node
-	if gm != null and bool(gm.has_loaded_world_state):
+	if Gamemanager.has_loaded_world_state:
 		var key := get_save_state_key()
-		if key != "" and typeof(gm.loaded_world_state) == TYPE_DICTIONARY and (gm.loaded_world_state as Dictionary).has(key):
-			var st: Dictionary = (gm.loaded_world_state as Dictionary).get(key) as Dictionary
+		if key != "" and Gamemanager.loaded_world_state.has(key):
+			var st: Dictionary = Gamemanager.loaded_world_state.get(key, {})
 			if typeof(st) == TYPE_DICTIONARY:
 				apply_state(st)
 

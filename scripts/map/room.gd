@@ -107,8 +107,7 @@ func _create_exit_area(pos: Vector2, size: Vector2 = Vector2.ZERO, pos_is_global
 	var cs := CollisionShape2D.new()
 	var shape := RectangleShape2D.new()
 	var use_size := size if size != Vector2.ZERO else exit_area_size
-	# RectangleShape2D in code uses extents
-	shape.extents = use_size * 0.5
+	shape.size = use_size
 	cs.shape = shape
 	cs.position = Vector2.ZERO
 	area.add_child(cs)
