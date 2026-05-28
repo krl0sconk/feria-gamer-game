@@ -170,7 +170,7 @@ func _refresh_quests() -> void:
 	for quest in quests_to_show:
 		if quest.id == "quest_intro":
 			intro_quest = quest
-		# Solo mostrar visibles
+		# Solo mostrar visibles (ocultas y desactivadas quedan fuera del HUD).
 		if quest.visibility_state != Quest.QuestVisibility.VISIBLE:
 			continue
 		if _is_main_quest_id(quest.id):
@@ -337,6 +337,8 @@ func _get_subquests_for_main(main_id: String) -> Array:
 	if prefix == "":
 		return out
 	for q in all:
+		if q.visibility_state == Quest.QuestVisibility.DESACTIVADA:
+			continue
 		var id := str(q.id)
 		if id.begins_with(prefix) and not _is_main_quest_id(id):
 			out.append(q)

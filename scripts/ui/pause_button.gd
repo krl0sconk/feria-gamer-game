@@ -9,7 +9,20 @@ func _ready() -> void:
 	if not _button.pressed.is_connected(_on_pause_pressed):
 		_button.pressed.connect(_on_pause_pressed)
 
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not (event is InputEventKey and event.pressed and not event.is_echo()):
+		return
+	if event.keycode == KEY_ESCAPE or event.is_action_pressed("ui_cancel"):
+		_toggle_pause_menu()
+		get_viewport().set_input_as_handled()
+
+
 func _on_pause_pressed() -> void:
+	_toggle_pause_menu()
+
+
+func _toggle_pause_menu() -> void:
 	var tree := get_tree()
 	if tree == null:
 		push_error("PauseButton: no SceneTree disponible")
@@ -22,6 +35,8 @@ func _on_pause_pressed() -> void:
 		ui_host = host
 	var existing := ui_host.get_node_or_null("PauseMenu")
 	if existing != null:
+		tree.paused = false
+		existing.queue_free()
 		return
 	var scene := load(PAUSE_MENU_SCENE_PATH) as PackedScene
 	if scene == null:

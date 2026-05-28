@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://uv2v2rcs4htf" path="res://scripts/dialogue/interactable.gd" id="10_6nkgt"]
 [ext_resource type="PackedScene" uid="uid://bpjxvmi61lq5" path="res://scenes/rhythm/tutorial.tscn" id="11_battle"]
 [ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="13_c6l7p"]
+[ext_resource type="SpriteFrames" uid="uid://dqooq3nulalfk" path="res://assets/images/world_assets/tablero.tres" id="14_hwiog"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6l7p"]
 size = Vector2(37.333336, 49)
@@ -58,7 +59,7 @@ sprite_frames = ExtResource("6_nq8on")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="Guitarra_Tutorial" index="2" unique_id=536604281]
-position = Vector2(-2, -66.82761)
+position = Vector2(-2, -65.52716)
 
 [node name="Guitar" type="Sprite2D" parent="Guitarra_Tutorial" unique_id=1668956319]
 position = Vector2(-9.536743e-07, 1.1920929e-06)
@@ -132,4 +133,23 @@ position = Vector2(-122, -147)
 position = Vector2(21, 37)
 shape = SubResource("RectangleShape2D_exit")
 
+[node name="tablero_habitacion" parent="." unique_id=1136967618 instance=ExtResource("8_dew3o")]
+position = Vector2(33, -87)
+scale = Vector2(0.68, 0.68)
+id = "tablero_habitacion"
+dialogue_json_path = "res://assets/dialogues/tableros/habitacion.json"
+
+[node name="CollisionShape2D" parent="tablero_habitacion" index="0" unique_id=1889423936]
+position = Vector2(0, 29.411764)
+scale = Vector2(0.9999996, 0.9999996)
+
+[node name="Sprite2D" parent="tablero_habitacion" index="1" unique_id=858663745]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("14_hwiog")
+animation = &"default"
+
+[node name="InteractionIndicator" parent="tablero_habitacion" index="2" unique_id=536604281]
+position = Vector2(-2, -65.52716)
+
 [editable path="Guitarra_Tutorial"]
+[editable path="tablero_habitacion"]

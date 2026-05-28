@@ -13,9 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://dkrd76y7ipit4" path="res://scenes/ui/pause_button.tscn" id="9_hb1b8"]
 [ext_resource type="Script" uid="uid://cvb28nsoo4xmq" path="res://scripts/map/map.gd" id="10_mapgd"]
 [ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="11_cingd"]
+[ext_resource type="SpriteFrames" uid="uid://dqooq3nulalfk" path="res://assets/images/world_assets/tablero.tres" id="14_6l070"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit_top"]
 size = Vector2(900, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g8ceu"]
+size = Vector2(60.666664, 80.66666)
 
 [node name="Backyard" type="Node2D" unique_id=1617861522]
 script = ExtResource("10_mapgd")
@@ -59,7 +63,7 @@ sprite_frames = ExtResource("7_b1dcw")
 animation = &"idle"
 
 [node name="InteractionIndicator" parent="BullyFinal" index="2" unique_id=536604281]
-position = Vector2(-2, -38.138813)
+position = Vector2(-2, -40.464993)
 vertical_offset = -35.705
 
 [node name="DialogueRunner" parent="." unique_id=429825200 instance=ExtResource("7_2e31x")]
@@ -89,7 +93,8 @@ sprite_frames = ExtResource("6_2e31x")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="NpcPatio" index="2" unique_id=536604281]
-position = Vector2(-2, -66.433815)
+visible = false
+position = Vector2(-2, -68.759995)
 
 [node name="NpcPatio2" parent="." unique_id=357273184 instance=ExtResource("3_anvsj")]
 position = Vector2(786, 240)
@@ -105,7 +110,8 @@ sprite_frames = ExtResource("6_2e31x")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="NpcPatio2" index="2" unique_id=536604281]
-position = Vector2(-2, -66.433815)
+visible = false
+position = Vector2(-2, -68.759995)
 
 [node name="NpcPatio3" parent="." unique_id=1162385439 instance=ExtResource("3_anvsj")]
 position = Vector2(173, 164)
@@ -121,7 +127,8 @@ sprite_frames = ExtResource("6_2e31x")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="NpcPatio3" index="2" unique_id=536604281]
-position = Vector2(-2, -66.433815)
+visible = false
+position = Vector2(-2, -68.759995)
 
 [node name="NpcPatio4" parent="." unique_id=1176136112 instance=ExtResource("3_anvsj")]
 position = Vector2(185, 403)
@@ -137,7 +144,8 @@ sprite_frames = ExtResource("6_2e31x")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="NpcPatio4" index="2" unique_id=536604281]
-position = Vector2(-2, -66.433815)
+visible = false
+position = Vector2(-2, -68.759995)
 
 [node name="NpcPatio5" parent="." unique_id=1505712734 instance=ExtResource("3_anvsj")]
 position = Vector2(823, 447.00003)
@@ -153,7 +161,8 @@ sprite_frames = ExtResource("6_2e31x")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="NpcPatio5" index="2" unique_id=536604281]
-position = Vector2(-2, -66.433815)
+visible = false
+position = Vector2(-2, -68.759995)
 
 [node name="NpcPatio6" parent="." unique_id=2035498871 instance=ExtResource("3_anvsj")]
 position = Vector2(858, 122.00003)
@@ -169,7 +178,8 @@ sprite_frames = ExtResource("6_2e31x")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="NpcPatio6" index="2" unique_id=536604281]
-position = Vector2(-2, -66.433815)
+visible = false
+position = Vector2(-2, -68.759995)
 
 [node name="NpcPatio7" parent="." unique_id=1395771330 instance=ExtResource("3_anvsj")]
 position = Vector2(274, 112.00001)
@@ -185,7 +195,8 @@ sprite_frames = ExtResource("6_2e31x")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="NpcPatio7" index="2" unique_id=536604281]
-position = Vector2(-2, -66.433815)
+visible = false
+position = Vector2(-2, -68.759995)
 
 [node name="CinematicPlayer" type="CanvasLayer" parent="." unique_id=2100000001]
 script = ExtResource("11_cingd")
@@ -209,6 +220,44 @@ shape = SubResource("RectangleShape2D_exit_top")
 position = Vector2(561, -40)
 scale = Vector2(2, 2)
 
+[node name="tablero_bandas_1" parent="." unique_id=1903633287 instance=ExtResource("3_anvsj")]
+position = Vector2(191, -40.999992)
+scale = Vector2(0.7, 0.7)
+id = "tablero_bandas_1"
+dialogue_json_path = "res://assets/dialogues/tableros/bandas_1.json"
+
+[node name="Sprite2D" parent="tablero_bandas_1" index="1" unique_id=858663745]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("14_6l070")
+animation = &"default"
+
+[node name="InteractionIndicator" parent="tablero_bandas_1" index="2" unique_id=536604281]
+position = Vector2(-2, -64.52148)
+
+[node name="tablerobandas" parent="." unique_id=948535850 instance=ExtResource("3_anvsj")]
+position = Vector2(907.00006, -53)
+scale = Vector2(1.5, 1.5)
+id = "tablero"
+mission_id = "5.1.1"
+talk_mission_ids = Array[String](["5.1.1"])
+dialogue_json_path = "res://assets/dialogues/map_tablero_bandas.json"
+win_dialogue_id = "victory"
+lose_dialogue_id = "defeat"
+dialogue_voice = ExtResource("5_r3g8p")
+
+[node name="CollisionShape2D" parent="tablerobandas" index="0" unique_id=1889423936]
+position = Vector2(0.666626, 10.33334)
+shape = SubResource("RectangleShape2D_g8ceu")
+
+[node name="Sprite2D" parent="tablerobandas" index="1" unique_id=858663745]
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("14_6l070")
+animation = &"default"
+
+[node name="InteractionIndicator" parent="tablerobandas" index="2" unique_id=536604281]
+position = Vector2(-3.3333335, -34.257298)
+vertical_offset = -37.295
+
 [editable path="BullyFinal"]
 [editable path="NpcPatio"]
 [editable path="NpcPatio2"]
@@ -217,3 +266,5 @@ scale = Vector2(2, 2)
 [editable path="NpcPatio5"]
 [editable path="NpcPatio6"]
 [editable path="NpcPatio7"]
+[editable path="tablero_bandas_1"]
+[editable path="tablerobandas"]

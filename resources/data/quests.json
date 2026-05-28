@@ -37,16 +37,6 @@
 			"visibility_state": 1
 		},
 		{
-			"description": "un amigo del bully te esta molestando por defender a tu compañero, tambien enfrentalo antes de poner en su lugar al bully",
-			"id": "2.1.2",
-			"progress_state": 0,
-			"requires_ids": [
-				"2.1.1"
-			],
-			"title": "Repasemos lo aprendido",
-			"visibility_state": 1
-		},
-		{
 			"description": "ganale al bully en su propio juego",
 			"id": "2.1.3",
 			"progress_state": 0,
@@ -54,7 +44,7 @@
 				"1.1.0"
 			],
 			"title": "Un nuevo reto",
-			"visibility_state": 1
+			"visibility_state": 0
 		},
 		{
 			"description": "interactua con el compañero al que ayudaste ",

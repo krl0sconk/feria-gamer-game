@@ -23,6 +23,7 @@
 [ext_resource type="AudioStream" uid="uid://bcv45n2bj714r" path="res://assets/audio/music/musica_fondo_pasillo.wav" id="15_mrjnl"]
 [ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="15_rqo2c"]
 [ext_resource type="PackedScene" uid="uid://b7wrl2078pq8o" path="res://scenes/cinematic/WaypointPath.tscn" id="16_78kcs"]
+[ext_resource type="SpriteFrames" uid="uid://dqooq3nulalfk" path="res://assets/images/world_assets/tablero.tres" id="17_3xi6f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tmgcv"]
 size = Vector2(60.666664, 73.33338)
@@ -47,9 +48,6 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sxtst"]
-size = Vector2(60.666664, 70.66667)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
 size = Vector2(220, 80)
@@ -118,7 +116,7 @@ sprite_frames = ExtResource("7_omedl")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="Bullys/HallwayBully" index="2" unique_id=536604281]
-position = Vector2(-2.0000002, -32.18814)
+position = Vector2(-2.0000002, -40.510334)
 bob_amplitude = 4.42
 vertical_offset = -36.605
 font_size = 26
@@ -156,7 +154,7 @@ sprite_frames = ExtResource("13_tmgcv")
 animation = &"idle"
 
 [node name="InteractionIndicator" parent="Bullys/BullyCyber" index="2" unique_id=536604281]
-position = Vector2(-0.6666666, -27.243553)
+position = Vector2(-0.6666666, -36.6578)
 vertical_offset = -32.24
 
 [node name="Barriers" type="Node2D" parent="." unique_id=2047936799]
@@ -203,7 +201,7 @@ sprite_frames = SubResource("SpriteFrames_etaqi")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="Npc/NpcLab" index="2" unique_id=536604281]
-position = Vector2(0, -59.003555)
+position = Vector2(0, -68.4178)
 
 [node name="Routes" type="Node2D" parent="." unique_id=476009497]
 
@@ -228,27 +226,19 @@ position = Vector2(2096, 403.00006)
 [node name="Waypoint8" type="Marker2D" parent="Routes/CompanionLabPath" unique_id=603068395]
 position = Vector2(2098.3335, 183.99994)
 
-[node name="tablerobandas" parent="." unique_id=1018065660 instance=ExtResource("9_intr")]
-position = Vector2(-557, 605)
-scale = Vector2(1.5, 1.5)
-id = "tablero"
-mission_id = "5.1.1"
-talk_mission_ids = Array[String](["5.1.1"])
-dialogue_json_path = "res://assets/dialogues/map_tablero_bandas.json"
-win_dialogue_id = "victory"
-lose_dialogue_id = "defeat"
-dialogue_voice = ExtResource("7_48h8m")
+[node name="tablero_pasillo_2" parent="." unique_id=878503726 instance=ExtResource("9_intr")]
+position = Vector2(-1281, 593)
+scale = Vector2(0.7575, 0.7575)
+id = "tablero_pasillo_2"
+dialogue_json_path = "res://assets/dialogues/tableros/pasillo_2.json"
 
-[node name="CollisionShape2D" parent="tablerobandas" index="0" unique_id=1889423936]
-position = Vector2(0.6666565, 5.3333435)
-shape = SubResource("RectangleShape2D_sxtst")
+[node name="Sprite2D" parent="tablero_pasillo_2" index="1" unique_id=858663745]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("17_3xi6f")
+animation = &"default"
 
-[node name="Sprite2D" parent="tablerobandas" index="1" unique_id=858663745]
-sprite_frames = null
-
-[node name="InteractionIndicator" parent="tablerobandas" index="2" unique_id=536604281]
-position = Vector2(-3.3333335, -32.298553)
-vertical_offset = -37.295
+[node name="InteractionIndicator" parent="tablero_pasillo_2" index="2" unique_id=536604281]
+position = Vector2(-2, -68.39723)
 
 [node name="BullySpawnManager" parent="." unique_id=1546335740 instance=ExtResource("12_bsmgr")]
 
@@ -317,8 +307,37 @@ cinematic_json_path = "res://assets/cinematics/companion_to_lab.json"
 auto_play = false
 metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 
+[node name="tablero_cybersalon" parent="." unique_id=1833107646 instance=ExtResource("9_intr")]
+position = Vector2(1886.9999, 680)
+scale = Vector2(0.905, 0.905)
+id = "tablero_cybersalon"
+dialogue_json_path = "res://assets/dialogues/tableros/cybersalon.json"
+
+[node name="Sprite2D" parent="tablero_cybersalon" index="1" unique_id=858663745]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("17_3xi6f")
+animation = &"default"
+
+[node name="InteractionIndicator" parent="tablero_cybersalon" index="2" unique_id=536604281]
+position = Vector2(-2, -68.387276)
+
+[node name="tablero_pasillo_1" parent="tablero_cybersalon" unique_id=563795914 instance=ExtResource("9_intr")]
+position = Vector2(-935.9115, -269.61325)
+id = "tablero_pasillo_1"
+dialogue_json_path = "res://assets/dialogues/tableros/pasillo_1.json"
+
+[node name="Sprite2D" parent="tablero_cybersalon/tablero_pasillo_1" index="1" unique_id=858663745]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("17_3xi6f")
+animation = &"default"
+
+[node name="InteractionIndicator" parent="tablero_cybersalon/tablero_pasillo_1" index="2" unique_id=536604281]
+position = Vector2(-2, -66.02011)
+
 [editable path="Bullys/HallwayBully"]
 [editable path="Bullys/HallwayBully2"]
 [editable path="Bullys/BullyCyber"]
 [editable path="Npc/NpcLab"]
-[editable path="tablerobandas"]
+[editable path="tablero_pasillo_2"]
+[editable path="tablero_cybersalon"]
+[editable path="tablero_cybersalon/tablero_pasillo_1"]

@@ -144,7 +144,7 @@ func _update_walk_animation(direction: Vector2) -> void:
 		if moving:
 			if absf(direction.x) > absf(direction.y):
 				_facing_dir = "side"
-				$Animated.flip_h = direction.x < 0.0
+				$Animated.flip_h = direction.x > 0.0
 				if $Animated.sprite_frames.has_animation("walk_side"):
 					$Animated.play("walk_side")
 			elif direction.y < 0.0:
