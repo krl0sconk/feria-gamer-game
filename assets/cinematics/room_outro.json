@@ -7,7 +7,7 @@
 	},
 	"steps": [
 		{ "type": "disable_player" },
-		{ "type": "dialogue", "path": "res://assets/cinematics/room_outro_dialogue.json", "id": "mama" },
+		{ "type": "dialogue", "path": "res://assets/cinematics/room_outro_dialogue.json", "id": "mama", "voice_path": "res://assets/audio/sfx/dialogue1.wav" },
 		{ "type": "enable_player" }
 	]
 }

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mp7cjca8cok5"
-path="res://.godot/imported/girlbully.png-662efc3a1a8597e379c8c9f8e05c5b24.ctex"
+uid="uid://b4y3mtu746sv7"
+path="res://.godot/imported/npcs.png-769c3d0a31828ffd944efe5c780d0f4d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/characters/npc/girlbully.png"
-dest_files=["res://.godot/imported/girlbully.png-662efc3a1a8597e379c8c9f8e05c5b24.ctex"]
+source_file="res://assets/images/characters/npc/npcs.png"
+dest_files=["res://.godot/imported/npcs.png-769c3d0a31828ffd944efe5c780d0f4d.ctex"]
 
 [params]
 

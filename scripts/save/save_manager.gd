@@ -162,13 +162,18 @@ func _build_default_payload(slot_idx: int) -> Dictionary:
 			continue
 		world_flags[key] = state
 
+	var cinematics_data: Dictionary = {}
+	if gm_node != null:
+		cinematics_data = gm_node.cinematics_played.duplicate()
+
 	var out := {
 		"save_version": 1,
 		"metadata": meta,
 		"player": player_data,
 		"quests": quests_data,
 		"scores": scores,
-		"world_flags": world_flags
+		"world_flags": world_flags,
+		"cinematics_played": cinematics_data,
 	}
 	return out
 

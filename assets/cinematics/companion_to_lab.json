@@ -1,0 +1,10 @@
+{
+	"version": 1,
+	"id": "companion_to_lab",
+	"steps": [
+		{ "type": "disable_player" },
+		{ "type": "walk_path", "node": "Npc/NpcLab", "to_path": "Routes/CompanionLabPath", "speed": 110, "face_direction": true, "animation": "default", "idle_animation": "default" },
+		{ "type": "dialogue", "path": "res://assets/dialogues/map_companera2.json", "id": "win" },
+		{ "type": "enable_player" }
+	]
+}

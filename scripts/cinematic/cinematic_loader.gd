@@ -25,10 +25,32 @@
 #   fade_to_black / fade_from_black  — fundido a negro y vuelta, "duration" en s
 #   wait                             — espera "seconds" segundos
 #   dialogue       — reproduce un diálogo: "path" al JSON, "id" del diálogo
-#   move_node      — mueve un nodo 2D de la escena: "node" (NodePath desde root),
-#                    "to": [x, y], "duration" en segundos
+#   move_node      — mueve un nodo 2D: "node" (NodePath desde root),
+#                    destino vía "to_node", "to_path" (WaypointPath) o "to": [x,y],
+#                    "duration" en segundos
 #   show_node / hide_node — muestra u oculta un nodo de la escena: "node"
 #   disable_player / enable_player   — bloquea/desbloquea el movimiento del jugador
+#   walk_to        — camina con animación: "node", destino vía to_node/to_path/to,
+#                    "speed" (px/s) o "duration" (s), "animation", "idle_animation",
+#                    "face_direction" (bool, default true)
+#   walk_path      — recorre un WaypointPath: "node", "to_path", "speed", "wait_per_point"
+#   face_direction — mira hacia "look_at_node" o "direction" (left/right/up/down)
+#   play_animation — "node", "animation", "wait_finish", "idle_animation"
+#   set_collision  — "node" (CollisionShape2D o body), "enabled" (bool)
+#   wait_for_player_near — "to_node" o "node", "distance", "timeout" (0 = sin límite)
+#   enable_barrier   — activa ScriptedBarrier por "id"
+#   disable_barrier  — desactiva ScriptedBarrier por "id"
+#   start_battle     — lanza batalla como Interactable: "battle_scene_path", "return_npc_id",
+#                      "chart_path" y "music_path" opcionales
+#   follower_lead    — NPC guía por WaypointPath: "node", "path_node" (o "to_path"), "speed",
+#                      "wait_for_arrival" (bool, default true)
+#   follower_follow  — NPC sigue a "target" (NodePath, default "Player"), "speed" opcional
+#   follower_stop    — detiene el Follower del "node"
+#   camera_focus     — pan/zoom hacia "target" (NodePath), "duration", "zoom" (0 = sin cambio)
+#   camera_release   — restaura cámara al player, "duration"
+#   shake_camera     — sacudida: "intensity", "duration"
+#   letterbox        — barras negras: "enabled", "bar_height", "duration"
+#   play_sfx         — one-shot: "stream_path", "bus" (default SFX), "volume_db", "wait_finish"
 #
 # Uso:
 #   var data := CinematicLoader.load_json("res://assets/cinematics/room_intro.json")

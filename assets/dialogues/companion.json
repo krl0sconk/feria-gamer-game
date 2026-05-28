@@ -1,0 +1,17 @@
+{
+	"version": 1,
+	"dialogues": {
+		"lets_go": {
+			"lines": [
+				{ "speaker": "Compañera", "text": "El laboratorio queda al fondo del pasillo. Ven conmigo." },
+				{ "speaker": "Jugador", "text": "Vamos." }
+			]
+		},
+		"we_are_here": {
+			"lines": [
+				{ "speaker": "Compañera", "text": "Llegamos. Entra cuando quieras." },
+				{ "speaker": "Jugador", "text": "Perfecto, gracias por guiarme." }
+			]
+		}
+	}
+}

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cubme0nku6c7i"
-path="res://.godot/imported/duobully.png-c2e7186ff6f1e5245282755dd524bfa2.ctex"
+uid="uid://xklytp6po3ge"
+path="res://.godot/imported/pj4_walk.png-375d26f9f7de6f34f2e20d3202b6d749.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/characters/npc/duobully.png"
-dest_files=["res://.godot/imported/duobully.png-c2e7186ff6f1e5245282755dd524bfa2.ctex"]
+source_file="res://assets/images/characters/pj4/pj4_walk.png"
+dest_files=["res://.godot/imported/pj4_walk.png-375d26f9f7de6f34f2e20d3202b6d749.ctex"]
 
 [params]
 

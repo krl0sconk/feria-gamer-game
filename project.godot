@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="Beat the bully"
-config/description="Beat the Bully es un RPG rítmico 2D ambientado en una High School de los años 90, donde la música es la única arma contra el bullying."
-config/version="0.1.5"
-run/main_scene="res://scenes/menu/main_menu.tscn"
+config/description="Beat the Bully es un RPG rítmico 2D ambientado en una High School de los años 90, donde la música es la única arma contra el bullying.s"
+config/version="0.1.7"
+run/main_scene="res://scenes/menu/splash.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(1, 1, 1, 1)
 boot_splash/stretch_mode=0
@@ -36,6 +36,10 @@ SaveManager="*res://scripts/save/save_manager.gd"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/cinematic_authoring/plugin.cfg")
 
 [input]
 

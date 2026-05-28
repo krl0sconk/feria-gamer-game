@@ -54,6 +54,12 @@ scale = Vector2(1.5, 1.5)
 id = "compañero1"
 secondary_mission_id = "2.1.3"
 talk_mission_ids = Array[String](["2.1.1"])
+indicator_quest_ids = Array[String](["2.1.1"])
+indicator_after_quests = Array[String](["2.1.3"])
+after_quest_required = "2.1.3"
+after_quest_dialogue_path = "res://assets/cinematics/classroom_outro_dialogue.json"
+after_quest_dialogue_id = "salida"
+complete_quest_on_after_dialogue = "2.1.4"
 dialogue_json_path = "res://assets/dialogues/classroom_companero1.json"
 intro_dialogue_completed_id = "win"
 win_dialogue_id = "victory"
@@ -125,11 +131,13 @@ metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 [node name="CinematicPlayer2" type="CanvasLayer" parent="." unique_id=358245731]
 script = ExtResource("14_4cdl6")
 cinematic_json_path = "res://assets/cinematics/classroom_outro.json"
+auto_play = false
 metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 
 [node name="CinematicPlayer3" type="CanvasLayer" parent="." unique_id=1905363756]
 script = ExtResource("14_4cdl6")
 cinematic_json_path = "res://assets/cinematics/classroom_exit.json"
+play_once = false
 metadata/_custom_type_script = "uid://dmhjsredjb7nj"
 
 [node name="TriggerArea" type="Area2D" parent="CinematicPlayer3" unique_id=2000000004]

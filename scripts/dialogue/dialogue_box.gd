@@ -2,7 +2,7 @@
 # (revelado letra por letra) y reproduce un "blip" estilo 8-bit cada N
 # caracteres como voz del personaje.
 #
-# Comportamiento de input (`ui_accept`):
+# Comportamiento de input (`ui_accept` o `Interact`):
 #   1ra pulsación → completa la línea al instante (skip del typewriter).
 #   2da pulsación → emite `advance_requested` (avanzar al siguiente).
 #
@@ -11,7 +11,7 @@
 class_name DialogueBox
 extends Control
 
-## Se emite cuando el jugador presiona `ui_accept` y la línea ya estaba
+## Se emite cuando el jugador presiona `ui_accept` o `Interact` y la línea ya estaba
 ## completamente revelada (queremos pasar a la siguiente).
 signal advance_requested
 
@@ -147,14 +147,15 @@ func _play_blip() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
 		return
-	if event.is_action_pressed("ui_accept"):
-		# Convención clásica de RPG/AVG:
-		#   - Si está escribiendo → primer accept completa la línea.
-		#   - Si ya está completa → segundo accept avanza.
-		if not _typing_complete:
-			complete_line()
-		else:
-			advance_requested.emit()
-		var vp := get_viewport()
-		if vp != null:
-			vp.set_input_as_handled()
+	if not (event.is_action_pressed("ui_accept") or event.is_action_pressed("Interact")):
+		return
+	# Convención clásica de RPG/AVG:
+	#   - Si está escribiendo → primer accept completa la línea.
+	#   - Si ya está completa → segundo accept avanza.
+	if not _typing_complete:
+		complete_line()
+	else:
+		advance_requested.emit()
+	var vp := get_viewport()
+	if vp != null:
+		vp.set_input_as_handled()
