@@ -11,6 +11,7 @@
 		{ "type": "face_direction", "node": "Bullys/HallwayBully", "look_at_node": "Player" },
 		{ "type": "face_direction", "node": "Bullys/HallwayBully2", "look_at_node": "Player" },
 		{ "type": "dialogue", "path": "res://assets/dialogues/map_bully_03_pasillo.json", "id": "intro" },
+		{ "type": "enable_barrier", "id": "hallway_bully" },
 		{ "type": "start_battle", "chart_path": "res://assets/charts/doubletrouble.json", "battle_scene_path": "res://scenes/rhythm/double_battle.tscn", "return_npc_id": "hallway_bully" }
 	]
 }

@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://f5s0a1ryr535" path="res://assets/audio/music/double.wav" id="3_kdl1l"]
 [ext_resource type="SpriteFrames" uid="uid://bnyb0cang2ji2" path="res://assets/images/characters/npc/npc3/npc3.tres" id="4_mabry"]
 
-[node name="Battle" unique_id=1239436012 instance=ExtResource("1_4tc1s")]
+[node name="Battle3" unique_id=1239436012 instance=ExtResource("1_4tc1s")]
 chart_path = "res://assets/charts/doubletrouble.json"
 lose_scene_path = ""
 
@@ -21,12 +21,25 @@ bpm = 200.0
 [node name="Metronome" parent="." index="4" unique_id=984578197]
 bpm = 200.0
 
+[node name="ScoreLabel" parent="BattleHUD/Root/Node2D" parent_id_path=PackedInt32Array(1023945652, 1504510280) index="0" unique_id=1195142958]
+anchors_preset = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 190.0
+offset_bottom = 59.0
+
+[node name="ComboLabel" parent="BattleHUD/Root/Node2D" parent_id_path=PackedInt32Array(1023945652, 1504510280) index="1" unique_id=1120566323]
+anchors_preset = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 185.0
+offset_bottom = 44.0
+
 [node name="AnimatedSprite2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="0" unique_id=1657430708]
-position = Vector2(-11, -7)
-scale = Vector2(0.5, 0.5)
+position = Vector2(-10, 11)
+scale = Vector2(0.24609375, 0.24609375)
 sprite_frames = ExtResource("4_mabry")
-autoplay = ""
-frame_progress = 0.0
+animation = &"Enemy"
 speed_scale = 1.0
 
 [node name="CollisionShape2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="1" unique_id=1144116667]

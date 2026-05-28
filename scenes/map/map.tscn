@@ -24,7 +24,7 @@
 [ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="15_rqo2c"]
 [ext_resource type="PackedScene" uid="uid://b7wrl2078pq8o" path="res://scenes/cinematic/WaypointPath.tscn" id="16_78kcs"]
 [ext_resource type="SpriteFrames" uid="uid://dqooq3nulalfk" path="res://assets/images/world_assets/tablero.tres" id="17_3xi6f"]
-[ext_resource type="Script" path="res://scripts/map/backyard_gate.gd" id="18_bgate"]
+[ext_resource type="Script" uid="uid://dnqmgntj105sb" path="res://scripts/map/backyard_gate.gd" id="18_bgate"]
 [ext_resource type="Texture2D" uid="uid://cynj57f0goofd" path="res://assets/images/world_assets/Speaker.png" id="19_speaker"]
 [ext_resource type="Texture2D" uid="uid://bk8ct3n8gdejj" path="res://assets/images/world_assets/Posted Papers 2.png" id="20_posted"]
 [ext_resource type="Texture2D" uid="uid://b87ol4ny4xk23" path="res://assets/images/world_assets/Box.png" id="21_box"]
@@ -34,6 +34,9 @@ size = Vector2(60.666664, 73.33338)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xks3a"]
 size = Vector2(60.666664, 73.33338)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gate"]
+size = Vector2(160, 90)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eix18"]
 size = Vector2(60.666664, 73.33338)
@@ -55,9 +58,6 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
 size = Vector2(220, 80)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gate"]
-size = Vector2(160, 90)
 
 [node name="Mapa" type="Node2D" unique_id=1460360920]
 script = ExtResource("7_mapgd")
@@ -87,6 +87,12 @@ tile_set = ExtResource("2_sqgf4")
 
 [node name="BullyStopPos" type="Marker2D" parent="Markers" unique_id=593028417]
 position = Vector2(-1089, 922)
+
+[node name="BullyStopPos2" type="Marker2D" parent="Markers" unique_id=593028418]
+position = Vector2(-1060, 900)
+
+[node name="HallwayRematchPos" type="Marker2D" parent="Markers" unique_id=593028419]
+position = Vector2(-1135, 960)
 
 [node name="BullyExit" type="Marker2D" parent="Markers" unique_id=1030025940]
 position = Vector2(253, 944)
@@ -123,7 +129,7 @@ sprite_frames = ExtResource("7_omedl")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="Bullys/HallwayBully" index="2" unique_id=536604281]
-position = Vector2(-2.0000002, -40.510334)
+position = Vector2(-2.0000002, -33.031197)
 bob_amplitude = 4.42
 vertical_offset = -36.605
 font_size = 26
@@ -161,22 +167,21 @@ sprite_frames = ExtResource("13_tmgcv")
 animation = &"idle"
 
 [node name="InteractionIndicator" parent="Bullys/BullyCyber" index="2" unique_id=536604281]
-position = Vector2(-0.6666666, -36.6578)
+position = Vector2(-0.6666666, -28.197235)
 vertical_offset = -32.24
 
 [node name="Barriers" type="Node2D" parent="." unique_id=2047936799]
 position = Vector2(197, 5)
 
 [node name="Hallway" parent="Barriers" unique_id=596673765 instance=ExtResource("8_58ndj")]
-position = Vector2(-1219, 824.00006)
-scale = Vector2(1, 4.6)
+position = Vector2(-1177, 824.00006)
+scale = Vector2(1, 3.2)
 id = "hallway_bully"
-disabled_by_quests = Array[String](["2.1.4"])
+disabled_by_quests = Array[String](["3.1.1"])
 
 [node name="BackyardGate" type="Node2D" parent="." unique_id=2100000100]
 position = Vector2(679, 1642)
 script = ExtResource("18_bgate")
-unlock_quest = "5.1.1"
 
 [node name="BarricadeVisual" type="Node2D" parent="BackyardGate" unique_id=2100000101]
 
@@ -217,11 +222,9 @@ show_indicator = false
 position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_gate")
 
-[node name="Sprite2D" parent="BackyardGate/GateSign" index="1" unique_id=858663745]
-visible = false
-
 [node name="InteractionIndicator" parent="BackyardGate/GateSign" index="2" unique_id=536604281]
 visible = false
+position = Vector2(-2, -59.957237)
 
 [node name="Triggers" type="Node2D" parent="." unique_id=1928422258]
 position = Vector2(-2006, 1216)
@@ -258,7 +261,7 @@ sprite_frames = SubResource("SpriteFrames_etaqi")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="Npc/NpcLab" index="2" unique_id=536604281]
-position = Vector2(0, -68.4178)
+position = Vector2(0, -59.957237)
 
 [node name="Routes" type="Node2D" parent="." unique_id=476009497]
 
@@ -289,13 +292,16 @@ scale = Vector2(0.7575, 0.7575)
 id = "tablero_pasillo_2"
 dialogue_json_path = "res://assets/dialogues/tableros/pasillo_2.json"
 
+[node name="CollisionShape2D" parent="tablero_pasillo_2" index="0" unique_id=1889423936]
+position = Vector2(1.320132, 44.884487)
+
 [node name="Sprite2D" parent="tablero_pasillo_2" index="1" unique_id=858663745]
 scale = Vector2(2.756, 2.655)
 sprite_frames = ExtResource("17_3xi6f")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="tablero_pasillo_2" index="2" unique_id=536604281]
-position = Vector2(-2, -68.39723)
+position = Vector2(-2, -59.957237)
 
 [node name="BullySpawnManager" parent="." unique_id=1546335740 instance=ExtResource("12_bsmgr")]
 
@@ -376,7 +382,7 @@ sprite_frames = ExtResource("17_3xi6f")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="tablero_cybersalon" index="2" unique_id=536604281]
-position = Vector2(-2, -68.387276)
+position = Vector2(-2, -59.957237)
 
 [node name="tablero_pasillo_1" parent="tablero_cybersalon" unique_id=563795914 instance=ExtResource("9_intr")]
 position = Vector2(-935.9115, -269.61325)
@@ -389,7 +395,7 @@ sprite_frames = ExtResource("17_3xi6f")
 animation = &"default"
 
 [node name="InteractionIndicator" parent="tablero_cybersalon/tablero_pasillo_1" index="2" unique_id=536604281]
-position = Vector2(-2, -66.02011)
+position = Vector2(-2, -59.957237)
 
 [editable path="Bullys/HallwayBully"]
 [editable path="Bullys/HallwayBully2"]

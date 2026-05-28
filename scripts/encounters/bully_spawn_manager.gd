@@ -43,6 +43,10 @@ func _ready() -> void:
 	_apply_saved_or_generate()
 
 
+func _exit_tree() -> void:
+	_persist_session_state()
+
+
 func get_save_state_key() -> String:
 	return SAVE_KEY
 
@@ -118,17 +122,32 @@ func on_npc_defeated(npc_id: String) -> void:
 			var rem: String = str(DEFAULT_PROFILE.get("rematch_battle_chart_path", ""))
 			if rem != "":
 				inst.battle_chart_path = rem
+	_persist_session_state()
+
+
+func _persist_session_state() -> void:
+	var gm := get_node_or_null("/root/Gamemanager")
+	if gm != null and gm.has_method("set_session_world_slice"):
+		gm.set_session_world_slice(SAVE_KEY, serialize_state())
 
 
 func _apply_saved_or_generate() -> void:
 	var gm := get_node_or_null("/root/Gamemanager")
 	if gm != null and gm.has_method("consume_loaded_world_state"):
-		var world_state: Dictionary = gm.consume_loaded_world_state()
-		var saved_state: Variant = world_state.get(SAVE_KEY, {})
-		if typeof(saved_state) == TYPE_DICTIONARY and not (saved_state as Dictionary).is_empty():
-			apply_state(saved_state as Dictionary)
-			return
+		if gm.has_loaded_world_state:
+			var world_state: Dictionary = gm.consume_loaded_world_state()
+			var saved_state: Variant = world_state.get(SAVE_KEY, {})
+			if typeof(saved_state) == TYPE_DICTIONARY and not (saved_state as Dictionary).is_empty():
+				apply_state(saved_state as Dictionary)
+				_persist_session_state()
+				return
+		if gm.has_method("get_session_world_slice"):
+			var session_state: Dictionary = gm.get_session_world_slice(SAVE_KEY)
+			if not session_state.is_empty():
+				apply_state(session_state)
+				return
 	_generate_fresh_spawn_state()
+	_persist_session_state()
 
 
 func _generate_fresh_spawn_state() -> void:

@@ -22,6 +22,10 @@ var loaded_world_state: Dictionary = {}
 ## Indica si `loaded_world_state` tiene datos pendientes por consumir.
 var has_loaded_world_state: bool = false
 
+## Estado de mundo de la partida en curso (bullies del pasillo, etc.).
+## Sobrevive a recargas de map.tscn dentro de la misma sesión.
+var session_world_state: Dictionary = {}
+
 ## Escena a la que se debe volver tras la batalla (típicamente Map.tscn).
 var return_scene_path: String = ""
 
@@ -135,6 +139,8 @@ func consume_loaded_position() -> Vector2:
 func set_loaded_world_state(world_state: Dictionary) -> void:
 	loaded_world_state = world_state if typeof(world_state) == TYPE_DICTIONARY else {}
 	has_loaded_world_state = not loaded_world_state.is_empty()
+	if has_loaded_world_state:
+		session_world_state = loaded_world_state.duplicate(true)
 
 
 func consume_loaded_world_state() -> Dictionary:
@@ -144,11 +150,23 @@ func consume_loaded_world_state() -> Dictionary:
 	return result
 
 
+func get_session_world_slice(key: String) -> Dictionary:
+	var slice: Variant = session_world_state.get(key, {})
+	return slice if typeof(slice) == TYPE_DICTIONARY else {}
+
+
+func set_session_world_slice(key: String, state: Dictionary) -> void:
+	if key.is_empty():
+		return
+	session_world_state[key] = state if typeof(state) == TYPE_DICTIONARY else {}
+
+
 func clear_loaded_save_state() -> void:
 	loaded_position = Vector2.ZERO
 	has_loaded_position = false
 	loaded_world_state = {}
 	has_loaded_world_state = false
+	session_world_state = {}
 	_pending_quests_state = []
 	cinematics_played = {}
 

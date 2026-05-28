@@ -1,33 +1,39 @@
-[gd_scene format=3 load_steps=5]
+[gd_scene format=3 uid="uid://cii728n8e1w2a"]
 
 [ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_base"]
 [ext_resource type="Texture2D" uid="uid://ck45u308f8w0m" path="res://assets/images/backgrounds/bgPasillo.png" id="2_bg"]
 [ext_resource type="AudioStream" uid="uid://bntdhu6y3j0ir" path="res://assets/audio/music/itsgoingarriba_chorus_20_60.wav" id="3_music"]
-[ext_resource type="SpriteFrames" path="res://assets/images/ReDesignCursor/rediseños/batalla/chico_cafe_azul_battle.tres" id="4_enemy"]
+[ext_resource type="SpriteFrames" uid="uid://byndsl1ff7yg2" path="res://assets/images/ReDesignCursor/rediseños/batalla/chico_cafe_azul_battle.tres" id="4_enemy"]
 
-[node name="Battle" instance=ExtResource("1_base")]
+[node name="Battle" unique_id=177002183 instance=ExtResource("1_base")]
 chart_path = "res://assets/charts/itsgoingarriba_chorus_40s.json"
 lose_scene_path = ""
 
-[node name="Background" parent="." index="0"]
+[node name="Background" parent="." index="0" unique_id=287379656]
 position = Vector2(5, 1)
 scale = Vector2(0.7918985, 0.79189855)
 texture = ExtResource("2_bg")
 
-[node name="MusicPlayer" parent="." index="3"]
+[node name="MusicPlayer" parent="." index="3" unique_id=1075957386]
 stream = ExtResource("3_music")
 bpm = 150.0
 
-[node name="Metronome" parent="." index="4"]
+[node name="Metronome" parent="." index="4" unique_id=984578197]
 bpm = 150.0
 
-[node name="AnimatedSprite2D" parent="EnemyBattle" index="0"]
-position = Vector2(-11, -7)
-scale = Vector2(0.5, 0.5)
+[node name="ScoreLabel" parent="BattleHUD/Root/Node2D" parent_id_path=PackedInt32Array(1023945652, 1504510280) index="0" unique_id=1195142958]
+anchors_preset = 0
+
+[node name="ComboLabel" parent="BattleHUD/Root/Node2D" parent_id_path=PackedInt32Array(1023945652, 1504510280) index="1" unique_id=1120566323]
+anchors_preset = 0
+
+[node name="AnimatedSprite2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="0" unique_id=1657430708]
+position = Vector2(-16.00003, 9)
+scale = Vector2(0.26693225, 0.2669323)
 sprite_frames = ExtResource("4_enemy")
 animation = &"Enemy"
 
-[node name="CollisionShape2D" parent="EnemyBattle" index="1"]
+[node name="CollisionShape2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="1" unique_id=1144116667]
 visible = true
 
 [editable path="BattleHUD"]

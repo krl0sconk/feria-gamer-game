@@ -2,13 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://cpj3idle8k2m4" path="res://assets/images/characters/pj3/pj3_idle.png" id="1_tex"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
-atlas = ExtResource("1_tex")
-region = Rect2(0, 0, 1280, 1280)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
 atlas = ExtResource("1_tex")
 region = Rect2(1280, 0, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
+atlas = ExtResource("1_tex")
+region = Rect2(0, 0, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
 atlas = ExtResource("1_tex")
@@ -22,19 +22,19 @@ region = Rect2(3840, 0, 1280, 1280)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f0")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_f1")
 }],
 "loop": false,
 "name": &"down",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,

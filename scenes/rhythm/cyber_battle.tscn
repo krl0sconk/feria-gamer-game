@@ -20,14 +20,20 @@ bpm = 185.0
 [node name="Metronome" parent="." index="4" unique_id=984578197]
 bpm = 185.0
 
+[node name="ScoreLabel" parent="BattleHUD/Root/Node2D" parent_id_path=PackedInt32Array(1023945652, 1504510280) index="0" unique_id=1195142958]
+anchors_preset = 0
+
+[node name="ComboLabel" parent="BattleHUD/Root/Node2D" parent_id_path=PackedInt32Array(1023945652, 1504510280) index="1" unique_id=1120566323]
+anchors_preset = 0
+
 [node name="EnemyBattle" parent="." index="12" unique_id=446230275]
 position = Vector2(538.1481, 74.95828)
 
 [node name="AnimatedSprite2D" parent="EnemyBattle" index="0" unique_id=1657430708]
-position = Vector2(-42.14807, 13.041718)
+position = Vector2(-84.14807, 33.04171)
+scale = Vector2(0.22998047, 0.22998047)
 sprite_frames = ExtResource("4_3bmu5")
-autoplay = ""
-frame_progress = 0.0
+animation = &"Enemy"
 speed_scale = 1.0
 
 [node name="CollisionShape2D" parent="EnemyBattle" index="1" unique_id=1144116667]
