@@ -41,6 +41,16 @@ func _queue_return(delay_seconds: float) -> void:
 	timer.timeout.connect(_go_back)
 
 
+## Permite saltar la espera con Interact / ui_accept (teclado o joystick),
+## en línea con el resto de los menús que confirman con esa acción.
+func _unhandled_input(event: InputEvent) -> void:
+	if _returning:
+		return
+	if event.is_action_pressed("Interact") or event.is_action_pressed("ui_accept"):
+		_go_back()
+		get_viewport().set_input_as_handled()
+
+
 func _go_back() -> void:
 	if _returning:
 		return

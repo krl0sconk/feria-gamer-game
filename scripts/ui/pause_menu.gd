@@ -15,6 +15,14 @@ func _ready() -> void:
 		_exit.pressed.connect(_on_exit_pressed)
 	_update_exit_label()
 	call_deferred("_center_panel")
+	# Focus inicial en Reanudar para que joystick/teclado puedan navegar
+	# y confirmar de inmediato.
+	call_deferred("_grab_initial_focus")
+
+
+func _grab_initial_focus() -> void:
+	if _resume != null:
+		_resume.grab_focus()
 
 
 func _center_panel() -> void:

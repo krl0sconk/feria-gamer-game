@@ -16,6 +16,24 @@ const ACTIONS: Dictionary = {
 	"note_right": {"label": "Nota derecha",      "default": KEY_K},
 }
 
+## Acciones de gameplay que también deben funcionar como navegación de UI.
+## El binding del jugador para `Interact` se duplica en `ui_accept`, y los
+## `move_*` en `ui_up`/`ui_down`/`ui_left`/`ui_right`, así Godot puede usar
+## su navegación nativa de focus en menús (lose/win/pause/etc.) con las
+## mismas teclas y joystick que el jugador escogió.
+const ACTION_TO_UI: Dictionary = {
+	"Interact":   "ui_accept",
+	"move_up":    "ui_up",
+	"move_down":  "ui_down",
+	"move_left":  "ui_left",
+	"move_right": "ui_right",
+}
+
+## Eventos que añadimos a cada acción ui_*. Necesitamos recordarlos para
+## poder limpiarlos en cada `apply_bindings` y no acumular copias viejas
+## de teclas/joys re-bindeados, sin tocar los defaults del project.godot.
+static var _ui_mirror_events: Dictionary = {}
+
 
 static func load_bindings() -> Dictionary:
 	var bindings := _defaults()
@@ -63,6 +81,40 @@ static func apply_bindings(bindings: Dictionary) -> void:
 		var joy_ev := ControlBinding.to_input_event(joy)
 		if joy_ev != null:
 			InputMap.action_add_event(action, joy_ev)
+
+	_refresh_ui_mirrors()
+
+
+## Espeja Interact/move_* en ui_accept/ui_*. Borra primero los eventos que
+## sembramos en pasadas anteriores (los guarda `_ui_mirror_events`), así no
+## se acumulan duplicados al re-bindear. Los defaults declarados en
+## project.godot (Enter, Espacio, joy A, flechas, D-Pad, L-stick) se
+## respetan porque sólo borramos lo que metimos nosotros.
+static func _refresh_ui_mirrors() -> void:
+	for game_action in ACTION_TO_UI.keys():
+		var ui_action: String = ACTION_TO_UI[game_action]
+		if not InputMap.has_action(ui_action):
+			continue
+		var prior: Array = _ui_mirror_events.get(ui_action, [])
+		for ev in prior:
+			if ev != null:
+				InputMap.action_erase_event(ui_action, ev)
+		_ui_mirror_events[ui_action] = []
+		if not InputMap.has_action(game_action):
+			continue
+		var existing: Array = InputMap.action_get_events(ui_action)
+		for ev in InputMap.action_get_events(game_action):
+			if ev == null:
+				continue
+			var dup := false
+			for ex in existing:
+				if ex != null and ex.is_match(ev, true):
+					dup = true
+					break
+			if dup:
+				continue
+			InputMap.action_add_event(ui_action, ev)
+			(_ui_mirror_events[ui_action] as Array).append(ev)
 
 
 static func key_display(physical_keycode: int) -> String:

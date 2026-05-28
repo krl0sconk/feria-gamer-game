@@ -26,6 +26,9 @@ func _ready() -> void:
 	var btn := get_node_or_null(continue_button_path) as Button
 	if btn != null:
 		btn.pressed.connect(_on_continue_pressed)
+		# Focus inicial para que joystick/teclado puedan navegar/confirmar
+		# desde el primer frame sin tocar el mouse.
+		btn.grab_focus()
 	else:
 		push_warning("WinScreen: no se encontró el botón en '%s'." % str(continue_button_path))
 	var sfx := get_node_or_null(sfx_player_path) as AudioStreamPlayer

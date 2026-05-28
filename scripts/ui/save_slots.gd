@@ -40,6 +40,10 @@ func _ready() -> void:
 
 	print("save_slots: delete buttons visible = %s" % str(show_delete_buttons))
 
+	# Focus inicial en el primer slot para arrancar con joystick/teclado.
+	if btns[0] != null:
+		btns[0].grab_focus()
+
 
 func _input(event) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:

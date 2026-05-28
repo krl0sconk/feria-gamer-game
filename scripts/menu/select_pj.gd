@@ -49,6 +49,10 @@ func _ready() -> void:
 			buttons[i].text = "Bloqueado"
 			buttons[i].tooltip_text = "Solo hay 4 skins disponibles de momento"
 	_update_preview(0)
+	# Focus inicial en el primer skin para que joystick/teclado naveguen
+	# desde el primer frame y el preview cambie con focus.
+	if buttons.size() > 0 and not buttons[0].disabled:
+		buttons[0].grab_focus()
 
 
 func _update_preview(index: int) -> void:
