@@ -1,0 +1,68 @@
+[
+  {
+    "id": "chica_rubia_azul",
+    "label": "Chica rubia — blusa azul",
+    "gender": "femenino",
+    "file": "chica_rubia_azul.png"
+  },
+  {
+    "id": "chica_pelirroja_verde",
+    "label": "Chica pelirroja — blusa verde",
+    "gender": "femenino",
+    "file": "chica_pelirroja_verde.png"
+  },
+  {
+    "id": "chica_morena_rojo",
+    "label": "Chica morena — blusa roja",
+    "gender": "femenino",
+    "file": "chica_morena_rojo.png"
+  },
+  {
+    "id": "chica_cafe_rosa",
+    "label": "Chica castaña — blusa rosa",
+    "gender": "femenino",
+    "file": "chica_cafe_rosa.png"
+  },
+  {
+    "id": "chica_negro_morado",
+    "label": "Chica cabello negro — blusa morada",
+    "gender": "femenino",
+    "file": "chica_negro_morado.png"
+  },
+  {
+    "id": "chico_base_falda_pantalon",
+    "label": "Chico (base femenina) — pantalón oscuro",
+    "gender": "masculino",
+    "file": "chico_base_falda_pantalon.png"
+  },
+  {
+    "id": "chico_rubio_verde",
+    "label": "Chico rubio — chaqueta verde",
+    "gender": "masculino",
+    "file": "chico_rubio_verde.png"
+  },
+  {
+    "id": "chico_moreno_rojo",
+    "label": "Chico moreno — chaqueta roja",
+    "gender": "masculino",
+    "file": "chico_moreno_rojo.png"
+  },
+  {
+    "id": "chico_cafe_azul",
+    "label": "Chico castaño — chaqueta azul",
+    "gender": "masculino",
+    "file": "chico_cafe_azul.png"
+  },
+  {
+    "id": "chico_negro_amarillo",
+    "label": "Chico cabello negro — chaqueta amarilla",
+    "gender": "masculino",
+    "file": "chico_negro_amarillo.png"
+  },
+  {
+    "id": "chico_pelirrojo_morado",
+    "label": "Chico pelirrojo — chaqueta morada",
+    "gender": "masculino",
+    "file": "chico_pelirrojo_morado.png"
+  }
+]
