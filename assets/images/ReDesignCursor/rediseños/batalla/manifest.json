@@ -1,0 +1,90 @@
+[
+  {
+    "id": "chica_rubia_azul",
+    "label": "Chica rubia — blusa azul",
+    "walk_tres": "res://assets/images/ReDesignCursor/rediseños/chica_rubia_azul.tres",
+    "battle_tres": "res://assets/images/ReDesignCursor/rediseños/batalla/chica_rubia_azul_battle.tres",
+    "battle_png": "chica_rubia_azul_battle.png",
+    "frames": 3
+  },
+  {
+    "id": "chica_pelirroja_verde",
+    "label": "Chica pelirroja — blusa verde",
+    "walk_tres": "res://assets/images/ReDesignCursor/rediseños/chica_pelirroja_verde.tres",
+    "battle_tres": "res://assets/images/ReDesignCursor/rediseños/batalla/chica_pelirroja_verde_battle.tres",
+    "battle_png": "chica_pelirroja_verde_battle.png",
+    "frames": 3
+  },
+  {
+    "id": "chica_morena_rojo",
+    "label": "Chica morena — blusa roja",
+    "walk_tres": "res://assets/images/ReDesignCursor/rediseños/chica_morena_rojo.tres",
+    "battle_tres": "res://assets/images/ReDesignCursor/rediseños/batalla/chica_morena_rojo_battle.tres",
+    "battle_png": "chica_morena_rojo_battle.png",
+    "frames": 3
+  },
+  {
+    "id": "chica_cafe_rosa",
+    "label": "Chica castaña — blusa rosa",
+    "walk_tres": "res://assets/images/ReDesignCursor/rediseños/chica_cafe_rosa.tres",
+    "battle_tres": "res://assets/images/ReDesignCursor/rediseños/batalla/chica_cafe_rosa_battle.tres",
+    "battle_png": "chica_cafe_rosa_battle.png",
+    "frames": 3
+  },
+  {
+    "id": "chica_negro_morado",
+    "label": "Chica cabello negro — blusa morada",
+    "walk_tres": "res://assets/images/ReDesignCursor/rediseños/chica_negro_morado.tres",
+    "battle_tres": "res://assets/images/ReDesignCursor/rediseños/batalla/chica_negro_morado_battle.tres",
+    "battle_png": "chica_negro_morado_battle.png",
+    "frames": 3
+  },
+  {
+    "id": "chico_base_falda_pantalon",
+    "label": "Chico (base femenina) — pantalón oscuro",
+    "walk_tres": "res://assets/images/ReDesignCursor/rediseños/chico_base_falda_pantalon.tres",
+    "battle_tres": "res://assets/images/ReDesignCursor/rediseños/batalla/chico_base_falda_pantalon_battle.tres",
+    "battle_png": "chico_base_falda_pantalon_battle.png",
+    "frames": 3
+  },
+  {
+    "id": "chico_rubio_verde",
+    "label": "Chico rubio — chaqueta verde",
+    "walk_tres": "res://assets/images/ReDesignCursor/rediseños/chico_rubio_verde.tres",
+    "battle_tres": "res://assets/images/ReDesignCursor/rediseños/batalla/chico_rubio_verde_battle.tres",
+    "battle_png": "chico_rubio_verde_battle.png",
+    "frames": 3
+  },
+  {
+    "id": "chico_moreno_rojo",
+    "label": "Chico moreno — chaqueta roja",
+    "walk_tres": "res://assets/images/ReDesignCursor/rediseños/chico_moreno_rojo.tres",
+    "battle_tres": "res://assets/images/ReDesignCursor/rediseños/batalla/chico_moreno_rojo_battle.tres",
+    "battle_png": "chico_moreno_rojo_battle.png",
+    "frames": 3
+  },
+  {
+    "id": "chico_cafe_azul",
+    "label": "Chico castaño — chaqueta azul",
+    "walk_tres": "res://assets/images/ReDesignCursor/rediseños/chico_cafe_azul.tres",
+    "battle_tres": "res://assets/images/ReDesignCursor/rediseños/batalla/chico_cafe_azul_battle.tres",
+    "battle_png": "chico_cafe_azul_battle.png",
+    "frames": 3
+  },
+  {
+    "id": "chico_negro_amarillo",
+    "label": "Chico cabello negro — chaqueta amarilla",
+    "walk_tres": "res://assets/images/ReDesignCursor/rediseños/chico_negro_amarillo.tres",
+    "battle_tres": "res://assets/images/ReDesignCursor/rediseños/batalla/chico_negro_amarillo_battle.tres",
+    "battle_png": "chico_negro_amarillo_battle.png",
+    "frames": 3
+  },
+  {
+    "id": "chico_pelirrojo_morado",
+    "label": "Chico pelirrojo — chaqueta morada",
+    "walk_tres": "res://assets/images/ReDesignCursor/rediseños/chico_pelirrojo_morado.tres",
+    "battle_tres": "res://assets/images/ReDesignCursor/rediseños/batalla/chico_pelirrojo_morado_battle.tres",
+    "battle_png": "chico_pelirrojo_morado_battle.png",
+    "frames": 3
+  }
+]
