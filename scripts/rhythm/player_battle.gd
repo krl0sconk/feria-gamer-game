@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const PLAYER_BATTLE_PJ1: SpriteFrames = preload("res://assets/images/characters/pj1/pj1_battle.tres")
 const PLAYER_BATTLE_PJ2: SpriteFrames = preload("res://assets/images/characters/pj2/pj2_battle.tres")
+const PLAYER_BATTLE_PJ3: SpriteFrames = preload("res://assets/images/characters/pj3/pj3_battle.tres")
 const PLAYER_BATTLE_PJ4: SpriteFrames = preload("res://assets/images/characters/pj4/pj4_battle.tres")
 const PLAYER_WALK_PJ2: SpriteFrames = preload("res://assets/images/characters/pj2/pj2_walk.tres")
 const PLAYER_WALK_PJ3: SpriteFrames = preload("res://assets/images/characters/pj3/pj3_walk.tres")
@@ -29,7 +30,7 @@ func _ready() -> void:
 		"idlepj4":
 			_setup_frames(PLAYER_BATTLE_PJ4, PLAYER_WALK_PJ4)
 		"idlepj3":
-			_setup_frames(PLAYER_BATTLE_PJ2, PLAYER_WALK_PJ3)
+			_setup_frames(PLAYER_BATTLE_PJ3, PLAYER_WALK_PJ3)
 		"idlepj2":
 			_setup_frames(PLAYER_BATTLE_PJ2, PLAYER_WALK_PJ2)
 		_:

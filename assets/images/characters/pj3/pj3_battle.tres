@@ -1,0 +1,74 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bpj3batt7k2m4"]
+
+[ext_resource type="Texture2D" uid="uid://cpj3idle8k2m4" path="res://assets/images/characters/pj3/pj3_idle.png" id="1_pj3idle"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
+atlas = ExtResource("1_pj3idle")
+region = Rect2(0, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
+atlas = ExtResource("1_pj3idle")
+region = Rect2(2048, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
+atlas = ExtResource("1_pj3idle")
+region = Rect2(4096, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3"]
+atlas = ExtResource("1_pj3idle")
+region = Rect2(6144, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4"]
+atlas = ExtResource("1_pj3idle")
+region = Rect2(8192, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5"]
+atlas = ExtResource("1_pj3idle")
+region = Rect2(10240, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6"]
+atlas = ExtResource("1_pj3idle")
+region = Rect2(12288, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7"]
+atlas = ExtResource("1_pj3idle")
+region = Rect2(14336, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8"]
+atlas = ExtResource("1_pj3idle")
+region = Rect2(16384, 0, 2048, 2048)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
