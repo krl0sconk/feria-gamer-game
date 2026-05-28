@@ -314,4 +314,213 @@ objetos, disparara batallas y conectara los tres resultados posibles
 
 ---
 
+### 2026-05-21 — Sistema de Cinemáticas (CinematicPlayer + patrón Command)
+
+**Contexto:** El juego necesitaba cinemáticas narrativas simples: pantalla negra +
+diálogos de contexto al entrar a la habitación, diálogo de mamá al terminar el tutorial,
+intro en el salón, y cualquier futuro momento de historia. Los sistemas de diálogo y
+quests existentes no tenían concepto de "secuencia orquestada" y no debían modificarse.
+
+**Decisión tomada:**
+- Nueva clase `CinematicLoader` (RefCounted) — parsea JSON → `CinematicData` / `CinematicStep`.
+  Espejo de `DialogueLoader` para consistencia arquitectural.
+- Nueva clase `CinematicPlayer` (CanvasLayer) — ejecuta los pasos en secuencia con `await`.
+  Usa el **patrón Command**: `_commands: Dictionary[String, Callable]` mapea cada tipo de
+  paso a su función handler. Agregar un nuevo tipo de paso = agregar una entrada al dict.
+- Árbol de `CinematicPlayer.tscn`:
+  `CinematicPlayer (CanvasLayer, layer=20) → BlackScreen (ColorRect) + DialogueRunner propio (layer=21)`.
+  El runner embebido es independiente del runner de NPCs → sin interferencias.
+- Triggers soportados: `on_scene_ready`, `on_quest_completed`, `on_area_entered` (Area2D
+  hijo llamado "TriggerArea" — colocado y dimensionado en el editor como ExitArea).
+- Guard `play_once`: antes de reproducir, consulta `Gamemanager.cinematics_played[id]`.
+  Persiste en sesión; sobrevive a round-trips Map → Battle → Map.
+- **Único archivo existente tocado:** `Gamemanager` gana
+  `var cinematics_played: Dictionary = {}` (campo aditivo, sin cambio de comportamiento).
+
+**Pasos disponibles (JSON):**
+`fade_to_black`, `fade_from_black`, `wait`, `dialogue`, `move_node`, `show_node`,
+`hide_node`, `disable_player`, `enable_player`.
+
+**Cinematics de ejemplo creados:**
+- `assets/cinematics/room_intro.json` — `on_scene_ready` — contexto narrativo al inicio.
+- `assets/cinematics/room_outro.json` — `on_quest_completed: "1.1.0"` — mamá felicita al jugador.
+- `assets/cinematics/classroom_intro.json` — `on_scene_ready` — entrada al salón.
+
+**Para agregar a una escena:**
+1. Instanciar `scenes/cinematic/CinematicPlayer.tscn` como hijo de la escena.
+2. Asignar `cinematic_json_path` en el Inspector.
+3. Para trigger `on_area_entered`: añadir Area2D hijo de CinematicPlayer llamado "TriggerArea".
+
+**Consecuencias:**
+- (+) Cero modificaciones a Dialog/Quest/Map/Room — totalmente no-invasivo.
+- (+) Clases nuevas (CinematicLoader + CinematicData + CinematicStep + CinematicPlayer)
+  contribuyen al requisito de 5+ TAD y el patrón Command al requisito de diseño.
+- (+) Añadir un nuevo tipo de paso = una función + una línea en el dict.
+- (+) Trigger `on_area_entered` permite cinemáticas mid-level sin interacción del jugador.
+- (-) `cinematics_played` se pierde al cerrar el juego (no persiste en save); si se
+  necesita persistence cross-session, incluirlo en `SaveManager`.
+
+**Archivos creados:**
+`scripts/cinematic/cinematic_loader.gd`, `scripts/cinematic/cinematic_player.gd`,
+`scenes/cinematic/CinematicPlayer.tscn`,
+`assets/cinematics/room_intro.json`, `assets/cinematics/room_intro_dialogue.json`,
+`assets/cinematics/room_outro.json`, `assets/cinematics/room_outro_dialogue.json`,
+`assets/cinematics/classroom_intro.json`, `assets/cinematics/classroom_intro_dialogue.json`.
+
+**Archivo modificado:**
+`scripts/gamemanager.gd` — añadido `var cinematics_played: Dictionary = {}`.
+
+**Asistida por IA:** Sí — Claude Sonnet 4.6
+
+### 2026-05-26 — Reloj rítmico: frame clock en web, audio sync en desktop
+
+**Contexto:** En desktop el tutorial jugaba bien; en export HTML5 las primeras notas
+(y luego todas si el jugador dejaba de pulsar) se registraban como Miss automático
+(`presionada=` vacío) con `delta ≈ +130 ms` entre `note.time_ms` y el auto-miss.
+Instrumentación (`RhythmClockDebug`, ver `docs/debug/rhythm_clock_baseline.md`)
+confirmó que el reloj de juicio corría por delante de las flechas visuales.
+
+**Causa raíz:** Las flechas caen con `_process(delta)` (tiempo real de frames). El
+juicio en web se corregía hacia `MusicPlayer.get_position_ms()`, que en HTML5 avanza
+antes que el audio oído y antes que la animación de las flechas. Resultado: la cola
+expiraba ~130 ms antes de que la flecha llegara visualmente al target.
+
+**Opciones consideradas:**
+- Offset calibrable global (`audio_offset_ms`) — correcto pero requiere UI y tuning.
+- Snap agresivo del reloj de audio en todas las plataformas — arriesgado en desktop
+  donde el sync por audio ya funcionaba.
+- **Reloj por frames en web (`_using_fallback = true`)** — elegida.
+- Mover flechas a posición derivada de `current_ms` — más correcto a largo plazo,
+  cambio más invasivo; pospuesto.
+
+**Decisión tomada:**
+- Tras el pre-roll, si `OS.has_feature("web")`, Battle activa `_using_fallback` y
+  avanza `_fallback_ms` solo con `delta`, sin corrección hacia la posición del audio.
+- `MusicPlayer.get_position_ms()` en web devuelve solo `playback * 1000` (sin
+  `get_time_since_last_mix` ni restar `output_latency`).
+- Desktop mantiene corrección suave hacia audio tras warmup de 250 ms.
+- Instrumentación de debug (`rhythm_clock_debug`, `RhythmClockDebug`) se deja en el
+  código pero **desactivada por defecto** (`false`).
+
+**Consecuencias:**
+- (+) Web jugable: flechas, juicio y ventanas Perfect/Good alineados al inicio.
+- (+) Desktop sin cambio de comportamiento perceptible.
+- (-) En web, el reloj puede derivar levemente del audio en canciones muy largas;
+  mitigación futura: offset calibrable en Opciones (no implementado aún).
+- (-) Música y chart pueden quedar unos ms desfasados en web respecto al oído;
+  aceptable para la feria; el jugador sincroniza con las flechas.
+
+**Archivos modificados:**
+`scripts/rhythm/battle.gd`, `scripts/rhythm/music_player.gd`,
+`scripts/rhythm/rhythm_clock_debug.gd`, `scripts/rhythm/battle_hud.gd`,
+`docs/debug/rhythm_clock_baseline.md`, `DOCUMENTATION.md` §7.3 / §7.7.
+
+**Asistida por IA:** Sí — Claude Sonnet
+
+---
+
+---
+
+### 2026-05-26 — Cinemáticas v2: WaypointPath + ScriptedTrigger (Fases 0–1)
+
+**Contexto:** Las cinemáticas JSON exigían coords manuales y un solo `TriggerArea` por
+`CinematicPlayer`. Se necesitaba authoring visual en escena y triggers múltiples.
+
+**Decisión tomada:**
+- `WaypointPath` (@tool): ruta con hijos `Marker2D`, preview numerado en editor.
+- `CinematicTargetResolver`: destinos por `to_path` / `to_node` / `to` fallback.
+- `ScriptedTrigger` (@tool): Area2D independiente → `Gamemanager.request_cinematic()`.
+- Cola de cinemáticas en `Gamemanager` + `CinematicPlayer.play_from()`.
+- `move_node` usa posiciones globales resueltas por nodo.
+
+**Archivos:** `waypoint_path.gd`, `scripted_trigger.gd`, `cinematic_target_resolver.gd`,
+escenas en `scenes/cinematic/`, docs en `docs/cinematics/`.
+
+**Asistida por IA:** Sí
+
+---
+
+### 2026-05-26 — Cinemáticas v2: comandos de animación (Fase 2)
+
+**Decisión tomada:**
+- Nuevo `CinematicActor` con helpers de sprite, dirección, caminar animado e idle.
+- Comandos JSON: `walk_to`, `walk_path`, `face_direction`, `play_animation`,
+  `set_collision`, `wait_for_player_near`.
+- Destinos siguen usando `to_node` / `to_path` (sin coords manuales).
+- Convención de animaciones flexible: prueba `walk_left`, `Walk`, `Idle`, etc.
+
+**Asistida por IA:** Sí
+
+---
+
+### 2026-05-26 — Cinemáticas v2: barreras y batalla (Fase 3)
+
+**Decisión tomada:**
+- `ScriptedBarrier` (@tool): StaticBody2D con `id`, preview rayado rojo/gris en editor.
+- Estado al cargar derivado de quests (`disabled_by_quests`), no duplicado en save.
+- Comandos JSON: `enable_barrier`, `disable_barrier`, `start_battle`.
+- `start_battle` replica el flujo de `Interactable._queue_battle_transition()` vía Gamemanager.
+
+**Asistida por IA:** Sí
+
+---
+
+### 2026-05-26 — Cinemáticas v2: Follower NPC guía (Fase 4)
+
+**Decisión tomada:**
+- Componente `Follower` hijo del NPC; waypoints vía `path_node` → `WaypointPath`, sin coords en JSON.
+- Durante `LEAD`, espera al jugador si supera `wait_distance` (default 96 px).
+- Comandos JSON: `follower_lead`, `follower_follow`, `follower_stop`.
+- `follower_lead` con `wait_for_arrival: true` hace `await route_completed`.
+
+**Asistida por IA:** Sí
+
+---
+
+### 2026-05-26 — Cinemáticas v2: InteractionIndicator (Fase 5)
+
+**Decisión tomada:**
+- Componente `InteractionIndicator` (@tool): bob animado con `!`/`?` sobre el host.
+- Modos `AUTO` / `ON` / `OFF`; AUTO consulta `should_show_indicator()` del padre.
+- `show_indicator` export en `Interactable` y `ScriptedTrigger`.
+- Plantillas `Interactable.tscn` y `ScriptedTrigger.tscn` incluyen el indicador por defecto.
+
+**Asistida por IA:** Sí
+
+---
+
+### 2026-05-26 — Cinemáticas v2: cámara, SFX y skip (Fase 6)
+
+**Decisión tomada:**
+- Helper `CinematicCamera`: pan/zoom hacia nodo, restore, shake y reset inmediato al skip.
+- Comandos JSON: `camera_focus`, `camera_release`, `shake_camera`, `letterbox`, `play_sfx`.
+- Skip con acción `Interact` (E); emite `cinematic_skipped` además de `cinematic_finished`.
+- `DialogueRunner.abort()` para cortar diálogos embebidos al saltar.
+
+**Asistida por IA:** Sí
+
+---
+
+### 2026-05-26 — Cinemáticas v2: documentación de autoría (Fase 8)
+
+**Decisión tomada:**
+- `docs/cinematics/AUTHORING_GUIDE.md` como referencia principal para diseñadores (español).
+- `DOCUMENTATION.md` §11 — resumen técnico en inglés alineado con el resto del doc.
+- `PROJECT_CONTEXT.md` actualizado con tabla de clases del sistema de cinemáticas.
+- Fase 7 (plugin editor) dejada como opcional post-feria.
+
+**Asistida por IA:** Sí
+
+---
+
+### 2026-05-26 — Cinemáticas v2: plugin editor (Fase 7)
+
+**Decisión tomada:**
+- Plugin `addons/cinematic_authoring/` con barra en el editor 2D.
+- Botones: Trigger, Barrier, Waypoint Path, Waypoint (sobre selección), Indicator.
+- Instanciación con Undo/Redo; `WaypointPath.add_waypoint_from_editor()` para el botón + Waypoint.
+- Habilitado por defecto en `project.godot`.
+
+**Asistida por IA:** Sí
+
 <!-- Agrega nuevas decisiones aquí -->

@@ -23,6 +23,7 @@
 script = ExtResource("1_uhcme")
 chart_path = ""
 lose_scene_path = "res://scenes/rhythm/lose_screen.tscn"
+debug_skip_enabled = true
 
 [node name="Background" type="Sprite2D" parent="." unique_id=287379656]
 modulate = Color(1, 1, 1, 0.5411765)
@@ -99,7 +100,7 @@ position = Vector2(544, 71)
 [node name="PlayerBattle" parent="." unique_id=323566821 instance=ExtResource("12_vsbcs")]
 position = Vector2(-508, 81)
 
-[node name="TransitionRunner" parent="." instance=ExtResource("13_drun")]
+[node name="TransitionRunner" parent="." unique_id=834350664 instance=ExtResource("13_drun")]
 layer = 20
 
 [editable path="BattleHUD"]

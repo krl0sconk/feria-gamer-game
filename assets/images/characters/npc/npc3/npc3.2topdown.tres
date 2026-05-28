@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://caj0fiee5cntv"]
+
+[ext_resource type="Texture2D" uid="uid://b4y3mtu746sv7" path="res://assets/images/characters/npc/npcs.png" id="1_oggw6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kowke"]
+atlas = ExtResource("1_oggw6")
+region = Rect2(32, 0, 16, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kowke")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

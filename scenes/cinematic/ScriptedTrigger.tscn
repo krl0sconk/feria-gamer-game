@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d1u7wfevf7o7i"]
+
+[ext_resource type="Script" path="res://scripts/cinematic/scripted_trigger.gd" id="1_st"]
+[ext_resource type="PackedScene" uid="uid://c8indicator01scene" path="res://scenes/cinematic/InteractionIndicator.tscn" id="2_ind"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_st"]
+size = Vector2(96, 64)
+
+[node name="ScriptedTrigger" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_st")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_st")
+
+[node name="InteractionIndicator" parent="." instance=ExtResource("2_ind")]
+symbol = "!"
+vertical_offset = -40.0

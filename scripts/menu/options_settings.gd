@@ -115,6 +115,7 @@ static func apply(data: Dictionary) -> void:
 ## en `_ready` para que las preferencias persistan entre sesiones.
 static func apply_saved() -> void:
 	apply(load_settings())
+	ControlsSettings.apply_bindings(ControlsSettings.load_bindings())
 
 
 

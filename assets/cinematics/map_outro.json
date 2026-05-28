@@ -1,0 +1,15 @@
+{
+	"version": 1,
+	"id": "map_outro",
+	"trigger": {
+		"type": "on_quest_completed",
+		"quest_id": "5.1.3"
+	},
+	"steps": [
+		{ "type": "disable_player" },
+		{ "type": "wait", "seconds": 1.0 },
+		{ "type": "dialogue", "path": "res://assets/cinematics/map_outro_dialogue.json", "id": "final" },
+		{ "type": "fade_to_black", "duration": 1.5 },
+		{ "type": "wait", "seconds": 2.0 }
+	]
+}

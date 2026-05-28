@@ -19,6 +19,12 @@
         { "speaker": "Cyber bully", "text": "En internet siempre vuelvo." },
         { "speaker": "Jugador", "text": "Entonces yo tambien." }
       ]
+    },
+    "defeated": {
+      "lines": [
+        { "speaker": "Cyber bully", "text": "Déjame en paz." },
+        { "speaker": "Jugador", "text": "Eso mismo te pedimos nosotros." }
+      ]
     }
   }
 }

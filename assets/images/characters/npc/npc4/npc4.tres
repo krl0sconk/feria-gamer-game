@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://5u6ae0xj8vh0"]
+
+[ext_resource type="Texture2D" uid="uid://mp7cjca8cok5" path="res://assets/images/characters/npc/npc4/girlbully.png" id="1_fa22u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6sy4"]
+atlas = ExtResource("1_fa22u")
+region = Rect2(0, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wltbh"]
+atlas = ExtResource("1_fa22u")
+region = Rect2(2048, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kd7gf"]
+atlas = ExtResource("1_fa22u")
+region = Rect2(4096, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_di7p5"]
+atlas = ExtResource("1_fa22u")
+region = Rect2(6144, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3aa5x"]
+atlas = ExtResource("1_fa22u")
+region = Rect2(8192, 0, 2048, 2048)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6sy4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wltbh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kd7gf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_di7p5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3aa5x")
+}],
+"loop": true,
+"name": &"Enemy",
+"speed": 4.0
+}]

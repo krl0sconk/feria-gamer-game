@@ -12,6 +12,15 @@ extends Node2D
 @export_range(0.0, 5.0, 0.1, "suffix:s") var intro_delay_s: float = 0.0
 ## Pausa tras terminar el nivel antes de cambiar a la pantalla de resultado.
 @export_range(0.0, 5.0, 0.1, "suffix:s") var outro_delay_s: float = 1.5
+## Fade-in al arrancar la música. 0 = sin fade (recomendado por defecto).
+@export_range(0.0, 3.0, 0.1, "suffix:s") var music_fade_in_s: float = 0.0
+
+@export_group("Debug")
+## Activa la tecla de debug para saltar la canción (F5 = saltar; F6 = forzar derrota).
+## Desactivar antes de builds de producción.
+@export var debug_skip_enabled: bool = false
+## Instrumentación del reloj rítmico. Activar solo al diagnosticar desync.
+@export var rhythm_clock_debug: bool = false
 
 var _arrow_travel_ms: float = 0.0
 
@@ -35,6 +44,22 @@ var _pending_notes: Dictionary = {
 	"note_left": [], "note_down": [], "note_up": [], "note_right": [],
 }
 var _fallback_ms: float = 0.0
+var _audio_sync_warmup_ms: float = 0.0
+## Marca de tiempo del último hit exitoso (o FakeHit). Mientras estemos dentro
+## de SPAM_GRACE_MS de ese instante, presiones extra sobre cola vacía NO
+## cuentan como spam — necesario para evitar daño injusto en charts densos
+## donde el jugador toca de más entre acordes.
+var _last_hit_ms: float = -1.0e9
+const SPAM_GRACE_MS: float = 150.0
+## Tope máximo de salto hacia adelante para la corrección de audio. Si la
+## diferencia con audio_pos supera esto, asumimos lectura inválida y no
+## corregimos. 1s permite recuperarse de hiccups de frame pero descarta los
+## valores stale enormes que vimos al inicio.
+const AUDIO_SYNC_MAX_FWD_MS: float = 1000.0
+## En HTML5 get_playback_position() avanza antes que el audio oído y antes
+## que las flechas (que caen por delta). Usar reloj por frames evita auto-miss
+## al inicio con delta ~+130 ms.
+var _web_build: bool = OS.has_feature("web")
 var _using_fallback: bool = false
 var _last_note_ms: float = 0.0
 var _survival_declared: bool = false
@@ -58,9 +83,16 @@ func _ready() -> void:
 	var override_music: AudioStream = Gamemanager.consume_pending_battle_music()
 	if override_music != null:
 		_music_player.stream = override_music
+	RhythmClockDebug.enabled = rhythm_clock_debug
+	if rhythm_clock_debug:
+		RhythmClockDebug.reset()
 	_connect_game_loop()
 	_connect_hud()
 	_load_chart()
+	if rhythm_clock_debug:
+		print("[CLOCK] Instrumentación activa — chart=%s pre_roll_total=%.0fms arrow_travel=%.0fms" % [
+			chart_path, _pre_roll_total_ms, _arrow_travel_ms
+		])
 
 
 func _connect_game_loop() -> void:
@@ -84,6 +116,15 @@ func _connect_hud() -> void:
 	_composer.anticipation_ms = _arrow_travel_ms
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if not debug_skip_enabled or _level_ended:
+		return
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_F5:
+			print("[DEBUG] Saltar canción → victoria forzada")
+			_referee.declare_survival()
+
+
 func _load_chart() -> void:
 	_chart_data = ChartLoader.load_json(chart_path)
 	if _chart_data.notes.is_empty():
@@ -102,13 +143,24 @@ func _load_chart() -> void:
 	_phase_audio_offset_ms = 0.0
 	_pre_roll_total_ms = _arrow_travel_ms + intro_delay_s * 1000.0
 	_pre_roll_elapsed_ms = 0.0
+	_audio_sync_warmup_ms = 0.0
+	_last_hit_ms = -1.0e9
 	_in_pre_roll = true
+	if rhythm_clock_debug:
+		print("[CLOCK] Chart cargado — primera_nota=%.0fms ultima_nota=%.0fms pre_roll_total=%.0fms web=%s" % [
+			_chart_data.notes[0].time_ms,
+			_last_note_ms,
+			_pre_roll_total_ms,
+			_web_build,
+		])
 
 
 func _get_current_ms() -> float:
 	if _in_pre_roll:
 		return _pre_roll_elapsed_ms - _pre_roll_total_ms + _phase_audio_offset_ms
-	return _fallback_ms if _using_fallback else _music_player.get_position_ms() + _phase_audio_offset_ms
+	if _using_fallback:
+		return _fallback_ms
+	return _fallback_ms + _phase_audio_offset_ms
 
 
 func _get_song_total_ms() -> float:
@@ -131,12 +183,44 @@ func _process(delta: float) -> void:
 			if _music_player.stream != null:
 				_music_player.volume_db = -80.0
 				_music_player.play()
-				_music_player.fade_in(1.0)
+				if _web_build:
+					# Reloj alineado con flechas (delta), no con posición de audio web.
+					_using_fallback = true
+					_fallback_ms = 0.0
+				else:
+					_audio_sync_warmup_ms = 250.0
+				if music_fade_in_s > 0.0:
+					_music_player.fade_in(music_fade_in_s)
+				else:
+					_music_player.volume_db = 0.0
 			else:
 				_using_fallback = true
-	elif _using_fallback:
+	if not _in_pre_roll:
 		_fallback_ms += delta * 1000.0
+		if not _using_fallback:
+			_audio_sync_warmup_ms = maxf(0.0, _audio_sync_warmup_ms - delta * 1000.0)
+			if _audio_sync_warmup_ms <= 0.0:
+				var sync_audio_pos: float = _music_player.get_position_ms()
+				# Permitimos correcciones razonables (incluyendo hacia adelante por
+				# hiccups de frame). Sólo descartamos valores obsoletos muy grandes.
+				if sync_audio_pos > 0.0 and sync_audio_pos < _fallback_ms + AUDIO_SYNC_MAX_FWD_MS:
+					_fallback_ms = lerpf(_fallback_ms, sync_audio_pos, 0.3)
 	var current_ms: float = _get_current_ms()
+	var debug_audio_pos: float = 0.0
+	if rhythm_clock_debug and not _using_fallback and _music_player.stream != null:
+		debug_audio_pos = _music_player.get_position_ms()
+		_music_player.log_debug_components(debug_audio_pos)
+	RhythmClockDebug.log_frame(
+		delta * 1000.0,
+		_in_pre_roll,
+		_pre_roll_elapsed_ms,
+		_pre_roll_total_ms,
+		_fallback_ms,
+		debug_audio_pos,
+		current_ms,
+		_using_fallback,
+		_audio_sync_warmup_ms
+	)
 	_metronome.update_time(current_ms)
 	_composer.update_time(current_ms)
 	_check_phase_transition(current_ms)
@@ -151,8 +235,10 @@ func _process(delta: float) -> void:
 			break
 		var queue: Array = _pending_notes[action]
 		while not queue.is_empty() and current_ms > queue[0].hit_ms + _metronome.window_good:
-			if not queue[0].note.is_fake:
-				_judge.evaluate("", queue[0].note, "Miss")
+			var expired_entry = queue[0]
+			if not expired_entry.note.is_fake:
+				RhythmClockDebug.log_automiss(expired_entry.hit_ms, current_ms)
+				_judge.evaluate("", expired_entry.note, "Miss")
 			queue.pop_front()
 			if _level_ended:
 				break
@@ -200,6 +286,9 @@ func _begin_phase_transition(idx: int) -> void:
 			_music_player.stream = new_stream
 	_pre_roll_total_ms = _arrow_travel_ms
 	_pre_roll_elapsed_ms = 0.0
+	_fallback_ms = 0.0
+	_audio_sync_warmup_ms = 0.0
+	_using_fallback = _web_build
 	_in_pre_roll = true
 	_phase_transition_active = false
 
@@ -229,13 +318,20 @@ func _on_note_expected(note: NoteData) -> void:
 
 func _on_button_pressed(action: String) -> void:
 	var queue: Array = _pending_notes[action]
+	var current_ms: float = _get_current_ms()
+	var front_hit_ms: float = queue[0].hit_ms if not queue.is_empty() else -1.0
+	RhythmClockDebug.log_input(action, current_ms, _in_pre_roll, queue.size(), front_hit_ms)
 	if queue.is_empty():
 		if not _in_pre_roll and not _level_ended and not _phase_transition_active:
-			_referee.on_spam_press()
+			# Gracia anti-spam: si el jugador acaba de acertar (cualquier lane),
+			# las pulsaciones extra inmediatas no penalizan. Evita castigar
+			# sobre-tap en charts densos.
+			if current_ms - _last_hit_ms > SPAM_GRACE_MS:
+				_referee.on_spam_press()
 		return
-	var current_ms: float = _get_current_ms()
 	var entry = queue[0]
 	if current_ms < entry.hit_ms - _metronome.window_good:
+		RhythmClockDebug.log_input_swallow("too_early", current_ms, entry.hit_ms)
 		return
 	var timing: String = _metronome.evaluate_timing(current_ms, entry.hit_ms)
 	var effective_timing: String
@@ -247,6 +343,10 @@ func _on_button_pressed(action: String) -> void:
 		effective_timing = timing
 	_judge.evaluate(action, entry.note, effective_timing)
 	queue.pop_front()
+	# Cualquier interacción con una nota (Perfect/Good/FakeHit) refresca la
+	# gracia anti-spam, no sólo los aciertos limpios.
+	if effective_timing != "Miss":
+		_last_hit_ms = current_ms
 
 
 func _on_note_result_debug(player_action: String, expected_action: String, timing: String, success: bool) -> void:
@@ -263,6 +363,14 @@ func _on_level_ended(player_won: bool) -> void:
 	_music_player.stop()
 	if player_won:
 		Gamemanager.pending_dialogue_result = "win"
+		Gamemanager.pending_battle_stats = {
+			"score":      _referee.get_score(),
+			"perfects":   _referee.get_perfects(),
+			"goods":      _referee.get_goods(),
+			"misses":     _referee.get_misses(),
+			"max_combo":  _referee.get_max_combo(),
+			"chart_path": chart_path,
+		}
 		_go_to_post_battle(win_scene_path)
 	else:
 		Gamemanager.pending_dialogue_result = "lose"

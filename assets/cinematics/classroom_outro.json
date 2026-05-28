@@ -1,0 +1,13 @@
+{
+	"version": 1,
+	"id": "classroom_outro",
+	"trigger": {
+		"type": "on_quest_completed",
+		"quest_id": "2.1.3"
+	},
+	"steps": [
+		{ "type": "disable_player" },
+		{ "type": "dialogue", "path": "res://assets/cinematics/classroom_outro_dialogue.json", "id": "salida" },
+		{ "type": "enable_player" }
+	]
+}

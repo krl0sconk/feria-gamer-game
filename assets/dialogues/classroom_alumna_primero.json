@@ -1,0 +1,11 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Alumna", "text": "¿Me preguntaste algo? Estaba con la música." },
+				{ "speaker": "Alumna", "text": "Aquí no está mal si sabes a quién evitar." }
+			]
+		}
+	}
+}

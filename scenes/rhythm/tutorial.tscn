@@ -1,12 +1,18 @@
 [gd_scene format=3 uid="uid://bpjxvmi61lq5"]
 
 [ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_ppmso"]
+[ext_resource type="Texture2D" uid="uid://5miopr5xhgn2" path="res://assets/images/backgrounds/newBedroom.png" id="2_d0wn5"]
 [ext_resource type="AudioStream" uid="uid://d318alnvgieew" path="res://assets/audio/music/tutorial.wav" id="3_q2q7c"]
 
 [node name="Battle" unique_id=1239436012 instance=ExtResource("1_ppmso")]
 chart_path = "res://assets/charts/tutorial.json"
 win_scene_path = "uid://c6mgedn0f8vh7"
 fallback_map_scene_path = "uid://0ltynt3nflaq"
+debug_skip_enabled = true
+
+[node name="Background" parent="." index="0" unique_id=287379656]
+texture = ExtResource("2_d0wn5")
+flip_h = false
 
 [node name="MusicPlayer" parent="." index="3" unique_id=1075957386]
 stream = ExtResource("3_q2q7c")

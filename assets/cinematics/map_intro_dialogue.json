@@ -1,0 +1,12 @@
+{
+	"version": 1,
+	"dialogues": {
+		"entrada": {
+			"lines": [
+				{ "speaker": "Narrador", "text": "El pasillo. Territorio de reglas no escritas." },
+				{ "speaker": "Jugador", "text": "(Aquí la cosa se complica.)" },
+				{ "speaker": "Narrador", "text": "Pero ya demostraste que el ritmo vale más que el miedo." }
+			]
+		}
+	}
+}

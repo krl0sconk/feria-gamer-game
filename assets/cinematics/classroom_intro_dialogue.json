@@ -1,0 +1,13 @@
+{
+	"version": 1,
+	"dialogues": {
+		"entrada": {
+			"lines": [
+				{ "speaker": "Narrador", "text": "El salón de clases. Todos los ojos al frente... o casi todos." },
+				{ "speaker": "Jugador",  "text": "(Ahí están. Los que hacen imposible el día a otros.)" },
+				{ "speaker": "Jugador",  "text": "(No con gritos, no con golpes. Con ritmo.)" },
+				{ "speaker": "Narrador", "text": "Hoy el salón tiene nuevas reglas." }
+			]
+		}
+	}
+}

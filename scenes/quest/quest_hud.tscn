@@ -10,7 +10,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_font")
 script = ExtResource("1_questhud")
 
 [node name="QuestPanel" type="PanelContainer" parent="." unique_id=834759152]

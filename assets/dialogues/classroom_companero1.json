@@ -1,19 +1,20 @@
 {
-  "version": 1,
-  "dialogues": {
-    "intro": {
-      "lines": [
-        { "speaker": "Companero", "text": "Gracias por acercarte... me tienen de punto en el salon." },
-        { "speaker": "Jugador", "text": "No estas solo. Primero te escucho, luego actuamos." },
-        { "speaker": "Companero", "text": "Me da pena, pero contigo me siento un poco mas fuerte." }
-      ]
-    },
-    "win": {
-      "lines": [
-        { "speaker": "Companero", "text": "Volviste. Ya no me siento invisible." },
-        { "speaker": "Jugador", "text": "Pedir ayuda tambien es valentia." },
-        { "speaker": "Companero", "text": "Si alguien mas pasa por esto, yo tambien voy a ayudar." }
-      ]
-    }
-  }
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Daniel", "text": "Me tienen de punto en el salón. No sé qué hacer." },
+				{ "speaker": "Jugador", "text": "No estás solo. Cuéntame." },
+				{ "speaker": "Daniel", "text": "...Gracias. Con eso ya me ayudas." }
+			]
+		},
+		"win": {
+			"lines": [
+				{ "speaker": "Daniel", "text": "Nadie había hecho eso antes." },
+				{ "speaker": "Jugador", "text": "Alguien tenía que." },
+				{ "speaker": "Daniel", "text": "No tenías que. Elegiste hacerlo. Eso es diferente." },
+				{ "speaker": "Daniel", "text": "Soy Daniel." }
+			]
+		}
+	}
 }

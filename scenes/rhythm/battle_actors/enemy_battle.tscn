@@ -1,18 +1,17 @@
 [gd_scene format=3 uid="uid://dwu33kju7dyer"]
 
-[ext_resource type="SpriteFrames" uid="uid://db8bkft1e1jot" path="res://assets/images/characters/npc/enemy_1.tres" id="1_7udhy"]
+[ext_resource type="Script" path="res://scripts/rhythm/enemy_battle.gd" id="1_ebgd"]
+[ext_resource type="SpriteFrames" uid="uid://db8bkft1e1jot" path="res://assets/images/characters/npc/npc1/enemy_1.tres" id="1_7udhy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ftrnt"]
 size = Vector2(75, 290)
 
 [node name="Node2D" type="CharacterBody2D" unique_id=446230275]
+script = ExtResource("1_ebgd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1657430708]
 scale = Vector2(0.25, 0.25)
 sprite_frames = ExtResource("1_7udhy")
-animation = &"Enemy"
-autoplay = "Enemy"
-frame_progress = 0.54796207
 speed_scale = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1144116667]

@@ -13,6 +13,7 @@ script = ExtResource("1_bsm")
 [node name="SpawnPoint01" type="Marker2D" parent="." unique_id=1382850326]
 position = Vector2(-1193, 827)
 script = ExtResource("2_sp")
+enabled = false
 despawn_on_win = false
 sprite_frames = ExtResource("3_w35wr")
 battle_chart_path = "res://assets/charts/crossingfield_chart_easy_plus.json"
@@ -85,6 +86,7 @@ battle_music = ExtResource("4_drj4m")
 [node name="SpawnPoint10" type="Marker2D" parent="." unique_id=1601927607]
 position = Vector2(-1168, 854)
 script = ExtResource("2_sp")
+enabled = false
 despawn_on_win = false
 sprite_frames = ExtResource("3_w35wr")
 battle_chart_path = "res://assets/charts/crossingfield_chart_aligned_normal.json"

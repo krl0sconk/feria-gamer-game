@@ -1,0 +1,13 @@
+{
+	"version": 1,
+	"dialogues": {
+		"contexto": {
+			"lines": [
+				{ "speaker": "Narrador", "text": "Tu cuarto. El único lugar donde el mundo todavía tiene sentido." },
+				{ "speaker": "Narrador", "text": "En el colegio, hay gente que hace la vida imposible a quienes no pueden defenderse." },
+				{ "speaker": "Narrador", "text": "Tú tienes algo que ellos no esperan: el ritmo." },
+				{ "speaker": "Narrador", "text": "Pero primero... necesitas practicar." }
+			]
+		}
+	}
+}

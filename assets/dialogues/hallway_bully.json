@@ -1,0 +1,28 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Bully del pasillo", "text": "Por aqui no pasas. O me ganas en un duelo o te quedas atras." },
+				{ "speaker": "Jugador", "text": "No voy a retroceder." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Bully del pasillo", "text": "Vale... te dejo pasar." },
+				{ "speaker": "Jugador", "text": "Gracias. Sigamos sin pelear." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Bully del pasillo", "text": "Te lo dije." },
+				{ "speaker": "Jugador", "text": "Vuelvo cuando este listo." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Bully del pasillo", "text": "Ya te gané. Busca otro camino." }
+			]
+		}
+	}
+}

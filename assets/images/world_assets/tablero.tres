@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dqooq3nulalfk"]
+
+[ext_resource type="Texture2D" uid="uid://bf3jdid6kwsiw" path="res://assets/images/world_assets/Notice Board.png" id="1_t2b12"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_t2b12")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

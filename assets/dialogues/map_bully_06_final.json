@@ -20,6 +20,12 @@
         { "speaker": "Bully", "text": "La tarima me pertenece." },
         { "speaker": "Jugador", "text": "Todavia no termina." }
       ]
+    },
+    "defeated": {
+      "lines": [
+        { "speaker": "Bully", "text": "Ya lo dijiste todo con el ritmo." },
+        { "speaker": "Jugador", "text": "Tú también puedes cambiar algo si quieres." }
+      ]
     }
   }
 }

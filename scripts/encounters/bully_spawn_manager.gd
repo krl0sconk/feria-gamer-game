@@ -21,8 +21,8 @@ const DEFAULT_PROFILE := {
 
 # Map profile_id -> SpriteFrames resource to preserve original sprites
 const PROFILE_FRAMES := {
-	"easy_bully": preload("res://assets/images/characters/pj1/idle_pj1.tres"),
-	"pj2_bully": preload("res://assets/images/characters/pj2/idle_pj2.tres"),
+	"easy_bully": preload("res://assets/images/characters/pj1/pj1_idle.tres"),
+	"pj2_bully": preload("res://assets/images/characters/pj2/pj2_idle.tres"),
 }
 
 @export_range(5, 20, 1) var minimum_active: int = 5
@@ -171,7 +171,7 @@ func _rebuild_spawn_points() -> void:
 func _get_spawn_markers() -> Array[Marker2D]:
 	var markers: Array[Marker2D] = []
 	for child in get_children():
-		if child is Marker2D:
+		if child is Marker2D and child.get("enabled") != false:
 			markers.append(child as Marker2D)
 	markers.sort_custom(func(a: Marker2D, b: Marker2D) -> bool:
 		return a.name < b.name
@@ -289,7 +289,7 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 			var try_frames = marker.get("sprite_frames")
 			if try_frames != null and try_frames is SpriteFrames:
 				marker_frames = try_frames
-		var default_frames: SpriteFrames = marker_frames if marker_frames != null else PROFILE_FRAMES.get(profile_id, preload("res://assets/images/characters/pj1/idle_pj1.tres")) as SpriteFrames
+		var default_frames: SpriteFrames = marker_frames if marker_frames != null else PROFILE_FRAMES.get(profile_id, preload("res://assets/images/characters/pj1/pj1_idle.tres")) as SpriteFrames
 		if sprite_node is AnimatedSprite2D:
 			# Always override the scene's default frames so SpawnPoint settings win.
 			sprite_node.sprite_frames = default_frames

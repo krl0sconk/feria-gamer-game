@@ -8,9 +8,12 @@
 [ext_resource type="AudioStream" uid="uid://chybtbqfqkxl2" path="res://assets/audio/sfx/hover.tres" id="5_ehon1"]
 [ext_resource type="Texture2D" uid="uid://cg0h20odmb7l6" path="res://assets/images/menu/aplicar_btn.png" id="5_vbf1p"]
 [ext_resource type="Texture2D" uid="uid://b8rho03dr3vko" path="res://assets/images/menu/volver_btn.png" id="8_vbf1p"]
+[ext_resource type="PackedScene" uid="uid://rebindrow001" path="res://scenes/ui/rebind_row.tscn" id="9_rbrow"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ehon1"]
 texture = ExtResource("2_ut0dv")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tab"]
 
 [node name="Options" type="Control" unique_id=847814354]
 layout_mode = 3
@@ -69,13 +72,30 @@ text = "OPCIONES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Grid" type="GridContainer" parent="CenterContainer/Panel/Margin/VBox" unique_id=859599190]
+[node name="TabContainer" type="TabContainer" parent="CenterContainer/Panel/Margin/VBox" unique_id=-1294967295]
+custom_minimum_size = Vector2(0, 340)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_unselected_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_fonts/font = ExtResource("3_vbf1p")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tab")
+current_tab = 1
+
+[node name="General" type="VBoxContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer" unique_id=-1294967294]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Grid" type="GridContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General" unique_id=859599190]
 layout_mode = 2
 theme_override_constants/h_separation = 24
 theme_override_constants/v_separation = 14
 columns = 2
 
-[node name="LabelResolution" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=1871048073]
+[node name="LabelResolution" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=1871048073]
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -83,7 +103,7 @@ theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Resolución"
 
-[node name="ResolutionOption" type="OptionButton" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=441894136]
+[node name="ResolutionOption" type="OptionButton" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=441894136]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(260, 36)
 layout_mode = 2
@@ -91,7 +111,7 @@ size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 18
 
-[node name="LabelWindow" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=234072467]
+[node name="LabelWindow" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=234072467]
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -99,7 +119,7 @@ theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Modo de ventana"
 
-[node name="WindowOption" type="OptionButton" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=1747155899]
+[node name="WindowOption" type="OptionButton" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=1747155899]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(260, 36)
 layout_mode = 2
@@ -107,7 +127,7 @@ size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 18
 
-[node name="LabelMaster" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=1991737050]
+[node name="LabelMaster" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=1991737050]
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -115,12 +135,12 @@ theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Volumen general"
 
-[node name="MasterRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=1514990605]
+[node name="MasterRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=1514990605]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="MasterSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/Grid/MasterRow" unique_id=1853631156]
+[node name="MasterSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid/MasterRow" unique_id=1853631156]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -128,7 +148,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 value = 80.0
 
-[node name="MasterValue" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid/MasterRow" unique_id=2114820069]
+[node name="MasterValue" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid/MasterRow" unique_id=2114820069]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -139,7 +159,7 @@ theme_override_font_sizes/font_size = 18
 text = "80%"
 horizontal_alignment = 2
 
-[node name="LabelSfx" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=1271397515]
+[node name="LabelSfx" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=1271397515]
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -147,12 +167,12 @@ theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Volumen SFX"
 
-[node name="SfxRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=423677859]
+[node name="SfxRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=423677859]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="SfxSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/Grid/SfxRow" unique_id=1779119330]
+[node name="SfxSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid/SfxRow" unique_id=1779119330]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -160,7 +180,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 value = 80.0
 
-[node name="SfxValue" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid/SfxRow" unique_id=553832748]
+[node name="SfxValue" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid/SfxRow" unique_id=553832748]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -171,7 +191,7 @@ theme_override_font_sizes/font_size = 18
 text = "80%"
 horizontal_alignment = 2
 
-[node name="LabelMusic" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=1271397516]
+[node name="LabelMusic" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=1271397516]
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -179,12 +199,12 @@ theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Volumen Música"
 
-[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=423677860]
+[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=423677860]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="MusicSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/Grid/MusicRow" unique_id=1779119331]
+[node name="MusicSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid/MusicRow" unique_id=1779119331]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -192,7 +212,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 value = 80.0
 
-[node name="MusicValue" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid/MusicRow" unique_id=553832749]
+[node name="MusicValue" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid/MusicRow" unique_id=553832749]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -203,7 +223,7 @@ theme_override_font_sizes/font_size = 18
 text = "80%"
 horizontal_alignment = 2
 
-[node name="LabelColorblind" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=125804096]
+[node name="LabelColorblind" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=125804096]
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -211,7 +231,7 @@ theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Daltonismo"
 
-[node name="ColorblindOption" type="OptionButton" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=255675902]
+[node name="ColorblindOption" type="OptionButton" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=255675902]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(260, 36)
 layout_mode = 2
@@ -219,7 +239,7 @@ size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 18
 
-[node name="LabelIntensity" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=45018626]
+[node name="LabelIntensity" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=45018626]
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -227,12 +247,12 @@ theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Intensidad filtro"
 
-[node name="IntensityRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=1745903234]
+[node name="IntensityRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=1745903234]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="IntensitySlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/Grid/IntensityRow" unique_id=1909876987]
+[node name="IntensitySlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid/IntensityRow" unique_id=1909876987]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -243,7 +263,7 @@ max_value = 1.0
 step = 0.05
 value = 0.35
 
-[node name="IntensityValue" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid/IntensityRow" unique_id=1174526855]
+[node name="IntensityValue" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid/IntensityRow" unique_id=1174526855]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -254,7 +274,7 @@ theme_override_font_sizes/font_size = 18
 text = "35%"
 horizontal_alignment = 2
 
-[node name="LabelDyslexia" type="Label" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=412662051]
+[node name="LabelDyslexia" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=412662051]
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -262,13 +282,72 @@ theme_override_fonts/font = ExtResource("3_vbf1p")
 theme_override_font_sizes/font_size = 20
 text = "Modo Disléxico"
 
-[node name="DyslexiaCheck" type="CheckButton" parent="CenterContainer/Panel/Margin/VBox/Grid" unique_id=88611711]
+[node name="DyslexiaCheck" type="CheckButton" parent="CenterContainer/Panel/Margin/VBox/TabContainer/General/Grid" unique_id=88611711]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("3_ut0dv")
 theme_override_font_sizes/font_size = 18
+
+[node name="Controles" type="VBoxContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer" unique_id=-1294967293]
+layout_mode = 2
+theme_override_constants/separation = 8
+metadata/_tab_index = 1
+
+[node name="LabelMovimiento" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967286]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.4, 1)
+theme_override_fonts/font = ExtResource("3_vbf1p")
+theme_override_font_sizes/font_size = 16
+text = "MOVIMIENTO  (Tecla | Mando)"
+
+[node name="RowMoveUp" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967285 instance=ExtResource("9_rbrow")]
+action_name = "move_up"
+
+[node name="RowMoveDown" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967284 instance=ExtResource("9_rbrow")]
+action_name = "move_down"
+
+[node name="RowMoveLeft" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967283 instance=ExtResource("9_rbrow")]
+action_name = "move_left"
+
+[node name="RowMoveRight" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967282 instance=ExtResource("9_rbrow")]
+action_name = "move_right"
+
+[node name="SepInteract" type="HSeparator" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967256]
+layout_mode = 2
+
+[node name="LabelInteraccion" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967276]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.4, 1)
+theme_override_fonts/font = ExtResource("3_vbf1p")
+theme_override_font_sizes/font_size = 16
+text = "INTERACCIÓN  (Tecla | Mando)"
+
+[node name="RowInteract" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967275 instance=ExtResource("9_rbrow")]
+action_name = "Interact"
+
+[node name="SepNotas" type="HSeparator" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967255]
+layout_mode = 2
+
+[node name="LabelNotas" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967266]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.4, 1)
+theme_override_fonts/font = ExtResource("3_vbf1p")
+theme_override_font_sizes/font_size = 16
+text = "NOTAS  (Tecla | Mando)"
+
+[node name="RowNoteUp" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967265 instance=ExtResource("9_rbrow")]
+action_name = "note_up"
+
+[node name="RowNoteDown" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967264 instance=ExtResource("9_rbrow")]
+action_name = "note_down"
+
+[node name="RowNoteLeft" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967263 instance=ExtResource("9_rbrow")]
+action_name = "note_left"
+
+[node name="RowNoteRight" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controles" unique_id=-1294967262 instance=ExtResource("9_rbrow")]
+action_name = "note_right"
 
 [node name="ButtonRow" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox" unique_id=1203600605]
 layout_mode = 2

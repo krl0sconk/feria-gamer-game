@@ -1,25 +1,31 @@
 {
-  "version": 1,
-  "dialogues": {
-    "intro": {
-      "lines": [
-        { "speaker": "Bully", "text": "Mira quien se cree heroe del salon." },
-        { "speaker": "Jugador", "text": "No soy heroe. Solo no me quedo callado." },
-        { "speaker": "Bully", "text": "Entonces demuestralo con ritmo." }
-      ]
-    },
-    "victory": {
-      "lines": [
-        { "speaker": "Bully", "text": "Ok... me ganaste limpio." },
-        { "speaker": "Jugador", "text": "No necesito humillarte para frenarte." },
-        { "speaker": "Bully", "text": "Entendi. Lo voy a pensar." }
-      ]
-    },
-    "defeat": {
-      "lines": [
-        { "speaker": "Bully", "text": "Mucho discurso, poco ritmo." },
-        { "speaker": "Jugador", "text": "No termina aqui. Voy a volver." }
-      ]
-    }
-  }
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "El Bocón", "text": "Todos te están mirando. Qué vergüenza vas a pasar." },
+				{ "speaker": "El Bocón", "text": "Adelante, nuevo. Impresiónname." },
+				{ "speaker": "Jugador", "text": "Lo que haces es cobarde." },
+				{ "speaker": "El Bocón", "text": "Bien. Demuéstralo. Aquí, ahora." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "El Bocón", "text": "Esto no termina aquí." },
+				{ "speaker": "Jugador", "text": "Por hoy sí." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "El Bocón", "text": "Mucho discurso, poco ritmo." },
+				{ "speaker": "Jugador", "text": "Aprendo y regreso." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "El Bocón", "text": "..." },
+				{ "speaker": "Jugador", "text": "Ya terminamos. No hay nada más que hablar." }
+			]
+		}
+	}
 }

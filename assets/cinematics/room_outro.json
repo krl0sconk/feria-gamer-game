@@ -1,0 +1,13 @@
+{
+	"version": 1,
+	"id": "room_outro",
+	"trigger": {
+		"type": "on_quest_completed",
+		"quest_id": "1.1.0"
+	},
+	"steps": [
+		{ "type": "disable_player" },
+		{ "type": "dialogue", "path": "res://assets/cinematics/room_outro_dialogue.json", "id": "mama", "voice_path": "res://assets/audio/sfx/dialogue1.wav" },
+		{ "type": "enable_player" }
+	]
+}

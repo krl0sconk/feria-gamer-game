@@ -40,8 +40,29 @@ var pending_battle_chart_path: String = ""
 ## Override opcional de música para la siguiente batalla.
 var pending_battle_music: AudioStream = null
 
+## Registro de cinemáticas ya reproducidas (id → true). Persiste en sesión para
+## evitar que un on_scene_ready se re-dispare al volver desde una batalla.
+var cinematics_played: Dictionary = {}
+
+## Id de la cinemática en reproducción (vacío = ninguna).
+var active_cinematic_id: String = ""
+
+var _cinematic_queue: Array[Dictionary] = []
+var _current_cinematic_player: CinematicPlayer = null
+
+## Estadísticas de la batalla recién terminada: score, perfects, goods, misses,
+## max_combo y chart_path. La WinScreen las consume y luego se limpian.
+var pending_battle_stats: Dictionary = {}
+
+## Mejor score por chart (chart_path → int). Persiste en disco entre sesiones.
+const HIGHSCORES_PATH := "user://highscores.json"
+var highscores: Dictionary = {}
+
+## Estado de misiones cargado desde un save.
+var _pending_quests_state: Array = []
 
 func _ready() -> void:
+	_load_highscores()
 	OptionsSettings.apply_saved()
 	_menu_music_player = AudioStreamPlayer.new()
 	_menu_music_player.name = "MenuMusicPlayer"
@@ -65,6 +86,7 @@ func _on_node_added(node: Node) -> void:
 			_menu_music_player.play()
 	else:
 		_menu_music_player.stop()
+		apply_pending_quests_state()  
 	var settings := OptionsSettings.load_settings()
 	if bool(settings.get("dyslexia_mode", false)):
 		OptionsSettings.apply_dyslexia_fonts(node, true)
@@ -79,6 +101,7 @@ func clear_pending_dialogue() -> void:
 	pending_dialogue_result = ""
 	pending_battle_chart_path = ""
 	pending_battle_music = null
+	pending_battle_stats = {}
 
 
 func set_loaded_position(position: Vector2) -> void:
@@ -108,6 +131,14 @@ func clear_loaded_save_state() -> void:
 	has_loaded_position = false
 	loaded_world_state = {}
 	has_loaded_world_state = false
+	_pending_quests_state = []
+	cinematics_played = {}
+
+
+func apply_cinematics_played(state: Variant) -> void:
+	if typeof(state) != TYPE_DICTIONARY:
+		return
+	cinematics_played = (state as Dictionary).duplicate()
 
 
 func set_pending_battle_chart_path(chart_path: String) -> void:
@@ -128,3 +159,89 @@ func consume_pending_battle_music() -> AudioStream:
 	var result: AudioStream = pending_battle_music
 	pending_battle_music = null
 	return result
+
+
+## Encola y reproduce una cinemática sin solapar otras. Usado por ScriptedTrigger.
+func request_cinematic(path: String, options: Dictionary = {}) -> void:
+	if path.is_empty():
+		return
+	_cinematic_queue.append({"path": path, "options": options})
+	_try_play_next_cinematic()
+
+
+func _try_play_next_cinematic() -> void:
+	if _current_cinematic_player != null and is_instance_valid(_current_cinematic_player):
+		return
+	if _cinematic_queue.is_empty():
+		return
+	var scene := get_tree().current_scene
+	if scene == null:
+		return
+
+	var item: Dictionary = _cinematic_queue.pop_front()
+	var play_once: bool = bool(item.get("options", {}).get("play_once", true))
+	_current_cinematic_player = CinematicPlayer.play_from(str(item.path), scene, play_once)
+	if _current_cinematic_player == null:
+		_try_play_next_cinematic()
+		return
+
+	_current_cinematic_player.cinematic_started.connect(func(id: String) -> void:
+		active_cinematic_id = id
+	)
+	_current_cinematic_player.cinematic_finished.connect(_on_cinematic_queue_finished)
+
+
+func _on_cinematic_queue_finished(_id: String) -> void:
+	active_cinematic_id = ""
+	if _current_cinematic_player != null and is_instance_valid(_current_cinematic_player):
+		_current_cinematic_player.queue_free()
+	_current_cinematic_player = null
+	_try_play_next_cinematic()
+
+
+func set_loaded_quests_state(state: Array) -> void:
+	_pending_quests_state = state
+
+func apply_pending_quests_state() -> void:
+	if _pending_quests_state.is_empty():
+		return
+	var qm := get_node_or_null("/root/QuestManager")
+	if qm != null and qm.has_method("apply_state"):
+		qm.apply_state(_pending_quests_state)
+	_pending_quests_state = []
+
+
+## Compara el score con el highscore guardado del chart. Si mejora, lo guarda
+## en disco. Devuelve {previous, current, is_new}.
+func record_highscore(chart_path: String, score: int) -> Dictionary:
+	if chart_path.is_empty():
+		return {"previous": 0, "current": score, "is_new": false}
+	var previous: int = int(highscores.get(chart_path, 0))
+	var is_new: bool = score > previous
+	if is_new:
+		highscores[chart_path] = score
+		_save_highscores()
+	return {"previous": previous, "current": maxi(previous, score), "is_new": is_new}
+
+
+func _load_highscores() -> void:
+	if not FileAccess.file_exists(HIGHSCORES_PATH):
+		return
+	var text: String = FileAccess.get_file_as_string(HIGHSCORES_PATH)
+	if text.is_empty():
+		return
+	var json := JSON.new()
+	if json.parse(text) != OK:
+		push_warning("Gamemanager: highscores.json inválido — se ignora.")
+		return
+	if typeof(json.data) == TYPE_DICTIONARY:
+		highscores = json.data
+
+
+func _save_highscores() -> void:
+	var f := FileAccess.open(HIGHSCORES_PATH, FileAccess.WRITE)
+	if f == null:
+		push_warning("Gamemanager: no se pudo abrir %s para escribir highscores." % HIGHSCORES_PATH)
+		return
+	f.store_string(JSON.stringify(highscores, "\t"))
+	f.close()

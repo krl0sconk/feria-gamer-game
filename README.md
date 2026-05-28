@@ -16,6 +16,12 @@
 
 Proyecto académico — Universidad del Norte, 2026.
 
+## 📚 Documentación
+
+Documentación técnica completa del proyecto: [`DOCUMENTATION.md`](DOCUMENTATION.md)
+
+Guías de cinemáticas: [`docs/cinematics/`](docs/cinematics/)
+
 ---
 
 *Desarrollado con ❤️ para la V Feria Gamer*

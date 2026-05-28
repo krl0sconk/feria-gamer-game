@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://rebindrow001"]
+
+[ext_resource type="Script" path="res://scripts/ui/rebind_row.gd" id="1_rbrow"]
+[ext_resource type="FontFile" uid="uid://dsbq3ifavuvbh" path="res://assets/fonts/schoolbell_regular.ttf" id="2_font"]
+
+[node name="RebindRow" type="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+script = ExtResource("1_rbrow")
+
+[node name="ActionLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "Acción"
+
+[node name="KeyButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 32)
+layout_mode = 2
+size_flags_vertical = 5
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.3254902, 0, 0.47843137, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "---"
+
+[node name="JoyButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 32)
+layout_mode = 2
+size_flags_vertical = 5
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.3254902, 0, 0.47843137, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "---"
+
+[node name="ResetButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+size_flags_vertical = 5
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.3254902, 0, 0.47843137, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "↩"

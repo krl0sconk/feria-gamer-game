@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://xacexc4v5pvs"]
+
+[ext_resource type="Script" path="res://scripts/menu/splash.gd" id="1_splash"]
+[ext_resource type="VideoStream" path="res://assets/video/crealintro.ogv" id="2_intro"]
+
+[node name="Splash" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_splash")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("2_intro")
+autoplay = false
+expand = true
+bus = &"Master"

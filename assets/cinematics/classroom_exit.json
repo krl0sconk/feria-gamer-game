@@ -1,0 +1,14 @@
+{
+	"version": 1,
+	"id": "classroom_exit",
+	"trigger": {
+		"type": "on_area_entered"
+	},
+	"steps": [
+		{ "type": "disable_player" },
+		{ "type": "fade_to_black", "duration": 0.5 },
+		{ "type": "dialogue", "path": "res://assets/cinematics/classroom_exit_dialogue.json", "id": "salida" },
+		{ "type": "wait", "seconds": 0.3 },
+		{ "type": "change_scene", "path": "res://scenes/map/map.tscn" }
+	]
+}

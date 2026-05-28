@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dkrd76y7ipit4"]
 
-[ext_resource type="Script" uid="uid://cesns706x4mpk" path="res://scripts/ui/pause_button.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/ui/pause_button.gd" id="1"]
+[ext_resource type="FontFile" uid="uid://dkhuvr1inqnvv" path="res://assets/fonts/retro_bound_uc.ttf" id="2_23jja"]
 
 [node name="PauseButton" type="Control" unique_id=1741637342]
 layout_mode = 3
@@ -19,4 +20,5 @@ offset_top = 8.0
 offset_right = 125.0
 offset_bottom = 48.0
 focus_mode = 0
+theme_override_fonts/font = ExtResource("2_23jja")
 text = "Pause"

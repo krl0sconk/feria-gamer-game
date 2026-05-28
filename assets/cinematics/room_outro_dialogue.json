@@ -1,0 +1,12 @@
+{
+	"version": 1,
+	"dialogues": {
+		"mama": {
+			"lines": [
+				{ "speaker": "Mamá", "text": "¿Ya practicaste? Se te oía desde el pasillo." },
+				{ "speaker": "Jugador", "text": "(Supongo que más de la cuenta.)" },
+				{ "speaker": "Mamá", "text": "Anda, que llegas tarde. Y desayuna algo antes de salir." }
+			]
+		}
+	}
+}

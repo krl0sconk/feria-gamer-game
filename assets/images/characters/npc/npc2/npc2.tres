@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://ci88o7l8mvo1l"]
+
+[ext_resource type="Texture2D" uid="uid://cddrsa8nwwsv4" path="res://assets/images/characters/npc/npc2/cyberbully.png" id="1_dt8hk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlxo8"]
+atlas = ExtResource("1_dt8hk")
+region = Rect2(0, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mc41q"]
+atlas = ExtResource("1_dt8hk")
+region = Rect2(2048, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qjsn"]
+atlas = ExtResource("1_dt8hk")
+region = Rect2(4096, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6wu7"]
+atlas = ExtResource("1_dt8hk")
+region = Rect2(6144, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tynba"]
+atlas = ExtResource("1_dt8hk")
+region = Rect2(8192, 0, 2048, 2048)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlxo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mc41q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5qjsn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6wu7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tynba")
+}],
+"loop": true,
+"name": &"Enemy",
+"speed": 4.0
+}]

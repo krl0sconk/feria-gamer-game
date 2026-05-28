@@ -175,6 +175,8 @@ func _on_slot_pressed(slot_idx: int) -> void:
 			# Antes se intentaba leerlo desde `player`, lo cual no coincide con
 			# el formato de `SaveManager._build_default_payload`.
 			gm.set_loaded_world_state(payload.get("world_flags", {}) as Dictionary)
+		if gm.has_method("apply_cinematics_played"):
+			gm.apply_cinematics_played(payload.get("cinematics_played", {}))
 
 	# Cambiar a la escena guardada y esperar unos frames a que cargue
 	print("save_slots: cargando escena guardada: %s" % scene_path)
@@ -192,13 +194,11 @@ func _on_slot_pressed(slot_idx: int) -> void:
 		print("save_slots: scheduled change to %s" % scene_path)
 	else:
 		push_error("save_slots: no se programó cambio de escena porque no existe: %s" % scene_path)
-	await _tree3.process_frame
-	await _tree3.process_frame
 
 	# Restaurar estado de misiones si el QuestManager soporta apply_state
-	var qm2 := get_node_or_null("/root/QuestManager")
-	if qm2 != null and qm2.has_method("apply_state"):
-		qm2.apply_state(payload.get("quests", []))
+	var gm2 := get_node_or_null("/root/Gamemanager")
+	if gm2 != null and gm2.has_method("set_loaded_quests_state"):
+		gm2.set_loaded_quests_state(payload.get("quests", []))
 
 func _on_delete_pressed(slot_idx: int) -> void:
 	var sm := get_node_or_null("/root/SaveManager")

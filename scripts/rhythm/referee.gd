@@ -17,6 +17,9 @@ var _player_hp: int = 0
 var _score: int = 0
 var _combo: int = 0
 var _max_combo: int = 0
+var _perfects: int = 0
+var _goods: int = 0
+var _misses: int = 0
 var _level_over: bool = false
 
 
@@ -44,6 +47,10 @@ func on_note_result(_player_action: String, _expected_action: String, timing: St
 			_max_combo = _combo
 	else:
 		_combo = 0
+	match combo_timing:
+		"Perfect": _perfects += 1
+		"Good":    _goods += 1
+		_:         _misses += 1
 	_score = max(_score + score_rules.calculate_points(combo_timing, _combo), score_rules.min_score)
 	_player_hp = clamp(_player_hp + health_rules.get_hp_delta(timing), 0, health_rules.max_player_hp)
 	_emit_all()
@@ -88,3 +95,15 @@ func get_player_hp() -> int:
 
 func get_max_combo() -> int:
 	return _max_combo
+
+
+func get_perfects() -> int:
+	return _perfects
+
+
+func get_goods() -> int:
+	return _goods
+
+
+func get_misses() -> int:
+	return _misses

@@ -1,24 +1,30 @@
 {
-  "version": 1,
-  "dialogues": {
-    "intro": {
-      "lines": [
-        { "speaker": "Amigo del bully", "text": "Si vas a meterte, te metes conmigo tambien." },
-        { "speaker": "Jugador", "text": "No vine a pelear por ego. Vine a poner un limite." },
-        { "speaker": "Amigo del bully", "text": "Hablas bonito. A ver si tocas igual." }
-      ]
-    },
-    "victory": {
-      "lines": [
-        { "speaker": "Amigo del bully", "text": "Ya, ya... bajo la guardia." },
-        { "speaker": "Jugador", "text": "Bien. Podemos parar esto hoy." }
-      ]
-    },
-    "defeat": {
-      "lines": [
-        { "speaker": "Amigo del bully", "text": "Ni para sermonear ni para tocar." },
-        { "speaker": "Jugador", "text": "Aprendo y regreso." }
-      ]
-    }
-  }
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Amigo del bully", "text": "Si vas a meterte, te metes conmigo tambien." },
+				{ "speaker": "Jugador", "text": "No vine a pelear por ego. Vine a poner un limite." },
+				{ "speaker": "Amigo del bully", "text": "Hablas bonito. A ver si tocas igual." }
+			]
+		},
+		"victory": {
+			"lines": [
+				{ "speaker": "Amigo del bully", "text": "Ya, ya... bajo la guardia." },
+				{ "speaker": "Jugador", "text": "Bien. Podemos parar esto hoy." }
+			]
+		},
+		"defeat": {
+			"lines": [
+				{ "speaker": "Amigo del bully", "text": "Ni para sermonear ni para tocar." },
+				{ "speaker": "Jugador", "text": "Aprendo y regreso." }
+			]
+		},
+		"defeated": {
+			"lines": [
+				{ "speaker": "Amigo del bully", "text": "Ya está. No te busco más pelea." },
+				{ "speaker": "Jugador", "text": "Bien. Así es mejor para todos." }
+			]
+		}
+	}
 }
