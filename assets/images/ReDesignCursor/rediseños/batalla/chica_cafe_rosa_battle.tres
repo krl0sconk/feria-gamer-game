@@ -1,13 +1,15 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://de26vuawc3v1"]
 
-[ext_resource type="Texture2D" path="res://assets/images/ReDesignCursor/rediseños/batalla/chica_cafe_rosa_battle.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://dmrpia8xpndd2" path="res://assets/images/ReDesignCursor/rediseños/batalla/chica_cafe_rosa_battle.png" id="1_tex"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0"]
 atlas = ExtResource("1_tex")
 region = Rect2(0, 0, 2008, 2026)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_1"]
 atlas = ExtResource("1_tex")
 region = Rect2(2008, 0, 2008, 2026)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_2"]
 atlas = ExtResource("1_tex")
 region = Rect2(4016, 0, 2008, 2026)

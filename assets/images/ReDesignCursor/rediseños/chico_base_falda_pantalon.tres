@@ -1,43 +1,54 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bsgpy7mc5k43o"]
 
-[ext_resource type="Texture2D" path="res://assets/images/ReDesignCursor/rediseños/chico_base_falda_pantalon.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://dvwe05yoii8mt" path="res://assets/images/ReDesignCursor/rediseños/chico_base_falda_pantalon.png" id="1_tex"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8"]
+atlas = ExtResource("1_tex")
+region = Rect2(128, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_9"]
+atlas = ExtResource("1_tex")
+region = Rect2(144, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10"]
+atlas = ExtResource("1_tex")
+region = Rect2(160, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11"]
+atlas = ExtResource("1_tex")
+region = Rect2(176, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0"]
 atlas = ExtResource("1_tex")
 region = Rect2(0, 0, 16, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_1"]
 atlas = ExtResource("1_tex")
 region = Rect2(16, 0, 16, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_2"]
 atlas = ExtResource("1_tex")
 region = Rect2(32, 0, 16, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_3"]
 atlas = ExtResource("1_tex")
 region = Rect2(48, 0, 16, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_4"]
 atlas = ExtResource("1_tex")
 region = Rect2(64, 0, 16, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_5"]
 atlas = ExtResource("1_tex")
 region = Rect2(80, 0, 16, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_6"]
 atlas = ExtResource("1_tex")
 region = Rect2(96, 0, 16, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7"]
 atlas = ExtResource("1_tex")
 region = Rect2(112, 0, 16, 32)
-[sub_resource type="AtlasTexture" id="AtlasTexture_8"]
-atlas = ExtResource("1_tex")
-region = Rect2(128, 0, 16, 32)
-[sub_resource type="AtlasTexture" id="AtlasTexture_9"]
-atlas = ExtResource("1_tex")
-region = Rect2(144, 0, 16, 32)
-[sub_resource type="AtlasTexture" id="AtlasTexture_10"]
-atlas = ExtResource("1_tex")
-region = Rect2(160, 0, 16, 32)
-[sub_resource type="AtlasTexture" id="AtlasTexture_11"]
-atlas = ExtResource("1_tex")
-region = Rect2(176, 0, 16, 32)
 
 [resource]
 animations = [{
