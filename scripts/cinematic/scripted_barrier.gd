@@ -21,6 +21,13 @@ extends StaticBody2D
 		if Engine.is_editor_hint():
 			queue_redraw()
 
+## Si alguna de estas quests está activa, la barrera se desactiva (desbloquea paso).
+@export var unlock_when_quests_active: Array[String] = []:
+	set(value):
+		unlock_when_quests_active = value
+		if Engine.is_editor_hint():
+			queue_redraw()
+
 @export var editor_active_color: Color = Color(1.0, 0.2, 0.2, 0.35):
 	set(value):
 		editor_active_color = value
@@ -41,13 +48,12 @@ func _ready() -> void:
 		child_exiting_tree.connect(_on_editor_child_changed)
 		return
 
-	if _should_be_disabled_by_quests():
-		set_active(false)
-	else:
-		set_active(active_by_default)
+	_apply_barrier_state()
 
 	if QuestManager.has_signal("quest_completed"):
 		QuestManager.quest_completed.connect(_on_quest_completed)
+	if QuestManager.has_signal("quest_activated"):
+		QuestManager.quest_activated.connect(_on_quest_activated)
 
 
 func _process(_delta: float) -> void:
@@ -59,13 +65,19 @@ func _on_editor_child_changed(_node: Node = null) -> void:
 	queue_redraw()
 
 
-func _on_quest_completed(quest_id: String) -> void:
-	if disabled_by_quests.is_empty():
-		return
-	if not disabled_by_quests.has(quest_id):
-		return
-	if _should_be_disabled_by_quests():
+func _on_quest_completed(_quest_id: String) -> void:
+	_apply_barrier_state()
+
+
+func _on_quest_activated(_quest_id: String) -> void:
+	_apply_barrier_state()
+
+
+func _apply_barrier_state() -> void:
+	if _should_be_unlocked_by_active_quests() or _should_be_disabled_by_quests():
 		set_active(false)
+	else:
+		set_active(active_by_default)
 
 
 func set_active(active: bool) -> void:
@@ -102,6 +114,14 @@ func _should_be_disabled_by_quests() -> bool:
 		if not QuestManager.is_completed(quest_id):
 			return false
 	return true
+
+
+func _should_be_unlocked_by_active_quests() -> bool:
+	for quest_id in unlock_when_quests_active:
+		var qid := str(quest_id).strip_edges()
+		if qid != "" and QuestManager.is_active(qid):
+			return true
+	return false
 
 
 func _draw() -> void:

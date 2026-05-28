@@ -3,7 +3,7 @@
 	"id": "map_to_backyard",
 	"trigger": {
 		"type": "on_area_entered",
-		"requires_quest": "4.1.3"
+		"requires_quest_active": "5.1.1"
 	},
 	"steps": [
 		{ "type": "disable_player" },
