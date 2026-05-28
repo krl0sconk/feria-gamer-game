@@ -28,6 +28,9 @@ extends Area2D
 		queue_redraw()
 
 var _armed: bool = true
+## Anti-rebote por carga de escena: si el jugador aparece encima del trigger,
+## queremos ignorar el primer body_entered automático.
+var _trigger_unlock_msec: int = 0
 
 
 func _ready() -> void:
@@ -42,6 +45,7 @@ func _ready() -> void:
 	collision_layer = 0
 	if collision_mask == 0:
 		collision_mask = 1
+	_trigger_unlock_msec = Time.get_ticks_msec() + 600
 	_setup_indicator()
 
 
@@ -90,6 +94,8 @@ func _on_body_entered(body: Node) -> void:
 	if Engine.is_editor_hint() or not _armed:
 		return
 	if not body.is_in_group("player"):
+		return
+	if Time.get_ticks_msec() < _trigger_unlock_msec:
 		return
 	if not _passes_quest_filters():
 		return

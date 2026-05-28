@@ -134,6 +134,13 @@ var _interaction_player: AudioStreamPlayer
 var _defeat_reported: bool = false
 var _talk_count: int = 0
 var _acknowledged_after_quests: Dictionary = {}
+## Cooldown anti-rebote: el botón Interact se usa para iniciar Y avanzar
+## diálogos, así que al cerrar la última línea el mismo press sigue siendo
+## "just_pressed" en el _process de este nodo y re-arranca el diálogo en
+## bucle. Bloqueamos las próximas interacciones por un instante tras cada
+## diálogo y al entrar a la escena.
+const INTERACT_COOLDOWN_MSEC: int = 350
+var _interact_unlock_msec: int = 0
 
 
 ## --- Save/Load hooks for world state serialization --------------------
@@ -182,6 +189,9 @@ func _ready() -> void:
 		push_warning("Interactable '%s': no se encontró DialogueRunner en '%s'." % [id, str(dialogue_runner_path)])
 	else:
 		_runner.dialogue_finished.connect(_on_dialogue_finished)
+	# Pequeño "buffer" inicial por si el jugador entró a la escena con el
+	# botón Interact aún presionado (p. ej. cerrando un diálogo previo).
+	_interact_unlock_msec = Time.get_ticks_msec() + INTERACT_COOLDOWN_MSEC
 	if not dialogue_json_path.is_empty():
 		_data = DialogueLoader.load_json(dialogue_json_path)
 
@@ -321,6 +331,8 @@ func _process(_delta: float) -> void:
 		return
 	if _runner != null and _runner.is_playing():
 		return
+	if Time.get_ticks_msec() < _interact_unlock_msec:
+		return
 	if Input.is_action_just_pressed(INTERACT_ACTION):
 		_start_intro()
 
@@ -433,6 +445,10 @@ func _try_start_after_quest_dialogue() -> bool:
 
 
 func _on_dialogue_finished(dialogue_id: String) -> void:
+	# Cualquier final de diálogo del runner activa el cooldown: el press de
+	# "avanzar" que cerró la línea seguirá siendo just_pressed este frame y,
+	# sin el lock, _process() re-arrancaría el intro inmediatamente.
+	_interact_unlock_msec = Time.get_ticks_msec() + INTERACT_COOLDOWN_MSEC
 	# Ignorar finales que no correspondan a este interactuable.
 	if _current_mode == "":
 		return

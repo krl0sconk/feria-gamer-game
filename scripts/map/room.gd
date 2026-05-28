@@ -15,9 +15,14 @@ extends Node2D
 var _has_exited: bool = false
 var _runner: DialogueRunner = null
 var _exit_areas: Array = []
+## Anti-rebote para no salir del cuarto si el jugador apareció pegado al
+## área de salida (por ejemplo si la quest se cumplió mientras pasaba justo
+## por encima). Se compara contra Time.get_ticks_msec().
+var _exit_unlock_msec: int = 0
 
 func _ready() -> void:
 	_runner = get_node_or_null(dialogue_runner_path) as DialogueRunner
+	_exit_unlock_msec = Time.get_ticks_msec() + 600
 	_resume_post_battle_dialogue_deferred()
 	# Connect to QuestManager to enable exit when quest completes
 	if QuestManager != null and QuestManager.has_signal("quest_completed"):
@@ -123,9 +128,12 @@ func _create_exit_area(pos: Vector2, size: Vector2 = Vector2.ZERO, pos_is_global
 func _on_exit_area_body_entered(body: Node) -> void:
 	if body == null:
 		return
-	if body.is_in_group("player"):
-		_has_exited = true
-		call_deferred("_go_to_map")
+	if not body.is_in_group("player"):
+		return
+	if Time.get_ticks_msec() < _exit_unlock_msec:
+		return
+	_has_exited = true
+	call_deferred("_go_to_map")
 
 
 func _go_to_map() -> void:

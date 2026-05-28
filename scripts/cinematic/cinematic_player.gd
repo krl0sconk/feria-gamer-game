@@ -217,8 +217,15 @@ func _wire_trigger() -> void:
 				return
 			var required_quest: String = str(_data.trigger.get("requires_quest", ""))
 			var required_active: String = str(_data.trigger.get("requires_quest_active", ""))
+			# Cooldown anti-rebote en transiciones: si la cinemática cambia de
+			# escena (map→classroom, etc.) y la escena destino tiene un trigger
+			# inverso justo donde aparece el jugador, sin esta gracia el player
+			# se devuelve solo apenas carga la escena.
+			var spawn_grace_msec: int = Time.get_ticks_msec() + 600
 			area.body_entered.connect(func(body: Node) -> void:
 				if not body.is_in_group("player"):
+					return
+				if Time.get_ticks_msec() < spawn_grace_msec:
 					return
 				if not required_quest.is_empty() and not QuestManager.is_completed(required_quest):
 					return
