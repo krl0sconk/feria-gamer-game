@@ -40,6 +40,9 @@ var pending_battle_chart_path: String = ""
 ## Override opcional de música para la siguiente batalla.
 var pending_battle_music: AudioStream = null
 
+## Escena de batalla pendiente (path). La consume la pantalla de tutorial o la batalla.
+var pending_battle_scene_path: String = ""
+
 ## Registro de cinemáticas ya reproducidas (id → true). Persiste en sesión para
 ## evitar que un on_scene_ready se re-dispare al volver desde una batalla.
 var cinematics_played: Dictionary = {}
@@ -101,6 +104,7 @@ func clear_pending_dialogue() -> void:
 	pending_dialogue_result = ""
 	pending_battle_chart_path = ""
 	pending_battle_music = null
+	pending_battle_scene_path = ""
 	pending_battle_stats = {}
 
 
@@ -147,6 +151,16 @@ func set_pending_battle_chart_path(chart_path: String) -> void:
 
 func set_pending_battle_music(music: AudioStream) -> void:
 	pending_battle_music = music
+
+
+func set_pending_battle_scene_path(scene_path: String) -> void:
+	pending_battle_scene_path = scene_path
+
+
+func consume_pending_battle_scene_path() -> String:
+	var result := pending_battle_scene_path
+	pending_battle_scene_path = ""
+	return result
 
 
 func consume_pending_battle_chart_path() -> String:

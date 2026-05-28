@@ -67,6 +67,9 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 ## Música opcional para la batalla asociada. Null = usa música por defecto.
 @export var battle_music: AudioStream = null
 
+## Si está seteado, tras el diálogo intro se muestra esta pantalla antes de la batalla.
+@export_file("*.tscn") var battle_tutorial_screen_path: String = ""
+
 ## Si es true, este interactuable se elimina después de mostrar el diálogo
 ## de victoria. Útil para bullies secundarios de un solo uso.
 @export var despawn_on_win: bool = false
@@ -99,6 +102,14 @@ const INTERACTION_PATH := "res://assets/audio/sfx/interactionbullie.wav"
 ## Al completar esta quest por charla, reproduce la cinemática indicada.
 @export var cinematic_on_talk_quest: String = ""
 @export_file("*.json") var cinematic_on_talk_path: String = ""
+
+@export_group("Sprite por misión")
+## Animación del Sprite2D mientras la quest indicada no esté completada.
+@export var sprite_animation_before_quest: String = ""
+## Animación del Sprite2D una vez completada la quest indicada.
+@export var sprite_animation_after_quest: String = ""
+## Quest que desbloquea `sprite_animation_after_quest` (p. ej. derrotar un bully).
+@export var sprite_quest_required: String = ""
 
 @export_group("Diálogo tras misión")
 ## Tras completar esta quest, la siguiente interacción usa otro JSON/diálogo.
@@ -189,10 +200,12 @@ func _ready() -> void:
 		QuestManager.quest_activated.connect(_on_quest_completed_for_indicator)
 
 	_setup_indicator()
+	_refresh_sprite_animation()
 
 
 func _on_quest_completed_for_indicator(_quest_id: String = "") -> void:
 	_refresh_indicator()
+	_refresh_sprite_animation()
 
 
 func _ensure_unique_instance_resources() -> void:
@@ -262,6 +275,27 @@ func _refresh_indicator() -> void:
 	var indicator := get_node_or_null("InteractionIndicator")
 	if indicator != null and indicator.has_method("refresh"):
 		indicator.call("refresh")
+
+
+func _refresh_sprite_animation() -> void:
+	var quest_id := str(sprite_quest_required).strip_edges()
+	if quest_id == "":
+		return
+	var before := str(sprite_animation_before_quest).strip_edges()
+	var after := str(sprite_animation_after_quest).strip_edges()
+	if before == "" and after == "":
+		return
+	var sprite := get_node_or_null("Sprite2D") as AnimatedSprite2D
+	if sprite == null or sprite.sprite_frames == null:
+		return
+	var qm := get_node_or_null("/root/QuestManager")
+	var completed := qm != null and qm.is_completed(quest_id)
+	var target := after if completed else before
+	if target == "" or not sprite.sprite_frames.has_animation(target):
+		return
+	if sprite.animation != target:
+		sprite.animation = target
+		sprite.play()
 
 
 func _setup_indicator() -> void:
@@ -450,25 +484,39 @@ func _on_dialogue_finished(dialogue_id: String) -> void:
 			# Comprobamos que el id terminado sea el de intro (safety — por si el
 			# Runner reprodujo otra cosa por encima).
 			if dialogue_id == intro_dialogue_id:
-				_queue_battle_transition()
+				if not battle_tutorial_screen_path.is_empty():
+					_queue_tutorial_transition()
+				else:
+					_queue_battle_transition()
 
 
-func _queue_battle_transition() -> void:
+func _prepare_pending_battle() -> void:
 	var player := get_tree().get_first_node_in_group("player") as Node2D
 	var return_position := Vector2.ZERO
 	if player != null:
 		return_position = player.global_position
-	# Persistimos en Gamemanager para que Battle/WinScreen/LoseScreen sepan
-	# qué NPC reanudar al volver.
 	Gamemanager.return_scene_path = str(get_tree().current_scene.scene_file_path)
 	Gamemanager.return_position = return_position
 	Gamemanager.pending_npc_id = id
 	Gamemanager.pending_dialogue_result = ""
 	Gamemanager.set_pending_battle_chart_path(battle_chart_path)
 	Gamemanager.set_pending_battle_music(battle_music)
+	if battle_scene != null:
+		Gamemanager.set_pending_battle_scene_path(battle_scene.resource_path)
+
+
+func _queue_battle_transition() -> void:
+	_prepare_pending_battle()
 	battle_requested.emit(battle_scene, id)
 	_refresh_indicator()
 	get_tree().change_scene_to_packed(battle_scene)
+
+
+func _queue_tutorial_transition() -> void:
+	_prepare_pending_battle()
+	battle_requested.emit(battle_scene, id)
+	_refresh_indicator()
+	get_tree().change_scene_to_file(battle_tutorial_screen_path)
 
 
 func _on_body_entered(body: Node2D) -> void:

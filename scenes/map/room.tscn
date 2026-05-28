@@ -49,6 +49,7 @@ dialogue_json_path = "res://assets/dialogues/guitarra_tutorial.json"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
 battle_scene = ExtResource("11_battle")
+battle_tutorial_screen_path = "res://scenes/ui/rhythm_tutorial_screen.tscn"
 battle_chart_path = "res://assets/charts/tutorial.json"
 battle_music = ExtResource("4_tmqj2")
 despawn_on_win = true
