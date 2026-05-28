@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "text": "Reglas del cyber salón:" },
+        { "text": "Lo que se escribe en línea también lastima." },
+        { "text": "Si ves mensajes crueles, no los compartas — repórtalos." }
+      ]
+    }
+  }
+}

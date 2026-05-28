@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "text": "Cartel del pasillo:" },
+        { "text": "Batalla de bandas — semana de eliminatorias." },
+        { "text": "Cuidado: hay quien hace del pasillo su territorio." }
+      ]
+    }
+  }
+}

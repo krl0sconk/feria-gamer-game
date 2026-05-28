@@ -1,25 +1,103 @@
 [gd_scene format=3 uid="uid://o4ipke0fcrjr"]
 
 [ext_resource type="PackedScene" uid="uid://w0027yq4uiri" path="res://scenes/dialogue/interactable.tscn" id="1_5h0nr"]
-[ext_resource type="AudioStream" uid="uid://cv23y5wuou4bq" path="res://assets/audio/sfx/dialogue1.wav" id="2_4oggf"]
 [ext_resource type="SpriteFrames" uid="uid://dqooq3nulalfk" path="res://assets/images/world_assets/tablero.tres" id="3_osb06"]
 
 [node name="Tableros" type="Node2D" unique_id=1306248307]
 
-[node name="microfono" parent="." unique_id=878503726 instance=ExtResource("1_5h0nr")]
-position = Vector2(-1.9999924, -1)
+[node name="tablero_habitacion" parent="." unique_id=878503701 instance=ExtResource("1_5h0nr")]
+position = Vector2(-210, -60)
 scale = Vector2(1.5, 1.5)
-id = "microfono"
-mission_id = "5.1.3"
-talk_mission_ids = Array[String](["5.1.3"])
-dialogue_json_path = "res://assets/dialogues/map_microfono_final.json"
-win_dialogue_id = "victory"
-lose_dialogue_id = "defeat"
-dialogue_voice = ExtResource("2_4oggf")
+id = "tablero_habitacion"
+dialogue_json_path = "res://assets/dialogues/tableros/habitacion.json"
 
-[node name="Sprite2D" parent="microfono" index="1" unique_id=858663745]
+[node name="Sprite2D" parent="tablero_habitacion" index="1" unique_id=858663701]
 scale = Vector2(2.756, 2.655)
 sprite_frames = ExtResource("3_osb06")
 animation = &"default"
 
-[editable path="microfono"]
+[node name="tablero_salon_1" parent="." unique_id=878503702 instance=ExtResource("1_5h0nr")]
+position = Vector2(-70, -60)
+scale = Vector2(1.5, 1.5)
+id = "tablero_salon_1"
+dialogue_json_path = "res://assets/dialogues/tableros/salon_1.json"
+
+[node name="Sprite2D" parent="tablero_salon_1" index="1" unique_id=858663702]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("3_osb06")
+animation = &"default"
+
+[node name="tablero_salon_2" parent="." unique_id=878503703 instance=ExtResource("1_5h0nr")]
+position = Vector2(70, -60)
+scale = Vector2(1.5, 1.5)
+id = "tablero_salon_2"
+dialogue_json_path = "res://assets/dialogues/tableros/salon_2.json"
+
+[node name="Sprite2D" parent="tablero_salon_2" index="1" unique_id=858663703]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("3_osb06")
+animation = &"default"
+
+[node name="tablero_cybersalon" parent="." unique_id=878503704 instance=ExtResource("1_5h0nr")]
+position = Vector2(210, -60)
+scale = Vector2(1.5, 1.5)
+id = "tablero_cybersalon"
+dialogue_json_path = "res://assets/dialogues/tableros/cybersalon.json"
+
+[node name="Sprite2D" parent="tablero_cybersalon" index="1" unique_id=858663704]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("3_osb06")
+animation = &"default"
+
+[node name="tablero_pasillo_1" parent="." unique_id=878503705 instance=ExtResource("1_5h0nr")]
+position = Vector2(-210, 80)
+scale = Vector2(1.5, 1.5)
+id = "tablero_pasillo_1"
+dialogue_json_path = "res://assets/dialogues/tableros/pasillo_1.json"
+
+[node name="Sprite2D" parent="tablero_pasillo_1" index="1" unique_id=858663705]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("3_osb06")
+animation = &"default"
+
+[node name="tablero_pasillo_2" parent="." unique_id=878503706 instance=ExtResource("1_5h0nr")]
+position = Vector2(-70, 80)
+scale = Vector2(1.5, 1.5)
+id = "tablero_pasillo_2"
+dialogue_json_path = "res://assets/dialogues/tableros/pasillo_2.json"
+
+[node name="Sprite2D" parent="tablero_pasillo_2" index="1" unique_id=858663706]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("3_osb06")
+animation = &"default"
+
+[node name="tablero_bandas_1" parent="." unique_id=878503707 instance=ExtResource("1_5h0nr")]
+position = Vector2(70, 80)
+scale = Vector2(1.5, 1.5)
+id = "tablero_bandas_1"
+dialogue_json_path = "res://assets/dialogues/tableros/bandas_1.json"
+
+[node name="Sprite2D" parent="tablero_bandas_1" index="1" unique_id=858663707]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("3_osb06")
+animation = &"default"
+
+[node name="tablero_bandas_2" parent="." unique_id=878503708 instance=ExtResource("1_5h0nr")]
+position = Vector2(210, 80)
+scale = Vector2(1.5, 1.5)
+id = "tablero_bandas_2"
+dialogue_json_path = "res://assets/dialogues/tableros/bandas_2.json"
+
+[node name="Sprite2D" parent="tablero_bandas_2" index="1" unique_id=858663708]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("3_osb06")
+animation = &"default"
+
+[editable path="tablero_habitacion"]
+[editable path="tablero_salon_1"]
+[editable path="tablero_salon_2"]
+[editable path="tablero_cybersalon"]
+[editable path="tablero_pasillo_1"]
+[editable path="tablero_pasillo_2"]
+[editable path="tablero_bandas_1"]
+[editable path="tablero_bandas_2"]

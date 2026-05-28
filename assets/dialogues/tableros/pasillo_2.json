@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "text": "Aviso del pasillo:" },
+        { "text": "Si te piden algo a la fuerza, no tienes que ceder." },
+        { "text": "Buscar ayuda también es valentía." }
+      ]
+    }
+  }
+}

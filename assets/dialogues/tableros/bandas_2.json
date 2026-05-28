@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "dialogues": {
+    "intro": {
+      "lines": [
+        { "text": "Reglas oficiales:" },
+        { "text": "Gana quien mantenga el ritmo y no pierda la calma." },
+        { "text": "Revisa el cuadro de finalistas antes de subir al escenario." }
+      ]
+    }
+  }
+}
