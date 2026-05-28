@@ -38,13 +38,26 @@ func _ready() -> void:
 
 
 func _on_dialogue_started_block_player(_dialogue_id: String) -> void:
-	var player := get_tree().get_first_node_in_group("player")
+	# Si el runner ya salió del árbol (p. ej. el cinematic_player que nos
+	# contiene está en proceso de queue_free durante un change_scene),
+	# get_tree() devuelve null y reventaría con un error C++ confuso.
+	if not is_inside_tree():
+		return
+	var tree := get_tree()
+	if tree == null:
+		return
+	var player := tree.get_first_node_in_group("player")
 	if player != null and player.has_method("disable_movement"):
 		player.disable_movement()
 
 
 func _on_dialogue_finished_unblock_player(_dialogue_id: String) -> void:
-	var player := get_tree().get_first_node_in_group("player")
+	if not is_inside_tree():
+		return
+	var tree := get_tree()
+	if tree == null:
+		return
+	var player := tree.get_first_node_in_group("player")
 	if player != null and player.has_method("enable_movement"):
 		player.enable_movement()
 
