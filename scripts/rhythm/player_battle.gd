@@ -5,8 +5,9 @@ const PLAYER_BATTLE_PJ2: SpriteFrames = preload("res://assets/images/characters/
 const PLAYER_BATTLE_PJ3: SpriteFrames = preload("res://assets/images/characters/pj3/pj3_battle.tres")
 const PLAYER_BATTLE_PJ4: SpriteFrames = preload("res://assets/images/characters/pj4/pj4_battle.tres")
 
-const BATTLE_SCALE_PJ1 := Vector2(0.25, 0.25)
-const BATTLE_SCALE_PIXEL := Vector2(0.5, 0.5)
+# Misma escala para los 4 personajes — sus spritesheets tienen el mismo
+# tamaño de frame, así que renderizan al mismo tamaño visual.
+const BATTLE_SCALE := Vector2(0.25, 0.25)
 
 const BATTLE_ANIMS := {
 	"note_left": &"left",
@@ -25,16 +26,13 @@ func _ready() -> void:
 	match skin_key:
 		"idlepj4":
 			anim.sprite_frames = PLAYER_BATTLE_PJ4
-			anim.scale = BATTLE_SCALE_PIXEL
 		"idlepj3":
 			anim.sprite_frames = PLAYER_BATTLE_PJ3
-			anim.scale = BATTLE_SCALE_PIXEL
 		"idlepj2":
 			anim.sprite_frames = PLAYER_BATTLE_PJ2
-			anim.scale = BATTLE_SCALE_PIXEL
 		_:
 			anim.sprite_frames = PLAYER_BATTLE_PJ1
-			anim.scale = BATTLE_SCALE_PJ1
+	anim.scale = BATTLE_SCALE
 	_play_idle()
 	if not anim.animation_finished.is_connected(_on_animation_finished):
 		anim.animation_finished.connect(_on_animation_finished)

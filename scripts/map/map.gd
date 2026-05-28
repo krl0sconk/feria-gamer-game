@@ -1,7 +1,10 @@
 # Controlador del Map (escena top-down). Se encarga de:
-#   1. Conectar DialogueRunner → Player (bloqueo de movimiento).
-#   2. Reanudar, al volver de una batalla, el diálogo de resultado del NPC
+#   1. Reanudar, al volver de una batalla, el diálogo de resultado del NPC
 #      que la inició (lo busca en el grupo "interactables" por id).
+#
+# El bloqueo del movimiento durante diálogos lo gestiona el propio
+# DialogueRunner (ver scripts/dialogue/dialogue_runner.gd) — así todas las
+# escenas con un DialogueRunner se comportan igual sin cableado manual.
 #
 # SRP: solo pega cables entre los nodos de la escena. No sabe de JSON, ni
 # de batallas, ni de HUD.
@@ -18,7 +21,6 @@ extends Node2D
 @export var reposition_when_quest_done: Array[String] = []
 
 func _ready() -> void:
-	_wire_dialogue_to_player()
 	_resume_post_battle_dialogue_deferred()
 	_setup_bg_music()
 	call_deferred("_restore_hallway_encounter_state")
@@ -34,28 +36,6 @@ func _setup_bg_music() -> void:
 			player.bus = &"Music"
 		if not player.finished.is_connected(player.play):
 			player.finished.connect(player.play)
-
-
-
-func _wire_dialogue_to_player() -> void:
-	if _runner == null:
-		push_warning("Map: no hay DialogueRunner en '%s'." % str(dialogue_runner_path))
-		return
-	var player := get_tree().get_first_node_in_group("player")
-	if player == null:
-		# El Player puede no estar en el grupo todavía si aún no corrió su
-		# _ready; buscar por nombre como fallback.
-		player = get_node_or_null("Player")
-	if player == null:
-		return
-	# Las señales del Runner llevan `dialogue_id: String`; los métodos del
-	# Player no lo usan → `unbind(1)` absorbe ese argumento.
-	var on_start := Callable(player, "disable_movement").unbind(1)
-	var on_end := Callable(player, "enable_movement").unbind(1)
-	if not _runner.dialogue_started.is_connected(on_start):
-		_runner.dialogue_started.connect(on_start)
-	if not _runner.dialogue_finished.is_connected(on_end):
-		_runner.dialogue_finished.connect(on_end)
 
 
 

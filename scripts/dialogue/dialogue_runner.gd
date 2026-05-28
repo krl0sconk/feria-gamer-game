@@ -30,6 +30,23 @@ func _ready() -> void:
 		return
 	_box.advance_requested.connect(_on_advance_requested)
 	_box.hide_box()
+	# Bloqueo de movimiento del jugador durante el diálogo. Se hace acá
+	# (y no en cada Map/Room) para garantizar el comportamiento en cualquier
+	# escena que use DialogueRunner sin tener que cablearlo a mano.
+	dialogue_started.connect(_on_dialogue_started_block_player)
+	dialogue_finished.connect(_on_dialogue_finished_unblock_player)
+
+
+func _on_dialogue_started_block_player(_dialogue_id: String) -> void:
+	var player := get_tree().get_first_node_in_group("player")
+	if player != null and player.has_method("disable_movement"):
+		player.disable_movement()
+
+
+func _on_dialogue_finished_unblock_player(_dialogue_id: String) -> void:
+	var player := get_tree().get_first_node_in_group("player")
+	if player != null and player.has_method("enable_movement"):
+		player.enable_movement()
 
 
 ## Arranca un diálogo. `voice` es opcional — si se pasa, el DialogueBox
