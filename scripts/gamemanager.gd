@@ -169,6 +169,24 @@ func clear_loaded_save_state() -> void:
 	session_world_state = {}
 	_pending_quests_state = []
 	cinematics_played = {}
+	# Sin esto, el QuestManager (autoload) conserva las quests completadas
+	# del slot anterior y el slot nuevo arranca "con todo hecho".
+	var qm := get_node_or_null("/root/QuestManager")
+	if qm != null and qm.has_method("reset_to_initial_state"):
+		qm.call("reset_to_initial_state")
+	# Estado de batalla pendiente: si el jugador venía de una batalla y
+	# rebotó al menú principal antes de cargar otro slot, estos valores
+	# colgaban hasta el siguiente cambio de escena.
+	return_scene_path = ""
+	return_position = Vector2.ZERO
+	pending_npc_id = ""
+	pending_dialogue_result = ""
+	pending_battle_chart_path = ""
+	pending_battle_music = null
+	pending_battle_scene_path = ""
+	pending_battle_stats = {}
+	pending_map_return = false
+	active_cinematic_id = ""
 
 
 func apply_cinematics_played(state: Variant) -> void:

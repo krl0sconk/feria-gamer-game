@@ -89,6 +89,23 @@ func start_progression() -> void:
 	_refresh_unlocks()
 
 
+## Vuelve todas las quests al estado inicial declarado en el JSON. Lo usa
+## Gamemanager al abrir un slot vacío para que las quests completadas en
+## otro slot/sesión no se cuelen al nuevo guardado.
+##
+## Implementación: recargamos el JSON (en lugar de Quest.reset_states()) para
+## respetar visibilidades como DESACTIVADA que se declaran en disco, no en el
+## default hardcodeado del recurso Quest.
+func reset_to_initial_state() -> void:
+	if load_from_json(quests_json_path):
+		start_progression()
+	else:
+		_completed.clear()
+		_active.clear()
+		_refresh_unlocks()
+		active_quests_changed.emit(_active_ids_array())
+
+
 func complete_quest(quest_id: String) -> void:
 	if not _active.has(quest_id):
 		return
@@ -175,7 +192,13 @@ func serialize_state() -> Array:
 func apply_state(serialized: Array) -> void:
 	if typeof(serialized) != TYPE_ARRAY:
 		return
-	# Reset runtime trackers and apply saved states
+	# Reseteamos *todo* desde el JSON antes de aplicar el estado guardado.
+	# Sin esto, las quests que existan en _by_id pero NO estén presentes en
+	# `serialized` (p. ej. al saltar de un slot terminado a uno en progreso
+	# con menos quests serializadas) retendrían estados COMPLETADA del slot
+	# anterior.
+	if not load_from_json(quests_json_path):
+		push_warning("QuestManager.apply_state: no se pudo recargar JSON; aplicando sobre estado actual.")
 	_completed.clear()
 	_active.clear()
 	for item in serialized:

@@ -1066,8 +1066,11 @@ Three-slot JSON save system at `user://savesgames/save_slot_{1,2,3}.json`. Write
 ### 12.3 Load Flow
 
 1. `save_slots.gd` reads slot JSON and validates scene path (deletes invalid saves pointing at menu scenes).
-2. Sets `Gamemanager.loaded_position`, `loaded_world_state`, quest state, and `cinematics_played`.
-3. Target scene consumes load hooks in `_ready()` then calls `Gamemanager.clear_loaded_save_state()`.
+2. **If the slot is empty / invalid →** call `Gamemanager.clear_loaded_save_state()` (wipes `loaded_*`, `session_world_state`, `cinematics_played`, pending battle state, and resets `QuestManager` to its JSON-declared initial state) and route to `select_pj.tscn`.
+3. **If the slot has data →** push `loaded_position`, `loaded_world_state`, `cinematics_played`, and `_pending_quests_state` into `Gamemanager`, then `change_scene_to_file(scene_path)`.
+4. When the new (non-menu) scene is added to the root, `Gamemanager._on_node_added` runs `apply_pending_quests_state()` → `QuestManager.apply_state(...)`, which **re-reads `quests.json` first** so quests absent from the saved array fall back to JSON defaults instead of inheriting state from a previously loaded slot.
+
+**Slot isolation guarantee:** the autoload `QuestManager` is the only place quest state lives at runtime, so every transition that crosses a save boundary must reset it. Both branches above do (step 2 via `reset_to_initial_state()`, step 4 via `apply_state`'s JSON reload), which prevents the "I loaded a fresh slot but the previous slot's missions are already done" bug.
 
 **Separate persistence (not in slot saves):** highscores at `user://highscores.json` (Gamemanager); settings at `user://settings.cfg` (OptionsSettings + ControlsSettings).
 
