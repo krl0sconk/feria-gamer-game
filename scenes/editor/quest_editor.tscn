@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://dheymtk8ju4ck"]
 
-[ext_resource type="Script" path="res://scripts/editor/quest_editor.gd" id="1_hm0i8"]
+[ext_resource type="Script" uid="uid://52buyfh1plnp" path="res://scripts/editor/quest_editor.gd" id="1_hm0i8"]
 
-[node name="QuestEditorRoot" type="Control"]
-script = ExtResource("1_hm0i8")
+[node name="QuestEditorRoot" type="Control" unique_id=297958190]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_hm0i8")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1767693737]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,160 +23,160 @@ offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer" unique_id=1029303492]
 layout_mode = 2
+split_offsets = PackedInt32Array(-200)
 split_offset = -200
 
-[node name="LeftPanel" type="VBoxContainer" parent="MarginContainer/HSplitContainer"]
-layout_mode = 2
+[node name="LeftPanel" type="VBoxContainer" parent="MarginContainer/HSplitContainer" unique_id=1982008290]
 custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
 
-[node name="LeftHeader" type="Label" parent="MarginContainer/HSplitContainer/LeftPanel"]
+[node name="LeftHeader" type="Label" parent="MarginContainer/HSplitContainer/LeftPanel" unique_id=2085453150]
 layout_mode = 2
 text = "Misiones"
 
-[node name="QuestList" type="ItemList" parent="MarginContainer/HSplitContainer/LeftPanel"]
+[node name="QuestList" type="ItemList" parent="MarginContainer/HSplitContainer/LeftPanel" unique_id=754497485]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LeftButtons" type="HBoxContainer" parent="MarginContainer/HSplitContainer/LeftPanel"]
+[node name="LeftButtons" type="HBoxContainer" parent="MarginContainer/HSplitContainer/LeftPanel" unique_id=780077381]
 layout_mode = 2
 
-[node name="NewButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/LeftButtons"]
+[node name="NewButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/LeftButtons" unique_id=1262456066]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Nueva"
 
-[node name="DeleteButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/LeftButtons"]
+[node name="DeleteButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/LeftButtons" unique_id=383695969]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Eliminar"
 
-[node name="DuplicateButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/LeftButtons"]
+[node name="DuplicateButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/LeftButtons" unique_id=883980061]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Duplicar"
 
-[node name="OrderButtons" type="HBoxContainer" parent="MarginContainer/HSplitContainer/LeftPanel"]
+[node name="OrderButtons" type="HBoxContainer" parent="MarginContainer/HSplitContainer/LeftPanel" unique_id=23909678]
 layout_mode = 2
 
-[node name="UpButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/OrderButtons"]
+[node name="UpButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/OrderButtons" unique_id=1697455074]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Subir"
 
-[node name="DownButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/OrderButtons"]
+[node name="DownButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/OrderButtons" unique_id=1474512034]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Bajar"
 
-[node name="FileButtons" type="HBoxContainer" parent="MarginContainer/HSplitContainer/LeftPanel"]
+[node name="FileButtons" type="HBoxContainer" parent="MarginContainer/HSplitContainer/LeftPanel" unique_id=576978518]
 layout_mode = 2
 
-[node name="LoadButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/FileButtons"]
+[node name="LoadButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/FileButtons" unique_id=1132954755]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Cargar"
 
-[node name="SaveButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/FileButtons"]
+[node name="SaveButton" type="Button" parent="MarginContainer/HSplitContainer/LeftPanel/FileButtons" unique_id=941820273]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Guardar"
 
-[node name="RightPanel" type="VBoxContainer" parent="MarginContainer/HSplitContainer"]
+[node name="RightPanel" type="VBoxContainer" parent="MarginContainer/HSplitContainer" unique_id=45303989]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RightHeader" type="Label" parent="MarginContainer/HSplitContainer/RightPanel"]
+[node name="RightHeader" type="Label" parent="MarginContainer/HSplitContainer/RightPanel" unique_id=1271867659]
 layout_mode = 2
 text = "Detalle de mision"
 
-[node name="FormGrid" type="GridContainer" parent="MarginContainer/HSplitContainer/RightPanel"]
+[node name="FormGrid" type="GridContainer" parent="MarginContainer/HSplitContainer/RightPanel" unique_id=1676140913]
 layout_mode = 2
 columns = 2
 
-[node name="IdLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid"]
+[node name="IdLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid" unique_id=421699942]
 layout_mode = 2
 text = "ID"
 
-[node name="IdEdit" type="LineEdit" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid"]
+[node name="IdEdit" type="LineEdit" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid" unique_id=567271502]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "quest_001"
 
-[node name="TitleLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid"]
+[node name="TitleLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid" unique_id=1111867114]
 layout_mode = 2
 text = "Titulo"
 
-[node name="TitleEdit" type="LineEdit" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid"]
+[node name="TitleEdit" type="LineEdit" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid" unique_id=1204387931]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Nueva mision"
 
-[node name="VisibilityLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid"]
+[node name="VisibilityLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid" unique_id=1108104577]
 layout_mode = 2
 text = "Visibilidad"
 
-[node name="VisibilityOption" type="OptionButton" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid"]
+[node name="VisibilityOption" type="OptionButton" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid" unique_id=1451358602]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ProgressLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid"]
+[node name="ProgressLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid" unique_id=559890745]
 layout_mode = 2
 text = "Estado"
 
-[node name="ProgressOption" type="OptionButton" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid"]
+[node name="ProgressOption" type="OptionButton" parent="MarginContainer/HSplitContainer/RightPanel/FormGrid" unique_id=180095781]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DescriptionLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel"]
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel" unique_id=150807715]
 layout_mode = 2
 text = "Descripcion"
 
-[node name="DescriptionEdit" type="TextEdit" parent="MarginContainer/HSplitContainer/RightPanel"]
-layout_mode = 2
+[node name="DescriptionEdit" type="TextEdit" parent="MarginContainer/HSplitContainer/RightPanel" unique_id=1403174758]
 custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PrereqLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel"]
+[node name="PrereqLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel" unique_id=2060360417]
 layout_mode = 2
 text = "Requisitos"
 
-[node name="PrereqHelp" type="Label" parent="MarginContainer/HSplitContainer/RightPanel"]
+[node name="PrereqHelp" type="Label" parent="MarginContainer/HSplitContainer/RightPanel" unique_id=808905115]
 layout_mode = 2
 text = "Selecciona una o mas misiones prerequisito"
 autowrap_mode = 3
 
-[node name="PrereqList" type="ItemList" parent="MarginContainer/HSplitContainer/RightPanel"]
-layout_mode = 2
+[node name="PrereqList" type="ItemList" parent="MarginContainer/HSplitContainer/RightPanel" unique_id=1492407560]
 custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
 select_mode = 1
 
-[node name="ValidateRow" type="HBoxContainer" parent="MarginContainer/HSplitContainer/RightPanel"]
+[node name="ValidateRow" type="HBoxContainer" parent="MarginContainer/HSplitContainer/RightPanel" unique_id=1859218895]
 layout_mode = 2
 
-[node name="ValidateButton" type="Button" parent="MarginContainer/HSplitContainer/RightPanel/ValidateRow"]
+[node name="ValidateButton" type="Button" parent="MarginContainer/HSplitContainer/RightPanel/ValidateRow" unique_id=1966606772]
 layout_mode = 2
 text = "Validar dependencias"
 
-[node name="ErrorLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel/ValidateRow"]
+[node name="ErrorLabel" type="Label" parent="MarginContainer/HSplitContainer/RightPanel/ValidateRow" unique_id=2132323048]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 2
 autowrap_mode = 3
 
-[node name="SaveDialog" type="FileDialog" parent="."]
+[node name="SaveDialog" type="FileDialog" parent="." unique_id=550131571]
 title = "Guardar quests"
-file_mode = 4
 access = 2
 filters = PackedStringArray("*.json ; Archivo JSON", "*.tres ; Recurso Godot")
 
-[node name="LoadDialog" type="FileDialog" parent="."]
-title = "Cargar quests"
+[node name="LoadDialog" type="FileDialog" parent="." unique_id=1472973691]
+title = "Open a File"
 file_mode = 0
 access = 2
 filters = PackedStringArray("*.json ; Archivo JSON", "*.tres ; Recurso Godot")
 
-[node name="ConfirmDeleteDialog" type="ConfirmationDialog" parent="."]
+[node name="ConfirmDeleteDialog" type="ConfirmationDialog" parent="." unique_id=1630104375]
 title = "Eliminar mision"
 dialog_text = "Esta accion eliminara la mision seleccionada."
