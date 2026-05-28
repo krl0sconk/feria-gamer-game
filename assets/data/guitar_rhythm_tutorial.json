@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"screen_title": "Tutorial de ritmo",
+	"pages": [
+		{
+			"title": "Las flechas",
+			"body": "Las notas caen desde arriba hacia las flechas de abajo.\n\nCuando una nota llegue a la zona, pulsa la tecla o el botón del mando:\n\nIzquierda: {left}\nAbajo:     {down}\nArriba:    {up}\nDerecha:   {right}\n\nSi remapeaste los controles en Opciones, se usan esas teclas y botones.",
+			"icons": [
+				"res://assets/images/ui/arrow.webp"
+			]
+		},
+		{
+			"title": "Timing",
+			"body": "El momento importa:\n\n  PERFECT — justo en el beat (más puntos).\n  GOOD — cerca del beat (menos puntos).\n  MISS — fallaste o apretaste de más.\n\nMuchos MISS seguidos bajan tu medidor de salud.",
+			"icons": [
+				"res://assets/images/ui/perfect.webp",
+				"res://assets/images/ui/good.webp",
+				"res://assets/images/ui/miss.webp"
+			]
+		},
+		{
+			"title": "Medidor de salud",
+			"body": "Arriba verás tu medidor de salud y el del rival.\n\nCada nota bien te ayuda; cada MISS te resta.\n\nSi tu medidor llega a cero, pierdes la batalla y vuelves a tu cuarto para intentarlo otra vez."
+		},
+		{
+			"title": "Practica con la guitarra",
+			"body": "Esta primera batalla es corta y tranquila: sirve para calentar dedos.\n\nLee con calma, respira y sigue el ritmo.\n\nCuando estés listo, pulsa \"A la batalla\" para empezar."
+		}
+	]
+}

@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://qcihfo8hgppe"]
+
+[ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_4tc1s"]
+[ext_resource type="Texture2D" uid="uid://ck45u308f8w0m" path="res://assets/images/backgrounds/bgPasillo.png" id="2_pf4oa"]
+[ext_resource type="AudioStream" uid="uid://f5s0a1ryr535" path="res://assets/audio/music/double.wav" id="3_kdl1l"]
+[ext_resource type="SpriteFrames" uid="uid://bnyb0cang2ji2" path="res://assets/images/characters/npc/npc3/npc3.tres" id="4_mabry"]
+
+[node name="Battle3" unique_id=1239436012 instance=ExtResource("1_4tc1s")]
+chart_path = "res://assets/charts/doubletrouble.json"
+lose_scene_path = ""
+
+[node name="Background" parent="." index="0" unique_id=287379656]
+position = Vector2(5.000001, 1)
+scale = Vector2(0.7918985, 0.79189855)
+texture = ExtResource("2_pf4oa")
+
+[node name="MusicPlayer" parent="." index="3" unique_id=1075957386]
+stream = ExtResource("3_kdl1l")
+bpm = 200.0
+
+[node name="Metronome" parent="." index="4" unique_id=984578197]
+bpm = 200.0
+
+[node name="ScoreLabel" parent="BattleHUD/Root/Node2D" parent_id_path=PackedInt32Array(1023945652, 1504510280) index="0" unique_id=1195142958]
+anchors_preset = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 190.0
+offset_bottom = 59.0
+
+[node name="ComboLabel" parent="BattleHUD/Root/Node2D" parent_id_path=PackedInt32Array(1023945652, 1504510280) index="1" unique_id=1120566323]
+anchors_preset = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 185.0
+offset_bottom = 44.0
+
+[node name="AnimatedSprite2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="0" unique_id=1657430708]
+position = Vector2(-10, 11)
+scale = Vector2(0.24609375, 0.24609375)
+sprite_frames = ExtResource("4_mabry")
+animation = &"Enemy"
+speed_scale = 1.0
+
+[node name="CollisionShape2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="1" unique_id=1144116667]
+visible = true
+
+[editable path="BattleHUD"]
+[editable path="EnemyBattle"]

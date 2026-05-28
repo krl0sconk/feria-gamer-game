@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://csq1t4ajb3h5x"]
 
 [ext_resource type="Script" uid="uid://bxsrqqcvplko4" path="res://scripts/rhythm/player_battle.gd" id="1_ffekg"]
+[ext_resource type="SpriteFrames" uid="uid://btgbdrv3gb6xj" path="res://assets/images/characters/pj1/pj1_battle.tres" id="2_r3kyg"]
 
 [node name="PlayerBattle" type="CharacterBody2D" unique_id=323566821]
 script = ExtResource("1_ffekg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1407547462]
 scale = Vector2(0.25, 0.25)
+sprite_frames = ExtResource("2_r3kyg")
+animation = &"idle"
 speed_scale = 0.2

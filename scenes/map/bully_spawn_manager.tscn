@@ -2,92 +2,131 @@
 
 [ext_resource type="Script" uid="uid://wldx3dpj0kel" path="res://scripts/encounters/bully_spawn_manager.gd" id="1_bsm"]
 [ext_resource type="Script" uid="uid://dd31ougo88is6" path="res://scripts/encounters/spawn_point.gd" id="2_sp"]
-[ext_resource type="SpriteFrames" uid="uid://b6s6yqwav5cfa" path="res://assets/images/characters/npc/bully_extras.tres" id="3_w35wr"]
-[ext_resource type="AudioStream" uid="uid://coajlg8uc0npg" path="res://assets/audio/music/CROSSINGFIELDS.wav" id="4_drj4m"]
-[ext_resource type="AudioStream" uid="uid://co5wluprbwb83" path="res://assets/audio/music/midnightcity_piano_full.wav" id="6_midc"]
+[ext_resource type="PackedScene" uid="uid://cbxu47h4paavd" path="res://scenes/rhythm/battlebullieextra1.tscn" id="b01"]
+[ext_resource type="PackedScene" uid="uid://cnoxmooixjiui" path="res://scenes/rhythm/battlebullieextra2.tscn" id="b02"]
+[ext_resource type="PackedScene" uid="uid://bf80umvsckplt" path="res://scenes/rhythm/battlebullieextra3.tscn" id="b03"]
+[ext_resource type="PackedScene" uid="uid://drq2dxl5pn1vm" path="res://scenes/rhythm/battlebullieextra4.tscn" id="b04"]
+[ext_resource type="PackedScene" uid="uid://b11ba4b0m1sjp" path="res://scenes/rhythm/battlebullieextra5.tscn" id="b05"]
+[ext_resource type="PackedScene" uid="uid://dbp1ghsgrowpw" path="res://scenes/rhythm/battlebullieextra6.tscn" id="b06"]
+[ext_resource type="PackedScene" uid="uid://b7wvce44m8d5d" path="res://scenes/rhythm/battlebullieextra7.tscn" id="b07"]
+[ext_resource type="PackedScene" uid="uid://ce4ugx5b7vc7l" path="res://scenes/rhythm/battlebullieextra8.tscn" id="b08"]
+[ext_resource type="PackedScene" uid="uid://cii728n8e1w2a" path="res://scenes/rhythm/battlebullieextra9.tscn" id="b09"]
+[ext_resource type="PackedScene" uid="uid://d3hhwu144qttf" path="res://scenes/rhythm/battlebullieextra10.tscn" id="b10"]
+[ext_resource type="AudioStream" uid="uid://bntdhu6y3j0ir" path="res://assets/audio/music/itsgoingarriba_chorus_20_60.wav" id="m_arriba"]
+[ext_resource type="AudioStream" uid="uid://coajlg8uc0npg" path="res://assets/audio/music/CROSSINGFIELDS.wav" id="m_crossing_norm"]
+[ext_resource type="AudioStream" uid="uid://baike5qo8fbk6" path="res://assets/audio/music/midnightcity_piano_full.wav" id="m_midnight"]
+[ext_resource type="SpriteFrames" uid="uid://cii8pv71q8f7h" path="res://assets/images/ReDesignCursor/rediseños/chica_pelirroja_verde.tres" id="w02"]
+[ext_resource type="SpriteFrames" uid="uid://b84cu0g8l16bm" path="res://assets/images/ReDesignCursor/rediseños/chica_morena_rojo.tres" id="w03"]
+[ext_resource type="SpriteFrames" uid="uid://beg4prr6q6fc5" path="res://assets/images/ReDesignCursor/rediseños/chica_cafe_rosa.tres" id="w04"]
+[ext_resource type="SpriteFrames" uid="uid://so7gdapskws4" path="res://assets/images/ReDesignCursor/rediseños/chica_negro_morado.tres" id="w05"]
+[ext_resource type="SpriteFrames" uid="uid://bsgpy7mc5k43o" path="res://assets/images/ReDesignCursor/rediseños/chico_base_falda_pantalon.tres" id="w06"]
+[ext_resource type="SpriteFrames" uid="uid://d263qlbffa37j" path="res://assets/images/ReDesignCursor/rediseños/chico_rubio_verde.tres" id="w07"]
+[ext_resource type="SpriteFrames" uid="uid://mj83w48clreg" path="res://assets/images/ReDesignCursor/rediseños/chico_moreno_rojo.tres" id="w08"]
+[ext_resource type="SpriteFrames" uid="uid://b7jwiqbhmq2ri" path="res://assets/images/ReDesignCursor/rediseños/chico_cafe_azul.tres" id="w09"]
+[ext_resource type="SpriteFrames" uid="uid://caoeadtyhr8yk" path="res://assets/images/ReDesignCursor/rediseños/chico_negro_amarillo.tres" id="w10"]
 
-[node name="BullySpawnManager" type="Node2D" unique_id=764669343]
+[node name="BullySpawnManager" type="Node2D" unique_id=1335529316]
 position = Vector2(0, 2)
 script = ExtResource("1_bsm")
 
-[node name="SpawnPoint01" type="Marker2D" parent="." unique_id=1382850326]
-position = Vector2(-1193, 827)
+[node name="SpawnPoint01" type="Marker2D" parent="." unique_id=1191511640]
+position = Vector2(520, 1175)
 script = ExtResource("2_sp")
 enabled = false
+battle_scene = ExtResource("b01")
 despawn_on_win = false
-sprite_frames = ExtResource("3_w35wr")
+sprite_frames = ExtResource("w09")
 battle_chart_path = "res://assets/charts/crossingfield_chart_easy_plus.json"
-battle_music = ExtResource("4_drj4m")
+battle_music = ExtResource("m_crossing_norm")
+sprite_scale = Vector2(1.4, 1.5)
 
-[node name="SpawnPoint02" type="Marker2D" parent="." unique_id=1746771161]
-position = Vector2(1634, 1357)
+[node name="SpawnPoint02" type="Marker2D" parent="." unique_id=54331251]
+position = Vector2(1480, 1326)
 script = ExtResource("2_sp")
+battle_scene = ExtResource("b02")
 despawn_on_win = false
-sprite_frames = ExtResource("3_w35wr")
+sprite_frames = ExtResource("w02")
 battle_chart_path = "res://assets/charts/midnightcity_piano_40s.json"
-battle_music = ExtResource("6_midc")
+battle_music = ExtResource("m_midnight")
+sprite_scale = Vector2(1.4, 1.5)
 
-[node name="SpawnPoint03" type="Marker2D" parent="." unique_id=1594303849]
-position = Vector2(262, 1601)
+[node name="SpawnPoint03" type="Marker2D" parent="." unique_id=1833849987]
+position = Vector2(926, 1015)
 script = ExtResource("2_sp")
+battle_scene = ExtResource("b03")
 despawn_on_win = false
-sprite_frames = ExtResource("3_w35wr")
+sprite_frames = ExtResource("w03")
 battle_chart_path = "res://assets/charts/crossingfield_chart_easy_plus.json"
-battle_music = ExtResource("4_drj4m")
+battle_music = ExtResource("m_crossing_norm")
+sprite_scale = Vector2(1.4, 1.5)
 
-[node name="SpawnPoint04" type="Marker2D" parent="." unique_id=1787611213]
-position = Vector2(98, 885)
+[node name="SpawnPoint04" type="Marker2D" parent="." unique_id=885583058]
+position = Vector2(-650, 689)
 script = ExtResource("2_sp")
+battle_scene = ExtResource("b04")
 despawn_on_win = false
-sprite_frames = ExtResource("3_w35wr")
+sprite_frames = ExtResource("w04")
 battle_chart_path = "res://assets/charts/midnightcity_piano_40s.json"
-battle_music = ExtResource("6_midc")
+battle_music = ExtResource("m_midnight")
+sprite_scale = Vector2(1.4, 1.5)
 
-[node name="SpawnPoint05" type="Marker2D" parent="." unique_id=274872435]
-position = Vector2(-832, 621)
+[node name="SpawnPoint05" type="Marker2D" parent="." unique_id=767972068]
+position = Vector2(-200, 580)
 script = ExtResource("2_sp")
+battle_scene = ExtResource("b05")
 despawn_on_win = false
-sprite_frames = ExtResource("3_w35wr")
+sprite_frames = ExtResource("w05")
+battle_chart_path = "res://assets/charts/itsgoingarriba_chorus_40s.json"
+battle_music = ExtResource("m_arriba")
+sprite_scale = Vector2(1.4, 1.5)
+
+[node name="SpawnPoint06" type="Marker2D" parent="." unique_id=1283081832]
+position = Vector2(850, 720)
+script = ExtResource("2_sp")
+battle_scene = ExtResource("b06")
+despawn_on_win = false
+sprite_frames = ExtResource("w06")
+battle_chart_path = "res://assets/charts/crossingfield_chart_aligned_normal.json"
+battle_music = ExtResource("m_crossing_norm")
+sprite_scale = Vector2(1.4, 1.5)
+
+[node name="SpawnPoint07" type="Marker2D" parent="." unique_id=1315705851]
+position = Vector2(438, 1389)
+script = ExtResource("2_sp")
+battle_scene = ExtResource("b07")
+despawn_on_win = false
+sprite_frames = ExtResource("w07")
 battle_chart_path = "res://assets/charts/crossingfield_chart_easy_plus.json"
-battle_music = ExtResource("4_drj4m")
+battle_music = ExtResource("m_crossing_norm")
+sprite_scale = Vector2(1.4, 1.5)
 
-[node name="SpawnPoint06" type="Marker2D" parent="." unique_id=90709246]
-position = Vector2(-835, 618)
+[node name="SpawnPoint08" type="Marker2D" parent="." unique_id=384272572]
+position = Vector2(940, 1312)
 script = ExtResource("2_sp")
+battle_scene = ExtResource("b08")
 despawn_on_win = false
-sprite_frames = ExtResource("3_w35wr")
+sprite_frames = ExtResource("w08")
 battle_chart_path = "res://assets/charts/crossingfield_chart_aligned_normal.json"
-battle_music = ExtResource("4_drj4m")
+battle_music = ExtResource("m_crossing_norm")
+sprite_scale = Vector2(1.4, 1.5)
 
-[node name="SpawnPoint07" type="Marker2D" parent="." unique_id=900832892]
-position = Vector2(275, 502)
+[node name="SpawnPoint09" type="Marker2D" parent="." unique_id=1728009091]
+position = Vector2(1942, 1405)
 script = ExtResource("2_sp")
+battle_scene = ExtResource("b09")
 despawn_on_win = false
-sprite_frames = ExtResource("3_w35wr")
-battle_chart_path = "res://assets/charts/crossingfield_chart_aligned_normal.json"
-battle_music = ExtResource("4_drj4m")
+sprite_frames = ExtResource("w09")
+battle_chart_path = "res://assets/charts/itsgoingarriba_chorus_40s.json"
+battle_music = ExtResource("m_arriba")
+sprite_scale = Vector2(1.4, 1.5)
 
-[node name="SpawnPoint08" type="Marker2D" parent="." unique_id=547933236]
-position = Vector2(264, 1603)
-script = ExtResource("2_sp")
-despawn_on_win = false
-sprite_frames = ExtResource("3_w35wr")
-battle_chart_path = "res://assets/charts/crossingfield_chart_aligned_normal.json"
-battle_music = ExtResource("4_drj4m")
-
-[node name="SpawnPoint09" type="Marker2D" parent="." unique_id=1806071301]
-position = Vector2(1221, 1433)
-script = ExtResource("2_sp")
-despawn_on_win = false
-sprite_frames = ExtResource("3_w35wr")
-battle_chart_path = "res://assets/charts/crossingfield_chart_aligned_normal.json"
-battle_music = ExtResource("4_drj4m")
-
-[node name="SpawnPoint10" type="Marker2D" parent="." unique_id=1601927607]
-position = Vector2(-1168, 854)
+[node name="SpawnPoint10" type="Marker2D" parent="." unique_id=1922907172]
+position = Vector2(-971, 728)
 script = ExtResource("2_sp")
 enabled = false
+battle_scene = ExtResource("b10")
 despawn_on_win = false
-sprite_frames = ExtResource("3_w35wr")
-battle_chart_path = "res://assets/charts/crossingfield_chart_aligned_normal.json"
-battle_music = ExtResource("4_drj4m")
+sprite_frames = ExtResource("w10")
+battle_chart_path = "res://assets/charts/midnightcity_piano_40s.json"
+battle_music = ExtResource("m_midnight")
+sprite_scale = Vector2(1.4, 1.5)

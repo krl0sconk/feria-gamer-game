@@ -1,0 +1,12 @@
+{
+	"version": 1,
+	"dialogues": {
+		"intro": {
+			"lines": [
+				{ "speaker": "Cartel", "text": "PATIO ESCOLAR — ACCESO RESTRINGIDO" },
+				{ "speaker": "Cartel", "text": "Estamos montando el escenario para la batalla de las bandas." },
+				{ "speaker": "Cartel", "text": "Vuelve cuando abramos la puerta. Mientras tanto, sigue con lo tuyo en el pasillo." }
+			]
+		}
+	}
+}

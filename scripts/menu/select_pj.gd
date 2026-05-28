@@ -14,7 +14,7 @@ const SKIN_DATA := {
 		"idle_anim": &"idle"
 	},
 	"idlepj3": {
-		"frames": preload("res://assets/images/characters/pj2/pj2_battle.tres"),
+		"frames": preload("res://assets/images/characters/pj3/pj3_battle.tres"),
 		"display_name": "Personaje 3",
 		"idle_anim": &"idle"
 	},
@@ -47,7 +47,7 @@ func _ready() -> void:
 		else:
 			buttons[i].disabled = true
 			buttons[i].text = "Bloqueado"
-			buttons[i].tooltip_text = "Solo hay 3 skins disponibles de momento"
+			buttons[i].tooltip_text = "Solo hay 4 skins disponibles de momento"
 	_update_preview(0)
 
 

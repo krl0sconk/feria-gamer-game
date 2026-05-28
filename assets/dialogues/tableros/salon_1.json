@@ -7,6 +7,14 @@
         { "text": "Si alguien molesta a un compañero, no mires para otro lado." },
         { "text": "Hablar con quien lo necesita puede marcar la diferencia." }
       ]
+    },
+    "second": {
+      "lines": [
+        { "text": "Cartel del aula:" },
+        { "text": "Algunos problemas no se arreglan solo con palabras." },
+        { "text": "Cuando llegue el momento, confía en el ritmo que practicaste." }
+      ]
     }
   }
+  
 }

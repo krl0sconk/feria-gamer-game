@@ -21,8 +21,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		_go_to_menu()
 		return
-	if event is InputEventKey and event.pressed and not event.echo:
-		_go_to_menu()
+	if event is InputEventKey:
+		var key_event := event as InputEventKey
+		if key_event.pressed and not key_event.is_echo():
+			_go_to_menu()
 
 
 func _on_video_finished() -> void:

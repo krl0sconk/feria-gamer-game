@@ -142,6 +142,8 @@ func _refresh_unlocks() -> void:
 
 
 func _can_activate(q: Quest) -> bool:
+	if q.visibility_state == Quest.QuestVisibility.DESACTIVADA:
+		return false
 	for req_id in q.requires_ids:
 		if req_id.is_empty():
 			continue

@@ -21,6 +21,7 @@ func _ready() -> void:
 	_wire_dialogue_to_player()
 	_resume_post_battle_dialogue_deferred()
 	_setup_bg_music()
+	call_deferred("_restore_hallway_encounter_state")
 	call_deferred("_apply_quest_repositions")
 
 
@@ -65,15 +66,31 @@ func _resume_post_battle_dialogue_deferred() -> void:
 
 
 func _resume_post_battle_dialogue() -> void:
+	if Gamemanager.pending_map_return:
+		Gamemanager.pending_map_return = false
+		var player := get_tree().get_first_node_in_group("player") as Node2D
+		if player != null and Gamemanager.return_position != Vector2.ZERO:
+			player.global_position = Gamemanager.return_position
+		return
+
 	var result: String = Gamemanager.pending_dialogue_result
 	var npc_id: String = Gamemanager.pending_npc_id
 	if result.is_empty() or npc_id.is_empty():
 		return
 
+	_restore_hallway_encounter_state()
+
 	# Re-ubicamos al Player en su posición previa a la batalla.
 	var player := get_tree().get_first_node_in_group("player") as Node2D
-	if player != null and Gamemanager.return_position != Vector2.ZERO:
-		player.global_position = Gamemanager.return_position
+	if player != null:
+		if result == "lose" and npc_id == "hallway_bully":
+			var rematch := get_node_or_null("Markers/HallwayRematchPos") as Node2D
+			if rematch != null:
+				player.global_position = rematch.global_position
+			elif Gamemanager.return_position != Vector2.ZERO:
+				player.global_position = Gamemanager.return_position
+		elif Gamemanager.return_position != Vector2.ZERO:
+			player.global_position = Gamemanager.return_position
 
 	var target := _find_interactable_by_id(npc_id)
 	if target == null:
@@ -117,3 +134,21 @@ func _find_interactable_by_id(npc_id: String) -> Interactable:
 		if node is Interactable and (node as Interactable).id == npc_id:
 			return node
 	return null
+
+
+## Tras la intro del pasillo, los hermanos deben quedarse en su posición de
+## bloqueo hasta ganar (3.1.1). Sin esto, al volver de una batalla reaparecen
+## al este de la barrera y el jugador no puede reintentar.
+func _restore_hallway_encounter_state() -> void:
+	if QuestManager.is_completed("3.1.1"):
+		return
+	if not Gamemanager.cinematics_played.get("hallway_bully_intro", false):
+		return
+	var stop1 := get_node_or_null("Markers/BullyStopPos") as Node2D
+	var stop2 := get_node_or_null("Markers/BullyStopPos2") as Node2D
+	var bully1 := get_node_or_null("Bullys/HallwayBully") as Node2D
+	var bully2 := get_node_or_null("Bullys/HallwayBully2") as Node2D
+	if bully1 != null and stop1 != null:
+		bully1.global_position = stop1.global_position
+	if bully2 != null and stop2 != null:
+		bully2.global_position = stop2.global_position

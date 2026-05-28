@@ -107,10 +107,6 @@ Interact={
 ]
 }
 
-[internationalization]
-
-locale/translations=PackedStringArray("res://resources/data/translations_es.translation")
-
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

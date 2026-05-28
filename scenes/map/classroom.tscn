@@ -8,11 +8,15 @@
 [ext_resource type="PackedScene" uid="uid://dkrd76y7ipit4" path="res://scenes/ui/pause_button.tscn" id="5_g52xa"]
 [ext_resource type="PackedScene" uid="uid://wd4lvf24qo4" path="res://scenes/map/player.tscn" id="7_44ndg"]
 [ext_resource type="PackedScene" uid="uid://dlgrunaaaaaa1" path="res://scenes/dialogue/dialogue_runner.tscn" id="8_vpwi3"]
-[ext_resource type="SpriteFrames" uid="uid://cendrq73aq5wt" path="res://assets/images/characters/npc/npc1/placeholdernpc.tres" id="9_0dgy4"]
+[ext_resource type="SpriteFrames" uid="uid://tnfdjivsbe8v" path="res://assets/images/ReDesignCursor/daniel.tres" id="9_daniel"]
 [ext_resource type="PackedScene" uid="uid://b1u7pn6wg1733" path="res://scenes/quest/quest_hud.tscn" id="9_g04a8"]
 [ext_resource type="PackedScene" uid="uid://cjwpibmypm3ey" path="res://scenes/rhythm/cool_battle.tscn" id="9_g52xa"]
+[ext_resource type="SpriteFrames" uid="uid://beg4prr6q6fc5" path="res://assets/images/ReDesignCursor/rediseños/chica_cafe_rosa.tres" id="9_salon1"]
+[ext_resource type="SpriteFrames" uid="uid://d263qlbffa37j" path="res://assets/images/ReDesignCursor/rediseños/chico_rubio_verde.tres" id="9_salon2"]
 [ext_resource type="AudioStream" uid="uid://drk4wj32fsdl1" path="res://assets/audio/music/cool_guy.wav" id="10_g52xa"]
+[ext_resource type="SpriteFrames" uid="uid://by2ur5waygdfr" path="res://assets/images/ReDesignCursor/bulliesalon.tres" id="11_g04a8"]
 [ext_resource type="Script" uid="uid://dmhjsredjb7nj" path="res://scripts/cinematic/cinematic_player.gd" id="14_4cdl6"]
+[ext_resource type="SpriteFrames" uid="uid://dqooq3nulalfk" path="res://assets/images/world_assets/tablero.tres" id="14_44ndg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
 size = Vector2(212, 72)
@@ -49,30 +53,37 @@ offset_bottom = 295.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Daniel" parent="." unique_id=878503726 instance=ExtResource("3_0ibgl")]
-position = Vector2(765, 671)
-scale = Vector2(1.5, 1.5)
+position = Vector2(759, 718)
+scale = Vector2(0.5, 0.5)
 id = "compañero1"
 secondary_mission_id = "2.1.3"
 talk_mission_ids = Array[String](["2.1.1"])
-indicator_quest_ids = Array[String](["2.1.1"])
-indicator_after_quests = Array[String](["2.1.3"])
-after_quest_required = "2.1.3"
-after_quest_dialogue_path = "res://assets/cinematics/classroom_outro_dialogue.json"
-after_quest_dialogue_id = "salida"
-complete_quest_on_after_dialogue = "2.1.4"
 dialogue_json_path = "res://assets/dialogues/classroom_companero1.json"
 intro_dialogue_completed_id = "win"
 win_dialogue_id = "victory"
 lose_dialogue_id = "defeat"
 dialogue_voice = ExtResource("4_g52xa")
+indicator_quest_ids = Array[String](["2.1.1"])
+indicator_after_quests = Array[String](["2.1.3"])
+sprite_animation_before_quest = "lloron"
+sprite_animation_after_quest = "normal"
+sprite_quest_required = "2.1.3"
+after_quest_required = "2.1.3"
+after_quest_dialogue_path = "res://assets/cinematics/classroom_outro_dialogue.json"
+after_quest_dialogue_id = "salida"
+complete_quest_on_after_dialogue = "2.1.4"
 
 [node name="Sprite2D" parent="Daniel" index="1" unique_id=858663745]
-sprite_frames = ExtResource("9_0dgy4")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("9_daniel")
+animation = &"lloron"
+
+[node name="InteractionIndicator" parent="Daniel" index="2" unique_id=536604281]
+position = Vector2(-2, -68.324646)
 
 [node name="ElBocon" parent="." unique_id=696459709 instance=ExtResource("3_0ibgl")]
 position = Vector2(914.00006, 459.00003)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.5, 0.5)
 id = "bully_01"
 mission_id = "2.1.3"
 complete_mission_on_win = true
@@ -89,33 +100,45 @@ dialogue_voice = ExtResource("4_g52xa")
 position = Vector2(1.333313, -0.3333435)
 
 [node name="Sprite2D" parent="ElBocon" index="1" unique_id=858663745]
-sprite_frames = ExtResource("9_0dgy4")
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("11_g04a8")
 animation = &"default"
+
+[node name="InteractionIndicator" parent="ElBocon" index="2" unique_id=536604281]
+position = Vector2(-2, -68.324646)
 
 [node name="NpcSalon1" parent="." unique_id=1392541665 instance=ExtResource("3_0ibgl")]
 position = Vector2(963, 538)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.5, 0.5)
 dialogue_json_path = "res://assets/dialogues/classroom_bully_02.json"
+intro_dialogue_id = ""
 dialogue_voice = ExtResource("4_g52xa")
 
 [node name="CollisionShape2D" parent="NpcSalon1" index="0" unique_id=1889423936]
 position = Vector2(-1.666626, 3)
 
 [node name="Sprite2D" parent="NpcSalon1" index="1" unique_id=858663745]
-sprite_frames = ExtResource("9_0dgy4")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("9_salon1")
+animation = &"frente"
+
+[node name="InteractionIndicator" parent="NpcSalon1" index="2" unique_id=536604281]
+position = Vector2(-2, -68.324646)
 
 [node name="NpcSalon2" parent="." unique_id=1715314364 instance=ExtResource("3_0ibgl")]
-position = Vector2(609, 451)
-scale = Vector2(1.5, 1.5)
-secondary_mission_id = "2.1.3"
+position = Vector2(610, 454)
+scale = Vector2(0.5, 0.5)
 dialogue_json_path = "res://assets/dialogues/classroom_alumna_testigo.json"
 intro_dialogue_completed_id = "after_win"
 dialogue_voice = ExtResource("4_g52xa")
 
 [node name="Sprite2D" parent="NpcSalon2" index="1" unique_id=858663745]
-sprite_frames = ExtResource("9_0dgy4")
-animation = &"default"
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("9_salon2")
+animation = &"frente"
+
+[node name="InteractionIndicator" parent="NpcSalon2" index="2" unique_id=536604281]
+position = Vector2(-2, -68.324646)
 
 [node name="MusicaFondoSalon" type="AudioStreamPlayer" parent="." unique_id=1635448951]
 stream = ExtResource("2_0dgy4")
@@ -150,7 +173,23 @@ shape = SubResource("RectangleShape2D_exit")
 position = Vector2(481, 812)
 scale = Vector2(2, 2)
 
+[node name="tablero_salon_2" parent="." unique_id=2066418563 instance=ExtResource("3_0ibgl")]
+position = Vector2(852, 122.000015)
+scale = Vector2(0.8, 0.8)
+id = "tablero_salon_2"
+dialogue_json_path = "res://assets/dialogues/tableros/salon_1.json"
+intro_dialogue_completed_id = "second"
+
+[node name="Sprite2D" parent="tablero_salon_2" index="1" unique_id=858663745]
+scale = Vector2(2.756, 2.655)
+sprite_frames = ExtResource("14_44ndg")
+animation = &"default"
+
+[node name="InteractionIndicator" parent="tablero_salon_2" index="2" unique_id=536604281]
+position = Vector2(-2, -68.324646)
+
 [editable path="Daniel"]
 [editable path="ElBocon"]
 [editable path="NpcSalon1"]
 [editable path="NpcSalon2"]
+[editable path="tablero_salon_2"]

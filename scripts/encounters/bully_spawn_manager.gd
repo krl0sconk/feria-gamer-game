@@ -43,6 +43,10 @@ func _ready() -> void:
 	_apply_saved_or_generate()
 
 
+func _exit_tree() -> void:
+	_persist_session_state()
+
+
 func get_save_state_key() -> String:
 	return SAVE_KEY
 
@@ -118,17 +122,32 @@ func on_npc_defeated(npc_id: String) -> void:
 			var rem: String = str(DEFAULT_PROFILE.get("rematch_battle_chart_path", ""))
 			if rem != "":
 				inst.battle_chart_path = rem
+	_persist_session_state()
+
+
+func _persist_session_state() -> void:
+	var gm := get_node_or_null("/root/Gamemanager")
+	if gm != null and gm.has_method("set_session_world_slice"):
+		gm.set_session_world_slice(SAVE_KEY, serialize_state())
 
 
 func _apply_saved_or_generate() -> void:
 	var gm := get_node_or_null("/root/Gamemanager")
 	if gm != null and gm.has_method("consume_loaded_world_state"):
-		var world_state: Dictionary = gm.consume_loaded_world_state()
-		var saved_state: Variant = world_state.get(SAVE_KEY, {})
-		if typeof(saved_state) == TYPE_DICTIONARY and not (saved_state as Dictionary).is_empty():
-			apply_state(saved_state as Dictionary)
-			return
+		if gm.has_loaded_world_state:
+			var world_state: Dictionary = gm.consume_loaded_world_state()
+			var saved_state: Variant = world_state.get(SAVE_KEY, {})
+			if typeof(saved_state) == TYPE_DICTIONARY and not (saved_state as Dictionary).is_empty():
+				apply_state(saved_state as Dictionary)
+				_persist_session_state()
+				return
+		if gm.has_method("get_session_world_slice"):
+			var session_state: Dictionary = gm.get_session_world_slice(SAVE_KEY)
+			if not session_state.is_empty():
+				apply_state(session_state)
+				return
 	_generate_fresh_spawn_state()
+	_persist_session_state()
 
 
 func _generate_fresh_spawn_state() -> void:
@@ -179,7 +198,7 @@ func _get_spawn_markers() -> Array[Marker2D]:
 	return markers
 
 
-func _choose_animation(frames: SpriteFrames, preferred: Array = ["Idle", "idle"]) -> String:
+func _choose_animation(frames: SpriteFrames, preferred: Array = ["frente", "normal", "Idle", "idle", "default"]) -> String:
 	if frames == null:
 		return ""
 	for p in preferred:
@@ -200,6 +219,7 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 	bully.name = "%s_bully" % marker.name
 	bully.id = marker.name
 	bully.position = marker.position
+	bully.scale = Vector2(1.5, 1.5)
 	var marker_dialogue_json := ""
 	var marker_intro_dialogue := ""
 	var marker_win_dialogue := ""
@@ -293,8 +313,20 @@ func _spawn_bully(marker: Marker2D, profile_id: String) -> void:
 		if sprite_node is AnimatedSprite2D:
 			# Always override the scene's default frames so SpawnPoint settings win.
 			sprite_node.sprite_frames = default_frames
-			# Choose best animation name (handles 'Idle' vs 'idle')
-			var chosen: String = _choose_animation(sprite_node.sprite_frames)
+			var marker_scale: Vector2 = Vector2(4, 4)
+			var marker_anim := ""
+			if marker != null and marker.has_method("get"):
+				var try_scale = marker.get("sprite_scale")
+				if try_scale is Vector2:
+					marker_scale = try_scale
+				var try_anim = marker.get("preferred_animation")
+				if try_anim != null and str(try_anim).strip_edges() != "":
+					marker_anim = str(try_anim)
+			sprite_node.scale = marker_scale
+			var preferred_anims: Array = ["frente", "normal", "Idle", "idle", "default"]
+			if marker_anim != "":
+				preferred_anims.insert(0, marker_anim)
+			var chosen: String = _choose_animation(sprite_node.sprite_frames, preferred_anims)
 			if chosen != "":
 				sprite_node.animation = chosen
 				sprite_node.play()

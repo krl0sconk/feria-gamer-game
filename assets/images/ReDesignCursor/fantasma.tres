@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b7hjssad340fx"]
+
+[ext_resource type="Texture2D" uid="uid://c3fuguox85mfb" path="res://assets/images/ReDesignCursor/bullys.png" id="1_hwlkq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0cg4"]
+atlas = ExtResource("1_hwlkq")
+region = Rect2(0, 0, 16, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0cg4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

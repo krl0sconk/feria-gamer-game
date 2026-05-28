@@ -216,10 +216,13 @@ func _wire_trigger() -> void:
 				push_warning("CinematicPlayer: trigger on_area_entered pero no hay hijo Area2D llamado 'TriggerArea'. Usa ScriptedTrigger.")
 				return
 			var required_quest: String = str(_data.trigger.get("requires_quest", ""))
+			var required_active: String = str(_data.trigger.get("requires_quest_active", ""))
 			area.body_entered.connect(func(body: Node) -> void:
 				if not body.is_in_group("player"):
 					return
 				if not required_quest.is_empty() and not QuestManager.is_completed(required_quest):
+					return
+				if not required_active.is_empty() and not QuestManager.is_active(required_active):
 					return
 				play()
 			)

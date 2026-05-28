@@ -5,82 +5,19 @@
 
 [node name="Tableros" type="Node2D" unique_id=1306248307]
 
-[node name="tablero_habitacion" parent="." unique_id=878503701 instance=ExtResource("1_5h0nr")]
-position = Vector2(-210, -60)
-scale = Vector2(1.5, 1.5)
-id = "tablero_habitacion"
-dialogue_json_path = "res://assets/dialogues/tableros/habitacion.json"
-
-[node name="Sprite2D" parent="tablero_habitacion" index="1" unique_id=858663701]
-scale = Vector2(2.756, 2.655)
-sprite_frames = ExtResource("3_osb06")
-animation = &"default"
-
 [node name="tablero_salon_1" parent="." unique_id=878503702 instance=ExtResource("1_5h0nr")]
 position = Vector2(-70, -60)
 scale = Vector2(1.5, 1.5)
 id = "tablero_salon_1"
 dialogue_json_path = "res://assets/dialogues/tableros/salon_1.json"
 
-[node name="Sprite2D" parent="tablero_salon_1" index="1" unique_id=858663702]
+[node name="Sprite2D" parent="tablero_salon_1" index="1" unique_id=858663745]
 scale = Vector2(2.756, 2.655)
 sprite_frames = ExtResource("3_osb06")
 animation = &"default"
 
-[node name="tablero_salon_2" parent="." unique_id=878503703 instance=ExtResource("1_5h0nr")]
-position = Vector2(70, -60)
-scale = Vector2(1.5, 1.5)
-id = "tablero_salon_2"
-dialogue_json_path = "res://assets/dialogues/tableros/salon_2.json"
-
-[node name="Sprite2D" parent="tablero_salon_2" index="1" unique_id=858663703]
-scale = Vector2(2.756, 2.655)
-sprite_frames = ExtResource("3_osb06")
-animation = &"default"
-
-[node name="tablero_cybersalon" parent="." unique_id=878503704 instance=ExtResource("1_5h0nr")]
-position = Vector2(210, -60)
-scale = Vector2(1.5, 1.5)
-id = "tablero_cybersalon"
-dialogue_json_path = "res://assets/dialogues/tableros/cybersalon.json"
-
-[node name="Sprite2D" parent="tablero_cybersalon" index="1" unique_id=858663704]
-scale = Vector2(2.756, 2.655)
-sprite_frames = ExtResource("3_osb06")
-animation = &"default"
-
-[node name="tablero_pasillo_1" parent="." unique_id=878503705 instance=ExtResource("1_5h0nr")]
-position = Vector2(-210, 80)
-scale = Vector2(1.5, 1.5)
-id = "tablero_pasillo_1"
-dialogue_json_path = "res://assets/dialogues/tableros/pasillo_1.json"
-
-[node name="Sprite2D" parent="tablero_pasillo_1" index="1" unique_id=858663705]
-scale = Vector2(2.756, 2.655)
-sprite_frames = ExtResource("3_osb06")
-animation = &"default"
-
-[node name="tablero_pasillo_2" parent="." unique_id=878503706 instance=ExtResource("1_5h0nr")]
-position = Vector2(-70, 80)
-scale = Vector2(1.5, 1.5)
-id = "tablero_pasillo_2"
-dialogue_json_path = "res://assets/dialogues/tableros/pasillo_2.json"
-
-[node name="Sprite2D" parent="tablero_pasillo_2" index="1" unique_id=858663706]
-scale = Vector2(2.756, 2.655)
-sprite_frames = ExtResource("3_osb06")
-animation = &"default"
-
-[node name="tablero_bandas_1" parent="." unique_id=878503707 instance=ExtResource("1_5h0nr")]
-position = Vector2(70, 80)
-scale = Vector2(1.5, 1.5)
-id = "tablero_bandas_1"
-dialogue_json_path = "res://assets/dialogues/tableros/bandas_1.json"
-
-[node name="Sprite2D" parent="tablero_bandas_1" index="1" unique_id=858663707]
-scale = Vector2(2.756, 2.655)
-sprite_frames = ExtResource("3_osb06")
-animation = &"default"
+[node name="InteractionIndicator" parent="tablero_salon_1" index="2" unique_id=536604281]
+position = Vector2(-2, -59.764637)
 
 [node name="tablero_bandas_2" parent="." unique_id=878503708 instance=ExtResource("1_5h0nr")]
 position = Vector2(210, 80)
@@ -88,16 +25,13 @@ scale = Vector2(1.5, 1.5)
 id = "tablero_bandas_2"
 dialogue_json_path = "res://assets/dialogues/tableros/bandas_2.json"
 
-[node name="Sprite2D" parent="tablero_bandas_2" index="1" unique_id=858663708]
+[node name="Sprite2D" parent="tablero_bandas_2" index="1" unique_id=858663745]
 scale = Vector2(2.756, 2.655)
 sprite_frames = ExtResource("3_osb06")
 animation = &"default"
 
-[editable path="tablero_habitacion"]
+[node name="InteractionIndicator" parent="tablero_bandas_2" index="2" unique_id=536604281]
+position = Vector2(-2, -59.764637)
+
 [editable path="tablero_salon_1"]
-[editable path="tablero_salon_2"]
-[editable path="tablero_cybersalon"]
-[editable path="tablero_pasillo_1"]
-[editable path="tablero_pasillo_2"]
-[editable path="tablero_bandas_1"]
 [editable path="tablero_bandas_2"]

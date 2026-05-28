@@ -132,19 +132,33 @@ func _update_walk_animation(direction: Vector2) -> void:
 
 	elif _skin_id == "pj3":
 		if moving:
-			if $Animated.sprite_frames.has_animation("default"):
-				$Animated.play("default")
+			if absf(direction.x) > absf(direction.y):
+				_facing_dir = "side"
+				$Animated.flip_h = direction.x < 0.0
+				if $Animated.sprite_frames.has_animation("walk_side"):
+					$Animated.play("walk_side")
+			elif direction.y < 0.0:
+				_facing_dir = "up"
+				$Animated.flip_h = false
+				if $Animated.sprite_frames.has_animation("walk_up"):
+					$Animated.play("walk_up")
+			else:
+				_facing_dir = "down"
+				$Animated.flip_h = false
+				if $Animated.sprite_frames.has_animation("walk_down"):
+					$Animated.play("walk_down")
 		else:
-			if $Animated.sprite_frames.has_animation("default"):
+			$Animated.flip_h = false
+			if $Animated.sprite_frames.has_animation("walk_down"):
 				$Animated.stop()
-				$Animated.play("default")
+				$Animated.play("walk_down")
 				$Animated.frame = 0
 
 	elif _skin_id == "pj4":
 		if moving:
 			if absf(direction.x) > absf(direction.y):
 				_facing_dir = "side"
-				$Animated.flip_h = direction.x < 0.0
+				$Animated.flip_h = direction.x > 0.0
 				if $Animated.sprite_frames.has_animation("walk_side"):
 					$Animated.play("walk_side")
 			elif direction.y < 0.0:

@@ -107,8 +107,7 @@ func _create_exit_area(pos: Vector2, size: Vector2 = Vector2.ZERO, pos_is_global
 	var cs := CollisionShape2D.new()
 	var shape := RectangleShape2D.new()
 	var use_size := size if size != Vector2.ZERO else exit_area_size
-	# RectangleShape2D in code uses extents
-	shape.extents = use_size * 0.5
+	shape.size = use_size
 	cs.shape = shape
 	cs.position = Vector2.ZERO
 	area.add_child(cs)
@@ -140,6 +139,13 @@ func _resume_post_battle_dialogue_deferred() -> void:
 
 
 func _resume_post_battle_dialogue() -> void:
+	if Gamemanager.pending_map_return:
+		Gamemanager.pending_map_return = false
+		var player := get_tree().get_first_node_in_group("player") as Node2D
+		if player != null and Gamemanager.return_position != Vector2.ZERO:
+			player.global_position = Gamemanager.return_position
+		return
+
 	var result: String = Gamemanager.pending_dialogue_result
 	var npc_id: String = Gamemanager.pending_npc_id
 	if result.is_empty() or npc_id.is_empty():

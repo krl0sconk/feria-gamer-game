@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://drq2dxl5pn1vm"]
+
+[ext_resource type="PackedScene" uid="uid://pid50iwjx4dd" path="res://scenes/rhythm/battle.tscn" id="1_base"]
+[ext_resource type="Texture2D" uid="uid://ck45u308f8w0m" path="res://assets/images/backgrounds/bgPasillo.png" id="2_bg"]
+[ext_resource type="AudioStream" uid="uid://baike5qo8fbk6" path="res://assets/audio/music/midnightcity_piano_full.wav" id="3_music"]
+[ext_resource type="SpriteFrames" uid="uid://de26vuawc3v1" path="res://assets/images/ReDesignCursor/rediseños/batalla/chica_cafe_rosa_battle.tres" id="4_enemy"]
+
+[node name="Battle" unique_id=241452462 instance=ExtResource("1_base")]
+chart_path = "res://assets/charts/midnightcity_piano_40s.json"
+lose_scene_path = ""
+
+[node name="Background" parent="." index="0" unique_id=287379656]
+position = Vector2(5, 1)
+scale = Vector2(0.7918985, 0.79189855)
+texture = ExtResource("2_bg")
+
+[node name="MusicPlayer" parent="." index="3" unique_id=1075957386]
+stream = ExtResource("3_music")
+bpm = 150.0
+
+[node name="Metronome" parent="." index="4" unique_id=984578197]
+bpm = 150.0
+
+[node name="ScoreLabel" parent="BattleHUD/Root/Node2D" parent_id_path=PackedInt32Array(1023945652, 1504510280) index="0" unique_id=1195142958]
+anchors_preset = 0
+
+[node name="ComboLabel" parent="BattleHUD/Root/Node2D" parent_id_path=PackedInt32Array(1023945652, 1504510280) index="1" unique_id=1120566323]
+anchors_preset = 0
+
+[node name="AnimatedSprite2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="0" unique_id=1657430708]
+position = Vector2(-1.0000076, 11)
+scale = Vector2(0.23331673, 0.23331673)
+sprite_frames = ExtResource("4_enemy")
+animation = &"Enemy"
+
+[node name="CollisionShape2D" parent="EnemyBattle" parent_id_path=PackedInt32Array(446230275) index="1" unique_id=1144116667]
+visible = true
+
+[editable path="BattleHUD"]
+[editable path="EnemyBattle"]

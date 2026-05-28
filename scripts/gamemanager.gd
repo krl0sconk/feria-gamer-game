@@ -22,6 +22,10 @@ var loaded_world_state: Dictionary = {}
 ## Indica si `loaded_world_state` tiene datos pendientes por consumir.
 var has_loaded_world_state: bool = false
 
+## Estado de mundo de la partida en curso (bullies del pasillo, etc.).
+## Sobrevive a recargas de map.tscn dentro de la misma sesión.
+var session_world_state: Dictionary = {}
+
 ## Escena a la que se debe volver tras la batalla (típicamente Map.tscn).
 var return_scene_path: String = ""
 
@@ -40,6 +44,9 @@ var pending_battle_chart_path: String = ""
 ## Override opcional de música para la siguiente batalla.
 var pending_battle_music: AudioStream = null
 
+## Escena de batalla pendiente (path). La consume la pantalla de tutorial o la batalla.
+var pending_battle_scene_path: String = ""
+
 ## Registro de cinemáticas ya reproducidas (id → true). Persiste en sesión para
 ## evitar que un on_scene_ready se re-dispare al volver desde una batalla.
 var cinematics_played: Dictionary = {}
@@ -53,6 +60,9 @@ var _current_cinematic_player: CinematicPlayer = null
 ## Estadísticas de la batalla recién terminada: score, perfects, goods, misses,
 ## max_combo y chart_path. La WinScreen las consume y luego se limpian.
 var pending_battle_stats: Dictionary = {}
+
+## True cuando el jugador aborta batalla/tutorual desde pausa (volver al mapa sin diálogo).
+var pending_map_return: bool = false
 
 ## Mejor score por chart (chart_path → int). Persiste en disco entre sesiones.
 const HIGHSCORES_PATH := "user://highscores.json"
@@ -101,7 +111,19 @@ func clear_pending_dialogue() -> void:
 	pending_dialogue_result = ""
 	pending_battle_chart_path = ""
 	pending_battle_music = null
+	pending_battle_scene_path = ""
 	pending_battle_stats = {}
+	pending_map_return = false
+
+
+## Limpia el estado de batalla pendiente y marca retorno al mapa (abortar desde pausa).
+func prepare_abort_from_battle() -> void:
+	pending_dialogue_result = ""
+	pending_battle_stats = {}
+	consume_pending_battle_scene_path()
+	consume_pending_battle_chart_path()
+	consume_pending_battle_music()
+	pending_map_return = true
 
 
 func set_loaded_position(position: Vector2) -> void:
@@ -117,6 +139,8 @@ func consume_loaded_position() -> Vector2:
 func set_loaded_world_state(world_state: Dictionary) -> void:
 	loaded_world_state = world_state if typeof(world_state) == TYPE_DICTIONARY else {}
 	has_loaded_world_state = not loaded_world_state.is_empty()
+	if has_loaded_world_state:
+		session_world_state = loaded_world_state.duplicate(true)
 
 
 func consume_loaded_world_state() -> Dictionary:
@@ -126,11 +150,23 @@ func consume_loaded_world_state() -> Dictionary:
 	return result
 
 
+func get_session_world_slice(key: String) -> Dictionary:
+	var slice: Variant = session_world_state.get(key, {})
+	return slice if typeof(slice) == TYPE_DICTIONARY else {}
+
+
+func set_session_world_slice(key: String, state: Dictionary) -> void:
+	if key.is_empty():
+		return
+	session_world_state[key] = state if typeof(state) == TYPE_DICTIONARY else {}
+
+
 func clear_loaded_save_state() -> void:
 	loaded_position = Vector2.ZERO
 	has_loaded_position = false
 	loaded_world_state = {}
 	has_loaded_world_state = false
+	session_world_state = {}
 	_pending_quests_state = []
 	cinematics_played = {}
 
@@ -147,6 +183,16 @@ func set_pending_battle_chart_path(chart_path: String) -> void:
 
 func set_pending_battle_music(music: AudioStream) -> void:
 	pending_battle_music = music
+
+
+func set_pending_battle_scene_path(scene_path: String) -> void:
+	pending_battle_scene_path = scene_path
+
+
+func consume_pending_battle_scene_path() -> String:
+	var result := pending_battle_scene_path
+	pending_battle_scene_path = ""
+	return result
 
 
 func consume_pending_battle_chart_path() -> String:
